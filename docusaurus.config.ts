@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'The ANCHOR',
-  tagline: 'Your gateway into Big Fish's documentation',
+  tagline: 'Your gateway into Big Fish\'s documentation',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
