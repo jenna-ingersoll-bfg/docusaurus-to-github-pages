@@ -5,10 +5,10 @@ export default {
     {
       type: 'category',
       label: 'Welcome Developer! ',
-      link: {type: 'doc', id: 'dev_welcome'},
-      items: ['dev_onboarding', 'dev_security'],
+      link: {type: 'doc', id: 'static/dev_welcome'},
+      items: ['static/dev_onboarding', 'static/dev_security'],
     },
-    'prod_welcome',
+    'static/prod_welcome',
   ],
 };
 
