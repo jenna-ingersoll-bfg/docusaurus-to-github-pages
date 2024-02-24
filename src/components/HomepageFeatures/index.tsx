@@ -4,12 +4,14 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
+  link: string;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Developer User Guide',
+    link: 'static/dev_welcome.html',
     description: (
       <>
         THE SINGLE SOURCE OF TRUTH FOR OUR GAME DEVELOPERS AND PARTNERS.
@@ -18,6 +20,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Producer Handbook',
+    link: 'static/prod_welcome.html',
     description: (
       <>
         EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW.
@@ -25,23 +28,25 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'BFG SDK Reference',
+    link: 'static/dev_welcome.html',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        DIVE INTO OUR SDK REFERENCE FOR MORE INFO.
       </>
     ),
   },
 ];
 
-function Feature({title, description}: FeatureItem) {
+function Feature({title, link, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
-      </div>
+      <a href={link}>
+        <div className="text--center padding-horiz--md">
+          <Heading as="h3">{title}</Heading>
+          <p>{description}</p>
+        </div>
+      </a>
     </div>
   );
 }
