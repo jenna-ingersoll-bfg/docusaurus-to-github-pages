@@ -18,7 +18,7 @@ const FeatureList: FeatureItem[] = [
         THE SINGLE SOURCE OF TRUTH FOR OUR GAME DEVELOPERS AND PARTNERS.
       </>
     ),
-    color: '#003d6e;',
+    color: 'background-color: #003d6e;',
   },
   {
     title: 'Producer Handbook',
@@ -28,7 +28,7 @@ const FeatureList: FeatureItem[] = [
         EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW.
       </>
     ),
-    color: '#034e87;',    
+    color: 'background-color: #034e87;',    
   },
   {
     title: 'BFG SDK Reference',
@@ -38,13 +38,13 @@ const FeatureList: FeatureItem[] = [
         DIVE INTO OUR SDK REFERENCE FOR MORE INFO.
       </>
     ),
-    color: '#119bd4;',
+    color: 'background-color: #119bd4;',
   },
 ];
 
 function Feature({title, link, description, color}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')} style="background-color:{color}">
+    <div className={clsx('col col--4')} style={color}>
       <a href={link}>
         <div className="text--center padding-horiz--md">
           <Heading as="h3">{title}</Heading>
