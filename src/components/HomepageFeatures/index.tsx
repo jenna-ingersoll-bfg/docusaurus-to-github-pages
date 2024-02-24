@@ -6,41 +6,45 @@ type FeatureItem = {
   title: string;
   link: string;
   description: JSX.Element;
+  color: string;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Developer User Guide',
-    link: 'static/dev_welcome.html',
+    link: 'docs/static/dev_welcome.html',
     description: (
       <>
         THE SINGLE SOURCE OF TRUTH FOR OUR GAME DEVELOPERS AND PARTNERS.
       </>
     ),
+    color: '#003d6e;',
   },
   {
     title: 'Producer Handbook',
-    link: 'static/prod_welcome.html',
+    link: 'docs/static/prod_welcome.html',
     description: (
       <>
         EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW.
       </>
     ),
+    color: '#034e87;',    
   },
   {
     title: 'BFG SDK Reference',
-    link: 'static/dev_welcome.html',
+    link: 'docs/static/dev_welcome.html',
     description: (
       <>
         DIVE INTO OUR SDK REFERENCE FOR MORE INFO.
       </>
     ),
+    color: '#119bd4;',
   },
 ];
 
-function Feature({title, link, description}: FeatureItem) {
+function Feature({title, link, description, color}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx('col col--4')} style="background-color:{color}">
       <a href={link}>
         <div className="text--center padding-horiz--md">
           <Heading as="h3">{title}</Heading>
