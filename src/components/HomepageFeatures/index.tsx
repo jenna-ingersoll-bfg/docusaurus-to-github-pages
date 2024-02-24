@@ -4,14 +4,12 @@ import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Developer User Guide',
-    Svg: '',
     description: (
       <>
         THE SINGLE SOURCE OF TRUTH FOR OUR GAME DEVELOPERS AND PARTNERS.
@@ -20,7 +18,6 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Producer Handbook',
-    Svg: '',
     description: (
       <>
         EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW.
@@ -29,7 +26,6 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'Powered by React',
-    Svg: '',
     description: (
       <>
         Extend or customize your website layout by reusing React. Docusaurus can
@@ -39,12 +35,9 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({title, description}: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
