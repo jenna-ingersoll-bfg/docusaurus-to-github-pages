@@ -4,6 +4,8 @@
  * work well for content-centric websites.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #003d6e;
@@ -14,6 +16,7 @@
   --ifm-color-primary-lighter: #00467f;
   --ifm-color-primary-lightest: #004f8f;
   --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Montserrat';
   --ifm-navbar-background-color: #003d6e;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
@@ -30,6 +33,16 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-navbar {
-  color: #FFFFFF;
+.hero {
+  height: 400px;
+}
+
+.hero__title {
+  font-size: 4.5rem;
+}
+
+.hero__subtitle {
+  color: #003d6e;
+  font-weight: bold;
+  margin-top: -50px;
 }
