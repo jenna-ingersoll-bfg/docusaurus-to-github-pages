@@ -7,6 +7,7 @@ type FeatureItem = {
   link: string;
   description: JSX.Element;
   color: string;
+  spacing: string;
 };
 
 const FeatureList: FeatureItem[] = [
@@ -19,6 +20,7 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
     color: 'background-color: #003d6e;',
+    spacing: '1';
   },
   {
     title: 'Producer Handbook',
@@ -29,6 +31,7 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
     color: 'background-color: #034e87;',    
+    spacing: '1';
   },
   {
     title: 'BFG SDK Reference',
@@ -39,12 +42,13 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
     color: 'background-color: #119bd4;',
+    spacing: '1';
   },
 ];
 
-function Feature({title, link, description, color}: FeatureItem) {
+function Feature({title, link, description, color, spacing}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')} style={color}>
+    <div className={clsx('col col--4')} style={{marginRight: spacing + 'em'}}>
       <a href={link}>
         <div className="text--center padding-horiz--md">
           <Heading as="h3">{title}</Heading>
