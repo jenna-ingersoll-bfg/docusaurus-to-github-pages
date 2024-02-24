@@ -44,7 +44,7 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, link, description, color}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')} style={{background-color: color}}>
+    <div className={clsx('col col--4')} style={{backgroundColor: color}}>
       <a href={link}>
         <div className="text--center padding-horiz--md">
           <Heading as="h3">{title}</Heading>
