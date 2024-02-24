@@ -20,7 +20,7 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
     color: 'background-color: #003d6e;',
-    spacing: '1';
+    spacing: '1',
   },
   {
     title: 'Producer Handbook',
@@ -31,7 +31,7 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
     color: 'background-color: #034e87;',    
-    spacing: '1';
+    spacing: '1',
   },
   {
     title: 'BFG SDK Reference',
@@ -42,7 +42,7 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
     color: 'background-color: #119bd4;',
-    spacing: '1';
+    spacing: '1',
   },
 ];
 
