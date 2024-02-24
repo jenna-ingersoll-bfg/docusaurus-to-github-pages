@@ -7,7 +7,6 @@ type FeatureItem = {
   link: string;
   description: JSX.Element;
   color: string;
-  spacing: string;
 };
 
 const FeatureList: FeatureItem[] = [
@@ -19,8 +18,7 @@ const FeatureList: FeatureItem[] = [
         THE SINGLE SOURCE OF TRUTH FOR OUR GAME DEVELOPERS AND PARTNERS.
       </>
     ),
-    color: 'background-color: #003d6e;',
-    spacing: '1',
+    color: '#003d6e',
   },
   {
     title: 'Producer Handbook',
@@ -30,8 +28,7 @@ const FeatureList: FeatureItem[] = [
         EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW.
       </>
     ),
-    color: 'background-color: #034e87;',    
-    spacing: '1',
+    color: '#034e87',    
   },
   {
     title: 'BFG SDK Reference',
@@ -41,14 +38,13 @@ const FeatureList: FeatureItem[] = [
         DIVE INTO OUR SDK REFERENCE FOR MORE INFO.
       </>
     ),
-    color: 'background-color: #119bd4;',
-    spacing: '1',
+    color: '#119bd4',
   },
 ];
 
-function Feature({title, link, description, color, spacing}: FeatureItem) {
+function Feature({title, link, description, color}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')} style={{marginRight: spacing + 'em'}}>
+    <div className={clsx('col col--4')} style={{background-color: color}}>
       <a href={link}>
         <div className="text--center padding-horiz--md">
           <Heading as="h3">{title}</Heading>
