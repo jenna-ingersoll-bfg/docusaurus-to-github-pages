@@ -11,6 +11,7 @@
   --ifm-color-primary-darker: #00345e;
   --ifm-color-primary-darkest: #002b4d;
   --ifm-color-primary-light: #004379;
+	
   --ifm-color-primary-lighter: #00467f;
   --ifm-color-primary-lightest: #004f8f;
   --ifm-code-font-size: 95%;
@@ -138,7 +139,6 @@ SDK
 	border-right: 1px solid #59AEFF;
 	border-top-right-radius: 4px;
 	border-top-left-radius: 4px;
-	background-image: url('nav_f.png');
 	background-repeat: repeat-x;
 	background-color: #C6E3FE;
 	line-height: 1.25;
@@ -233,7 +233,6 @@ SDK
         padding: 6px 10px 2px 10px;
         background-color: #F8FBFF;
         border-top-width: 0;
-        background-image:url('nav_g.png');
         background-repeat:repeat-x;
         background-color: #FFFFFF;
         /* opera specific markup */
