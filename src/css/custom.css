@@ -17,6 +17,7 @@
   --ifm-font-family-base: 'Montserrat';
   --ifm-navbar-background-color: #003d6e;
   --ifm-container-width: 100%;
+  --ifm-container-width-xl: 100%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
