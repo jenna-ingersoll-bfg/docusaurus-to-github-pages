@@ -9,6 +9,11 @@ export default {
       items: ['static/dev_onboarding', 'static/dev_security'],
     },
     'static/prod_welcome',
+    {
+      type: 'category',
+      label: 'BFG SDK ',
+      items: ['bfgsdk/sdktest'],
+    },
   ],
 };
 
