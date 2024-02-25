@@ -57,4 +57,13 @@
 
 .col a {
   color: white;
+  text-decoration: none;
+}
+
+.text--center {
+  transform: translateY(100%)
+}
+
+.col h3 {
+  font-size: 2rem;
 }
