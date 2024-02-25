@@ -51,19 +51,19 @@
   margin: 0;
 }
 
-.col {
+section .col {
   height: 300px;
 }
 
-.col a {
+section .col a {
   color: white;
   text-decoration: none;
 }
 
-.text--center {
-  transform: translateY(100%)
+section .col h3 {
+  font-size: 2rem;
 }
 
-.col h3 {
-  font-size: 2rem;
+section .text--center {
+  transform: translateY(100%)
 }
