@@ -33,10 +33,6 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: false,
         theme: {
@@ -67,7 +63,7 @@ const config: Config = {
       },
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
         {
           title: 'Docs',
@@ -75,6 +71,14 @@ const config: Config = {
             {
               label: 'Developer User Guide',
               to: '/docs/static/dev_welcome',
+            },
+            {
+              label: 'Producer Handbook',
+              to: '/docs/static/prod_welcome',
+            },
+            {
+              label: 'BFGSDK Reference',
+              to: '/docs/bfgsdk/sdktest',
             },
           ],
         },
@@ -105,7 +109,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()}`,
     },
     prism: {
       theme: prismThemes.github,
