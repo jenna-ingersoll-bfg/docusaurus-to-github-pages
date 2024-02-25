@@ -25,7 +25,7 @@ const FeatureList: FeatureItem[] = [
     link: 'docs/static/prod_welcome.html',
     description: (
       <>
-        EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW.
+        EVERYTHING BIG FISH INTERNAL PRODUCERS NEED TO KNOW ABOUT SUPPORTING A GAME.
       </>
     ),
     color: '#034e87',    
@@ -35,7 +35,7 @@ const FeatureList: FeatureItem[] = [
     link: 'docs/static/dev_welcome.html',
     description: (
       <>
-        DIVE INTO OUR SDK REFERENCE FOR MORE INFO.
+        DIVE INTO OUR SDK REFERENCE FOR MORE INFORMATION AND VIEW OUR RESOURCES.
       </>
     ),
     color: '#119bd4',
