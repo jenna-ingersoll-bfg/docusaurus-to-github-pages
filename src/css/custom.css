@@ -34,7 +34,11 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-.docs-wrapper {
+.theme-doc-markdown {
+	padding: 50px;
+}
+
+theme-doc-sidebar-container {
 	padding: 50px;
 }
 
