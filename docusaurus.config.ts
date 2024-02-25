@@ -62,6 +62,11 @@ const config: Config = {
         src: 'img/bfg-logo.png',
       },
     },
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
+    },
     footer: {
       style: 'light',
       links: [
