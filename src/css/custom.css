@@ -50,3 +50,11 @@
 .container {
   margin: 0;
 }
+
+.col {
+  height: 300px;
+}
+
+.col a {
+  color: white;
+}
