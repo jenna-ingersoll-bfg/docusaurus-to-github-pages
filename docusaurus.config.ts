@@ -73,8 +73,8 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Developer User Guide',
+              to: '/docs/static/dev_welcome',
             },
           ],
         },
