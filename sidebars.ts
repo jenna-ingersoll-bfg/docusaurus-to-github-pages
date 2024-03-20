@@ -12,7 +12,7 @@ export default {
     {
       type: 'category',
       label: 'BFG SDK ',
-      link: {type: 'doc', id: 'static/bfgsdk_welcome'},
+      link: {type: 'doc', id: 'bfgsdk/bfgsdk_welcome'},
       items: ['bfgsdk/sdktest'],
     },
   ],
