@@ -58,8 +58,9 @@ const config: Config = {
     navbar: {
       title: '',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Big Fish Logo',
         src: 'img/bfg-logo.png',
+        width: 140,
       },
     },
     colorMode: {
