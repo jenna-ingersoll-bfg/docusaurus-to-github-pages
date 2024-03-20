@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-navbar-height: 8rem;
+  --ifm-navbar-height: 7rem;
 	
   --ifm-color-primary: #003d6e;
   --ifm-color-primary-dark: #003763;
@@ -37,15 +37,15 @@
 }
 
 .theme-doc-markdown {
-	padding: 50px;
+  padding: 50px;
 }
 
 theme-doc-sidebar-container {
-	padding: 50px;
+  padding: 50px;
 }
 
 navbar__logo {
-	height: 8rem;
+  height: unset;
 }
 
 .hero {
