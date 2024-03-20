@@ -61,7 +61,28 @@ const config: Config = {
         alt: 'Big Fish Logo',
         src: 'img/bfg-logo.png',
         width: 140,
+        height: 60,
       },
+      items: [
+        {
+          type: 'doc',
+          position: 'left',
+          docId: 'dev_welcome',
+          label: 'Developer User Guide',
+        },
+        {
+          type: 'doc',
+          position: 'left',
+          docId: 'bfgsdk_welcome',
+          label: 'BFG SDK',
+        },
+        {
+          type: 'doc',
+          position: 'right',
+          docId: 'prod_welcome',
+          label: 'Big Fish Only',
+        },
+      ],
     },
     colorMode: {
       defaultMode: 'light',
