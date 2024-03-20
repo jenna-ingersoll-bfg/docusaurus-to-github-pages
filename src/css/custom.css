@@ -6,14 +6,13 @@
 
 /* You can override the default Infima variables here. */
 :root {
-	--ifm-navbar-height: 5rem;
+  --ifm-navbar-height: 8rem;
 	
   --ifm-color-primary: #003d6e;
   --ifm-color-primary-dark: #003763;
   --ifm-color-primary-darker: #00345e;
   --ifm-color-primary-darkest: #002b4d;
   --ifm-color-primary-light: #004379;
-	
   --ifm-color-primary-lighter: #00467f;
   --ifm-color-primary-lightest: #004f8f;
   --ifm-code-font-size: 95%;
@@ -21,6 +20,7 @@
   --ifm-navbar-background-color: #003d6e;
   --ifm-container-width: 100%;
   --ifm-container-width-xl: 100%;
+	
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -42,6 +42,10 @@
 
 theme-doc-sidebar-container {
 	padding: 50px;
+}
+
+navbar__logo {
+	height: 8rem;
 }
 
 .hero {
