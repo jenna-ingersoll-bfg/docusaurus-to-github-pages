@@ -16,7 +16,7 @@
   --ifm-code-font-size: 95%;
   --ifm-font-family-base: 'Montserrat';
   --ifm-navbar-background-color: #003d6e;
-  --ifm-navbar-link-color: #FFFFFF;
+  --ifm-navbar-link-color: #DEDEDE;
   --ifm-navbar-link-hover-color: #DEDEDE;
   --ifm-container-width: 100%;
   --ifm-container-width-xl: 100%;
@@ -38,6 +38,11 @@
 
 .theme-doc-markdown {
   padding: 50px;
+}
+
+.navbar__link--active, .navbar__link:hover {
+  border-bottom: solid 1px #FF8000;
+  font-weight: bold;
 }
 
 .hero {
