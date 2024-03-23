@@ -60,8 +60,6 @@ const config: Config = {
       logo: {
         alt: 'Big Fish Logo',
         src: 'img/bfg-logo.png',
-        width: 140,
-        height: 60,
       },
       items: [
         {
