@@ -5,9 +5,7 @@
  */
 
 /* You can override the default Infima variables here. */
-:root {
-  --ifm-navbar-height: 7rem;
-	
+:root {	
   --ifm-color-primary: #003d6e;
   --ifm-color-primary-dark: #003763;
   --ifm-color-primary-darker: #00345e;
