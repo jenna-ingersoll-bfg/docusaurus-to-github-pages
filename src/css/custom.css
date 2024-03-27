@@ -42,7 +42,7 @@
   padding: 50px;
 }
 
-.navbar__link--active, .navbar__link:hover {
+.navbar__link--active {
   font-weight: bold;
 }
 
