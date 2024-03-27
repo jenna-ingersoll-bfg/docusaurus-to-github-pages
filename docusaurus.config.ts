@@ -65,13 +65,13 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docId: 'static/dev_welcome',
+          docId: 'developer/dev_welcome',
           label: 'Developer User Guide',
         },
         {
           type: 'doc',
           position: 'right',
-          docId: 'static/prod_welcome',
+          docId: 'producer/prod_welcome',
           label: 'Producer Handbook',
         },
         {
@@ -95,11 +95,11 @@ const config: Config = {
           items: [
             {
               label: 'Developer User Guide',
-              to: '/docs/static/dev_welcome',
+              to: '/docs/developer/dev_welcome',
             },
             {
               label: 'Producer Handbook',
-              to: '/docs/static/prod_welcome',
+              to: '/docs/producer/prod_welcome',
             },
             {
               label: 'BFGSDK Reference',
