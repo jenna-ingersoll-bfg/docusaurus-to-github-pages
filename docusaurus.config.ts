@@ -72,7 +72,7 @@ const config: Config = {
           type: 'doc',
           position: 'right',
           docId: 'static/prod_welcome',
-          label: 'Producer's Handbook',
+          label: 'Producer Handbook',
         },
         {
           type: 'doc',
