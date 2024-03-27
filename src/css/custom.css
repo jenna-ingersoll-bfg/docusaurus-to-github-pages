@@ -20,6 +20,7 @@
   --ifm-navbar-background-color: #003d6e;
   --ifm-navbar-link-color: #DEDEDE;
   --ifm-navbar-link-hover-color: #FF8000;
+  --ifm-navbar-link-active-color: #24dfff;
   --ifm-container-width: 100%;
   --ifm-container-width-xl: 100%;
 	
@@ -44,11 +45,12 @@
 
 .navbar__link--active {
   font-weight: bold;
+  color: var(--ifm-navbar-link-active-color);
 }
 
 .navbar__link--active::after {
   content: "";
-  background-color: #FF8000;
+  background-color: #24dfff;
   display: flex;
   height: 4px;
   margin-left: -10px;
