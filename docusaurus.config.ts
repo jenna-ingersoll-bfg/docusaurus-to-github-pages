@@ -71,14 +71,14 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docId: 'bfgsdk/bfgsdk_welcome',
-          label: 'BFG SDK',
+          docId: 'static/prod_welcome',
+          label: 'Producer's Handbook',
         },
         {
           type: 'doc',
           position: 'right',
-          docId: 'static/prod_welcome',
-          label: 'Big Fish Only',
+          docId: 'bfgsdk/bfgsdk_welcome',
+          label: 'APIs & SDKs',
         },
       ],
     },
