@@ -56,7 +56,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: '',
+      title: 'The ANCHOR',
       logo: {
         alt: 'Big Fish Logo',
         src: 'img/bfg-logo.png',
@@ -64,13 +64,13 @@ const config: Config = {
       items: [
         {
           type: 'doc',
-          position: 'left',
+          position: 'right',
           docId: 'static/dev_welcome',
           label: 'Developer User Guide',
         },
         {
           type: 'doc',
-          position: 'left',
+          position: 'right',
           docId: 'bfgsdk/bfgsdk_welcome',
           label: 'BFG SDK',
         },
