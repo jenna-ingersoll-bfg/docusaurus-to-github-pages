@@ -23,17 +23,40 @@ xcodebuild -verbose
 
 <details>
     <summary>Using the Xcode Interface</summary>
-    <div>
-        <ul>
-            <li>Open Xcode.</li>
-            <li>Change the scheme of your app target to Release.</li>
-            <li>Update the Build number under the <b>General</b> tab of your app target.</li>
-            <li>Strip the simulator architectures before creating an archive. See !!!!LINK HERE!!!! gs_strip_architectures in the Prepare for Integration section for details.</li>
-            <li>Go to the <b>Product / Archive</b> menu in Xcode and wait for the archive to be finished. Once done, the <b>Organizer</b> window will open, and you'll see a list of the archives. You can access this window by going to the <b>Window / Organizer</b> menu.</li>
-            <li>Select the first archive in the list (the last one created) and click on the <b>Validate App</b> button on the right-hand side panel.</li>
-            <li>Select your App Store distribution options: <b>Strip swift symbols</b> and <b>Upload app symbols</b>.</li>
-            <li>Click the <b>Distribute App</b> button when validation succeeds.</li>
-            <li>Select the App Store Connect option from the prompt. This ensures that the uploaded .ipa contains the SwiftSupport folder required by Apple. If you select any of the other options, such as AdHoc, Enterprise, or Development, your submission to Test Flight will fail with the following message: ITMS-90426: Invalid Swift Support - The SwiftSupport folder is missing. Rebuild your app using the current public (GM) version of Xcode and resubmit it.</li>
-        </ul>
-    </div>
+1. Strip the simulator architectures before creating an archive. See gs_strip_architectures in the Prepare for Integration section for details.
+2. Create the .xcarchive file. You can do this by executing the following in a terminal:
+
+```
+xcodebuild -verbose
+-project /path/to/My-Project.xcodeproj
+-scheme My-Project
+-configuration Release build
+-archivePath /path/to/My-Project.xcarchive
+```
+
+3. Add the following entry in your ExportOptions.plist
+
+```xml
+<dict>
+    <key>method</key>
+    <string>app-store</string>
+</dict>
+```
+
+This will ensure Apple will not reject your app with the following message:
+
+```bash
+ITMS-90426: Invalid Swift Support - The SwiftSupport folder is missing. Rebuild your app using the current public (GM) version of Xcode and resubmit it.
+```
+
+4. Export a .ipa from the archive generated in step 2, using the export options defined in step 3:
+
+```bash
+xcodebuild -verbose
+-exportArchive
+-archivePath /path/to/My-Project.xcarchive
+-exportPath /path/to/ipa/
+-exportOptionsPlist /path/to/ExportOptions.plist
+```
+
 </details>
