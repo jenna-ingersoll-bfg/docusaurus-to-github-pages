@@ -13,6 +13,14 @@ App Tracking Transparency (or ATT) requires apps to request user authorization i
 ## Account Deletion 
 Both the Google Play and Apple App stores require that all apps allow their players to delete their user accounts from within the app. Account deletion is a significant decision for the player, and the process for initiating and confirming deletion should be straightforward and transparent. The BFG SDK includes methods that ensure your game is compliant with Apple’s and/or Google’s account deletion standards.
 
+```
+xcodebuild -verbose
+-project /path/to/My-Project.xcodeproj
+-scheme My-Project
+-configuration Release build
+-archivePath /path/to/My-Project.xcarchive
+```
+
 <details>
     <summary>Using the Xcode Interface</summary>
     <div>
