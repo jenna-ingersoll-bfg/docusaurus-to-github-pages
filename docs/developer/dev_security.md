@@ -1,4 +1,4 @@
-# Security & Privacy Standards
+# Security & Privacy Standards (SANDBOX TESTING PAGE)
 
 Security and privacy are essential components of Big Fish's responsible gameplay initiatives and our "player first" philosophy. In accordance with security regulations, we expect every game to comply with Big Fish’s security standards and best practices.
 
@@ -12,6 +12,17 @@ App Tracking Transparency (or ATT) requires apps to request user authorization i
 
 ## Account Deletion 
 Both the Google Play and Apple App stores require that all apps allow their players to delete their user accounts from within the app. Account deletion is a significant decision for the player, and the process for initiating and confirming deletion should be straightforward and transparent. The BFG SDK includes methods that ensure your game is compliant with Apple’s and/or Google’s account deletion standards.
+
+1. Main bullet
+   1. Sub bullet
+   2. Sub bullet
+2. Main bullet
+3. Main bullet
+   * Sub bullet
+   * Sub bullet
+4. Main bullet
+
+
 
 ```
 xcodebuild -verbose
