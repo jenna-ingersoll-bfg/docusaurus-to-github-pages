@@ -20,7 +20,7 @@ Both the Google Play and Apple App stores require that all apps allow their play
 | ♦ Facebook            | Friends List<br />Social Interactions<br />User Authentication (required for Rave integrations)   | https://developers.facebook.com/                     |
 | ♦ Google Firebase     | Analytics<br />Crash Reporting<br />Performance Monitoring                                        | https://firebase.google.com/docs/guides              |
 | ironSource            | Ad Delivery Services                                                                              | https://developers.ironsrc.com/developer-docs/unity/ |
-| LeanPlum              | Interstitials<br />Push Messaging<br>Inbox Messaging                                              | https://docs.leanplum.com/reference                  |
+| LeanPlum              | Interstitials<br />Push Messaging<br />Inbox Messaging                                            | https://docs.leanplum.com/reference                  |
 | ♦ Rave                | Identity Management<br />User Authentication                                                      | http://www.ravesocial.com/                           |
 | ♦ Zendesk             | Knowledge Base<br />Help Center<br />Support Ticketing                                            | https://developer.zendesk.com/                       |
 
