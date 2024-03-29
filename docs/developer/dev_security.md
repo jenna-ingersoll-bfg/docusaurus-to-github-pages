@@ -34,6 +34,47 @@ By default, the AppsFlyer configuration will default to using Big Fish's **dev k
 }
 ```
 
+## Setting up OneLink
+
+AppsFlyer uses OneLink to create links with attribution, redirection, and deep linking capabilities that convert owned or paid media users into app users. OneLinks can also be set up to auto-detect the platform and redirect the user to the correct app store, so only one link is needed for both iOS and Google.
+
+Work with your Big Fish Producer to set up a OneLink link in the AppsFlyer portal and define a vanity domain specific to your game. The universal OneLink link will then direct users via Android App Links, iOS Universal Links, and the defined URI scheme to the appropriate location based on the device that is used.
+
+Here is an example of a OneLink link set up in AppsFlyer (parts in red need to be specific to your game):
+
+> https://bfgsdk.onelink.me/yryN/
+
+## Supporting SKAdNetwork (SKAN) (iOS Only)
+
+SKAdNetwork (SKAN), part of Apple iOS, lets advertisers measure campaign performance while simultaneously preserving user privacy. AppsFlyer uses SKAN to reliably track install attribution and takes care of all implementation details. However, you need to add the SKAdNetworkIdentifiers for each ad provider to your .plist file. To do so:
+
+1. Set up your game in AppsFlyer's dashboard. 
+2. Open your game's Info.plist file.
+3. Add an array called SKAdNetworkItems, which contains a dictionary for the allowed ad networks.
+4. For each ad provider, add a dictionary entry using the key SKAdNetworkIdentifier with its associated ID. We recommend you add all the ad providers to Info.plist, regardless of the ones currently used in your game. [Click here for a list of all available SKAdNetwork providers and their IDs](https://docs.google.com/spreadsheets/d/12eFcFLjx7ngXTcykHBmZWPLJzex11WkHud1f1ZaBhrk/edit?usp=sharing).
+
+:::tip 
+
+To generate a list of all SKAdNetworkIdentifiers in this spreadsheet, select the **BFG menu** in Google Sheets. From there, you can generate a JSON file or string array to use in your array.
+
+:::
+
+Here is an example of an abbreviated Info.plist file:
+
+```xml
+<key>SKAdNetworkItems</key>
+<array>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>example100.skadnetwork</string>
+    </dict>
+    <dict>   
+        <key>SKAdNetworkIdentifier</key>
+        <string>example200.skadnetwork</string>
+    </dict>
+</array>
+```
+
 ## Testing Non-Organic Attribution Behavior
 
 To perform testing for non-organic attribution, you must first set up your testing devices as follows.
@@ -48,7 +89,7 @@ Manually add your device to the AppsFlyer dashboard to whitelist it using a devi
 4. Click on the Add Device button.
 5. Add one of the following device parameters, depending on your platform:
     1. **iOS**: Always use IDFA. This can be retrieved from any MTS event.
-    2. **Android supporting advertising ID**s: Always use AID (Google) or Fire AID (Amazon). This can be retrieved from any MTS event.
+    2. **Android supporting advertising IDs**: Always use AID (Google) or Fire AID (Amazon). This can be retrieved from any MTS event.
     3. **Android not supporting advertising IDs**: Always use the AndroidID (Google/Amazon). This must be a raw Android ID. This can be retrieved from either Tune or AppsFlyer events as android_id, but only on older devices.
 6. Save the new device entry.
 
