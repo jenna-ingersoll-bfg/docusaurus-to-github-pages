@@ -13,14 +13,16 @@ App Tracking Transparency (or ATT) requires apps to request user authorization i
 ## Account Deletion 
 Both the Google Play and Apple App stores require that all apps allow their players to delete their user accounts from within the app. Account deletion is a significant decision for the player, and the process for initiating and confirming deletion should be straightforward and transparent. The BFG SDK includes methods that ensure your game is compliant with Apple’s and/or Google’s account deletion standards.
 
-1. Main bullet
-   1. Sub bullet
-   2. Sub bullet
-2. Main bullet
-3. Main bullet
-   * Sub bullet
-   * Sub bullet
-4. Main bullet
+| **3rd Party Service** | **Supported Features**                                                                            | **Direct Documentation**                             |
+|-----------------------|---------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| ♦ AppsFlyer           | Install Attribution<br />Mobile Ad Analytics                                                      | https://support.appsflyer.com/                       |
+| brainCloud            | Leaderboards<br />Player Tournaments<br />Push Messaging<br />Inbox Messaging                     | https://getbraincloud.com/apidocs/                   |
+| ♦ Facebook            | Friends List<br />Social Interactions<br />User Authentication (required for Rave integrations)   | https://developers.facebook.com/                     |
+| ♦ Google Firebase     | Analytics<br />Crash Reporting<br />Performance Monitoring                                        | https://firebase.google.com/docs/guides              |
+| ironSource            | Ad Delivery Services                                                                              | https://developers.ironsrc.com/developer-docs/unity/ |
+| LeanPlum              | Interstitials<br />Push Messaging<br>Inbox Messaging                                              | https://docs.leanplum.com/reference                  |
+| ♦ Rave                | Identity Management<br />User Authentication                                                      | http://www.ravesocial.com/                           |
+| ♦ Zendesk             | Knowledge Base<br />Help Center<br />Support Ticketing                                            | https://developer.zendesk.com/                       |
 
 
 
