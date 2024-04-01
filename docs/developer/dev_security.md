@@ -152,6 +152,8 @@ However, if you want to address them, set the following in your game's .plist af
 <string>FALSE</string>
 ```
 
+</details>
+
 ## Setting up OneLink
 
 AppsFlyer uses OneLink to create links with attribution, redirection, and deep linking capabilities that convert owned or paid media users into app users. OneLinks can also be set up to auto-detect the platform and redirect the user to the correct app store, so only one link is needed for both iOS and Google.
