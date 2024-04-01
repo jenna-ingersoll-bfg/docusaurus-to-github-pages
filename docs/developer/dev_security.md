@@ -34,7 +34,7 @@ By default, the AppsFlyer configuration will default to using Big Fish's **dev k
 }
 ```
 
-### Additional Configuration for Android
+### Additional Steps for Android
 
 <details>
   <summary>Updating your Gradle dependencies</summary>
@@ -82,7 +82,7 @@ AppsFlyer requires a "CHANNEL" entry in your manifest file for out-of-store apps
 ```
 </details>
 
-### Additional Configuration for iOS
+### Additional Steps for iOS
 
 <details>
   <summary>Supporting SKAdNetwork (SKAN)</summary>
@@ -135,6 +135,55 @@ Once Associated Domains are enabled in your provisioning profile, add your speci
 3. Press the "+" sign to add an Associated Domain. Add the app link supplied by your Big Fish Producer for your game. The domain should be prefixed with "applinks:"; for example, ``applinks:bfgsdk.onelink.me``.
 
 You can add associated domains automatically using an Entitlements file. Here's an example entitlements file containing a configured associated domain:
+
+</details>
+
+<details>
+  <summary>Removing Facebook SDK event warnings</summary>
+
+The Facebook SDK, which is integrated into the BFG SDK, automatically reports certain events for its apps. To prevent duplication of these events, the BFG SDK programmatically disables the Facebook SDK automatic reporting. As a result, you may see warnings for ``FacebookAutoLogAppEventsEnabled`` and ``FacebookAdvertiserIDCollectionEnabled``. **These warnings can safely be ignored.**
+
+However, if you want to address them, set the following in your game's .plist after exporting to Xcode:
+
+```xml
+<key>FacebookAutoLogAppEventsEnabled</key>
+<string>FALSE</string>
+<key>FacebookAdvertiserIDCollectionEnabled</key>
+<string>FALSE</string>
+```
+
+## Setting up OneLink
+
+AppsFlyer uses OneLink to create links with attribution, redirection, and deep linking capabilities that convert owned or paid media users into app users. OneLinks can also be set up to auto-detect the platform and redirect the user to the correct app store, so only one link is needed for both iOS and Google.
+
+Work with your Big Fish Producer to set up a OneLink link in the AppsFlyer portal and define a vanity domain specific to your game. The universal OneLink link will then direct users via Android App Links, iOS Universal Links, and the defined URI scheme to the appropriate location based on the device that is used.
+
+Here is an example of a OneLink link set up in AppsFlyer:
+
+> https://bfgsdk.onelink.me/yryN/
+
+### Additional Steps for Android
+
+<details>
+  <summary>Updating intent filters</summary>
+
+Your Big Fish Producer will send you a code snippet of an intent filter to put into manifest file of your app. To complete setup for OneLink on Android, copy the intent-filter into the relevant ``<activity>`` on your AndroidManifest.xml file. The snippet contains the following values:
+
+* The ``host`` value, provided by your Big Fish Producer.
+* The four-character pathPrefix, an auto-generated value from the AppsFlyer portal that is unique to your game.
+
+Here is an example of the code snippet for an intent filter:
+
+```xml
+<intent-filter android:autoVerify="true">
+  <action android:name="android.intent.action.VIEW" />
+  <category android:name="android.intent.category.DEFAULT" />
+  <category android:name="android.intent.category.BROWSABLE" />
+  <data android:scheme="https"
+    android:host="bfgsdk.onelink.me"
+    android:pathPrefix="/yryN" />
+</intentfilter>
+```
 
 </details>
 
@@ -215,10 +264,22 @@ When debugging is enabled and a debug version of your application is built, you 
 
 Once complete, build a debug version of your app.
 
+## Transitioning to AppsFlyer from another attribution vendor
 
+Other attribution vendors report events manually through the Facebook SDK. However once you transition to AppsFlyer, you no longer need to report these events manually in your code base. Be sure to remove all instances of the following Facebook logging events:
 
+* FBSDKAppEvents.logPurchase
+* FBSDKAppEvents.logEvent
+* FBSDKAppEvents.logPushNotificationOpen
+* FBSDKAppEvents.activateApp
 
+:::warning
 
+Failure to remove these methods when AppsFlyer is enabled will result in duplicate logs and impact proper ad spend optimizations.
 
+:::
 
+## Additional Resources and Documentation
 
+* Deep Linking with AppsFlyer and the BFG SDK
+* [AppsFlyer Help Center](https://support.appsflyer.com/hc/en-us)
