@@ -36,8 +36,9 @@ By default, the AppsFlyer configuration will default to using Big Fish's **dev k
 
 ### Additional Configuration for Android
 
-**Update Gradle Dependencies**
-
+<details>
+  <summary>Updating your Gradle dependencies</summary>
+  
 :::info
 
 The following gradle file is an example with placeholder version numbers, replace the following ‘X.X.X’ with appropriate version of AppsFlyer.
@@ -66,7 +67,10 @@ Developers who are using ProGuard and want to use Google's [Play Install Referre
 
 :::
 
-**Update manifest with CHANNEL entry (Amazon Only)**
+</details>
+
+<details>
+  <summary>Updating your manifest with CHANNEL entry (Amazon Only)</summary>
 
 :::warning
 
@@ -82,10 +86,12 @@ AppsFlyer requires a "CHANNEL" entry in your manifest file for out-of-store apps
 ```xml
 <meta-data android:name="CHANNEL" android:value="Amazon" />
 ```
+</details>
 
 ### Additional Configuration for iOS
 
-**Supporting SKAdNetwork (SKAN)**
+<details>
+  <summary>Supporting SKAdNetwork (SKAN)</summary>
 
 SKAdNetwork (SKAN), part of Apple iOS, lets advertisers measure campaign performance while simultaneously preserving user privacy. AppsFlyer uses SKAN to reliably track install attribution and takes care of all implementation details. However, you need to add the SKAdNetworkIdentifiers for each ad provider to your .plist file. To do so:
 
@@ -115,8 +121,10 @@ Here is an example of an abbreviated Info.plist file:
     </dict>
 </array>
 ```
+</details>
 
-**Provisioning Devices and Setting Up Associated Domains**
+<details>
+  <summary>Provisioning devices and setting up Associated Domains</summary>
 
 If you need to test AppsFlyer locally, your Big Fish Producer will provide a provisioning profile with Associated Domains enabled. Install this provisioning profile and ensure that it is selected for each of your build targets. After you submit your game, the Associated Domains will be updated by Big Fish.
 
@@ -133,6 +141,8 @@ Once Associated Domains are enabled in your provisioning profile, add your speci
 3. Press the "+" sign to add an Associated Domain. Add the app link supplied by your Big Fish Producer for your game. The domain should be prefixed with "applinks:"; for example, ``applinks:bfgsdk.onelink.me``.
 
 You can add associated domains automatically using an Entitlements file. Here's an example entitlements file containing a configured associated domain:
+
+</details>
 
 ## Testing Non-Organic Attribution Behavior
 
