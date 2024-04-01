@@ -34,15 +34,52 @@ By default, the AppsFlyer configuration will default to using Big Fish's **dev k
 }
 ```
 
-## Setting up OneLink
+## Updating Gradle Dependencies (Android Only)
 
-AppsFlyer uses OneLink to create links with attribution, redirection, and deep linking capabilities that convert owned or paid media users into app users. OneLinks can also be set up to auto-detect the platform and redirect the user to the correct app store, so only one link is needed for both iOS and Google.
+:::info
 
-Work with your Big Fish Producer to set up a OneLink link in the AppsFlyer portal and define a vanity domain specific to your game. The universal OneLink link will then direct users via Android App Links, iOS Universal Links, and the defined URI scheme to the appropriate location based on the device that is used.
+The following gradle file is an example with placeholder version numbers, replace the following ‘X.X.X’ with appropriate version of AppsFlyer.
 
-Here is an example of a OneLink link set up in AppsFlyer (parts in red need to be specific to your game):
+:::
 
-> https://bfgsdk.onelink.me/yryN/
+In your app’s build.gradle file, add an entry for AppsFlyer:
+
+1. Locate the dependencies section of your app’s build.gradle file.
+2. Add the following new section to the dependencies:
+
+```
+dependencies {
+     ...
+     implementation 'com.appsflyer:af-android-sdk:X.X.X'
+     implementation 'com.android.installreferrer:installreferrer:2.2'
+     ...
+}
+```
+
+:::info
+
+The 'com.android.installreferrer:installreferrer:2.2' dependency is required to support Google's Play Install Referrer API. Using this API improves attribution accuracy, protects from install fraud, and more.
+
+Developers who are using ProGuard and want to use Google's [Play Install Referrer API](https://developer.android.com/google/play/installreferrer/overview) must also set the following ProGuard rule: ``-dontwarn com.android.installreferrer
+
+:::
+
+## Configuring for Amazon Devices (Amazon Only) 
+
+:::warning
+
+The following section applies only to Amazon builds. **Do not include this entry for any Google builds.**
+
+:::
+
+AppsFlyer requires a "CHANNEL" entry in your manifest file for out-of-store apps, like Amazon. Therefore, for Amazon builds only, perform this additional setup:
+
+1. Locate and open your app’s main manifest file.
+2. In the application section of your main manifest file, add the following entry:
+
+```xml
+<meta-data android:name="CHANNEL" android:value="Amazon" />
+```
 
 ## Supporting SKAdNetwork (SKAN) (iOS Only)
 
@@ -75,9 +112,40 @@ Here is an example of an abbreviated Info.plist file:
 </array>
 ```
 
+## Provisioning Devices and Setting Up Associated Domains (iOS Only)
+
+If you need to test AppsFlyer locally, your Big Fish Producer will provide a provisioning profile with Associated Domains enabled. Install this provisioning profile and ensure that it is selected for each of your build targets. After you submit your game, the Associated Domains will be updated by Big Fish.
+
+:::info
+
+You are required to properly configure Associated Domains for marketing links to work.
+
+:::
+
+Once Associated Domains are enabled in your provisioning profile, add your specific AppsFlyer domain value:
+
+1. In Xcode, select your project, select your target and navigate to the **Capabilities** tab. If you have multiple targets, repeat this step for each target.
+2. Scroll until you see **Associated Domains**. Make sure the toggle on the right is set to **On**.
+3. Press the "+" sign to add an Associated Domain. Add the app link supplied by your Big Fish Producer for your game. The domain should be prefixed with "applinks:"; for example, ``applinks:bfgsdk.onelink.me``.
+
+You can add associated domains automatically using an Entitlements file. Here's an example entitlements file containing a configured associated domain:
+
 ## Testing Non-Organic Attribution Behavior
 
 To perform testing for non-organic attribution, you must first set up your testing devices as follows.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>com.apple.developer.associated-domains</key>
+    <array>
+      <string>applinks:bfgsdk.onelink.me</string>
+    </array>
+  </dict>
+</plist>
+```
 
 ### Whitelist Your Device
 
