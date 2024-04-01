@@ -38,17 +38,11 @@ By default, the AppsFlyer configuration will default to using Big Fish's **dev k
 
 <details>
   <summary>Updating your Gradle dependencies</summary>
-  
-:::info
-
-The following gradle file is an example with placeholder version numbers, replace the following ‘X.X.X’ with appropriate version of AppsFlyer.
-
-:::
 
 In your app’s build.gradle file, add an entry for AppsFlyer:
 
 1. Locate the dependencies section of your app’s build.gradle file.
-2. Add the following new section to the dependencies:
+2. Add the following new section to the dependencies. Note that the following example uses placeholders, and you need to replace the following ‘X.X.X’ with the appropriate version of AppsFlyer.
 
 ```
 dependencies {
@@ -59,7 +53,7 @@ dependencies {
 }
 ```
 
-:::info
+:::note
 
 The 'com.android.installreferrer:installreferrer:2.2' dependency is required to support Google's Play Install Referrer API. Using this API improves attribution accuracy, protects from install fraud, and more.
 
@@ -128,9 +122,9 @@ Here is an example of an abbreviated Info.plist file:
 
 If you need to test AppsFlyer locally, your Big Fish Producer will provide a provisioning profile with Associated Domains enabled. Install this provisioning profile and ensure that it is selected for each of your build targets. After you submit your game, the Associated Domains will be updated by Big Fish.
 
-:::info
+:::note
 
-You are required to properly configure Associated Domains for marketing links to work.
+Associated Domains must be configured properly for marketing links to work.
 
 :::
 
