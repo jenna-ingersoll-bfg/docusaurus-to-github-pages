@@ -34,7 +34,9 @@ By default, the AppsFlyer configuration will default to using Big Fish's **dev k
 }
 ```
 
-## Updating Gradle Dependencies (Android Only)
+### Additional Configuration for Android
+
+**Update Gradle Dependencies**
 
 :::info
 
@@ -64,7 +66,7 @@ Developers who are using ProGuard and want to use Google's [Play Install Referre
 
 :::
 
-## Configuring for Amazon Devices (Amazon Only) 
+**Update manifest with CHANNEL entry (Amazon Only)**
 
 :::warning
 
@@ -81,7 +83,9 @@ AppsFlyer requires a "CHANNEL" entry in your manifest file for out-of-store apps
 <meta-data android:name="CHANNEL" android:value="Amazon" />
 ```
 
-## Supporting SKAdNetwork (SKAN) (iOS Only)
+### Additional Configuration for iOS
+
+**Supporting SKAdNetwork (SKAN)**
 
 SKAdNetwork (SKAN), part of Apple iOS, lets advertisers measure campaign performance while simultaneously preserving user privacy. AppsFlyer uses SKAN to reliably track install attribution and takes care of all implementation details. However, you need to add the SKAdNetworkIdentifiers for each ad provider to your .plist file. To do so:
 
@@ -112,7 +116,7 @@ Here is an example of an abbreviated Info.plist file:
 </array>
 ```
 
-## Provisioning Devices and Setting Up Associated Domains (iOS Only)
+**Provisioning Devices and Setting Up Associated Domains**
 
 If you need to test AppsFlyer locally, your Big Fish Producer will provide a provisioning profile with Associated Domains enabled. Install this provisioning profile and ensure that it is selected for each of your build targets. After you submit your game, the Associated Domains will be updated by Big Fish.
 
