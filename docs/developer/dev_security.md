@@ -1,55 +1,83 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-brainCloud
+# Telemetry with GoGame
 
-Big Fish has partnered with brainCloud to provide a back-end server technology that gets your game up and running quickly with user monitoring, social player interactions, in-game messaging and much more. brainCloud’s services make it easy to develop mobile and social games, adding comprehensive tools to support your team during development, testing, and user support.
+GoGame is a powerful publishing tool that is developed by Plarium that allows the User Acquisition (UA) team to plan and monitor marketing spending. It has complete write access to changes in budgets, bids, and business rules that can directly impact the business of your application.
 
-:::info
+GoGame receives telemetry data from the Mobile Telemetry Service (MTS) events from your application. When your application is configured correctly in GoGame, the system automatically detects the MTS events and converts them into GoGame’s API payload format. Once converted, the payload is sent to GoGame.
 
-brainCloud is not included in the BFG SDK and needs to be integrated separately.
+Besides the setup with the User Acquisition (UA) team, GoGame telemetry is automatic. Having GoGame operation in your application depends on properly integrating the BFG SDK in the applications.
 
-:::
-
-## Setting up brainCloud 
-
-Big Fish has a private instance of brainCloud, hosted on GCP, that supports all of our games using brainCloud. Once you have committed to using brainCloud for one or more features, your Big Fish producer will set up an instance that will contain all of the cloud server code and features unique to your game.
-
-In addition, your Big Fish producer will send an invitations to all team members so that they can access the brainCloud instance.
+## Integrating GoGame 
 
 :::info
 
-Contact your Big Fish Producer if you need access to a brainCloud instance or you need a new instance for your game.
+GoGame integration is usually started ahead of the Soft Launch retention phase in Production M2 and is not required for Limited Market Tests in the Market Validation phase.
 
 :::
 
-## Logging into brainCloud 
+To ensure your application can use GoGame you first need to get a GoGame appID. Provide your producer with the following information:
 
-Once you have accepted the invitation:
+- App name
+- App genre
+- Three-letter app abbreviation
 
-1. Log into Big Fish’s [brainCloud server](https://portal.bc.bigfishgames.com).
-2. Choose the instance you’d like to view. This will be unique to the team you are working on.
+After your application is registered with GoGame, ensure your application is properly set up to utilize GoGame by doing the following:
 
-## The brainCloud Design Portal 
+1. Integrate the BFG SDK.
+2. Set up Mobile Telemetry Services (MTS) events.
+  - Ensure that your application has at least the four main MTS events (install, session start, session end, and purchase) configured properly. Refer to Mobile Telemetry Service (MTS) with the BFG SDK for more information.
+3. Integrate AppsFlyer.
 
-No matter what role you serve in the game development process, you will access all of brainCloud’s features using their Design Portal. The Design Portal combines four powerful tools into one:
+Once integrated, the BFG SDK sends and populates MTS events that are then later transformed into GoGame events. You will be able to begin using MTS events to start passing sessions and deposits to GoGame.
 
-* A design tool that allows you to create, configure and define your applications.
-* An expansive API Explorer that allows you to query your configured application dynamically without writing code.
-* A monitoring interface that provide easy debugging of global and user data.
-* A visual analytics and reporting tool to help understand the usage and performance of your application.
+## GoGame Events 
 
-For more information on using brainCloud’s Design Portal, see their [Design Portal Tutorials](https://getbraincloud.com/apidocs/portal-usage).
+GoGame will only receive events from MTS if App Tracking Transparency is accepted by the end-user, which returns a status is 3. If the ATT status is not 3, the data will not be sent to GoGame.
 
-## brainCloud Features 
+Currently, there is no visibility for the Game team to check if a GoGame event is successful. You will have to reach out to the GoGame team to confirm if the events are being sent successfully. It is safe to assume that if an MTS event succeeds then GoGame will have a successful event.
 
-You are free to use any of the features provided by brainCloud’s back-end services. Keep in mind, however, that the cost of using brainCloud is dependent upon your game’s usage of the server calls. It is the responsibility of your team to figure out how to most efficiently use the features offered by this service.
+With GoGame events and call tracking being automatic, it is useful to know what event calls will trigger GoGame calls. The following lists all the MTS fields that GoGame is tracking:
 
-Here are some key features our games are currently using with brainCloud’s services:
+```
+Session Start
+Purchase
+Custom Events
 
-* User Monitoring
-* Player Experience and Leveling
-* Purchasing and Gifting
-* Item Management
-* Redemption Codes
-* Tournaments and Leaderboards
-* In-Game Messaging
+ip
+languageCode
+appUserId
+data{}
+- eventName
+raveId
+platform
+msgPayloadVersion
+environment
+osInfo
+
+deviceInfo{}
+- idfv
+- appTrackingTransparencyStatus
+- thirdPartyTrackingEnabled
+- appsFlyerKey
+- ifaEnabled
+- ifa
+- googleAdvertisingEnabled
+- googleAdvertisingId
+- amazonAdvertisingId
+- amazonAdvertisingEnabled
+
+bundleId
+deviceBrand
+deviceModel
+deviceOsVersion
+osVersion
+
+price
+currency
+transactionId
+
+eventData{}
+eventName
+```
+ 
