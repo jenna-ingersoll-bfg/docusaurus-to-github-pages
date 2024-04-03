@@ -68,10 +68,12 @@ The MTS code above is an example of setting up an MTS event and can be expanded 
 
 Below is an example of how the MTS custom event is used in the Unity SDK:
 
+```csharp
 private const string UnityVersionCustomKeyId = "UnityVersion";
 
 bfgGameReporting.logCustomEvent(UnityVersionCustomKeyId, 
   new Dictionary<string, string> { 
     {UnityVersionCustomKeyId, Application.unityVersion}
   });
+```
  
