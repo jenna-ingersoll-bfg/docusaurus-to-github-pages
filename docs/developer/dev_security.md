@@ -1,83 +1,57 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Telemetry with GoGame
+# Ad Delivery Services with ironSource
 
-GoGame is a powerful publishing tool that is developed by Plarium that allows the User Acquisition (UA) team to plan and monitor marketing spending. It has complete write access to changes in budgets, bids, and business rules that can directly impact the business of your application.
-
-GoGame receives telemetry data from the Mobile Telemetry Service (MTS) events from your application. When your application is configured correctly in GoGame, the system automatically detects the MTS events and converts them into GoGame’s API payload format. Once converted, the payload is sent to GoGame.
-
-Besides the setup with the User Acquisition (UA) team, GoGame telemetry is automatic. Having GoGame operation in your application depends on properly integrating the BFG SDK in the applications.
-
-## Integrating GoGame 
+ironSource allows an app to implement ad delivery services using several ad networks (Facebook, TapJoy, UnityAds, Vungle, etc.), all housed within the framework of one single 3rd party SDK. It handles logic to serve the most effective ads to the client automatically. ironSource supports rewarded videos, interstitials, and banners.
 
 :::info
 
-GoGame integration is usually started ahead of the Soft Launch retention phase in Production M2 and is not required for Limited Market Tests in the Market Validation phase.
+The ironSource SDK is not included in the BFG SDK and needs to be integrated separately.
 
 :::
 
-To ensure your application can use GoGame you first need to get a GoGame appID. Provide your producer with the following information:
+## Integrating ironSource  
 
-- App name
-- App genre
-- Three-letter app abbreviation
+To integrate ironSource into your game, follow the instructions on ironSource’s documentation:
 
-After your application is registered with GoGame, ensure your application is properly set up to utilize GoGame by doing the following:
+- [Getting started with Unity](https://developers.is.com/ironsource-mobile/unity/levelplay-starter-kit) :arrow_upper_right:
+- [Getting started with Android](https://developers.is.com/ironsource-mobile/android/getting-started-android) :arrow_upper_right: 
+- [Getting started with iOS](https://developers.is.com/ironsource-mobile/ios/getting-started-ios) :arrow_upper_right:
 
-1. Integrate the BFG SDK.
-2. Set up Mobile Telemetry Services (MTS) events.
-  - Ensure that your application has at least the four main MTS events (install, session start, session end, and purchase) configured properly. Refer to Mobile Telemetry Service (MTS) with the BFG SDK for more information.
-3. Integrate AppsFlyer.
+## Verifying ironSource 
 
-Once integrated, the BFG SDK sends and populates MTS events that are then later transformed into GoGame events. You will be able to begin using MTS events to start passing sessions and deposits to GoGame.
+ironSource provides an Integration Helper, which tests compatibility and verifies that you’ve successfully integrated the SDK and adapters.
 
-## GoGame Events 
+For more information, see ironSource’s documentation:
 
-GoGame will only receive events from MTS if App Tracking Transparency is accepted by the end-user, which returns a status is 3. If the ATT status is not 3, the data will not be sent to GoGame.
+- [Integration Helper for Unity](https://developers.ironsrc.com/ironsource-mobile/unity/integration-helper-unity) :arrow_upper_right:
+- [Integration Helper for Android](https://developers.ironsrc.com/ironsource-mobile/android/integration-helper-android) :arrow_upper_right:
+- [Integration Helper for iOS](https://developers.ironsrc.com/ironsource-mobile/ios/integration-helper-ios) :arrow_upper_right:
 
-Currently, there is no visibility for the Game team to check if a GoGame event is successful. You will have to reach out to the GoGame team to confirm if the events are being sent successfully. It is safe to assume that if an MTS event succeeds then GoGame will have a successful event.
+In addition, we recommend that you verify GDPR protocols for your ironSource dialog. These can be viewed in your Console output logs. All of Big Fish’s test passes should reflect the results found in the output logs.
 
-With GoGame events and call tracking being automatic, it is useful to know what event calls will trigger GoGame calls. The following lists all the MTS fields that GoGame is tracking:
+## ironSource Versioning 
 
-```
-Session Start
-Purchase
-Custom Events
+Each of the following has its unique version number:
 
-ip
-languageCode
-appUserId
-data{}
-- eventName
-raveId
-platform
-msgPayloadVersion
-environment
-osInfo
+- ironSource SDK
+- Ad Network SDK 
+- Ad Network’s Mediation Adapter for iOS, Android, and Unity (ironSource wraps the Ad Network’s SDK into an adapter which is identified by a unique version number assigned by ironSource)
 
-deviceInfo{}
-- idfv
-- appTrackingTransparencyStatus
-- thirdPartyTrackingEnabled
-- appsFlyerKey
-- ifaEnabled
-- ifa
-- googleAdvertisingEnabled
-- googleAdvertisingId
-- amazonAdvertisingId
-- amazonAdvertisingEnabled
+To successfully use ironSource and its mediation networks, you must ensure that the versions of all components are compatible with one another.
 
-bundleId
-deviceBrand
-deviceModel
-deviceOsVersion
-osVersion
+For more information, see ironSource’s documentation:
 
-price
-currency
-transactionId
+- [Check ironSource SDK & Adapter Compatibility (Unity)](https://developers.is.com/ironsource-mobile/unity/mediation-networks-unity/#step-2) :arrow_upper_right:
+- [ironSource SDK and adapter compatibility (Android)](https://developers.is.com/ironsource-mobile/android/mediation-networks-android/#step-3) :arrow_upper_right:
+- [ironSource SDK and adapter compatibility (iOS)](https://developers.is.com/ironsource-mobile/ios/mediation-networks-ios/#step-3) :arrow_upper_right:
 
-eventData{}
-eventName
-```
- 
+## User Identification in ironSource 
+
+To identify the players of your game, ensure that you set the UserID parameter in ironSource. The UserID is a unique identifier that will differentiate between your different players, and ironSource uses it to know which user to reward upon successful ad completion through server-to-server callbacks.
+
+For more information, see ironSource’s documentation:
+
+- [Additional SDK Settings for Unity](https://developers.is.com/ironsource-mobile/unity/additional-sdk-settings) :arrow_upper_right:
+- [Advanced Settings for Android](https://developers.is.com/ironsource-mobile/android/advanced-settings) :arrow_upper_right:
+- [Advanced Settings for iOS](https://developers.is.com/ironsource-mobile/ios/advanced-settings-2) :arrow_upper_right:
