@@ -1,57 +1,77 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Ad Delivery Services with ironSource
+# Mobile Telemetry Service (MTS) with the BFG SDK
 
-ironSource allows an app to implement ad delivery services using several ad networks (Facebook, TapJoy, UnityAds, Vungle, etc.), all housed within the framework of one single 3rd party SDK. It handles logic to serve the most effective ads to the client automatically. ironSource supports rewarded videos, interstitials, and banners.
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
 
-:::info
+Mobile Telemetry Service (MTS) is an analytics gathering method provided with the BFG SDK. The information you capture within the game will be sent to AppsFlyer or Salesforce to assist in:
 
-The ironSource SDK is not included in the BFG SDK and needs to be integrated separately.
+- Campaigns and advertisements for the user
+- Tracking install/uninstall rates
+- A/B Testing
+- Collecting sales data
+
+MTS helps developers and support engineers debug and resolve technical issues, as well as track key performance indicators (KPIs).
+
+## Understanding MTS Events
+
+The BFG SDK contains a number of default MTS events that coincide with KPIs and collect performance information about a player. They are:
+
+
+| **MTS Event** | **Description**                                                                                                                                                                                                                                                                                                                                                                                  |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Install       | This event fires automatically only on the application's first launch and after the SDK has finished initializing.<br><br>Note: AppsFlyer has its own install event that is sent on the first launch of the application. <br /><br />This is not the same as the default install event and is gated behind both the General Data Policy Regulation (GDPR) and App Tracking Transparency (ATT) selection. |
+| Session Start | This event fires every time the app returns to foreground.                                                                                                                                                                                                                                                                                                                                               |
+| Session End   | This event fires every time the app goes to background.                                                                                                                                                                                                                                                                                                                                                  |
+| Purchase      | This event fires whenever a successful purchase or restore is made.                                                                                                                                                                                                                                                                                                                                      |
+:::warning
+
+The expected order of events is: Install, Session Start, Purchase, Session End. This order can differ from expected in the following edge cases:
+
+- Disabled internet connection which causes the Install event to be queued.
+- A general timeout of 60 seconds before the Install event can be fired.
 
 :::
 
-## Integrating ironSource  
+You can also create custom MTS events to track other game information such as when a user gains a level or collects enough in-game currency to reach a milestone. Because these events are specific to your game's specifications, they are not included in the BFG SDK by default.
 
-To integrate ironSource into your game, follow the instructions on ironSource’s documentation:
+## Creating Custom MTS Events 
 
-- [Getting started with Unity](https://developers.is.com/ironsource-mobile/unity/levelplay-starter-kit) :arrow_upper_right:
-- [Getting started with Android](https://developers.is.com/ironsource-mobile/android/getting-started-android) :arrow_upper_right: 
-- [Getting started with iOS](https://developers.is.com/ironsource-mobile/ios/getting-started-ios) :arrow_upper_right:
+Custom MTS events let you record data that is not included by default with the BFG SDK. Work with your Big Fish producer to identify which custom events are relevant for your game. Examples may include: when a user levels up, gains a collectible, or finishes an in-game event.  
 
-## Verifying ironSource 
+To create a custom event, use the ``bfgGameReporting.logCustomEvent(name, additionalDetails)`` method:
 
-ironSource provides an Integration Helper, which tests compatibility and verifies that you’ve successfully integrated the SDK and adapters.
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+    This is an apple 🍎
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+    This is an orange 🍊
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+    This is a banana 🍌
+  </TabItem>
+</Tabs>
 
-For more information, see ironSource’s documentation:
+```csharp
+{
+    Dictionary<string, string> additionalDetails = new Dictionary<string, string> ();
+    additionalDetails.Add ("customKey", "customValue");
+    bfgGameReporting.logCustomEvent("eventName", additionalDetails);
+}
+```
 
-- [Integration Helper for Unity](https://developers.ironsrc.com/ironsource-mobile/unity/integration-helper-unity) :arrow_upper_right:
-- [Integration Helper for Android](https://developers.ironsrc.com/ironsource-mobile/android/integration-helper-android) :arrow_upper_right:
-- [Integration Helper for iOS](https://developers.ironsrc.com/ironsource-mobile/ios/integration-helper-ios) :arrow_upper_right:
+The MTS code above is an example of setting up an MTS event and can be expanded to fit any events you want to track. The data structure can be anything relevant to the data you're gathering and does not necessarily need a dictionary. 
 
-In addition, we recommend that you verify GDPR protocols for your ironSource dialog. These can be viewed in your Console output logs. All of Big Fish’s test passes should reflect the results found in the output logs.
+Below is an example of how the MTS custom event is used in the Unity SDK:
 
-## ironSource Versioning 
+private const string UnityVersionCustomKeyId = "UnityVersion";
 
-Each of the following has its unique version number:
-
-- ironSource SDK
-- Ad Network SDK 
-- Ad Network’s Mediation Adapter for iOS, Android, and Unity (ironSource wraps the Ad Network’s SDK into an adapter which is identified by a unique version number assigned by ironSource)
-
-To successfully use ironSource and its mediation networks, you must ensure that the versions of all components are compatible with one another.
-
-For more information, see ironSource’s documentation:
-
-- [Check ironSource SDK & Adapter Compatibility (Unity)](https://developers.is.com/ironsource-mobile/unity/mediation-networks-unity/#step-2) :arrow_upper_right:
-- [ironSource SDK and adapter compatibility (Android)](https://developers.is.com/ironsource-mobile/android/mediation-networks-android/#step-3) :arrow_upper_right:
-- [ironSource SDK and adapter compatibility (iOS)](https://developers.is.com/ironsource-mobile/ios/mediation-networks-ios/#step-3) :arrow_upper_right:
-
-## User Identification in ironSource 
-
-To identify the players of your game, ensure that you set the UserID parameter in ironSource. The UserID is a unique identifier that will differentiate between your different players, and ironSource uses it to know which user to reward upon successful ad completion through server-to-server callbacks.
-
-For more information, see ironSource’s documentation:
-
-- [Additional SDK Settings for Unity](https://developers.is.com/ironsource-mobile/unity/additional-sdk-settings) :arrow_upper_right:
-- [Advanced Settings for Android](https://developers.is.com/ironsource-mobile/android/advanced-settings) :arrow_upper_right:
-- [Advanced Settings for iOS](https://developers.is.com/ironsource-mobile/ios/advanced-settings-2) :arrow_upper_right:
+bfgGameReporting.logCustomEvent(UnityVersionCustomKeyId, 
+  new Dictionary<string, string> { 
+    {UnityVersionCustomKeyId, Application.unityVersion}
+  });
+ 
