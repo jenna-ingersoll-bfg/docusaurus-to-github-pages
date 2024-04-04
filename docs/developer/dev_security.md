@@ -124,8 +124,8 @@ Here, you will find the available settings and inputs for messages that you can 
 
 > A list of rewards to be given at the moment the message CTA is performed by the player. By default, three items are available that, if left untouched, will not give a reward. More items can be added in the form of groups copying the format of the default ones.
 > 
-> **Item (Group)**: Can have any value, use for your own organization
-> **id (Text)**: the in-game ID/code for the piece or currency that will be rewarded
+> **Item (Group)**: Can have any value, use for your own organization<br />
+> **id (Text)**: the in-game ID/code for the piece or currency that will be rewarded<br />
 > **amount (Number)**: the amount of the item to be granted
 > 
 > **NOTE:** The following characters are not allowed: ‘.’ (periods) or ‘,’ (commas), decimal and negative numbers. If any of these characters are used, all rewards will be ignored.
@@ -140,14 +140,14 @@ Here, you will find the available settings and inputs for messages that you can 
 
 > An image to show next to the body of the message. You can use an in-game image (identified by an id) or upload an image file.
 > 
-> **File (File)**: the file to be used
+> **File (File)**: the file to be used<br />
 > **InGameAssetOrURL (Text)**: id of the inGame asset, or a URL to a valid image
 
 **SenderIcon**
 
 > An icon to show next to the header of the message. You can use an in-game image (identified by an id) or any file sent along with the message.
 > 
-> **File (File)**: the file to be used
+> **File (File)**: the file to be used<br />
 > **InGameAssetOrURL (Text)**: id of the inGame asset, or a URL to a valid image
 
 **ExpirationDate**
@@ -156,9 +156,9 @@ Here, you will find the available settings and inputs for messages that you can 
 > 
 > The recommended format is ISO 8601 to avoid date display discrepancies between different locales. Otherwise, en-US format will be used to interpret the date. The following dates are all valid and represent the same value, 27th of July, 2021 00:00hs at -7:00 UTC.
 > 
-> **ISO 8601**: 2021/07/27T00:00:00.0000000-07:00.
-> **American with timezone**: 07/27/2021 -7:00.
-> **American with timezone and time**: 07/27/2021 00:00 -7:00.
+> **ISO 8601**: 2021/07/27T00:00:00.0000000-07:00<br />
+> **American with timezone**: 07/27/2021 -7:00<br />
+> **American with timezone and time**: 07/27/2021 00:00 -7:00
 > 
 > **NOTE**: In Leanplum, other factors can set the expiration time for a message. In general, the messages are defaulted to no expiration time.
 
