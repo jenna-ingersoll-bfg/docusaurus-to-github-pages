@@ -46,16 +46,6 @@ To create a custom event, use the ``bfgGameReporting.logCustomEvent(name, additi
 
 <Tabs>
   <TabItem value="unity" label="Unity" default>
-    This is an apple 🍎
-  </TabItem>
-  <TabItem value="android" label="Native Android">
-    This is an orange 🍊
-  </TabItem>
-  <TabItem value="ios" label="Native iOS">
-    This is a banana 🍌
-  </TabItem>
-</Tabs>
-
 ```csharp
 {
     Dictionary<string, string> additionalDetails = new Dictionary<string, string> ();
@@ -63,17 +53,13 @@ To create a custom event, use the ``bfgGameReporting.logCustomEvent(name, additi
     bfgGameReporting.logCustomEvent("eventName", additionalDetails);
 }
 ```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+    Coming soon!
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+    Coming soon! 
+  </TabItem>
+</Tabs>
 
 The MTS code above is an example of setting up an MTS event and can be expanded to fit any events you want to track. The data structure can be anything relevant to the data you're gathering and does not necessarily need a dictionary. 
-
-Below is an example of how the MTS custom event is used in the Unity SDK:
-
-```csharp
-private const string UnityVersionCustomKeyId = "UnityVersion";
-
-bfgGameReporting.logCustomEvent(UnityVersionCustomKeyId, 
-  new Dictionary<string, string> { 
-    {UnityVersionCustomKeyId, Application.unityVersion}
-  });
-```
- 
