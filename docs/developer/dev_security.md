@@ -73,6 +73,7 @@ When testing messages, keep the following tips in mind:
 * Do not start or send the message. Once started, you cannot edit it anymore.
 * Choose to test with either **Send Preview** or triggered messages **Active for Test Users**.
 
+
 <details>
     <summary>Testing with Message Previews</summary>
 If you are constructing a message, you can choose to send a preview to your test devices.
@@ -83,7 +84,7 @@ Message previews will be sent to **all** users under the target audience. If you
 
 :::
 
-To send a preview, click on **Send Previe**w. Your device should already be registered as a test device and be listed under the target audience for the message if one is selected.
+To send a preview, click on **Send Preview**. Your device should already be registered as a test device and be listed under the target audience for the message if one is selected.
 </details>
 
 
@@ -147,7 +148,7 @@ Here, you will find the available settings and inputs for messages that you can 
 > An icon to show next to the header of the message. You can use an in-game image (identified by an id) or any file sent along with the message.
 > 
 > **File (File)**: the file to be used
-> **InGameAssetOrURL (Text)**: id of the inGame asset, or a URL to a valid image.
+> **InGameAssetOrURL (Text)**: id of the inGame asset, or a URL to a valid image
 
 **ExpirationDate**
 
@@ -155,9 +156,9 @@ Here, you will find the available settings and inputs for messages that you can 
 > 
 > The recommended format is ISO 8601 to avoid date display discrepancies between different locales. Otherwise, en-US format will be used to interpret the date. The following dates are all valid and represent the same value, 27th of July, 2021 00:00hs at -7:00 UTC.
 > 
-> **ISO 8601**: 2021/07/27T00:00:00.0000000-07:00
-> **American with timezone**: 07/27/2021 -7:00
-> **American with timezone and time**: 07/27/2021 00:00 -7:00
+> **ISO 8601**: 2021/07/27T00:00:00.0000000-07:00 
+> **American with timezone**: 07/27/2021 -7:00 
+> **American with timezone and time**: 07/27/2021 00:00 -7:00 
 > 
 > **NOTE**: In Leanplum, other factors can set the expiration time for a message. In general, the messages are defaulted to no expiration time.
 
