@@ -156,9 +156,9 @@ Here, you will find the available settings and inputs for messages that you can 
 > 
 > The recommended format is ISO 8601 to avoid date display discrepancies between different locales. Otherwise, en-US format will be used to interpret the date. The following dates are all valid and represent the same value, 27th of July, 2021 00:00hs at -7:00 UTC.
 > 
-> **ISO 8601**: 2021/07/27T00:00:00.0000000-07:00 
-> **American with timezone**: 07/27/2021 -7:00 
-> **American with timezone and time**: 07/27/2021 00:00 -7:00 
+> **ISO 8601**: 2021/07/27T00:00:00.0000000-07:00.
+> **American with timezone**: 07/27/2021 -7:00.
+> **American with timezone and time**: 07/27/2021 00:00 -7:00.
 > 
 > **NOTE**: In Leanplum, other factors can set the expiration time for a message. In general, the messages are defaulted to no expiration time.
 
