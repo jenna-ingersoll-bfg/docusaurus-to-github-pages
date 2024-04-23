@@ -2,7 +2,7 @@
 
 # Ad Attribution & Analytics
 
-:wrench: AppsFlyer, BFG SDK
+:small_blue_diamond: **Tools to use:** AppsFlyer, BFG SDK :small_blue_diamond:
 
 ## What is Ad Attribution?
 
