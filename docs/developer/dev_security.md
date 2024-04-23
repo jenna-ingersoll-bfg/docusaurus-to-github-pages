@@ -2,7 +2,7 @@
 
 # Ad Attribution & Analytics
 
-:wrench AppsFlyer, BFG SDK
+:wrench: AppsFlyer, BFG SDK
 
 ## What is Ad Attribution?
 
