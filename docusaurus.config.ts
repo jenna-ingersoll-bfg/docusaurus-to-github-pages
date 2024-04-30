@@ -24,6 +24,9 @@ const config: Config = {
     locales: ['en'],
   },
 
+  onBrokenLinks: 'catch',
+  onBrokenMarkdownLinks: 'catch',
+  
   presets: [
     [
       'classic',
