@@ -1,293 +1,257 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Ad Attribution & Analytics
+# Push Notifications
 
-:small_blue_diamond: **Tools to use:** AppsFlyer, BFG SDK :small_blue_diamond:
+:small_blue_diamond: **Tools to use:** Leanplum
 
-## What is Ad Attribution?
-
-**Attribution** is the act of determining what caused a user to install an app or to perform post-install acts like re-engagement and re-attribution. There are two types of attribution: 
-
-- **Non-Organic Attribution** occurs when a user interacted with an outside media source (such as clicking on an ad)
-- **Organic Attribution** occurs when the user installs (or re-installs) the game without any outside intervention
-
-Games published by Big Fish use **AppsFlyer** to track and attribute the install and post-install events for paid and non-paid marketing channels. AppsFlyer enables the Big Fish marketing and user acquisition teams to analyze the success of campaigns and optimize their spending for your game, and use the data to drive audience growth. 
-
-AppsFlyer is integrated directly into the BFG SDK. To work correctly, use this guide to ensure that the configuration settings are set up in the BFG SDK.
-
-## Enabling AppsFlyer
-
-Enable AppsFlyer in the BFG SDK config file, bfg_config.json:
-
-```json
-"appsflyer": {
-  "is_enabled": true
-}
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 ```
 
-:::info
+## What are Push Notifications? 
 
-Each game is assigned an "Application Store ID" (also known as “App ID” or “App Store ID”) to uniquely identify the app in the Apple App Store and/or Google Play Store. This ID is required for all BFG SDK services to work, including AppsFlyer. Ensure that the "app_id" is set in your BFG SDK config file before continuing.
+**Push notifications** are alerts or messages that pop up on a player's device, regardless of whether or not the user is actively playing your game. Depending on the device, push notifications can appear on the device's top notification bar and/or home screen. 
+
+:::warning
+
+All mobile devices allow users to turn off notifications, so some of your players will not receive your push notifications. We recommend using multiple messaging channels to ensure you reach all of your players, including [in-app messaging](./feature-inapp-messaging), an [app inbox](./feature-app-inbox.md), and/or [interstitials](./feature-interstitials.md).
 
 :::
 
-By default, the AppsFlyer configuration will default to using Big Fish's **dev key**, which authenticates events sent by the apps to AppsFlyer. This key is unique per account and is used by all apps in the account. If your game requires a game-specific dev key for its attribution tracking, you can set this in bfg_config.json:
+Games published by Big Fish use **Leanplum** to send messages from the server to a user's device. 
 
-```json
-"appsflyer": {
-  "is_enabled": true,
-  "devkey": your_game_dev_key_here
-}
-```
+## Setting up Push Notifications
+
+Sending push notifications with Leanplum requires additional setup. For detailed instructions, see [Set up push notifications](https://docs.leanplum.com/docs/set-up-push-notifications) ::upper-right-arrow:: in Leanplum's documentation. 
 
 ### Additional Steps for Android
 
 <details>
-  <summary>Updating your Gradle dependencies</summary>
+  <summary>Add the Firebase Cloud Messaging (FCM) Server Key</summary>
 
-In your app’s build.gradle file, add an entry for AppsFlyer:
+Leanplum uses the Firebase Cloud Messaging service to deliver push notifications on Android devices. Because of this, add the FCM Server key to Leanplum's App Settings:
 
-1. Locate the dependencies section of your app’s build.gradle file.
-2. Add the following new section to the dependencies. Note that the following example uses placeholders, and you need to replace the following ‘X.X.X’ with the appropriate version of AppsFlyer.
+1. Retrieve and copy your FCM Server Key. 
+  - In the Firebase console, click the gear icon next to **Overview**.
+  - Go to **Project Settings**.
+  - In your project's settings, go to the **Cloud Messaging** tab. In this section, you will find your **Server key**, which is your FCM Server Key.
+2. In the Leanplum Dashboard, go to your **App Settings**.
+3. Click on **Keys & Settings**.
+4. In the left pane, open the **Push Notifications** tab.
+5. Paste the FCM key from step 1 into the **Google API key** field.
+</details>
 
-```
-dependencies {
-     ...
-     implementation 'com.appsflyer:af-android-sdk:X.X.X'
-     implementation 'com.android.installreferrer:installreferrer:2.2'
-     ...
-}
-```
+<details>
+  <summary>Create Notification Channels</summary>
 
-:::note
+You must define at least one default notification channel before you can start sending push notifications to your players through Leanplum. Use the ``addAndroidNotificationChannel`` and ``deleteAndroidNotificationChannel`` methods of the Leanplum API to add the notification channel(s) you would like to be accessible in the Leanplum dashboard. 
 
-The 'com.android.installreferrer:installreferrer:2.2' dependency is required to support Google's Play Install Referrer API. Using this API improves attribution accuracy, protects from install fraud, and more.
+For more information, see Leanplum's documentation:
 
-Developers who are using ProGuard and want to use Google's [Play Install Referrer API](https://developer.android.com/google/play/installreferrer/overview) must also set the following ProGuard rule: ``-dontwarn com.android.installreferrer
-
-:::
+- [Android notification channels](https://docs.leanplum.com/docs/android-notification-channels) ::upper-right-arrow::
+- [addAndroidNotificationChannel Method](https://docs.leanplum.com/reference/post_api-action-addandroidnotificationchannel) ::upper-right-arrow::
+- [getAndroidNotificationChannel Method](https://docs.leanplum.com/reference/get_api-action-getandroidnotificationchannels) ::upper-right-arrow::
+- [deleteAndroidNotificationChannel Method](https://docs.leanplum.com/reference/post_api-action-deleteandroidnotificationchannel) ::upper-right-arrow::
 
 </details>
 
 <details>
-  <summary>Updating your manifest with CHANNEL entry (Amazon Only)</summary>
+  <summary>Customize the title and message</summary>
 
-:::warning
+By default, Android automatically uses your app's name as the title of push notifications. In addition, the contents of the message is empty. To modify the title and message of your push notification:
 
-The following section applies only to Amazon builds. **Do not include this entry for any Google builds.**
+1. In the Leanplum dashboard, open the **Advanced Options** for your push notification.
+2. Under **Data**, add a new field called "title". Enter the title of your notification.
+3. Add a field called "message". Enter the message contents of your notification.
+
+:::info
+
+The above steps will change the title for a _single_ push notification. To apply this to all push notifications, [implement a push customizer](https://docs.leanplum.com/docs/customize-push-notifications-for-android#2-implement-the-push-customizer) ::upper-right-arrow::.
 
 :::
 
-AppsFlyer requires a "CHANNEL" entry in your manifest file for out-of-store apps, like Amazon. Therefore, for Amazon builds only, perform this additional setup:
+For more information, see [Customize Android push notifications](https://docs.leanplum.com/docs/customize-push-notifications-for-android) ::upper-right-arrow:: in Leanplum's documentation.
 
-1. Locate and open your app’s main manifest file.
-2. In the application section of your main manifest file, add the following entry:
-
-```xml
-<meta-data android:name="CHANNEL" android:value="Amazon" />
-```
 </details>
 
 ### Additional Steps for iOS
 
 <details>
-  <summary>Supporting SKAdNetwork (SKAN)</summary>
+  <summary>Upload certificates</summary>
 
-SKAdNetwork (SKAN), part of Apple iOS, lets advertisers measure campaign performance while simultaneously preserving user privacy. AppsFlyer uses SKAN to reliably track install attribution and takes care of all implementation details. However, you need to add the SKAdNetworkIdentifiers for each ad provider to your .plist file. To do so:
+Leanplum uses the Apple Push Notification service (APNs) to deliver push notifications on iOS devices. To complete setup, you must upload your iOS certificates to Leanplum:
 
-1. Set up your game in AppsFlyer's dashboard. 
-2. Open your game's Info.plist file.
-3. Add an array called SKAdNetworkItems, which contains a dictionary for the allowed ad networks.
-4. For each ad provider, add a dictionary entry using the key SKAdNetworkIdentifier with its associated ID. We recommend you add all the ad providers to Info.plist, regardless of the ones currently used in your game. [Click here for a list of all available SKAdNetwork providers and their IDs](https://docs.google.com/spreadsheets/d/12eFcFLjx7ngXTcykHBmZWPLJzex11WkHud1f1ZaBhrk/edit?usp=sharing).
-
-:::tip 
-
-To generate a list of all SKAdNetworkIdentifiers in this spreadsheet, select the **BFG menu** in Google Sheets. From there, you can generate a JSON file or string array to use in your array.
-
-:::
-
-Here is an example of an abbreviated Info.plist file:
-
-```xml
-<key>SKAdNetworkItems</key>
-<array>
-    <dict>
-        <key>SKAdNetworkIdentifier</key>
-        <string>example100.skadnetwork</string>
-    </dict>
-    <dict>   
-        <key>SKAdNetworkIdentifier</key>
-        <string>example200.skadnetwork</string>
-    </dict>
-</array>
-```
-</details>
-
-<details>
-  <summary>Provisioning devices and setting up Associated Domains</summary>
-
-If you need to test AppsFlyer locally, your Big Fish Producer will provide a provisioning profile with Associated Domains enabled. Install this provisioning profile and ensure that it is selected for each of your build targets. After you submit your game, the Associated Domains will be updated by Big Fish.
-
-:::note
-
-Associated Domains must be configured properly for marketing links to work.
-
-:::
-
-Once Associated Domains are enabled in your provisioning profile, add your specific AppsFlyer domain value:
-
-1. In Xcode, select your project, select your target and navigate to the **Capabilities** tab. If you have multiple targets, repeat this step for each target.
-2. Scroll until you see **Associated Domains**. Make sure the toggle on the right is set to **On**.
-3. Press the "+" sign to add an Associated Domain. Add the app link supplied by your Big Fish Producer for your game. The domain should be prefixed with "applinks:"; for example, ``applinks:bfgsdk.onelink.me``.
-
-You can add associated domains automatically using an Entitlements file. Here's an example entitlements file containing a configured associated domain:
+1. Log in to your Apple Developer Portal provisioning profile.
+2. In the **Identifiers > App IDs** section, select your app.
+3. Click **Edit**, and enable **Push Notifications**.
+4. Click **Create Certificate** for each of the Development and Production certificates and follow the onscreen instructions. _Do not reuse existing certificates_
+5. Download the new certificate files.
+6. In the Leanplum Dashboard, go to your **App Settings**.
+7. Click on **Keys & Settings**.
+8. In the left pane, open the **Push Notifications** tab.
+9. Upload your .p12 certificates.
 
 </details>
 
 <details>
-  <summary>Removing Facebook SDK event warnings</summary>
+  <summary>Enable iOS project for push notifications (Unity only)</summary>
 
-The Facebook SDK, which is integrated into the BFG SDK, automatically reports certain events for its apps. To prevent duplication of these events, the BFG SDK programmatically disables the Facebook SDK automatic reporting. As a result, you may see warnings for ``FacebookAutoLogAppEventsEnabled`` and ``FacebookAdvertiserIDCollectionEnabled``. **These warnings can safely be ignored.**
-
-However, if you want to address them, set the following in your game's .plist after exporting to Xcode:
-
-```xml
-<key>FacebookAutoLogAppEventsEnabled</key>
-<string>FALSE</string>
-<key>FacebookAdvertiserIDCollectionEnabled</key>
-<string>FALSE</string>
-```
+You need to enable your iOS project for push notifications. Add the **Push Notifications Capability** to the exported iOS project from Unity, either manually from Xcode or through a post-processor build script from Unity.
 
 </details>
-
-## Setting up OneLink
-
-AppsFlyer uses OneLink to create links with attribution, redirection, and deep linking capabilities that convert owned or paid media users into app users. OneLinks can also be set up to auto-detect the platform and redirect the user to the correct app store, so only one link is needed for both iOS and Google.
-
-Work with your Big Fish Producer to set up a OneLink link in the AppsFlyer portal and define a vanity domain specific to your game. The universal OneLink link will then direct users via Android App Links, iOS Universal Links, and the defined URI scheme to the appropriate location based on the device that is used.
-
-Here is an example of a OneLink link set up in AppsFlyer:
-
-> https://bfgsdk.onelink.me/yryN/
-
-### Additional Steps for Android
 
 <details>
-  <summary>Updating intent filters</summary>
+  <summary>Register for remote notifications</summary>
 
-Your Big Fish Producer will send you a code snippet of an intent filter to put into manifest file of your app. To complete setup for OneLink on Android, copy the intent-filter into the relevant ``<activity>`` on your AndroidManifest.xml file. The snippet contains the following values:
+APNs must know the address of a user’s device before it can send notifications to that device. When you register your app with APNs, you will receive a globally unique device token, which is essentially the address of your app on the current device.
 
-* The ``host`` value, provided by your Big Fish Producer.
-* The four-character pathPrefix, an auto-generated value from the AppsFlyer portal that is unique to your game.
+<Tabs>
+  <TabItem value="unity" label="Unity iOS" default>
+Use the ``Leanplum.RegisterForIOSRemoteNotifications()`` method to register your device through the iOS framework. This method should be called after Leanplum starts (``Leanplum.start()``) and asks the user to allow remote notifications directly from Unity. 
 
-Here is an example of the code snippet for an intent filter:
-
-```xml
-<intent-filter android:autoVerify="true">
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="https"
-    android:host="bfgsdk.onelink.me"
-    android:pathPrefix="/yryN" />
-</intentfilter>
+```csharp
+// Registers the device through the iOS remote push framework
+Leanplum.RegisterForIOSRemoteNotifications();
 ```
+  </TabItem>
+  <TabItem value="native" label="Native iOS">
+Use ``UIApplication.registerForRemoteNotifications()`` to register your device and use push notification. This method must be used inside of your app delegate's ``applicationDidFinishLaunching`` method.
+
+For more information, see [Configure your app for push notifications](https://docs.leanplum.com/reference/ios-push-notifications#step-7) ::upper-right-arrow:: in Leanplum's documentation.
+  </TabItem>
+</Tabs>
+
+For more information, see:
+
+- [Registering your app with APNs](https://developer.apple.com/documentation/usernotifications/registering-your-app-with-apns) ::upper-right-arrow::
+- [Unity iOS push setup](https://docs.leanplum.com/reference/unity-push-notifications#unity-ios-push-setup) ::upper-right-arrow::
+- [iOS push notifications](https://docs.leanplum.com/reference/ios-push-notifications) ::upper-right-arrow::
 
 </details>
 
-## Testing Non-Organic Attribution Behavior
+<details>
+  <summary>Set up rich push notifications (optional)</summary>
 
-To perform testing for non-organic attribution, you must first set up your testing devices as follows.
+Before sending any push notifications with images or items apart from text, follow the instructions on [Configuring your app for rich push](https://docs.leanplum.com/reference/ios-push-notifications#ios-rich-push-setup) ::upper-right-arrow:: in Leanplum's documentation to complete setup. 
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>com.apple.developer.associated-domains</key>
-    <array>
-      <string>applinks:bfgsdk.onelink.me</string>
-    </array>
-  </dict>
-</plist>
-```
+</details>
 
-### Whitelist Your Device
+## Creating a Push Notification
 
-Manually add your device to the AppsFlyer dashboard to whitelist it using a device ID:
+Follow these steps to create a new push notification:
 
-1. Log into the [AppsFlyer dashboard](https://hq1.appsflyer.com/auth/login).
-2. Click your name in the upper right corner of the dashboard.
-3. Select the Test Devices option.
-4. Click on the Add Device button.
-5. Add one of the following device parameters, depending on your platform:
-    1. **iOS**: Always use IDFA. This can be retrieved from any MTS event.
-    2. **Android supporting advertising IDs**: Always use AID (Google) or Fire AID (Amazon). This can be retrieved from any MTS event.
-    3. **Android not supporting advertising IDs**: Always use the AndroidID (Google/Amazon). This must be a raw Android ID. This can be retrieved from either Tune or AppsFlyer events as android_id, but only on older devices.
-6. Save the new device entry.
+1. In the Leanplum dashboard, create a new **Campaign**.
+2. Select the **Campaign Type**.
+  - For **Single Message** campaigns, select **Push Notification** from the left menu, and name your campaign. Click **Create Campaign**.
+  - For **Multi-Message** campaigns, enter a name for your campaign, then click **Create Campaign**. Open the new campaign and select the **Actions** tab. Click **Add Action** then select **Push Notification**. Confirm your select by clicking the **Add Action** button.
 
-### Append Device IDs to the Referral URL 
+## Editing a Push Notification
 
-Once you have the AppsFlyer referral URL (aka, a ‘onelink’) that you will use for testing, append the device ID to the referral URL before install. The keys to use are:
+To edit any push notifications, go to the **Messages** section of the Leanplum dashboard and select the message you wish to edit. 
 
-| **Platform**                                            | **Key**                              | **Example**                                                                                      |
-|---------------------------------------------------------|--------------------------------------|--------------------------------------------------------------------------------------------------|
-| iOS                                                     | idfa=[advertising ID]                | https://bfgsdk.onelink.me/yryN/4f196e66?idfa=aeefc48f-10d1-4c9d-8c3a-ff2685a4c526                |
-| Android OS versions supporting advertising IDs (Google) | advertising_id=[advertising ID]      | https://bfgsdk.onelink.me/yryN/4f196e66?advertising_id=aeefc48f-10d1-4c9d-8c3a-ff2685a4c526      |
-| Android OS versions supporting advertising IDs (Amazon) | fire_advertising_id=[advertising ID] | https://bfgsdk.onelink.me/yryN/4f196e66?fire_advertising_id=aeefc48f-10d1-4c9d-8c3a-ff2685a4c526 |
-| Android OS versions not supporting advertising IDs      | android_id=[Android ID]              | https://bfgsdk.onelink.me/yryN/4f196e66?android_id=c205fe1bd074858b                              |
+### Message
 
-For more information, refer to [Attribution link structure and parameters](https://support.appsflyer.com/hc/en-us/articles/207447163-AppsFlyer-Tracking-Link-Structure-and-Parameters) in the AppsFlyer documentation.
+Use the **Message** field to define the content of your push notification.
 
-### Complete Testing 
+### Title and/or Subtitle
 
-You should now be set up for install attribution and/or deferred deep link testing with the following steps:
+The process to modify the title and/or subtitle of your message differs based on the platform you are using:
 
-1. Tap the AppsFlyer referral URL you set up above, prior to installing the app, via email.
-2. Wait at least 30 seconds before installing and launching the app.
+<Tabs>
+  <TabItem value="android" label="Android" default>
+
+1. In the Leanplum dashboard, open the **Advanced Options** for your push notification.
+2. Under **Data**, add a new field called "title". Enter the title of your notification.
+
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+
+1. In the Leanplum dashboard, edit your push notification.
+2. Under **iOS options**, locate the "Title" and/or "Subtitle" fields. 
+3. Enter the title(s) of your notification.
+  </TabItem>
+</Tabs>
+
+### Open Action
+
+An **open action** is a function that is performed immediately after a user opens your push notification. Be default, the open action will launch your game. You can change this to any of the following options:
+
+- **Open URL**: Opens the URL you enter.
+- **Deep Link**: Opens a specific location in your app. 
+- **Offer Wall**: Opens the Offer Wall in your app.
+- **Chain to New/Existing message**: Triggers the delivery of another Leanplum message.
+- **Request App Rating**: Requests the user to rate the app.
+
+## Gifting Items with Push Notifications 
+
+While push notifications typically include text and a call-to-action, you can also gift items using push notifications. 
 
 :::info
 
-AppsFlyer has fraud prevention that will block attribution and deferred deep link retrieval if the app is installed too quickly. If this is still not working, wait longer or wait for the click count on the AppsFlyer dashboard to increment due to your click before installing.
+To gift with Leanplum, your project will need to implement a custom action to support gifting. The process of creating a custom action won't be covered, but the steps below will guide you on how to attach the custom action to the built-in messaging capabilities of Leanplum.
 
 :::
 
-3. Install and launch the app. Both install attribution and deferred deep link retrieval should occur at this point. **Note:** There is a Test Device Limit of 250 devices in the AF dashboard.
+For creating your templates and custom actions, begin with these Leanplum guides:
 
-## Debugging AppsFlyer
+- [In-App Messaging](https://docs.leanplum.com/reference/in-app-messaging)
+- [Customizing In-App Messaging](https://docs.leanplum.com/reference/customizing-in-app-message-templates)
 
-When debugging is enabled and a debug version of your application is built, you can find debug output from AppsFlyer in NSLog/Logcat. However, AppsFlyer debugging is not enabled by default. To enable debugging for AppsFlyer:
+## Setting Up Gifts using Multi-Message Campaigns 
 
-1. Open your BFG SDK config file, bfg_config.json.
-2. Navigate to the internal_sdk_debugging section of the file.
-3. Add enable_appsflyer_debug_logging: true to the section:
+Follow the instructions below to create a Multi-Message Campaign with the necessary actions to gift:
 
-```
-...
-  "internal_sdk_debugging": {
-    "enable_appsflyer_debug_logging": true
-  },
-...
-```
+1. Navigate to your **Campaigns** and create a new **Multi-Message Campaign**.
+2. Select your **Audience**.
+3. Select the **Delivery Method**.
+4. Add the **Push Notification** action.
+5. Fill in the Push notification data as needed.
+6. Add another action using **Opened Action** or the **+** (plus) symbol.
+7. Add an **In-App Message** such as an Image Interstitial.
+8. Update the Sub-Delivery to be **Immediate** and **Deliver when Opened**.
+9. Add a new Button to the push notification. This is needed to interact with the gift.
+10. Add your custom action as an **Open Action** and fill in the details.
+11. Update the Sub-Delivery to **Immediate**.
 
-Once complete, build a debug version of your app.
+You will now have a Multi-Message Campaign that is configured to allow a gift to be claimed by the user.
 
-## Transitioning to AppsFlyer from another attribution vendor
+## Setting Up Gifts using Messages 
 
-Other attribution vendors report events manually through the Facebook SDK. However once you transition to AppsFlyer, you no longer need to report these events manually in your code base. Be sure to remove all instances of the following Facebook logging events:
+Follow the instructions below to set up a gift push notification message with your custom action:
 
-* FBSDKAppEvents.logPurchase
-* FBSDKAppEvents.logEvent
-* FBSDKAppEvents.logPushNotificationOpen
-* FBSDKAppEvents.activateApp
+1. Navigate to the **Messages** board within the **Campaign** dashboard.
+2. Click **Create Message**.
+3. Fill in the push notification data as needed.
+4. Add your custom action as an **Open Action** and fill in the details.
+5. Click **Finish** to complete the push notification message.
 
-:::warning
+A new push notification is now created with the associated gift.
 
-Failure to remove these methods when AppsFlyer is enabled will result in duplicate logs and impact proper ad spend optimizations.
+## Setting Up Gifts using Messages and Chaining 
 
-:::
+Follow the instructions below to set up a gift push notification message that contains chaining.
 
-## Additional Resources and Documentation
+1. Navigate to the **Messages** board within the **Campaign** dashboard.
+2. Click **Create Message**.
+3. Select **In-App**.
+4. Select **Image Interstitial** or your custom interstitial template.
+5. Configure the new interstitial with your custom action **Action** and fill in the details.
+6. Click **Finish**.
+7. Click **Create Message** to set up another message.
+8. Select **Push Notification** and fill in the details.
+9. Select **Chain to Existing Message** for its **Open Action** and select the message created in Step 2.
 
-* Deep Linking with AppsFlyer and the BFG SDK
-* [AppsFlyer Help Center](https://support.appsflyer.com/hc/en-us)
+You will now have a push notification with the gifting action that will chain to a follow-up push notification.
+
+## Testing Gifts using Push Notifications 
+
+### Manual Delivery of Push Notifications
+
+If you are doing a test and would like to use a **Manual Delivery** method, ensure that you set the **Attribution window** to 0. This allows you to send the same campaign again without waiting for the Attribution window to end.
+
+Campaigns can be sent using the ``startCampaign`` REST API. For more information on how to do this, follow the [Leanplum Manual Delivery](https://docs.leanplum.com/docs/manual-delivery) guide.
+
+### Testing a Campaign and Making Changes 
+
+The behavior of getting a campaign to fire is inconsistent. Forcing a restart helps with this issue, and we recommend that you always force a restart after editing a campaign.
