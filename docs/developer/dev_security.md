@@ -58,7 +58,7 @@ Replace ``X.X.X`` with the appropriate version of the Facebook SDK integrated in
 
 :::info
 
-If you are using **Unity**, we recommend you use the **BFG Build Processor** to update the plist file automatically. _Unity games can safely skip this step_ unless you prefer to manually configure your project without the BFG Build Processor.
+If you are using **Unity**, we recommend that you use the **BFG Build Processor** to update the plist file automatically. _Unity games can safely skip this step_ unless you prefer to manually configure your project without the BFG Build Processor.
 
 This step is required for all games using the **Native iOS** SDK without Unity.
 
@@ -93,8 +93,10 @@ Add the following values to your game's plist file:
 ```xml
 <key>FacebookDisplayName</key>
 <string>{PRODUCT_NAME}</string>
-</details>
 ```
+
+</details>
+
 
 ## Logging in with a 3rd Party Provider 
 
