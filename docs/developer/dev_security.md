@@ -4,6 +4,11 @@
 
 :small_blue_diamond: **Tools to use:** Rave Social, BFG SDK
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## What is Identity Management? 
 
 **Identity management** is the process by which an app identifies the user. In casual games, this refers to the identity of the player who is playing a game, allowing Big Fish to track player activities, such as when someone launches the game, levels up or purchases an item. When a player logs into the game using an **authentication method**, they can engage in a secure and continuous gameplay experience across multiple devices. 
@@ -98,8 +103,62 @@ Add the following values to your game's plist file:
 
 </details>
 
+## Configuring the Login UI
+
+Both the BFG SDK and the Rave SDK provides scene packs that contain all of the UI necessary to enable authentication within a game.  The available scenes are:
+
+- Login
+- Account Info
+- Create Account
+
+### Using the BFG SDK scene packs
+
+The following code demonstrates how to use the BFG SDK to display the Rave login scene:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+```csharp
+public void raveSignin(View v) {
+  Rave.sharedInstance().presentSignIn(this);
+}
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+```java
+// Origin of reporting for Authentication Flow (normally the app name)
+private static final String SAMPLE_ORIGIN = "bfgSampleApp";
+
+public static void toggleRaveLogin() {
+  bfgRave.sharedInstance().presentSignIn(getParentViewController(), SAMPLE_ORIGIN);
+}
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+```c
+- (IBAction)presentSignIn:(id)sender
+{
+    [bfgRave presentSignInWithOrigin:NSStringFromClass(self.class)];
+} 
+```
+  </TabItem>
+</Tabs>
+
+
 
 ## Logging in with a 3rd Party Provider 
+
+The first time a Big Fish game is launched on a device, an anonymous Rave ID is generated. This Rave ID is shared between all Big Fish games on the device. Once an anonymous player logs in via a 3rd party authentication provider, Rave automatically attaaches the anonymous Rave ID to the authenticated account. 
+
+Big Fish currently supports the following 3rd party authentication methods:
+
+- Big Fish ID
+- Facebook
+- Google
+- Sign In With Apple (SIWA)
+
+The Rave ID will remain the same no matter which authentication method is used. If a player logs in using a different authentication method, then the Rave ID will be attached to both authentication methods. 
+
+To determine whether the current user is logged in (or "authenticated"), call ``bfgRave.isCurrentAuthenticated`` in the BFG SDK. If this method returns ``NO`` or ``FALSE``, your user is a guest and has not logged into the game with a 3rd party authentication provider.
 
 ### Facebook
 
@@ -115,15 +174,35 @@ For Unity games, you may need to import the Facebook Unity package if there is a
 
 ### SIWA
 
+## Tracking Player Save States
+
+The Rave ID must be used by all games to track each player's save state. In some cases, there will be conflicts between the data associated with an anonymous ID and the data associated with an authenticated login, such as Facebook, Google or SIWA. These conflicts typically occur when a user logs in after playing a game on a different device, or when cross-app login is disabled. 
+
+If there is a conflict, the game must give the player an option to choose which save state they'd like to maintain. To do so, your game must display a conflict dialogue that provides the player with ample information on what each save contains. From there, the player will choose, and the game will restore the selected save point.
+
+The BFG SDK provides a number of methods in the ``bfgRave`` class to track Rave IDs for player activity.  For more information, see:
+
+- BFGSDK.bfgRave Class Reference (Unity)
+- bfgRave Class Reference (Native Android)
+- bfgRave Class Reference (Native iOS)
+
 ## Merging Identities
 
-Rave provides a unique identifier for every user. A user will always have one ID. That ID must be used to refer to the user both in the game code, as well as in the data collected from and about the user.
+Rave creates a new Rave ID for each anonymous (or "guest") player session. Once an anonymous player logs in via a 3rd party provider (such as Facebook, Google or SIWA), the Rave ID is merged into the authenticated account. The player's Rave ID is used to refer to the user both in the game code, as well as in the data collected from and about the user.
 
-Rave IDs can handle merged identities, where anonymous accounts are merged due to:
+There will be times when a user with an anonymous Rave ID logs in to an account that already has a Rave ID associated with it. Such cases include:
 
-- A user signing in on a new device
-- A game that does not have cross-app login enabled
-- The user signs out and back in on the same device
+- A player signs in to a game on a new device (at game launch, each device will give the player a new Rave ID before they log in)
+- A player opens two different games on their device, and the games do not have cross-app login enabled. Each game will assign the player a new Rave ID.
+- A player signs out of a game and logs back in on the same device. Each log in will assign the player a new Rave ID. 
+
+In these cases, once a player logs in to the game, Rave will add the current anonymous Rave ID to a list of **merged IDs**. A single player's account will include a list of all anonymous Rave IDs that have been merged with it. To obtain a list of all merged IDs associated with a player's account, use the ``RaveUsersManager.fetchIdentities`` method of the Rave API.
+
+:::info
+
+Once a Rave ID has been merged with a player's account, the Rave ID can no longer be used as an account by itself. Any attempt to treat a merged ID as an account or request data about a merged ID will result in an error.
+
+:::
 
 ## Handling Cross-App Login
 
@@ -159,3 +238,11 @@ In the above scenario, you may have multiple Rave IDs registered on the same dev
 Rave ID changes can also occur due to a player logging in with an authentication method already associated with another ID. This case must be handled the same way as cross app login. Both the anonymous and authenticated IDs must be checked for data, and a conflict window must be displayed if necessary.
 
 The final time an ID change occurs is when a player logs out of an authenticated account, the listener will report a log out. In this case, the player must be taken to the start of the game with no data associated with the new ID.
+
+## Getting COPPA Compliance Status
+
+If you are in the US region, you can get the status of the Children’s Online Privacy Protection Rule (COPPA) compliance through the Rave SDK. To do so, either:
+
+1. Listen for the ``BFG_RAVE_SIGN_IN_COPPA_TRUE`` and ``BFG_RAVE_SIGN_IN_COPPA_FALSE`` notifications. This Rave authentication notification is sent whenever a login event occurs; and/or
+2. Implement the delegate call for ``bfgRaveSignInCOPPAResult`` in the BFG SDK. If ``passedCOPPA`` is ``NO``, then the user is under 13.
+
