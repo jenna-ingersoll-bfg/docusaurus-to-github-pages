@@ -72,14 +72,18 @@ This step is required for all games using the **Native iOS** SDK without Unity.
 
 Add the following values to your game's plist file:
 
-- The **FacebookAppID** is required for Facebook authentication. You can get the ``FacebookAppID`` from your Big Fish producer. 
+**FacebookAppID**
+> A unique key given to every app created for Facebook. This value is required when using Facebook authentication. You can get the ``FacebookAppID`` from your Big Fish producer. 
 
 ```xml
 <key>FacebookAppID</key>
 <string>{facebook_app_id}</string>
 ```
 
-- The Facebook URL scheme **CFBundleURLTypes** requires two strings: ``CFBundleURLSchemes`` and the ``PRODUCT_BUNDLE_IDENTIFIER``. CFBundleURLSchemes is based on your FacebookAppID value, preceded by the letters "fb". For example, if your FacebookAppID is 1234, then fb1234 would be your Facebook URL scheme. You can get the ``PRODUCT_BUNDLE_IDENTIFIER`` from your Big Fish producer. 
+**CFBundleURLTypes**
+> A list of URL schemes supportd by the app. You will need to add at least two values: the Facebook URL scheme and the Bundle ID. 
+> The **Facebook URL scheme** is based on your FacebookAppID value, preceded by the letters "fb". For example, if your FacebookAppID is "1234", then your Facebook URL scheme is "fb1234". 
+> The **Bundle ID** is a unique key created for your game. You can get the Bundle ID from your Big Fish producer.
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -94,7 +98,8 @@ Add the following values to your game's plist file:
 </array>
 ```
 
-- The **FacebookDisplayName** is a textual identifier required by Facebook.
+**FacebookDisplayName**
+> The user facing name of your app on Facebook. This value is required when using Facebook authentication.
 
 ```xml
 <key>FacebookDisplayName</key>
