@@ -143,6 +143,88 @@ public static void toggleRaveLogin() {
   </TabItem>
 </Tabs>
 
+### Using the Rave SDK scene packs
+
+The following code demonstrates how to use the Rave SDK to display the login scene:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+```csharp
+RaveLoginScene loginScene = new RaveLoginScene(activity);
+loginScene.setXmlResourceFileName("LoginScene.xml");
+loginScene.setListener(new BigFishSignUpListener() {
+  @Override
+  public void onSceneComplete(RaveCallbackResult result, BigFishSignUpData signUpData, RaveException exception) {
+    // Handle the RaveCallbackResult
+    switch (result) {
+      case RESULT_CANCELED:
+        ...
+      break;
+      case RESULT_ERROR:
+        ...
+      break;
+      case RESULT_SUCCESSFUL:
+        ...
+      break;  
+    }
+  }
+});
+try {
+  loginScene.show();
+} 
+catch (Exception e) {
+  // Handle any exception that are thrown when attempting to show the loginScene
+  ...
+}
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+```java
+Coming soon!
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+```c
+Coming soon!
+```
+  </TabItem>
+</Tabs>
+
+### Customizing Scene Packs
+
+In the event the default scene pack does not fit your needs, you can customize it. Select your platform below to learn how.
+
+:::info 
+
+The default scene pack packaged with the BFG SDK is configured with everything you need to create your game, and rarely requires any modifications. Do not customize the scene packs without approval from your Big Fish producer.
+
+:::
+
+<details>
+  <summary>Android</summary>
+
+1. Navigate to the bfgLib-release.aar file.
+2. Unzip bfgLib-release.aar. 
+  - On Windows, simply change the extension to .zip and unzip the file normally. 
+  - On Mac, use an unarchiver to unzip the file.
+3. After unzipping the aar file, locate all the xml files in the new bfgLib-release/assets/resources/default directory. You can either replace the entire default folder or navigate inside it to replace an individual xml file.
+4. After replacing any files, run the following command to recreate the aar file with the modified bfgLib-release directory:
+
+```
+jar cvf bfgLib-release.aar -C bfgLib-release/
+```
+
+</details>
+
+<details>
+  <summary>iOS</summary>
+
+1. In Xcode, navigate to the BigFishScenePack.bundle file.
+2. Right-click on BigFishScenePack.bundle and show its contents.
+3. Navigate to the image or fonts folder located in /assets/resources/default
+4. Replace any image or font files you want to customize.
+
+</details>
 
 
 ## Logging in with a 3rd Party Provider 
