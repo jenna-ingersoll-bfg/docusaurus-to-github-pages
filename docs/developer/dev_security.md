@@ -225,13 +225,13 @@ Coming soon!
 
 ### Customizing Scene Packs
 
-In the event the default scene pack does not fit your needs, you can customize it. Select your platform below to learn how.
-
 :::info 
 
 The default scene pack packaged with the BFG SDK is configured with everything you need to create your game, and rarely requires any modifications. Do not customize the scene packs without approval from your Big Fish producer.
 
 :::
+
+In the event the default scene pack does not fit your needs, you can customize it. Select your platform below to learn how:
 
 <details>
   <summary>Android</summary>
@@ -275,7 +275,7 @@ The Rave ID will remain the same no matter which authentication method is used. 
 
 To determine whether the current user is logged in (or "authenticated"), call ``bfgRave.isCurrentAuthenticated`` in the BFG SDK. If this method returns ``NO`` or ``FALSE``, your user is a guest and has not logged into the game with a 3rd party authentication provider.
 
-### Additional information about Facebook logins
+### Sign in with Facebook 
 
 :::info
 
@@ -285,7 +285,7 @@ For Unity games, you may need to import the Facebook Unity package if there is a
 
 :::
 
-### Additional information about SIWA (iOS)
+### Sign in with Apple (SIWA) - iOS Only
 
 :::tip[Pre-Requisite]
 
@@ -295,7 +295,7 @@ You must use Xcode 11 or higher to enable SIWA in your game.
 
 When developing games for iOS, you can choose to enable **Sign in with Apple (SIWA)**, which allows your players to authenticate using an Apple ID. SIWA support is integrated directly into the Rave SDK, and you can enable it using the Rave SDK or BFG SDK. 
 
-In order to test SIWA, your game will need to include the SIWA entitlement. Big Fish will add the SIWA entitlement into your game during our [build and release](./build-release) process. 
+In order to test SIWA, your game will need to include the SIWA entitlement. Big Fish will automatically add the SIWA entitlement into your game during our [build and release](./build-release) process. 
 
 :::warning
 
@@ -303,7 +303,7 @@ Before submitting a build to Big Fish, make sure that any entitlements that you 
 
 :::
 
-However if you wish to use SIWA in a build outside of a Big Fish environment (such as a local or test build), you will need to add the SIWA entitlement file manually. To do so: 
+If you wish to use SIWA in a build outside of a Big Fish environment (such as a local or test build), you will need to add the SIWA entitlement file manually. To do so: 
 
 1. Verify that ``AuthenticationServices.framework`` and ``Photos.framework`` are included in your game. If you use the BFG Build Processor in Unity, then these frameworks are automatically added for you.
 2. In Xcode, select your project, then select your target. 
