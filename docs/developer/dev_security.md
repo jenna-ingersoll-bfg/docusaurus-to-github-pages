@@ -72,17 +72,11 @@ This step is required for all games using the **Native iOS** SDK without Unity.
 
 Add the following values to your game's plist file:
 
-**FacebookAppID**
-> A unique key given to every app created for Facebook. This value is required when using Facebook authentication. You can get the ``FacebookAppID`` from your Big Fish producer. 
-
-```xml
-<key>FacebookAppID</key>
-<string>{facebook_app_id}</string>
-```
-
 **CFBundleURLTypes**
 > A list of URL schemes supportd by the app. You will need to add at least two values: the Facebook URL scheme and the Bundle ID. 
+>
 > The **Facebook URL scheme** is based on your FacebookAppID value, preceded by the letters "fb". For example, if your FacebookAppID is "1234", then your Facebook URL scheme is "fb1234". 
+>
 > The **Bundle ID** is a unique key created for your game. You can get the Bundle ID from your Big Fish producer.
 
 ```xml
@@ -98,12 +92,43 @@ Add the following values to your game's plist file:
 </array>
 ```
 
+**FacebookAppID**
+> A unique key given to every app created for Facebook. This value is required when using Facebook authentication. You can get the ``FacebookAppID`` from your Big Fish producer. 
+
+```xml
+<key>FacebookAppID</key>
+<string>{facebook_app_id}</string>
+```
+
 **FacebookDisplayName**
 > The user facing name of your app on Facebook. This value is required when using Facebook authentication.
 
 ```xml
 <key>FacebookDisplayName</key>
 <string>{PRODUCT_NAME}</string>
+```
+
+**LSApplicationQueriesSchemes**
+> The URL schemes the app is able to launch from within your game. Each app is limited to 50 distinct query schemes and Facebook requires 4 of these schemes to function properly. 
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>fbapi</string>
+  <string>fb-messenger-api</string>
+  <string>fbauth2</string>
+  <string>fbshareextension</string>
+</array>
+```
+
+**FacebookAutoLogAppEventsEnabled** and **FacebookAdvertiserIDCollectionEnabled** (Optional)
+> A boolean value to turn on or off Facebook reporting. By default, the BFG SDK programmatically disables the automatic reporting done by the Facebook SDK, in lieu of Big Fish's reporting services. Because of this, you may see warnings in your logs that Facebook reporting is disabled. _These warnings can safely be ignored._ However, if you want to clean up your log and remove these warnings, you can set these values to ``FALSE``.
+
+```xml
+<key>FacebookAutoLogAppEventsEnabled</key>
+<string>FALSE</string>
+<key>FacebookAdvertiserIDCollectionEnabled</key>
+<string>FALSE</string>
 ```
 
 </details>
@@ -154,6 +179,7 @@ The following code demonstrates how to use the Rave SDK to display the login sce
 
 <Tabs>
   <TabItem value="unity" label="Unity" default>
+
 ```csharp
 RaveLoginScene loginScene = new RaveLoginScene(activity);
 loginScene.setXmlResourceFileName("LoginScene.xml");
@@ -184,11 +210,13 @@ catch (Exception e) {
 ```
   </TabItem>
   <TabItem value="android" label="Native Android">
+
 ```java
 Coming soon!
 ```
   </TabItem>
   <TabItem value="ios" label="Native iOS">
+
 ```c
 Coming soon!
 ```
@@ -238,16 +266,16 @@ The first time a Big Fish game is launched on a device, an anonymous Rave ID is 
 
 Big Fish currently supports the following 3rd party authentication methods:
 
-- Big Fish ID
-- Facebook
-- Google
-- Sign In With Apple (SIWA)
+- **SUSI**: Sign in with your Big Fish account
+- **Facebook**: Log in with your Facebook account
+- **Google**: Log in with your Google account
+- **Sign In With Apple (SIWA)**: Log in with your Apple ID (iOS only)
 
 The Rave ID will remain the same no matter which authentication method is used. If a player logs in using a different authentication method, then the Rave ID will be attached to both authentication methods. 
 
 To determine whether the current user is logged in (or "authenticated"), call ``bfgRave.isCurrentAuthenticated`` in the BFG SDK. If this method returns ``NO`` or ``FALSE``, your user is a guest and has not logged into the game with a 3rd party authentication provider.
 
-### Facebook
+### Additional information about Facebook logins
 
 :::info
 
@@ -257,9 +285,55 @@ For Unity games, you may need to import the Facebook Unity package if there is a
 
 :::
 
-### Google
+### Additional information about SIWA (iOS)
 
-### SIWA
+:::tip[Pre-Requisite]
+
+You must use Xcode 11 or higher to enable SIWA in your game.
+
+:::
+
+When developing games for iOS, you can choose to enable **Sign in with Apple (SIWA)**, which allows your players to authenticate using an Apple ID. SIWA support is integrated directly into the Rave SDK, and you can enable it using the Rave SDK or BFG SDK. 
+
+In order to test SIWA, your game will need to include the SIWA entitlement. Big Fish will add the SIWA entitlement into your game during our [build and release](./build-release) process. 
+
+:::warning
+
+Before submitting a build to Big Fish, make sure that any entitlements that you add manually, including the SIWA entitlement, are removed. 
+
+:::
+
+However if you wish to use SIWA in a build outside of a Big Fish environment (such as a local or test build), you will need to add the SIWA entitlement file manually. To do so: 
+
+1. Verify that ``AuthenticationServices.framework`` and ``Photos.framework`` are included in your game. If you use the BFG Build Processor in Unity, then these frameworks are automatically added for you.
+2. In Xcode, select your project, then select your target. 
+3. Navigate to the **Signing & Capabilities** tab.
+4. Click on the **+ Capability** button in the upper left corner.
+5. Either enter "Sign in With Apple" into the search bar, or scroll down until you find **Sign In With Apple**. Double-click on **Sign in With Apple**.
+
+If you have multiple targets, repeat these steps for each one.
+
+The following code sample shows an example entitlements file that enables SIWA:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>com.apple.developer.applesignin</key>
+  <array>
+    <string>Default</string>
+  </array>
+</dict>
+</plist>
+```
+
+:::info
+
+For Unity games, you can automate the configuration of SIWA (and other entitlements) by configuring the **BFG Build Settings** to use an Entitlements file. 
+
+:::
+
 
 ## Tracking Player Save States
 
