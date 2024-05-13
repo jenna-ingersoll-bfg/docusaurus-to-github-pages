@@ -22,7 +22,8 @@
   --ifm-navbar-link-hover-color: #24dfff;
   --ifm-container-width: 100%;
   --ifm-container-width-xl: 100%;
-	
+
+  --ifm-code-font-size: 80%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -80,6 +81,10 @@
 
 .container {
   margin: 0;
+}
+
+details {
+  background-color: #FFFFFF;
 }
 
 section .col {
