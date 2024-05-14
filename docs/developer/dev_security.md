@@ -147,7 +147,7 @@ The following code demonstrates how to use the BFG SDK to display the Rave login
 
 <Tabs>
   <TabItem value="unity" label="Unity" default>
-```
+```csharp
 public void raveSignin(View v) {
   Rave.sharedInstance().presentSignIn(this);
 }
@@ -180,7 +180,7 @@ The following code demonstrates how to use the Rave SDK to display the login sce
 <Tabs>
   <TabItem value="unity" label="Unity" default>
 
-```
+```csharp
 RaveLoginScene loginScene = new RaveLoginScene(activity);
 loginScene.setXmlResourceFileName("LoginScene.xml");
 loginScene.setListener(new BigFishSignUpListener() {
@@ -390,7 +390,7 @@ The BFG SDK includes the ability to receive and track events that occur in Rave.
 
 To listen for Rave notifications, you first need to register to observe any of the Rave notifications defined in ``bfgCommon.cs``: 
 
-```
+```csharp
 private void Start()
 {
     NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_READY);
@@ -418,7 +418,7 @@ public void rave_callback(string notification)
 
 If you need unique callbacks per notification type, you can define them as follows:
 
-```
+```csharp
 private void Start()
 {
   NotificationCenter.Instance.AddObserver(RaveUserDidLogin, bfgCommon.BFG_RAVE_USER_DID_LOGIN);
@@ -438,7 +438,7 @@ private void RaveUserDidLogin(string notification)
 1. Open the imported file, com.bfg.sdk/Runtime/Plugins/iOS/BFGUnityAppController.mm
 2. In BFGUnityAppController.mm, add the following code to the ``didFinishLaunchingWithOptions`` method before initializing the BFG SDK:
 
-```
+```csharp
 extern "C"
 {
   void BfgRaveDelegateWrapper__setRaveDelegate();
