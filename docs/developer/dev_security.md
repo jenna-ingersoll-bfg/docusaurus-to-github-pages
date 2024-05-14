@@ -121,6 +121,14 @@ Add the following values to your game's plist file:
 </array>
 ```
 
+**FacebookSKAdNetworkReportEnabled**
+> A boolean value to turn on or off Facebook's SKAdNetwork reporting. Games published by Big Fish use AppsFlyer, which requires that Facebook's SKAdNetwork reporting is turned off. You must disable this setting in your plist.
+
+```xml
+<key>FacebookSKAdNetworkReportEnabled</key>
+<false/>
+```
+
 **FacebookAutoLogAppEventsEnabled** and **FacebookAdvertiserIDCollectionEnabled** (Optional)
 > A boolean value to turn on or off Facebook reporting. By default, the BFG SDK programmatically disables the automatic reporting done by the Facebook SDK, in lieu of Big Fish's reporting services. Because of this, you may see warnings in your logs that Facebook reporting is disabled. _These warnings can safely be ignored._ However, if you want to clean up your log and remove these warnings, you can set these values to ``FALSE``.
 
@@ -132,6 +140,61 @@ Add the following values to your game's plist file:
 ```
 
 </details>
+
+## Configuring Rave Settings
+
+Several configuration settings can be assigned in the BFG SDK config file, bfg_config.json. To add or modify these settings, add them to the Rave section:
+
+```json
+"rave" : {
+  "RaveSettings.General.ApplicationID" : "<your Rave application ID>",
+  "RaveSettings.General.ServerURL" : "https://client.rave-api.com",
+  "RaveSettings.General.AutoCrossAppLogin": 1
+}
+```
+
+The most commonly used configuration settings are:
+
+**RaveSettings.General.ApplicationID**
+> The Rave application ID, provided by your Big Fish producer
+
+**RaveSettings.General.ServerURL**
+> The Rave Server URL, start with https://. The ``ServerURL`` is is set by default and should not be changed.
+
+**RaveSettings.General.LogLevel**
+> Allows the developer to control the amount of debug information output. This can be set to "error", "verbose", and "debug" for increasing levels of information.
+
+**RaveSettings.General.AutoCrossAppLogin**
+> Enables your app to log in to games based on other game logins on the device. This should always be set to ``true`` or ``1`` unless otherwise directed by your Big Fish producer.
+
+**RaveSettings.General.ContactsUpdateInterval**
+> Controls how often the friends cache is updated. The time is set in seconds.
+
+For a full list of available settings, see [Available Settings (Android)](https://bf-docs.ravesocial.co/android.html?#available-settings) ::upper-right-arrow or [Available Settings (iOS)](https://bf-docs.ravesocial.co/ios.html#available-settings) ::upper-right-arrow in Rave's documentation.
+
+### Overriding Rave's Default Settings
+
+The BFG SDK automatically overrides Rave's configuration settings with default settings that are most commonly used for our games. 
+
+:::warning
+
+The following code sample details the overrides performed by the BFG SDK. Do not change these settings without first discussing the proposed changes with your Big Fish producer. 
+
+:::
+
+```json
+"rave" : {
+  "RaveSettings.General.ServerURL" : "https://client.rave-api.com",
+  "RaveSettings.General.ConfigUpdateInterval" : "3600",
+  "RaveSettings.General.ContactsUpdateInterval" : "21600",
+  "RaveSettings.General.AllowForceDisconnect" : "false",
+  "RaveSettings.General.AutoCrossAppLogin" : 1,
+  "RaveSettings.General.ThirdPartySource" : "bigfishgames",
+  "RaveSettings.General.AutoInstallConfigUpdates" : "true",
+  "RaveSettings.General.LogLevel" : "Error",
+  "RaveSettings.IOS.ApplicationGroupIdentifier" : "group.com.bigfishgames"
+}
+```
 
 ## Configuring the Login UI
 
@@ -260,6 +323,8 @@ jar cvf bfgLib-release.aar -C bfgLib-release/
 </details>
 
 
+
+
 ## Logging in with a 3rd Party Provider 
 
 The first time a Big Fish game is launched on a device, an anonymous Rave ID is generated. This Rave ID is shared between all Big Fish games on the device. Once an anonymous player logs in via a 3rd party authentication provider, Rave automatically attaaches the anonymous Rave ID to the authenticated account. 
@@ -284,6 +349,51 @@ The Facebook SDK is automatically included as part of the BFG SDK. If you requir
 For Unity games, you may need to import the Facebook Unity package if there is a feature that is not provided by the BFG SDK. In this case, avoid importing any framework files, as these will conflict with the SDK included in the BFG SDK. Instead, select only the wrapper files (not the frameworks) containing the features you need.
 
 :::
+
+When developing games, you can choose to enable **Facebook Login**, which allows your players to authenticate using their Facebook username and password. Using Facebook authentication in your game requires additional setup: 
+
+<details>
+  <summary>Add Facebook permissions to your configuration</summary>
+
+Add the necessary Facebook permissions to your Rave configuration in the BFG SDK config file, bfg_config.json. For games that use Facebook social features (such as friends), use the following permissions: 
+
+```json
+"rave": {
+  "RaveSettings.Facebook.ReadPermissions" : "public_profile,email,user_friends"
+```
+
+Games that **do not** use Facebook social features should use the minimum required permissions, as follows:
+
+```json
+"rave": {
+  "RaveSettings.Facebook.ReadPermissions" : "public_profile,email"
+```
+</details>
+
+<details>
+  <summary>Set Limited Login (iOS only)</summary>
+
+Due to Apple's tracking and privacy regulations, Facebook allows two different types of logins for players on iOS devices:
+
+- A **Classic Login** allows your app the ability to access (with Facebook approval and user consent) certain Facebook data about a player. This data often improves the player's experience in your app and lets them use advanced features, such as engaging with friends or creating a gaming profile. Classic Login mode utilizes an oAuth 2.0 Access Token which supports Graph API queries.
+- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name, profile pic, and (optionally) friend lists or email address. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
+
+If a player opts out of App Tracking Transparency (ATT), your game **must** log them in using Limited Login. Limited login mode is defined in the BFG SDK config file, bfg_config.json, as follows:
+
+```json
+"rave": {
+  "RaveSettings.Facebook.LimitedLoginTracking" : true
+```
+
+:::info
+
+As a best practice, we recommend that you use **Classic Login** mode when you have enabled social features in your game. For all other games that do not use social features, we recommend using **Limited Login** mode.
+
+:::
+
+To identify or change the login mode any time after your game is initialized, use the ``bfgRave enableFBClassicLoginMode`` method.
+
+</details>
 
 ### Sign in with Apple (SIWA) - iOS Only
 
@@ -333,7 +443,6 @@ The following code sample shows an example entitlements file that enables SIWA:
 For Unity games, you can automate the configuration of SIWA (and other entitlements) by configuring the **BFG Build Settings** to use an Entitlements file. 
 
 :::
-
 
 ## Tracking Player Save States
 
