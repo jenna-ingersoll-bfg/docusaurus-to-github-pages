@@ -44,7 +44,7 @@ You must enable Rave in the BFG SDK using ``ApplicationID``. Without this settin
 
 Rave includes support for Facebook, and requires the Facebook SDK to run correctly. While the Facebook SDK is integrated into the BFG SDK, you must add the Facebook SDK to your app's Gradle file.
 
-:::note
+:::info
 
 Replace ``X.X.X`` with the appropriate version of the Facebook SDK integrated into your version of the BFG SDK. See **3rd Party Version Updates** for more information.
 
@@ -62,7 +62,7 @@ implementation ('com.facebook.android:facebook-android-sdk:X.X.X')
 <details>
   <summary>Update plist with Facebook values </summary>
 
-:::note
+:::info
 
 If you are using **Unity**, we recommend that you use the **BFG Build Processor** to update the plist file automatically. _Unity games can safely skip this step_ unless you prefer to manually configure your project without the BFG Build Processor.
 
@@ -380,6 +380,181 @@ You can optionally disable cross-app login in the Rave section of the BFG SDK co
 ```
 
 :::
+
+## Receiving Rave Notifications
+
+The BFG SDK includes the ability to receive and track events that occur in Rave. The process to set up notifications depends on which BFG SDK you are using. Select your SDK below for more information:
+
+<details>
+  <summary>Unity SDK </summary>
+
+To listen for Rave notifications, you first need to register to observe any of the Rave notifications defined in ``bfgCommon.cs``: 
+
+```csharp
+private void Start()
+{
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_READY);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_PROFILE_FAILED_WITH_ERROR);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_PROFILE_SUCCEEDED);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_PROFILE_CANCELLED);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_SIGN_IN_COPPA_TRUE);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_SIGN_IN_COPPA_FALSE);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_SIGN_IN_CANCELLED);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_SIGN_IN_SUCCEEDED);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_SIGN_IN_FAILED_WITH_ERROR);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_USER_DID_LOGIN);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_USER_DID_LOGOUT);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_USER_LOGIN_ERROR);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_CHANGE_DISPLAY_NAME_DID_SUCCEED);
+    NotificationCenter.Instance.AddObserver(rave_callback, bfgCommon.BFG_RAVE_CHANGE_DISPLAY_NAME_DID_FAIL_WITH_ERROR);
+}
+
+// Triggered when the notification is received
+public void rave_callback(string notification)
+{
+    Debug.Log ("rave_callback: notification=" + notification);
+}
+```
+
+If you need unique callbacks per notification type, you can define them as follows:
+
+```csharp
+private void Start()
+{
+  NotificationCenter.Instance.AddObserver(RaveUserDidLogin, bfgCommon.BFG_RAVE_USER_DID_LOGIN);
+}
+
+private void RaveUserDidLogin(string notification)
+{
+  if(raveReady)
+  {
+    Debug.Log("BFG_RAVE_USER_DID_LOGIN notification received: notification payload= " + notification);
+  }
+}
+```
+
+(iOS Only) Next, you need to set the delegate to receive callbacks:
+
+1. Open the imported file, com.bfg.sdk/Runtime/Plugins/iOS/BFGUnityAppController.mm
+2. In BFGUnityAppController.mm, add the following code to the ``didFinishLaunchingWithOptions`` method before initializing the BFG SDK:
+
+```csharp
+extern "C"
+{
+  void BfgRaveDelegateWrapper__setRaveDelegate();
+  void BfgRaveDelegateWrapper__setRaveReadyListener();
+  // Add this line if you registed the external callback for login state changes
+  void BfgRaveDelegateWrapper__setupLoginStatusWithExternalCallback();
+  // Add this line if your game supports Rave ADK
+  void BfgRaveDelegateWrapper__setRaveAppDataKeyDelegate
+}
+-(BOOL)application:(UIApplication*) application didFinishLaunchingWithOptions:(NSDictionary*) options
+{
+    ...
+    BfgRaveDelegateWrapper__setRaveDelegate();
+    BfgRaveDelegateWrapper__setRaveReadyListener();
+    // Add this line if you registed the external callback for login state changes
+    BfgRaveDelegateWrapper__setupLoginStatusWithExternalCallback();
+    // Add this line if your game supports Rave ADK
+    BfgRaveDelegateWrapper__setRaveAppDataKeyDelegate
+    ...
+    // Initialize the Big Fish SDK here
+    ...
+    return YES;
+}
+```
+
+</details>
+
+<details>
+  <summary>Native Android SDK</summary>
+  
+For your game to receive notifications about Rave status changes or error events, you need to define a class that implements the ``bfgRaveDelegate``. The ``bfgRaveDelegate`` provides an interface for implementing numerous Rave SDK callback methods. The BFG SDK has basic handling for all of these events, but you need to add custom handling for these scenarios in your game code.
+
+```java
+import com.bigfishgames.bfglib.bfgreporting.bfgRave;
+private class RaveDelegate implements bfgRave.bfgRaveDelegate {
+  @Override
+  public void bfgRaveUserLoginError(Exception e) {\}
+  @Override
+  public void bfgRaveSignInCOPPAResult(boolean b) {\}
+  @Override
+  public void bfgRaveSignInCancelled() {}
+  @Override
+  public void bfgRaveSignInSucceeded() {}
+  @Override
+  public void bfgRaveUserDidLogin(bfgRave.LoginDetails details) {}
+  @Override
+  public void bfgRaveUserDidLogout() {}
+  @Override
+  public void bfgRaveProfileFailedWithError(Exception e) {}
+  @Override
+  public void bfgRaveProfileSucceeded() {}
+  @Override
+  public void bfgRaveProfileCanceled() {}
+  @Override
+  public void bfgRaveChangeDisplayNameDidSucceed() {}
+  @Override
+  public void bfgRaveChangeDisplayNameDidFailWithError(Exception e) {}
+  @Override
+  public void bfgRaveSignInFailedWithError(Exception e) {}
+}
+```
+
+The BFG SDK automatically receives login status change events from the Rave SDK and will call your overridden ``bfgRaveDelegate`` methods:
+
+- bfgRaveUserLoginError
+- bfgRaveUserDidLogin
+- bfgRaveUserDidLogout
+
+If you also want to set an external listener, use the ``bfgRave.setupLoginStatusCallbackWithExternalCallback(yourCallback)`` method. This will pass the ``RaveLoginStatus`` object and the ``RaveException`` to your external callback method every time the ``onLoginStatusChanged`` method is triggered.
+
+Be aware that the external listener will be called AFTER your ``bfgRaveDelegate`` override is called.
+
+</details>
+
+<details>
+  <summary>Native iOS SDK</summary>
+
+To receive notifications, you need to set the ``bfgRave`` delegates _before_ Rave is initialized. To do so, call ``bfgRave [listenForRaveReady:]`` and use the callback to set the necessary ``bfgRave`` delegates:
+
+```c
+[bfgRave listenForRaveReady:^(NSString * _Nullable raveId, NSError * _Nullable error) {
+    if (!error)
+    {
+        [bfgRave setDelegate:self];
+    }
+}];
+```
+
+From there, you can set up your notifications:
+
+```c
+#pragma mark - bfgRaveDelegate
+
+- (void)bfgRaveProfileSucceeded 
+{ 
+  // Enter code for each notification. Example:
+  // BFGUIKitExampleLog(@"Rave profile updated successfully.");
+  // [self updateCurrentRaveID];
+  // self.outputTextView.text = @"Rave profile updated successfully.";
+}
+
+- (void)bfgRaveProfileCancelled { }
+- (void)bfgRaveProfileFailedWithError:(NSError *)error { }
+- (void)bfgRaveSignInSucceeded { }
+- (void)bfgRaveSignInCOPPAResult:(BOOL)passedCOPPA { }
+- (void)bfgRaveSignInCancelled { }
+- (void)bfgRaveSignInFailedWithError:(NSError *)error { } 
+- (void)bfgRaveUserDidLogin { }
+- (void)bfgRaveUserDidLogout { }
+- (void)bfgRaveUserLoginError:(NSError *)loginError { } 
+- (void)bfgRaveChangeDisplayNameDidSucceed { }
+- (void)bfgRaveChangeDisplayNameDidFailWithError:(NSError *)error { }
+```
+
+</details>
+
 
 ## Using App Data Keys (ADKs)
 However, there are scenarios where the Rave ID between games and/or logins will not match. For example: 
