@@ -210,6 +210,7 @@ The following code demonstrates how to use the BFG SDK to display the Rave login
 
 <Tabs>
   <TabItem value="unity" label="Unity" default>
+
 ```csharp
 public void raveSignin(View v) {
   Rave.sharedInstance().presentSignIn(this);
@@ -217,6 +218,7 @@ public void raveSignin(View v) {
 ```
   </TabItem>
   <TabItem value="android" label="Native Android">
+
 ```java
 // Origin of reporting for Authentication Flow (normally the app name)
 private static final String SAMPLE_ORIGIN = "bfgSampleApp";
@@ -227,6 +229,7 @@ public static void toggleRaveLogin() {
 ```
   </TabItem>
   <TabItem value="ios" label="Native iOS">
+
 ```objectivec
 - (IBAction)presentSignIn:(id)sender
 {
@@ -368,6 +371,153 @@ Games that **do not** use Facebook social features should use the minimum requir
 </details>
 
 <details>
+  <summary>Build the Facebook login/logout experience</summary>
+
+By default, the ability to login/logout via Facebook is not included in the basic Rave authentication flow. To give your players the option to connect their Big Fish Games account with their Facebook account, you need to build a custom login experience using Rave's login APIs. 
+
+Using the ``loginWith`` method, you can directly invoke a login via Facebook:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+```csharp
+RaveSocial.LoginWith (RaveConstants.CONNECT_PLUGIN_FACEBOOK, delegate(bool loggedIn, string error) {
+  // handle login response
+});
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+
+```java
+RaveSocial.loginWith("Facebook", new RaveCompletionListener() {
+  public void onComplete(RaveException exception) {
+    // handle login response
+  }
+});
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+  
+```objectivec
+[RaveSocial loginWith:@"Facebook" callback:^(NSError *error) {
+  // handle login response
+}];
+```
+  </TabItem>
+</Tabs>
+
+You can also check whether Facebook is "ready" to be used, meaning that a player has connected their Facebook account to Rave, and that the token or local authentication for this social account was successful. To perform this check, use the ``checkReadinessOf`` method:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+```csharp
+RaveSocial.CheckReadinessOf (RaveConstants.CONNECT_PLUGIN_FACEBOOK, delegate(bool ready,string error) {
+  // handle result
+});
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+
+```java
+RaveSocial.checkReadinessOf("Facebook", new RaveReadinessListener() {
+  public void onComplete(RaveReadyStatus readyStatus) {
+    // handle result
+  }
+});
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+  
+```objectivec
+[RaveSocial checkReadinessOf:@"Facebook" callback:^(BOOL ready, NSError *error) {
+  // handle result
+}];
+```
+  </TabItem>
+</Tabs>
+
+Use the ``connectTo`` callback method to establish a connection with Facebook. The following code sample connects to Facebook if it fails a readiness check:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+```csharp
+RaveSocial.ConnectTo (RaveConstants.CONNECT_PLUGIN_FACEBOOK, delegate(bool loggedIn,string error) {
+  if (loggedIn) {
+    // handle successful connection
+  } else if (error != "") {
+    // handle error
+  } else {
+    // otherwise the user cancelled the operation
+  }
+});
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+
+```java
+RaveSocial.connectTo("Facebook", new RaveCompletionListener() {
+  public void onComplete(RaveException exception) {
+    if (exception != null) {
+      // handle error
+    } else {
+      // success
+    }
+  }
+});
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+  
+```objectivec
+[RaveSocial connectTo:@"Facebook" callback:^(NSError * error) {
+  if (error) {
+    // handle error
+  } else {
+    // success
+  }
+}];
+```
+  </TabItem>
+</Tabs>
+
+To disconnect from a Facebook account, use the ``disconnectFrom`` method:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+```csharp
+RaveSocial.DisconnectFrom (RaveConstants.CONNECT_PLUGIN_FACEBOOK, delegate(bool loggedIn, string error) {
+  // handle logout response
+});
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+
+```java
+RaveSocial.disconnectFrom("Facebook", new RaveCompletionListener() {
+  public void onComplete(RaveException exception) {
+    // handle response
+  }
+});
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+  
+```objectivec
+[RaveSocial disconnectFrom:@"Facebook" callback:^(NSError *error) {
+  // handle logout response
+}];
+```
+  </TabItem>
+</Tabs>
+
+
+</details>
+
+
+<details>
   <summary>Set Limited Login (iOS only)</summary>
 
 :::info
@@ -385,7 +535,7 @@ A sample implementation of Limited Login mode can be found in the Unity Sample A
 Due to Apple's tracking and privacy regulations, Facebook allows two different types of logins for players on iOS devices:
 
 - A **Classic Login** allows your app the ability to access (with Facebook approval and user consent) certain Facebook data about a player. This data often improves the player's experience in your app and lets them use advanced features, such as engaging with friends or creating a gaming profile. Classic Login mode utilizes an oAuth 2.0 Access Token which supports Graph API queries.
-- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name or profile pic. In addition, you can request additional permissions from the player. A list of permissions that are available in Limited Login mode can be found at [Permissions in Limited Login](https://developers.facebook.com/docs/facebook-login/limited-login/permissions) :arrow_upper_right: in Facebook's developer documetation. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
+- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name or profile pic. In addition, you can request additional permissions from the player. A list of permissions that are available in Limited Login mode can be found at [Permissions in Limited Login](https://developers.facebook.com/docs/facebook-login/limited-login/permissions) :arrow_upper_right: in Facebook's developer documentation. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
 
 Limited login mode is defined in the BFG SDK config file, bfg_config.json, as follows:
 
