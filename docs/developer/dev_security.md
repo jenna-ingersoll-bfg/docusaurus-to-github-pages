@@ -170,10 +170,7 @@ The most commonly used configuration settings are:
 **RaveSettings.General.ContactsUpdateInterval**
 > Controls how often the friends cache is updated. The time is set in seconds.
 
-For a full list of available settings, see [Available Settings (Android)](https://bf-docs.ravesocial.co/android.html?#available-settings) :upper-right-arrow
-
-
-: or [Available Settings (iOS)](https://bf-docs.ravesocial.co/ios.html#available-settings) :upper-right-arrow: in Rave's documentation.
+For a full list of available settings, see [Available Settings (Android)](https://bf-docs.ravesocial.co/android.html?#available-settings) :arrow_upper_right: or [Available Settings (iOS)](https://bf-docs.ravesocial.co/ios.html#available-settings) :arrow_upper_right: in Rave's documentation.
 
 ### Overriding Rave's Default Settings
 
@@ -388,7 +385,7 @@ A sample implementation of Limited Login mode can be found in the Unity Sample A
 Due to Apple's tracking and privacy regulations, Facebook allows two different types of logins for players on iOS devices:
 
 - A **Classic Login** allows your app the ability to access (with Facebook approval and user consent) certain Facebook data about a player. This data often improves the player's experience in your app and lets them use advanced features, such as engaging with friends or creating a gaming profile. Classic Login mode utilizes an oAuth 2.0 Access Token which supports Graph API queries.
-- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name or profile pic. In addition, you can request additional permissions from the player. A list of permissions that are available in Limited Login mode can be found at [Permissions in Limited Login](https://developers.facebook.com/docs/facebook-login/limited-login/permissions) :upper-right-arrow: in Facebook's developer documetation. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
+- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name or profile pic. In addition, you can request additional permissions from the player. A list of permissions that are available in Limited Login mode can be found at [Permissions in Limited Login](https://developers.facebook.com/docs/facebook-login/limited-login/permissions) :arrow_upper_right: in Facebook's developer documetation. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
 
 Limited login mode is defined in the BFG SDK config file, bfg_config.json, as follows:
 
