@@ -374,8 +374,11 @@ Games that **do not** use Facebook social features should use the minimum requir
 
 A sample implementation of Limited Login mode can be found in the Unity Sample App and the iOS Sample App of the BFG SDK. Locate sample code in the following files:
 
-- **Unity**: SampleApp/Samples/Shared/FirstParty/Runtime/BFGSampleApp/Scripts/BFGUtilities/HandleAttNotification.cs and SampleApp/Samples/Shared/FirstParty/Runtime/BFGSampleApp/Scripts/BFGUtilities/BfgPolicyListener.cs 
-- **iOS**: examples/UIKitExample/Classes/BFGMainMenuViewController.m
+- **Unity**: 
+  - ``SampleApp/Samples/Shared/FirstParty/Runtime/BFGSampleApp/Scripts/BFGUtilities/HandleAttNotification.cs``
+  - ``SampleApp/Samples/Shared/FirstParty/Runtime/BFGSampleApp/Scripts/BFGUtilities/BfgPolicyListener.cs``
+- **iOS**: 
+  - ``examples/UIKitExample/Classes/BFGMainMenuViewController.m``
 
 :::
 
