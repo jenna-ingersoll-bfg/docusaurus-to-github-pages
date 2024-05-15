@@ -170,7 +170,7 @@ The most commonly used configuration settings are:
 **RaveSettings.General.ContactsUpdateInterval**
 > Controls how often the friends cache is updated. The time is set in seconds.
 
-For a full list of available settings, see [Available Settings (Android)](https://bf-docs.ravesocial.co/android.html?#available-settings) ::upper-right-arrow or [Available Settings (iOS)](https://bf-docs.ravesocial.co/ios.html#available-settings) ::upper-right-arrow in Rave's documentation.
+For a full list of available settings, see [Available Settings (Android)](https://bf-docs.ravesocial.co/android.html?#available-settings) ::upper-right-arrow:: or [Available Settings (iOS)](https://bf-docs.ravesocial.co/ios.html#available-settings) ::upper-right-arrow:: in Rave's documentation.
 
 ### Overriding Rave's Default Settings
 
@@ -322,9 +322,6 @@ jar cvf bfgLib-release.aar -C bfgLib-release/
 
 </details>
 
-
-
-
 ## Logging in with a 3rd Party Provider 
 
 The first time a Big Fish game is launched on a device, an anonymous Rave ID is generated. This Rave ID is shared between all Big Fish games on the device. Once an anonymous player logs in via a 3rd party authentication provider, Rave automatically attaaches the anonymous Rave ID to the authenticated account. 
@@ -373,25 +370,52 @@ Games that **do not** use Facebook social features should use the minimum requir
 <details>
   <summary>Set Limited Login (iOS only)</summary>
 
+:::info
+
+A sample implementation of Limited Login mode can be found in the Unity Sample App and the iOS Sample App of the BFG SDK. Locate sample code in the following files:
+
+- **Unity**: SampleApp/Samples/Shared/FirstParty/Runtime/BFGSampleApp/Scripts/BFGUtilities/HandleAttNotification.cs and SampleApp/Samples/Shared/FirstParty/Runtime/BFGSampleApp/Scripts/BFGUtilities/BfgPolicyListener.cs 
+- **iOS**: examples/UIKitExample/Classes/BFGMainMenuViewController.m
+
+:::
+
 Due to Apple's tracking and privacy regulations, Facebook allows two different types of logins for players on iOS devices:
 
 - A **Classic Login** allows your app the ability to access (with Facebook approval and user consent) certain Facebook data about a player. This data often improves the player's experience in your app and lets them use advanced features, such as engaging with friends or creating a gaming profile. Classic Login mode utilizes an oAuth 2.0 Access Token which supports Graph API queries.
-- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name, profile pic, and (optionally) friend lists or email address. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
+- A **Limited Login** shares only the essential data required for a player to log into Facebook. This data may include a player's name or profile pic. In addition, you can request additional permissions from the player. A list of permissions that are available in Limited Login mode can be found at [Permissions in Limited Login](https://developers.facebook.com/docs/facebook-login/limited-login/permissions) ::upper-right-arrow:: in Facebook's developer documetation. Limited Login mode utilizes a JSON Web Token, which does not support Graph API queries.
 
-If a player opts out of App Tracking Transparency (ATT), your game **must** log them in using Limited Login. Limited login mode is defined in the BFG SDK config file, bfg_config.json, as follows:
+Limited login mode is defined in the BFG SDK config file, bfg_config.json, as follows:
 
 ```json
 "rave": {
   "RaveSettings.Facebook.LimitedLoginTracking" : true
 ```
 
-:::info
+**Which Facebook login mode should my game use?**
 
-As a best practice, we recommend that you use **Classic Login** mode when you have enabled social features in your game. For all other games that do not use social features, we recommend using **Limited Login** mode.
+As a best practice, we recommend that you use **Classic Login** mode when you have enabled social features in your game. For all other games that do not use social features, we recommend using **Limited Login** mode. Keep in mind that even if you default to Classic Login, your game must still support Limited Login. 
 
-:::
+If a player opts out of App Tracking Transparency (ATT), your game **must** log them in using Limited Login. The following recommended flow checks the ATT status in two places and adjusts the login mode as needed:
+
+1. If a user is first launching the game and has not yet made an ATT selection:
+  - The game should have display an ATT selection dialog.
+  - After the player dismisses the ATT dialog, the game should determine if the user has authorized ATT. If they have, enable Classic Login mode. If they haven't, enable Limited Login mode.
+2. When a user changes their tracking setting via **Settings > Privacy > Tracking > Game Entry**:
+  - The game should check the ATT state. If they have, enable Classic Login mode. If they haven't, enable Limited Login mode.
 
 To identify or change the login mode any time after your game is initialized, use the ``bfgRave enableFBClassicLoginMode`` method.
+
+**BFG SDK helper methods**
+
+The BFG SDK provides some helper methods to identify and modify your current configuration of Rave and Facebook:
+
+| **Method** | **Description** |
+|---|---|
+| ``getCurrentFacebookPermissions`` | Returns current Facebook permissions. Use only when your game requires Facebook permissions that are not supported in Limited Login mode. |
+| ``facebookClassicLoginModeEnabled`` | Returns **YES** if Classic Login is enabled. |
+| ``getAuthSource`` | Returns ``NSString`` representing the authentication method used to authenticate. |
+| ``enableFBClassicLoginMode`` | Enables Classic Login mode. |
+| ``setFacebookReadPermissions`` | Sets Facebook Read permissions for your application dynamically at runtime. Use only when your game requires Facebook permissions that are not supported in Limited Login mode. |
 
 </details>
 
