@@ -795,6 +795,26 @@ You can optionally disable cross-app login in the Rave section of the BFG SDK co
 
 :::
 
+### Using App Data Keys (ADKs)
+
+There are scenarios where the Rave ID between games and/or logins will not match. For example: 
+
+- A player is logged into both "Game A" and "Game B". When the user logs out of "Game A," they want to remain logged in to "Game B".
+- The player then logs back in to "Game A" with a different login. They remain logged in to "Game B" under the original login. 
+- The player then installs and clicks to log in to "Game C". Rave will default to using the login method for "Game A" since it was the last used login method. 
+
+In the above scenario, you may have multiple Rave IDs registered on the same device. When a merge between two accounts that have active sessions occurs, you can use **App Data Keys (ADKs)** to resolve the conflict. ADKs provide an easy mechanism to resolve which key should be used to continue by giving your application a list of the possible index candidates. 
+
+In the above example, the Rave IDs for a single player no longer match, and you must resolve it in your game code. Use ADKs to:
+
+- Check both Rave IDs for save data.
+- If only one ID has save data, associate the save data with the new Rave ID.
+- If both IDs have save data, display a conflict window that provides the user with adequate information to choose their preferred save state.
+
+Rave ID changes can also occur due to a player logging in with an authentication method already associated with another ID. This case must be handled the same way as cross app login. Both the anonymous and authenticated IDs must be checked for data, and a conflict window must be displayed if necessary.
+
+The final time an ID change occurs is when a player logs out of an authenticated account, the listener will report a log out. In this case, the player must be taken to the start of the game with no data associated with the new ID.
+
 ## Receiving Rave Notifications
 
 The BFG SDK includes the ability to receive and track events that occur in Rave. The process to set up notifications depends on which BFG SDK you are using. Select your SDK below for more information:
@@ -969,30 +989,9 @@ From there, you can set up your notifications:
 
 </details>
 
-
-## Using App Data Keys (ADKs)
-However, there are scenarios where the Rave ID between games and/or logins will not match. For example: 
-
-- A player is logged into both "Game A" and "Game B". When the user logs out of "Game A," they want to remain logged in to "Game B".
-- The player then logs back in to "Game A" with a different login. They remain logged in to "Game B" under the original login. 
-- The player then installs and clicks to log in to "Game C". Rave will default to using the login method for "Game A" since it was the last used login method. 
-
-In the above scenario, you may have multiple Rave IDs registered on the same device. If the Rave IDs do not match, you must resolve it in your game code. In this case:
-
-- Both IDs must be checked for save data.
-- If only one ID has save data, that data should be associated with the new ID.
-- If both IDs have save data, a conflict window must be displayed that provides the user with adequate information to choose their preferred save state.
-
-
-
-Rave ID changes can also occur due to a player logging in with an authentication method already associated with another ID. This case must be handled the same way as cross app login. Both the anonymous and authenticated IDs must be checked for data, and a conflict window must be displayed if necessary.
-
-The final time an ID change occurs is when a player logs out of an authenticated account, the listener will report a log out. In this case, the player must be taken to the start of the game with no data associated with the new ID.
-
 ## Getting COPPA Compliance Status
 
 If you are in the US region, you can get the status of the Children’s Online Privacy Protection Rule (COPPA) compliance through the Rave SDK. To do so, either:
 
 1. Listen for the ``BFG_RAVE_SIGN_IN_COPPA_TRUE`` and ``BFG_RAVE_SIGN_IN_COPPA_FALSE`` notifications. This Rave authentication notification is sent whenever a login event occurs; and/or
 2. Implement the delegate call for ``bfgRaveSignInCOPPAResult`` in the BFG SDK. If ``passedCOPPA`` is ``NO``, then the user is under 13.
-
