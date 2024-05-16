@@ -685,7 +685,19 @@ For Unity games, you can automate the configuration of SIWA (and other entitleme
 
 :::
 
-## Tracking Player Save States
+## Handling Player Accounts
+
+When a player launches any Big Fish game, they are automatically assigned a Rave ID, which is attached to a player game account. This account follows the player through the life of their gaming experience, even as they play more Big Fish games across multiple devices such as iPad, iPhone, Android phones and tablets. 
+
+The player account cycles through multiple stages depending on the activity of the user:
+
+- **Anonymous**: A player who has not logged in using a 3rd party authentication provider, nor customized their account with details such as a display name or email address.
+- **Personalized**: An anonymous player who has begun to build out their account with personal details such as a display name and/or email address.
+- **Authenticated**: A player who has logged in to a game with a 3rd party authentication provider, such as Facebook, Google or SIWA.
+
+As the player plays more Big Fish games across more devices and continues to build out their profile by connecting additional social networks and additional pieces of personal information (e.g. a profile picture), these attributes are attached to their Rave ID and player account. 
+
+### Tracking Player Save States
 
 The Rave ID must be used by all games to track each player's save state. In some cases, there will be conflicts between the data associated with an anonymous ID and the data associated with an authenticated login, such as Facebook, Google or SIWA. These conflicts typically occur when a user logs in after playing a game on a different device, or when cross-app login is disabled. 
 
@@ -697,7 +709,7 @@ The BFG SDK provides a number of methods in the ``bfgRave`` class to track Rave 
 - bfgRave Class Reference (Native Android)
 - bfgRave Class Reference (Native iOS)
 
-## Merging Identities
+### Merging Identities
 
 Rave creates a new Rave ID for each anonymous (or "guest") player session. Once an anonymous player logs in via a 3rd party provider (such as Facebook, Google or SIWA), the Rave ID is merged into the authenticated account. The player's Rave ID is used to refer to the user both in the game code, as well as in the data collected from and about the user.
 
@@ -715,7 +727,7 @@ Once a Rave ID has been merged with a player's account, the Rave ID can no longe
 
 :::
 
-## Handling Cross-App Login
+### Handling Cross-App Login
 
 A cross app login occurs when a player logs in to one game published by Big Fish and then launches another game. In general, once a player logs in to one game, Rave will automatically log the player into all other Big Fish games on the device. In these cases, the current Rave ID and the last known Rave ID will be the same on launch.
 
