@@ -50,9 +50,61 @@ Replace ``X.X.X`` with the appropriate version of the Facebook SDK integrated in
 
 :::
 
-
 ```
 implementation ('com.facebook.android:facebook-android-sdk:X.X.X')
+```
+
+</details>
+
+<details>
+  <summary>Initialize Rave with RaveReadyListener</summary>
+
+To ensure that Rave is initialized before the game uses it, use the ``bfgRave.RaveReadyListener`` and the callback result to trigger any operations that need to be performed after Rave is initialized. The following example shows how to use the ``bfgRave.RaveReadyListener`` to retrieve the Rave ID as early as possible, but only after Rave is initialized.
+
+```java
+private String mRaveId = null; // Current Rave ID
+
+// Listen for Rave to become ready for use. Do not use Rave until it is ready
+bfgRave.sharedInstance().listenForRaveReady(new bfgRave.RaveReadyListener() {
+  @Override
+  public void onComplete(final String raveId) {
+    mRaveId = raveId;
+    // Do any other work that should be triggered when Rave is ready
+  }
+});
+```
+
+</details>
+
+<details>
+  <summary>(Optional) Remove READ_CONTACTS Permission</summary>
+
+The ``READ_CONTACTS`` permission allows the application to read the user's contacts data, such as a user's contacts list for use with Rave's friends list. It may also be used to preload the user's email address for the login scene.
+
+By default, the BFG SDK grants access to the ``READ_CONTACTS`` permission in the Android Manifest of ``bfgLib``. If you want to remove the permission, follow these steps:
+
+1. Open your game's manifest file, AndroidManifest.xml.
+2. Add a new node to the manifest file to remove the ``READ_CONTACTS`` permission:
+
+```xml
+<uses-permission android:name="android.permission.READ_CONTACTS" tools:node="remove"/>
+```
+
+2. In the base "manifest" node, declare the tools namespace:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+>
+```
+
+3. Open the BFG SDK config file, bfg_config.json.
+4. In the Rave section, add the following configuration:
+
+```json
+"rave": {
+    "RaveSettings.Android.SkipPermissionChecks": true
+}
 ```
 
 </details>
