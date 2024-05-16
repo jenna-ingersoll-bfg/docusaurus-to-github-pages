@@ -42,7 +42,7 @@ You must enable Rave in the BFG SDK using ``ApplicationID``. Without this settin
 <details>
   <summary>Add Facebook SDK to your app's Gradle file</summary>
 
-Rave includes support for Facebook, and requires the Facebook SDK to run correctly. While the Facebook SDK is integrated into the BFG SDK, you must add the Facebook SDK to your app's Gradle file.
+Rave includes support for Facebook, and requires the Facebook SDK to run correctly. Even though the Facebook SDK is integrated into the BFG SDK, you must add the Facebook SDK to your app's Gradle file.
 
 :::info
 
@@ -360,6 +360,7 @@ Add the necessary Facebook permissions to your Rave configuration in the BFG SDK
 ```json
 "rave": {
   "RaveSettings.Facebook.ReadPermissions" : "public_profile,email,user_friends"
+}
 ```
 
 Games that **do not** use Facebook social features should use the minimum required permissions, as follows:
@@ -367,6 +368,7 @@ Games that **do not** use Facebook social features should use the minimum requir
 ```json
 "rave": {
   "RaveSettings.Facebook.ReadPermissions" : "public_profile,email"
+}
 ```
 </details>
 
@@ -571,6 +573,68 @@ The BFG SDK provides some helper methods to identify and modify your current con
 | ``setFacebookReadPermissions`` | Sets Facebook Read permissions for your application dynamically at runtime. Use only when your game requires Facebook permissions that are not supported in Limited Login mode. |
 
 </details>
+
+### Sign in with Google - Android Only
+
+:::tip[Pre-Requisite]
+
+Google authentication is only available on Android devices with Google Play Services installed. 
+
+:::
+
+When developing games for Android, you can choose to let your players log in using their Google user name and password. Using Google authentication in your game requires additional setup:
+
+<details>
+  <summary>Enable Google authentication</summary>
+
+Enable Google authentication in the Rave section of the BFG SDK config file, bfg_config.json:
+
+```json
+"rave": {
+    "RaveSettings.General.ApplicationID" : "<your Rave application ID>",
+    "BigFishSettings.Android.GoogleLoginEnabled": true,
+    "RaveSettings.Google.ClientID": "<your Google ClientID>"   
+}
+```
+
+:::warning
+
+You must include both ``BigFishSettings.Android.GoogleLoginEnabled`` and ``RaveSettings.Google.ClientID`` in your BFG SDK config file, bfg_config.json. Otherwise, you will not see Google as an login option, and Rave may fail to initialize. You can get the ``RaveSettings.Google.ClientID`` from your Big Fish producer.
+
+:::
+
+</details>
+
+<details>
+  <summary>Add the Rave Google plugin</summary>
+
+Add the Rave Google plugin library to your project:
+
+1. In your Android project, create a new folder named "RaveGooglePlugin".
+2. Add the Rave library RaveGooglePlugin.aar to this new folder.
+3. In the same directory, create a new build.gradle file.
+4. Open the build.gradle file and add the following lines:
+
+```
+configurations.maybeCreate("default")
+artifacts.add("default", file('RaveGooglePlugin.aar'))
+```
+
+5. Next, open your app's build.gradle file.
+6. In the ``dependencies`` section, add the following lines:
+
+```
+implementation project(':RaveGooglePlugin')
+```
+
+7. Next, open the settings.gradle file in your main project directory.
+8. Add an include for ``:RaveGooglePlugin``. The following is an sample include statement in the BFG SDK Sample App.
+
+```
+include ':RaveFacebookPlugin', ':RaveGooglePlugin', ':RaveSocial', ':RaveUtils', ':XMLScene'
+```
+</details>
+
 
 ### Sign in with Apple (SIWA) - iOS Only
 
