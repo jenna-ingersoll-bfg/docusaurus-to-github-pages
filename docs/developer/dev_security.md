@@ -4,7 +4,12 @@
 
 :small_blue_diamond: **Tools to use:** Zendesk, BFG SDK
 
-## What does Customer Service look like in a game? 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
+## What is a Customer Service Platform? 
 
 A **customer service** platform allows players to get help, view documentation, and file support tickets without ever leaving the game. 
 
@@ -12,7 +17,9 @@ Games published by Big Fish use **Zendesk** to implement a help center, where pl
 
 :::tip[Pre-Requisite]
 
-Zendesk is integrated directly into the BFG SDK, and most of the functionality is already set up for you. Prior to configuring Zendesk, you must first integrate the BFG SDK into your game code.
+Zendesk is integrated directly into the BFG SDK, and most of the functionality is already set up for you. Prior to configuring Zendesk, you must first integrate the BFG SDK into your game code. 
+
+Big Fish only supports the version of ZenDesk that is shipped with the BFG SDK. All other versions of Zendesk are not supported.
 
 :::
 
@@ -125,3 +132,46 @@ If prompted, use **Destination - Copy items** and **Added folders - Create group
 4. Update the path to ZendeskCoreSDK.xcframework so it matches the location where your frameworks are located in relation to the root of your project.
 
 </details>
+
+## Adding the Help Center 
+
+To wire up the Zendesk help center to your UI, call the  ``bfgManager.showSupport`` method:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+```csharp
+using BFGSDK;
+
+// This method is triggered when the button for Support is clicked.
+// It can have any name of your choosing.
+public void On_Main_btn_show_support_Click()
+{
+  bfgManager.showSupport();
+}
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+
+```java
+import com.bigfishgames.bfglib.bfgManager;
+
+// This method is triggered when the button for Support is clicked.
+// It can have any name of your choosing.
+public static void On_Main_btn_show_support_Click()
+{
+  bfgManager.sharedInstance().showSupport();
+}
+```
+  </TabItem>
+
+  <TabItem value="iOS" label="Native iOS">
+
+```objectivec
+- (IBAction)showSupport:(id)sender
+{
+  [bfgManager showSupport];
+}
+```
+  </TabItem>
+</Tabs>
