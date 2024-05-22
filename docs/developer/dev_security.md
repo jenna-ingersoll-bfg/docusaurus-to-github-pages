@@ -175,3 +175,140 @@ public static void On_Main_btn_show_support_Click()
 ```
   </TabItem>
 </Tabs>
+
+## Sending Player Data 
+
+When a customer submits a support ticket, customer-identifying data is automatically passed to Big Fish with the ticket request, such as their name and Rave ID. However, game-specific data, such as the last level played (``bfgGameReporting.setPlayerSpend``) and the player's total spend in-game (``bfgGameReporting.setLastLevelPlayed``), is not automatically included. Adding these data pieces will give Customer Support additional information to help prioritize and resolve customer requests.
+
+:::info
+
+Any function to send additional data must be called before ``bfgManager.showSupport``. 
+
+:::
+
+## Adding Custom Fields to Support Tickets
+
+:::info
+
+Before custom fields can be added to Zendesk tickets, they must first be set up in the Zendesk portal. Contact your Big Fish producer to set up your custom fields.
+
+:::
+
+Games can add custom fields to Zendesk tickets to get more detailed information about the game's state when a ticket is filed by calling ``bfgGameReporting.setCustomData``. The ``setCustomData`` method takes an ``NSDictionary`` comprised of custom event field IDs and the desired information. The ``setCustomData`` call holds the information until the game is closed.
+
+Each field is defined using a Zendesk-specific ID number and a string value. The string values should be consistently formatted for display, depending on the data type:
+
+- **Text**: Text strings can be formatted as the developer thinks appropriate or as otherwise specified
+- **Numeric**: Integer value. Commas and other separators are not allowed
+- **Decimal**: Floating point value, formatted in IEEE 754 string format
+- **Boolean**: "true" or "false"
+- **Date**: ISO 8601 date format string, must be formatted as YYYY-MM-DD(2018-12-06). Including the time is not supported.
+- **DropDown**: String that matches the tag for the corresponding value. 
+
+The custom data dictionary can be reset by calling ``setCustomData`` again with a new dictionary. It can be cleared by passing in nil.
+
+:::info 
+
+Because the custom data is saved until the game is closed, any data that is subject to change needs to be updated before each ticket is sent. For this reason, you must call the ``setCustomData`` method before calling ``bfgManager.showSupport``.
+
+:::
+
+In addition to adding custom fields to Zendesk tickets, you can also query to see what custom fields are currently set to be added.To do this, call the ``bfgGameReporting.getCustomData`` method, which returns a dictionary containing all custom field IDs and data that will be added to the tickets.
+
+## Customize the Zendesk Landing Page
+
+When the Zendesk help desk is first launched, the user will see a non-descript, default home page. You can customize this experience by replacing the header image, updating the text on the home page, or locking the orientation of the view to landscape or portrait.
+
+### Replace the Default Header Image
+
+By default, the Zendesk help desk shows a question mark image in its header. To replace the default image with a game-branded image, follow the steps below:
+
+1. Change the file name of your image to **zendesk_landing_page**.
+2. Ensure that your image is saved as a valid image format:
+  * For iOS, you must save your image as a **png** file. 
+  * For Android, use any of the following supported formats: **jpg**, **png**, **bmp**, **webp**
+3. Size your image as appropriate for your platform:
+  * For iOS, the recommendation is 100 x 100 pixels. If you use a larger image, it will be scaled to fit the header.
+  * For Android, the recommended minimum size is 108 x 108 pixels. The image will be scaled to fit the header. **Note**: Android supports the use of density-specific image assets. The required dimensions for density-specific override images are as follows:
+
+| **Density** | **Dimension** | **Resource Folder Location** |
+|---|---|---|
+| **LDPI** | 54 x 54 | drawable-ldpi |
+| **MDPI** | 72 x 72 | drawable-mdpi |
+| **HDPI** | 108 x 108 | drawable-hdpi |
+| **XHDPI** | 144 x 144 | drawable-xhdpi |
+| **XXHDPI** | 216 x 216 | drawable-xxhdpi |
+| **XXXHDPI** | 288 x 288 | drawable-xxxhdpi |
+
+4. Copy the image file to the appropriate location based on your platform:
+  * For iOS, place the image in the project's main bundle
+  * For Android, place the image in the application's drawables resource folder (or if applicable, the density-specific folder detailed above)
+
+If the replacement image does not exist or cannot be resolved, the landing page will be loaded with the default header icon.
+
+### Update the Landing Page Text (Android only)
+
+To customize the text on the Zendesk landing page, add an override string to the game's res/values/strings.xml file. The following string changes the title of the Help Center:
+
+```xml
+<string name="welcome_to_our_help_center">Welcome to the Big Fish Games Help Center!</string>
+```
+
+### Lock the Help Center Orientation (Android only)
+
+To lock the orientation of the landing page to landscape:
+
+1. Add the tools namespace ``xmlns:tools="http://schemas.android.com/tools"`` to your Android manifest file:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="foobar"
+  android:versionCode="1"
+  android:versionName="123" >
+```
+
+2. Under the ``application`` tag, add a reference to the SDK's Help Center Activity and override the ``screenOrientation`` value to ``sensorLandscape``:
+
+```xml
+<application>
+  <!-- Override BFG SDK's zendesk activity to lock orientation to landscape -->
+  <activity
+    android:name="com.bigfishgames.bfglib.zendesk.ZendeskLandingActivity"
+    android:configChanges="orientation|screenSize"
+    android:screenOrientation="sensorLandscape"
+    android:theme="@style/Theme.MaterialComponents"
+    tools:node="merge" />
+</application>
+```
+
+If you choose to lock your orientation, update the ``screenOrientation`` for all of the following activities:
+
+- com.bigfishgames.bfglib.zendesk.ZendeskLandingActivity
+- com.bigfishgames.bfglib.zendesk.ZendeskContactUsActivity
+- zendesk.support.guide.HelpCenterActivity
+- zendesk.support.guide.ViewArticleActivity
+- zendesk.support.request.RequestActivity
+
+### Workaround for Landscape-locked games (iOS Only)
+
+There is a known issue for iOS where games that are locked in landscape orientation may switch to portrait mode when attaching an image or other media in Zendesk. To prevent this behavior from occuring, use the following workaround:
+
+1. Add the following code for the ``_application: supportedInterfaceOrientationsForWindow_`` method inside your ``AppDelegate`` class. If your game already implements this method, work the bdy fo the provided method into your existing implementation.
+
+```objectivec
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window
+{
+  UIViewController *viewWalker = window.rootViewController;
+  while (viewWalker != nil)
+  {
+    if ([viewWalker isKindOfClass:[UIImagePickerController class]] && !viewWalker.isBeingDismissed)
+    {
+      return UIInterfaceOrientationMaskAll;
+    }
+    viewWalker = viewWalker.presentedViewController;
+  }
+  return UIInterfaceOrientationMaskLandscape;
+}
+```
