@@ -14,7 +14,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
 
 ## Unity SDK Compatibility Chart 
 
-<sup>NOTE: 3rd party services in <strong>bold</strong> were updated in the corresponding Big Fish SDK release.</sup>
+<sup>NOTE: 3rd party services in <strong>bold</strong> were updated in the corresponding Big Fish SDK release.</sup><br />
 
 <table>
   <tr>
@@ -67,4 +67,49 @@ Target Android: v34<br />
       </ul>
     </td>
   </tr>
-</table>
+  <tr>
+    <td>
+
+**10.7.1**<br />
+29 March 2024
+
+Required Unity: v2018.4<br />
+Minimum iOS: v12<br />
+Minimum Android: v23<br />
+Target Android: v34<br />
+    </td>
+    <td>
+      <p style="color: darkblue">NO CHANGES THIS RELEASE</p>
+      <ul>
+        <li>AppsFlyer v6.10.0</li>
+        <li>**Facebook v17.0.0**</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Rave v3.9.11</li>
+        <li>Zendesk</li>
+        <ul>
+          <li>CommonUISDK v1.1.0</li>
+          <li>ProviderSDK v4.0.0</li>
+          <li>ZendeskCoreSDK v2.2.1</li>
+          <li>ZendeskSDK v7.0.0</li>
+        </ul>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>AppsFlyer v6.4.2</li>
+        <li>Facebook v16.2.0</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v11.6.0</li>
+          <li>Analytics v11.6.0</li>
+        </ul>
+        <li>**Google Billing v6.2.0**</li>
+        <li>Rave v4.2.2</li>
+        <li>Zendesk v5.1.0</li>
+      </ul>
+    </td>
+  </tr></table>
