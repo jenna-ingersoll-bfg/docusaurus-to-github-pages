@@ -79,7 +79,7 @@ Minimum Android: v23<br />
 Target Android: v34<br />
     </td>
     <td>
-      <p style="{{ color: 'SteelBlue' }}"><strong>NO CHANGES THIS RELEASE</strong></p>
+      <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
       <ul>
         <li>AppsFlyer v6.10.0</li>
         <li>**Facebook v17.0.0**</li>
