@@ -769,3 +769,268 @@ Target Android: v34
     </tr>
   </tbody>
 </table>
+
+<details>
+  <summary>Previous Native Android SDK Releases</summary>
+  <table>
+    <thead>
+      <tr>
+        <th><strong>BFG SDK Version</strong></th>
+        <th><strong>3rd Party SDK Version</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+
+**8.5.0**<br />
+26 September 2023
+
+Minimum Android: v21<br />
+Target Android: v34
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>**Facebook v16.0.1**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v18.2.12</li>
+              <li>Analytics v20.3.0</li>
+            </ul>
+            <li>**Google Billing v6.0.1**</li>
+            <li>**Rave v3.9.14**</li>
+            <li>Zendesk v5.1.0</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**8.4.0**<br />
+23 June 2023
+
+**8.3.0**<br />
+06 April 2023
+
+Minimum Android: v21<br />
+Target Android: v33
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v12.3.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v18.2.12</li>
+              <li>Analytics v20.3.0</li>
+            </ul>
+            <li>**Google Billing v5.0.0**</li>
+            <li>Rave v3.9.8</li>
+            <li>Zendesk v5.1.0</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**8.2.0**<br />
+23 November 2022
+
+Minimum Android: v21<br />
+Target Android: v33
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v12.3.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v18.2.12</li>
+              <li>Analytics v20.3.0</li>
+            </ul>
+            <li>Google Billing v4.0.0</li>
+            <li>Rave v3.9.8</li>
+            <li>**Zendesk v5.1.0**</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**8.1.0**<br />
+25 August 2022
+
+Minimum Android: v20<br />
+Target Android: v33
+
+**8.0.0**<br />
+25 July 2022
+
+Minimum Android: v20<br />
+Target Android: v31
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>**Facebook v12.3.0**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>**Crashlytics v18.2.12**</li>
+              <li>Analytics v20.3.0</li>
+            </ul>
+            <li>**Google Billing v4.0.0**</li>
+            <li>**Rave v3.9.8**</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.8.0**<br />
+**7.7.0**<br />
+**7.6.0**
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.4.2**</li>
+            <li>Facebook v8.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.2.2</li>
+              <li>Analytics v20.3.0</li>
+            </ul>
+            <li>**Google Billing v3.0.3**</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.5.2**<br />
+**7.5.1**<br />
+**7.5.0**<br />
+**7.4.0**
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.2.3</li>
+            <li>Facebook v8.2.0</li>
+            <li>**Firebase**</li>
+            <ul>
+              <li>**Crashlytics v17.2.2**</li>
+              <li>**Analytics v20.3.0**</li>
+            </ul>
+            <li>Google Billing v3.0.3</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.3.0**
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.2.3</li>
+            <li>Facebook v8.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.0.0</li>
+              <li>Analytics v20.1.5</li>
+            </ul>
+            <li>**Google Billing v3.0.3**</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.1.7**
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.2.3</li>
+            <li>**Facebook v8.2.0**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.0.0</li>
+              <li>Analytics v20.1.5</li>
+            </ul>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.1.6**
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.2.3**</li>
+            <li>Facebook v4.4.1/li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.0.0</li>
+              <li>Analytics v20.1.5</li>
+            </ul>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.1.5**<br />
+**7.1.4**<br />
+**7.1.3**<br />
+**7.1.2**<br />
+**7.1.1**<br />
+**7.1.0**
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v4.8.15</li>
+            <li>Facebook v4.4.1/li>
+            <li>Firebase</li>
+            <ul>
+              <li>**Crashlytics v17.0.0**</li>
+              <li>Analytics v20.1.5</li>
+            </ul>
+            <li>Rave v3.9.1</li>
+            <li>**Zendesk v3.0.2**</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.0.0**
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v4.8.15</li>
+            <li>Facebook v4.4.1/li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics (Fabric)</li>
+              <li>Analytics v20.1.5</li>
+            </ul>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v1.10.1.1</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</details>
