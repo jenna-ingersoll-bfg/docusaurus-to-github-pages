@@ -126,7 +126,7 @@ Target Android: v34
 **10.6.1**<br />
 15 February 2024
 
-**10.7.0**<br />
+**10.6.0**<br />
 09 January 2024
 
 Required Unity: v2018.4<br />
@@ -679,3 +679,93 @@ Target Android: v32
     </tbody>
   </table>
 </details>
+
+## Native Android SDK Compatibility Chart
+
+<sup>NOTE: 3rd party services in <strong>bold</strong> were updated in the corresponding Big Fish SDK release.</sup>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>BFG SDK Version</strong></th>
+      <th><strong>3rd Party SDK Version</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+
+**8.8.0**<br />
+21 May 2024
+
+Minimum Android: v23<br />
+Target Android: v34
+      </td>
+      <td>
+        <ul>
+          <li>AppsFlyer v6.4.2</li>
+          <li>Facebook v16.2.0</li>
+          <li>Firebase</li>
+          <ul>
+            <li>**Crashlytics v18.6.3**</li>
+            <li>Analytics v20.3.0</li>
+          </ul>
+          <li>**Google Billing v6.2.0**</li>
+          <li>**Rave v4.2.7**</li>
+          <li>Zendesk v5.1.0</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+**8.7.0**<br />
+29 March 2024
+
+Minimum Android: v23<br />
+Target Android: v34
+      </td>
+      <td>
+        <ul>
+          <li>AppsFlyer v6.4.2</li>
+          <li>Facebook v16.2.0</li>
+          <li>Firebase</li>
+          <ul>
+            <li>Crashlytics v18.2.12</li>
+            <li>Analytics v20.3.0</li>
+          </ul>
+          <li>Google Billing v6.0.1</li>
+          <li>**Rave v4.2.2**</li>
+          <li>Zendesk v5.1.0</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+**8.6.1**<br />
+15 February 2024
+
+**8.6.0**<br />
+09 January 2024
+
+Minimum Android: v21<br />
+Target Android: v34
+      </td>
+      <td>
+        <ul>
+          <li>AppsFlyer v6.4.2</li>
+          <li>**Facebook v16.2.0**</li>
+          <li>Firebase</li>
+          <ul>
+            <li>Crashlytics v18.2.12</li>
+            <li>Analytics v20.3.0</li>
+          </ul>
+          <li>Google Billing v6.0.1</li>
+          <li>Rave v3.9.14</li>
+          <li>Zendesk v5.1.0</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
