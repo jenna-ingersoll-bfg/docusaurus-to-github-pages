@@ -23,13 +23,13 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   <tr>
     <td>
 
-**10.8.0**
+**10.8.0**<br />
 21 May 2024
 
-Required Unity: v2018.4
-Minimum iOS: v12
-Minimum Android: v23
-Target Android: v34
+Required Unity: v2018.4<br />
+Minimum iOS: v12<br />
+Minimum Android: v23<br />
+Target Android: v34<br />
     </td>
     <td>
       <ul>
