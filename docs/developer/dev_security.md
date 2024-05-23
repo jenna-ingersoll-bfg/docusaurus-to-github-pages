@@ -82,7 +82,7 @@ Target Android: v34<br />
       <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
       <ul>
         <li>AppsFlyer v6.10.0</li>
-        <li>**Facebook v17.0.0**</li>
+        <li>Facebook v11.2.1</li>
         <li>Firebase</li>
         <ul>
           <li>Crashlytics v9.3.0</li>
@@ -102,14 +102,203 @@ Target Android: v34<br />
       <ul>
         <li>AppsFlyer v6.4.2</li>
         <li>Facebook v16.2.0</li>
-        <li>Firebase</li>
+        <li>**Firebase**</li>
         <ul>
-          <li>Crashlytics v11.6.0</li>
-          <li>Analytics v11.6.0</li>
+          <li>**Crashlytics v11.6.0**</li>
+          <li>**Analytics v11.6.0**</li>
         </ul>
-        <li>**Google Billing v6.2.0**</li>
-        <li>Rave v4.2.2</li>
+        <li>Google Billing v6.0.1</li>
+        <li>**Rave v4.2.2**</li>
         <li>Zendesk v5.1.0</li>
       </ul>
     </td>
-  </tr></table>
+  </tr>
+  <tr>
+    <td>
+
+**10.7.0**<br />
+22 March 2024
+
+**10.6.1**<br />
+15 February 2024
+
+**10.7.0**<br />
+09 January 2024
+
+Required Unity: v2018.4<br />
+Minimum iOS: v12<br />
+Minimum Android: v22<br />
+Target Android: v34<br />
+    </td>
+    <td>
+      <ul>
+        <li>AppsFlyer v6.10.0</li>
+        <li>Facebook v11.2.1</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Rave v3.9.11</li>
+        <li>Zendesk</li>
+        <ul>
+          <li>CommonUISDK v1.1.0</li>
+          <li>ProviderSDK v4.0.0</li>
+          <li>ZendeskCoreSDK v2.2.1</li>
+          <li>**ZendeskSDK v7.0.0**</li>
+        </ul>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>AppsFlyer v6.4.2</li>
+        <li>**Facebook v16.2.0**</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Google Billing v6.0.1</li>
+        <li>Rave v3.9.14</li>
+        <li>Zendesk v5.1.0</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+**10.5.0**<br />
+26 September 2023
+
+Required Unity: v2018.4<br />
+Minimum iOS: v11<br />
+Minimum Android: v22<br />
+Target Android: v34<br />
+    </td>
+    <td>
+      <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
+      <ul>
+        <li>AppsFlyer v6.10.0</li>
+        <li>Facebook v11.2.1</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Rave v3.9.11</li>
+        <li>Zendesk</li>
+        <ul>
+          <li>CommonUISDK v1.1.0</li>
+          <li>ProviderSDK v4.0.0</li>
+          <li>ZendeskCoreSDK v2.2.1</li>
+          <li>ZendeskSDK v6.0.0</li>
+        </ul>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>AppsFlyer v6.4.2</li>
+        <li>**Facebook v16.0.1**</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>**Google Billing v6.0.1**</li>
+        <li>**Rave v3.9.14**</li>
+        <li>Zendesk v5.1.0</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+**10.4.0**<br />
+23 June 2023
+
+Required Unity: v2018.4<br />
+Minimum iOS: v11<br />
+Minimum Android: v22<br />
+Target Android: v33<br />
+    </td>
+    <td>
+      <ul>
+        <li>AppsFlyer v6.10.0</li>
+        <li>**Facebook v11.2.1**</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Rave v3.9.11</li>
+        <li>Zendesk</li>
+        <ul>
+          <li>CommonUISDK v1.1.0</li>
+          <li>ProviderSDK v4.0.0</li>
+          <li>ZendeskCoreSDK v2.2.1</li>
+          <li>ZendeskSDK v6.0.0</li>
+        </ul>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>AppsFlyer v6.4.2</li>
+        <li>Facebook v12.3.0</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>**Google Billing v5.0.0**</li>
+        <li>Rave v3.9.8</li>
+        <li>Zendesk v5.1.0</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+**10.3.0**<br />
+06 April 2023
+
+Required Unity: v2018.4<br />
+Minimum iOS: v11<br />
+Minimum Android: v22<br />
+Target Android: v33<br />
+    </td>
+    <td>
+      <ul>
+        <li>**AppsFlyer v6.10.0**</li>
+        <li>Facebook v9.2.0</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Rave v3.9.11</li>
+        <li>Zendesk</li>
+        <ul>
+          <li>CommonUISDK v1.1.0</li>
+          <li>ProviderSDK v4.0.0</li>
+          <li>ZendeskCoreSDK v2.2.1</li>
+          <li>**ZendeskSDK v6.0.0**</li>
+        </ul>
+      </ul>
+    </td>
+    <td>
+      <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
+      <ul>
+        <li>AppsFlyer v6.4.2</li>
+        <li>Facebook v12.3.0</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Google Billing v4.1.0</li>
+        <li>Rave v3.9.8</li>
+        <li>Zendesk v5.1.0</li>
+      </ul>
+    </td>
+  </tr>
+</table>
