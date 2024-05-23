@@ -977,7 +977,7 @@ Target Android: v31
         <td>
           <ul>
             <li>**AppsFlyer v6.2.3**</li>
-            <li>Facebook v4.4.1/li>
+            <li>Facebook v4.4.1</li>
             <li>Firebase</li>
             <ul>
               <li>Crashlytics v17.0.0</li>
@@ -1001,7 +1001,7 @@ Target Android: v31
         <td>
           <ul>
             <li>AppsFlyer v4.8.15</li>
-            <li>Facebook v4.4.1/li>
+            <li>Facebook v4.4.1</li>
             <li>Firebase</li>
             <ul>
               <li>**Crashlytics v17.0.0**</li>
@@ -1020,7 +1020,7 @@ Target Android: v31
         <td>
           <ul>
             <li>AppsFlyer v4.8.15</li>
-            <li>Facebook v4.4.1/li>
+            <li>Facebook v4.4.1</li>
             <li>Firebase</li>
             <ul>
               <li>Crashlytics (Fabric)</li>
