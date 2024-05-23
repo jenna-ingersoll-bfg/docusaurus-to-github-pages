@@ -2,7 +2,7 @@
 
 # 3rd Party Version Updates
 
-<style> {` th, td { vertical-align: top; } `}</style>
+<style> {` th, td { vertical-align: top; display: table; width: 100%; } `}</style>
 
 The BFG SDK depends on a number of external 3rd party SDKs to function. Many of these, listed below, are integrated directly into the BFG SDK and you do not need to integrate them separately.
 
@@ -258,52 +258,6 @@ In certain circumstances, you may decide to use a different version of a 3rd par
         </ul>
       </td>
     </tr>
-    <tr>
-      <td>
-
-  **10.3.0**<br />
-  06 April 2023
-
-  Required Unity: v2018.4<br />
-  Minimum iOS: v11<br />
-  Minimum Android: v22<br />
-  Target Android: v33<br />
-      </td>
-      <td>
-        <ul>
-          <li>**AppsFlyer v6.10.0**</li>
-          <li>Facebook v9.2.0</li>
-          <li>Firebase</li>
-          <ul>
-            <li>Crashlytics v9.3.0</li>
-            <li>Analytics v9.3.0</li>
-          </ul>
-          <li>Rave v3.9.11</li>
-          <li>Zendesk</li>
-          <ul>
-            <li>CommonUISDK v1.1.0</li>
-            <li>ProviderSDK v4.0.0</li>
-            <li>ZendeskCoreSDK v2.2.1</li>
-            <li>**ZendeskSDK v6.0.0**</li>
-          </ul>
-        </ul>
-      </td>
-      <td>
-        <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
-        <ul>
-          <li>AppsFlyer v6.4.2</li>
-          <li>Facebook v12.3.0</li>
-          <li>Firebase</li>
-          <ul>
-            <li>Crashlytics v9.3.0</li>
-            <li>Analytics v9.3.0</li>
-          </ul>
-          <li>Google Billing v4.1.0</li>
-          <li>Rave v3.9.8</li>
-          <li>Zendesk v5.1.0</li>
-        </ul>
-      </td>
-    </tr>
   </tbody>
 </table>
 
@@ -318,51 +272,6 @@ In certain circumstances, you may decide to use a different version of a 3rd par
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-
-    **10.4.0**<br />
-    23 June 2023
-
-    Required Unity: v2018.4<br />
-    Minimum iOS: v11<br />
-    Minimum Android: v22<br />
-    Target Android: v33<br />
-        </td>
-        <td>
-          <ul>
-            <li>AppsFlyer v6.10.0</li>
-            <li>**Facebook v11.2.1**</li>
-            <li>Firebase</li>
-            <ul>
-              <li>Crashlytics v9.3.0</li>
-              <li>Analytics v9.3.0</li>
-            </ul>
-            <li>Rave v3.9.11</li>
-            <li>Zendesk</li>
-            <ul>
-              <li>CommonUISDK v1.1.0</li>
-              <li>ProviderSDK v4.0.0</li>
-              <li>ZendeskCoreSDK v2.2.1</li>
-              <li>ZendeskSDK v6.0.0</li>
-            </ul>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>AppsFlyer v6.4.2</li>
-            <li>Facebook v12.3.0</li>
-            <li>Firebase</li>
-            <ul>
-              <li>Crashlytics v9.3.0</li>
-              <li>Analytics v9.3.0</li>
-            </ul>
-            <li>**Google Billing v5.0.0**</li>
-            <li>Rave v3.9.8</li>
-            <li>Zendesk v5.1.0</li>
-          </ul>
-        </td>
-      </tr>
       <tr>
         <td>
 
