@@ -2,6 +2,12 @@
 
 # 3rd Party Version Updates
 
+<style>
+th, td {
+  vertical-align: top;
+}
+</style>
+
 The BFG SDK depends on a number of external 3rd party SDKs to function. Many of these, listed below, are integrated directly into the BFG SDK and you do not need to integrate them separately.
 
 :::info 
