@@ -1034,3 +1034,394 @@ Target Android: v31
     </tbody>
   </table>
 </details>
+
+## Native iOS SDK Compatibility Chart
+
+<sup>NOTE: 3rd party services in <strong>bold</strong> were updated in the corresponding Big Fish SDK release.</sup>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>BFG SDK Version</strong></th>
+      <th><strong>3rd Party SDK Version</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+
+**8.6.0**<br />
+21 May 2024
+
+Minimum iOS: v12
+      </td>
+      <td>
+        <ul>
+          <li>AppsFlyer v6.10.0</li>
+          <li>**Facebook v17.0.0**</li>
+          <li>**Firebase**</li>
+          <ul>
+            <li>**Crashlytics v10.24.0**</li>
+            <li>**Analytics v10.24.0**</li>
+          </ul>
+          <li>**Rave v4.3.1**</li>
+          <li>Zendesk</li>
+          <ul>
+            <li>CommonUISDK v1.1.0</li>
+            <li>ProviderSDK v4.0.0</li>
+            <li>ZendeskCoreSDK v2.2.1</li>
+            <li>ZendeskSDK v7.7.0</li>
+          </ul>
+          <li>WebP v0.4.4</li>
+          <li>OpenSSL v1.1.0f</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+**8.5.0**<br />
+22 March 2024
+
+Minimum iOS: v12
+      </td>
+      <td>
+        <ul>
+          <li>AppsFlyer v6.10.0</li>
+          <li>Facebook v11.2.1</li>
+          <li>**Firebase**</li>
+          <ul>
+            <li>**Crashlytics v10.7.0**</li>
+            <li>**Analytics v10.7.0**</li>
+          </ul>
+          <li>Rave v3.9.11</li>
+          <li>Zendesk</li>
+          <ul>
+            <li>CommonUISDK v1.1.0</li>
+            <li>ProviderSDK v4.0.0</li>
+            <li>ZendeskCoreSDK v2.2.1</li>
+            <li>ZendeskSDK v7.7.0</li>
+          </ul>
+          <li>WebP v0.4.4</li>
+          <li>OpenSSL v1.1.0f</li>
+        </ul>
+      </td>
+    </tr> 
+    <tr>
+      <td>
+
+**8.4.1**<br />
+22 March 2024
+
+**8.4.0**<br />
+09 January 2024
+
+Minimum iOS: v11
+      </td>
+      <td>
+        <ul>
+          <li>AppsFlyer v6.10.0</li>
+          <li>Facebook v11.2.1</li>
+          <li>Firebase</li>
+          <ul>
+            <li>Crashlytics v4.3.1</li>
+            <li>Analytics v6.6.2</li>
+          </ul>
+          <li>Rave v3.9.11</li>
+          <li>Zendesk</li>
+          <ul>
+            <li>CommonUISDK v1.1.0</li>
+            <li>ProviderSDK v4.0.0</li>
+            <li>ZendeskCoreSDK v2.2.1</li>
+            <li>**ZendeskSDK v7.7.0**</li>
+          </ul>
+          <li>WebP v0.4.4</li>
+          <li>OpenSSL v1.1.0f</li>
+        </ul>
+      </td>
+    </tr> 
+  </tbody>
+</table>
+
+<details>
+  <summary>Previous Native iOS SDK Versions</summary>
+    <table>
+    <thead>
+      <tr>
+        <th><strong>BFG SDK Version</strong></th>
+        <th><strong>3rd Party SDK Version</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+
+**8.3.0**<br />
+26 September 2023
+
+**8.2.0**<br />
+23 June 2023
+
+Minimum iOS: v11
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.10.0</li>
+            <li>**Facebook v11.2.1**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v6.0.0</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr> 
+      <tr>
+        <td>
+
+**8.1.0**<br />
+06 April 2023
+
+Minimum iOS: v11
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.10.0**</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>**ZendeskSDK v6.0.0**</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr> 
+      <tr>
+        <td>
+
+**8.0.0**<br />
+22 November 2022
+
+**7.7.2**<br />
+25 July 2022
+
+**7.7.1**<br />
+08 June 2022
+
+**7.7.0**<br />
+13 May 2022
+
+**7.6.0**<br />
+28 February 2022
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.4.2**</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.5.1**<br />
+**7.5.0**<br />
+**7.4.0**<br />
+**7.3.0**<br />
+**7.2.5**<br />
+**7.2.4**
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.2.6**</li>
+            <li>**Facebook v9.2.0**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>**Rave v3.9.11**</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.2.3**<br />
+**7.2.2**<br />
+**7.2.1**
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.2.4**</li>
+            <li>**Facebook v9.0.1**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>**Rave v3.9.10-402**</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.2.0**
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.0.3</li>
+            <li>**Facebook v8.2.0**</li>
+            <li>**Firebase**</li>
+            <ul>
+              <li>**Crashlytics v4.3.1**</li>
+              <li>**Analytics v6.6.2**</li>
+            </ul>
+            <li>Rave v3.9.8-399</li>
+            <li>**Zendesk**</li>
+            <ul>
+              <li>**CommonUISDK v1.1.0**</li>
+              <li>**ProviderSDK v4.0.0**</li>
+              <li>**ZendeskCoreSDK v2.2.1**</li>
+              <li>**ZendeskSDK v4.0.0**</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.1.3**
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.0.3**</li>
+            <li>Facebook v5.8.0</li>
+            <li>**Firebase**</li>
+            <ul>
+              <li>**Crashlytics v6.28.1 / 4.3.0**</li>
+              <li>**Analytics v6.28.1 / 6.6.2**</li>
+              <li>**Performance v6.28.1 / 3.2.1**</li>
+            </ul>
+            <li>**Rave v3.9.8-399**</li>
+            <li>**Zendesk**</li>
+            <ul>
+              <li>**CommonUISDK v4.0.0**</li>
+              <li>**Messaging v3.0.0**</li>
+              <li>**SDKConfigurations v2.2.0**</li>
+              <li>**SupportProvidersSDK v5.0.0**</li>
+              <li>**SupportSDK v5.0.0**</li>
+              <li>**ZendeskCoreSDK v2.2.1**</li>
+            </ul>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.1.2**<br />
+**7.1.1**
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v4.8.9</li>
+            <li>Facebook v5.8.0</li>
+            <li>Firebase v3.14</li>
+            <li>Rave v3.9.5</li>
+            <li>**Zendesk v5.0.0**</li>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**7.0.1**
+
+Minimum iOS: v9.1
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v4.8.9</li>
+            <li>Facebook v5.8.0</li>
+            <li>Firebase v3.15</li>
+            <li>Rave v3.9.5</li>
+            <li>WebP v0.4.4</li>
+            <li>OpenSSL v1.1.0f</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</details>
