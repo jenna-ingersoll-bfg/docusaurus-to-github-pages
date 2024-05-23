@@ -44,6 +44,7 @@ Target Android: v34
   - ProviderSDK v4.0.0
   - ZendeskCoreSDK v2.2.1
   - ZendeskSDK v7.0.0
+
     </td>
     <td>
 
@@ -55,6 +56,7 @@ Target Android: v34
 - **Google Billing v6.2.0**
 - Rave v4.2.2
 - Zendesk v5.1.0
+
     </td>
   </tr>
 </table>
