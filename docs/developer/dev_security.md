@@ -83,7 +83,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Target Android: v34
       </td>
       <td>
-        <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
         <ul>
           <li>AppsFlyer v6.10.0</li>
           <li>Facebook v11.2.1</li>
@@ -180,7 +180,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Target Android: v34
       </td>
       <td>
-        <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
         <ul>
           <li>AppsFlyer v6.10.0</li>
           <li>Facebook v11.2.1</li>
@@ -304,7 +304,7 @@ Target Android: v33
           </ul>
         </td>
         <td>
-          <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
           <ul>
             <li>AppsFlyer v6.4.2</li>
             <li>Facebook v12.3.0</li>
@@ -331,7 +331,7 @@ Minimum Android: v22<br />
 Target Android: v33
         </td>
         <td>
-          <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
           <ul>
             <li>AppsFlyer v6.4.2</li>
             <li>Facebook v9.2.0</li>
@@ -422,7 +422,7 @@ Minimum Android: v22<br />
 Target Android: v32
         </td>
         <td>
-          <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
           <ul>
             <li>AppsFlyer v6.4.2</li>
             <li>Facebook v9.2.0</li>
@@ -487,7 +487,7 @@ Target Android: v32
         </td>
         <td>
           <ul>
-            <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
             <li>AppsFlyer v6.4.2</li>
             <li>Facebook v8.2.0</li>
             <li>Firebase</li>
@@ -511,7 +511,7 @@ Target Android: v32
         </td>
         <td>
           <ul>
-            <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
             <li>iOS API: Minimum v10</li>
             <li>AppsFlyer v6.2.6</li>
             <li>Facebook v9.2.0</li>
@@ -559,7 +559,7 @@ Target Android: v32
         </td>
         <td>
           <ul>
-            <p style={{ color: 'SteelBlue'; }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue' }} >**NO CHANGES THIS RELEASE**</p>
             <li>iOS API: Minimum v10</li>
             <li>AppsFlyer v6.2.6</li>
             <li>Facebook v9.2.0</li>
