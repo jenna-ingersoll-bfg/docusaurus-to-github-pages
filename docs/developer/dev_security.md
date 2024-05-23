@@ -32,27 +32,37 @@ Minimum Android: v23
 Target Android: v34
     </td>
     <td>
-- AppsFlyer v6.10.0
-- **Facebook v17.0.0**
-- Firebase
-  - Crashlytics v9.3.0
-  - Analytics v9.3.0
-- Rave v3.9.11
-- Zendesk
-  - CommonUISDK v1.1.0
-  - ProviderSDK v4.0.0
-  - ZendeskCoreSDK v2.2.1
-  - ZendeskSDK v7.0.0
-    </li></ul></td>
+      <ul>
+        <li>AppsFlyer v6.10.0</li>
+        <li>**Facebook v17.0.0**</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v9.3.0</li>
+          <li>Analytics v9.3.0</li>
+        </ul>
+        <li>Rave v3.9.11</li>
+        <li>Zendesk</li>
+        <ul>
+          <li>CommonUISDK v1.1.0</li>
+          <li>ProviderSDK v4.0.0</li>
+          <li>ZendeskCoreSDK v2.2.1</li>
+          <li>ZendeskSDK v7.0.0</li>
+        </ul>
+      </ul>
+    </td>
     <td>
-- AppsFlyer v6.4.2
-- Facebook v16.2.0
-- Firebase
-  - Crashlytics v11.6.0
-  - Analytics v11.6.0
-- **Google Billing v6.2.0**
-- Rave v4.2.2
-- Zendesk v5.1.0
-    </li></ul></td>
+      <ul>
+        <li>AppsFlyer v6.4.2</li>
+        <li>Facebook v16.2.0</li>
+        <li>Firebase</li>
+        <ul>
+          <li>Crashlytics v11.6.0</li>
+          <li>Analytics v11.6.0</li>
+        </ul>
+        <li>**Google Billing v6.2.0**</li>
+        <li>Rave v4.2.2</li>
+        <li>Zendesk v5.1.0</li>
+      </ul>
+    </td>
   </tr>
 </table>
