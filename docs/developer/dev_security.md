@@ -15,7 +15,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
 
 ## Unity SDK Compatibility Chart 
 
-<sup>NOTE: 3rd party services in <strong>bold</strong> were updated in the corresponding Big Fish SDK release.</sup><br />
+<sup>NOTE: 3rd party services in <strong>bold</strong> were updated in the corresponding Big Fish SDK release.</sup>
 
 <table>
   <thead>
@@ -35,7 +35,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Required Unity: v2018.4<br />
   Minimum iOS: v12<br />
   Minimum Android: v23<br />
-  Target Android: v34<br />
+  Target Android: v34
       </td>
       <td>
         <ul>
@@ -80,10 +80,10 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Required Unity: v2018.4<br />
   Minimum iOS: v12<br />
   Minimum Android: v23<br />
-  Target Android: v34<br />
+  Target Android: v34
       </td>
       <td>
-        <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
         <ul>
           <li>AppsFlyer v6.10.0</li>
           <li>Facebook v11.2.1</li>
@@ -132,7 +132,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Required Unity: v2018.4<br />
   Minimum iOS: v12<br />
   Minimum Android: v22<br />
-  Target Android: v34<br />
+  Target Android: v34
       </td>
       <td>
         <ul>
@@ -177,10 +177,10 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Required Unity: v2018.4<br />
   Minimum iOS: v11<br />
   Minimum Android: v22<br />
-  Target Android: v34<br />
+  Target Android: v34
       </td>
       <td>
-        <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
+        <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
         <ul>
           <li>AppsFlyer v6.10.0</li>
           <li>Facebook v11.2.1</li>
@@ -223,7 +223,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
   Required Unity: v2018.4<br />
   Minimum iOS: v11<br />
   Minimum Android: v22<br />
-  Target Android: v33<br />
+  Target Android: v33
       </td>
       <td>
         <ul>
@@ -276,13 +276,13 @@ In certain circumstances, you may decide to use a different version of a 3rd par
       <tr>
         <td>
 
-    **10.3.0**<br />
-    06 April 2023
+**10.3.0**<br />
+06 April 2023
 
-    Required Unity: v2018.4<br />
-    Minimum iOS: v11<br />
-    Minimum Android: v22<br />
-    Target Android: v33<br />
+Required Unity: v2018.4<br />
+Minimum iOS: v11<br />
+Minimum Android: v22<br />
+Target Android: v33
         </td>
         <td>
           <ul>
@@ -304,7 +304,7 @@ In certain circumstances, you may decide to use a different version of a 3rd par
           </ul>
         </td>
         <td>
-          <p style={{ color: 'SteelBlue' }}>**NO CHANGES THIS RELEASE**</p>
+          <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
           <ul>
             <li>AppsFlyer v6.4.2</li>
             <li>Facebook v12.3.0</li>
@@ -316,6 +316,363 @@ In certain circumstances, you may decide to use a different version of a 3rd par
             <li>Google Billing v4.1.0</li>
             <li>Rave v3.9.8</li>
             <li>Zendesk v5.1.0</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**10.2.0**<br />
+23 November 2023
+
+Required Unity: v2018.4<br />
+Minimum iOS: v10<br />
+Minimum Android: v22<br />
+Target Android: v33
+        </td>
+        <td>
+          <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v9.3.0</li>
+              <li>Analytics v9.3.0</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v12.3.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v9.3.0</li>
+              <li>Analytics v9.3.0</li>
+            </ul>
+            <li>Google Billing v4.1.0</li>
+            <li>Rave v3.9.8</li>
+            <li>**Zendesk v5.1.0**</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**10.1.0**<br />
+25 August 2023
+
+Required Unity: v2018.4<br />
+Minimum iOS: v10<br />
+Minimum Android: v22<br />
+Target Android: v33
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v9.2.0</li>
+            <li>**Firebase**</li>
+            <ul>
+              <li>**Crashlytics v9.3.0**</li>
+              <li>**Analytics v9.3.0**</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v12.3.0</li>
+            <li>**Firebase**</li>
+            <ul>
+              <li>**Crashlytics v9.3.0**</li>
+              <li>**Analytics v9.3.0**</li>
+            </ul>
+            <li>**Google Billing v4.1.0**</li>
+            <li>Rave v3.9.8</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**10.0.0**<br />
+25 July 2023
+
+Required Unity: v2018.4<br />
+Minimum iOS: v10<br />
+Minimum Android: v22<br />
+Target Android: v32
+        </td>
+        <td>
+          <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.4.2</li>
+            <li>**Facebook v12.3.0**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.2.2</li>
+              <li>Analytics v17.6.0</li>
+              <li>Messaging v20.3.0</li>
+              <li>Perf v19.0.7</li>
+            </ul>
+            <li>Google Billing v3.0.0</li>
+            <li>**Rave v3.9.8**</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**9.6.1**<br />
+**9.6.0**<br />
+**9.5.0**
+        </td>
+        <td>
+          <ul>
+            <li>iOS API: Minimum v10</li>
+            <li>**AppsFlyer v6.4.2**</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
+            <li>AppsFlyer v6.4.2</li>
+            <li>Facebook v8.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.2.2</li>
+              <li>Analytics v17.6.0</li>
+              <li>Messaging v20.3.0</li>
+              <li>Perf v19.0.7</li>
+            </ul>
+            <li>Google Billing v3.0.0</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**9.4.1**<br />
+**9.4.0**
+        </td>
+        <td>
+          <ul>
+            <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
+            <li>iOS API: Minimum v10</li>
+            <li>AppsFlyer v6.2.6</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.4.2**</li>
+            <li>Facebook v8.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.2.2</li>
+              <li>Analytics v17.6.0</li>
+              <li>Messaging v20.3.0</li>
+              <li>Perf v19.0.7</li>
+            </ul>
+            <li>Google Billing v3.0.0</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+  **9.3.2**<br />
+  **9.3.1**<br />
+  **9.3.0**<br />
+  **9.2.1**<br />
+  **9.2.0**<br />
+  **9.1.0**
+        </td>
+        <td>
+          <ul>
+            <p style={{ color: 'SteelBlue'; text-align: center; }}>**NO CHANGES THIS RELEASE**</p>
+            <li>iOS API: Minimum v10</li>
+            <li>AppsFlyer v6.2.6</li>
+            <li>Facebook v9.2.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.11</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v6.2.3</li>
+            <li>**Facebook v8.2.0**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v17.2.2</li>
+              <li>Analytics v17.6.0</li>
+              <li>Messaging v20.3.0</li>
+              <li>Perf v19.0.7</li>
+            </ul>
+            <li>Google Billing v3.0.0</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**9.0.2**
+        </td>
+        <td>
+          <ul>
+            <li>iOS API: Minimum v10</li>
+            <li>**AppsFlyer v6.2.6**</li>
+            <li>**Facebook v9.2.0**</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>**Rave v3.9.11**</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>**AppsFlyer v6.2.3**</li>
+            <li>Facebook v4.41.0</li>
+            <li>**Firebase**</li>
+            <ul>
+              <li>**Crashlytics v17.2.2**</li>
+              <li>**Analytics v17.6.0**</li>
+              <li>**Messaging v20.3.0**</li>
+              <li>**Perf v19.0.7**</li>
+            </ul>
+            <li>**Google Billing v3.0.0**</li>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+
+**9.0.1**<br />
+**9.0.0**
+        </td>
+        <td>
+          <ul>
+            <li>iOS API: Minimum v10</li>
+            <li>AppsFlyer v6.2.4</li>
+            <li>Facebook v9.0.1</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Crashlytics v4.3.1</li>
+              <li>Analytics v6.6.2</li>
+            </ul>
+            <li>Rave v3.9.10-402</li>
+            <li>Zendesk</li>
+            <ul>
+              <li>CommonUISDK v1.1.0</li>
+              <li>ProviderSDK v4.0.0</li>
+              <li>ZendeskCoreSDK v2.2.1</li>
+              <li>ZendeskSDK v4.0.0</li>
+            </ul>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>AppsFlyer v4.8.15</li>
+            <li>Facebook v4.41.0</li>
+            <li>Firebase</li>
+            <ul>
+              <li>Messaging v20.1.5</li>
+            </ul>
+            <li>Rave v3.9.1</li>
+            <li>Zendesk v3.0.2</li>
           </ul>
         </td>
       </tr>
