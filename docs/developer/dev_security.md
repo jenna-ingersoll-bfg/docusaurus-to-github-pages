@@ -147,7 +147,7 @@ To enable the ‘Android TV Compatibility’ setting:
 The BFG SDK configuration file, bfg_config.json, provides the basic settings that will be used as the settings values during the first and subsequent launches. The BFG SDK Sample App provides a template with default values that you can build upon for your project. To copy it into your project:
 
 1. Navigate to the root folder of your unzipped Unity SDK.
-2. Copy the config file, bfg_config.json from /Packages/com.bfg.sdk/Editor/Plugins/Android/res/raw/bfg_config.json to:
+2. Copy the config file, bfg_config.json from /SampleApp/com.bfg.sdk/Editor/Plugins/Android/res/raw/bfg_config.json to the following locations in your project:
   - Google: /Assets/Plugins/Android/Google/post-copy/launcher/src/main/res/raw/bfg_config.json
   - Amazon: /Assets/Plugins/Android/Amazon/post-copy/launcher/src/main/res/raw/bfg_config.json
 
@@ -236,7 +236,7 @@ dependencies {
 Big Fish Games uses a custom launcher manifest file to initialize the BFG SDK. To get the file, copy it from the BFG SDK Sample App:
 
 1. Navigate to the root folder of your unzipped Unity SDK.
-2. Copy the launcher manifest, LauncherManifest.xml /SampleApp/Samples/<SampleProject-Root>/Assets/Plugins/Android/LauncherManifest.xml to your own project.
+2. Copy the launcher manifest, LauncherManifest.xml /SampleApp/Samples/\$SampleProjectName/Assets/Plugins/Android/LauncherManifest.xml to your own project.
 
 :::info 
 
