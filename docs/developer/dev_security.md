@@ -140,3 +140,134 @@ To enable the ‘Android TV Compatibility’ setting:
 4. Check **Android TV Compatibility** and **Android Game**.
 
 </details>
+
+<details>
+  <summary>Set up the BFG SDK config file</summary>
+
+The BFG SDK configuration file, bfg_config.json, provides the basic settings that will be used as the settings values during the first and subsequent launches. The BFG SDK Sample App provides a template with default values that you can build upon for your project. To copy it into your project:
+
+1. Navigate to the root folder of your unzipped Unity SDK.
+2. Copy the config file, bfg_config.json from /Packages/com.bfg.sdk/Editor/Plugins/Android/res/raw/bfg_config.json to:
+  - Google: /Assets/Plugins/Android/Google/post-copy/launcher/src/main/res/raw/bfg_config.json
+  - Amazon: /Assets/Plugins/Android/Amazon/post-copy/launcher/src/main/res/raw/bfg_config.json
+
+To learn about the settings and configuration options in bfg_config.json, see the Android section of Configure the BFG SDK.
+</details>
+
+<details>
+  <summary>Set up the project's Gradle file</summary>
+
+:::info
+
+The following code snippets contain placeholder version numbers ‘X.X.X’. Replace these placeholders with the appropriate version for your release of the BFG SDK, found at [3rd Party Version Compatibility Charts](../bfgsdk/compatibility-charts).
+
+:::
+
+Make the following modifications to your project's Gradle file, mainTemplate.gradle:
+
+1. Add the following lines to the top of **mainTemplate.gradle** file:
+
+```
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+```
+
+2. Modify the **buildscript** code section to match the following:
+
+```
+buildscript {
+	ext.kotlin_version = 'X.X.X'
+	repositories {
+		google()
+    mavenCentral()
+    maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+	}
+
+	dependencies {
+		classpath 'com.android.tools.build:gradle:X.X.X'
+    classpath 'com.google.firebase:perf-plugin:1.3.1'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
+}
+```
+
+3. Verify that your dependencies section has all the necessary dependencies for the SDK, as well as the regular Unity dependencies. Note that the below sample code may not be a comprehensive list of all dependencies required for your project. 
+
+```
+dependencies {
+  // Google Billing dependencies
+  implementation 'com.android.billingclient:billing:X.X.X'
+      
+  // Zendesk
+  implementation group: 'com.zendesk', name: 'support', version: 'X.X.X'
+  implementation 'com.zendesk.belvedere2:belvedere:X.X.X'
+  implementation 'com.google.android.material:material:X.X.X'
+  implementation 'com.squareup.okhttp:okhttp:X.X.X'
+  implementation 'com.squareup.moshi:moshi:X.X.X'
+
+  // AppsFlyer
+  implementation 'com.appsflyer:af-android-sdk:X.X.X'
+  implementation 'com.android.installreferrer:installreferrer:X.X.X'
+
+  // Firebase
+  implementation 'com.google.firebase:firebase-crashlytics:X.X.X'
+  implementation 'com.google.firebase:firebase-analytics:X.X.X'
+  implementation 'com.google.firebase:firebase-messaging:X.X.X'
+  implementation 'com.google.firebase:firebase-perf:X.X.X'
+
+  // Rave
+  implementation 'androidx.security:security-crypto:X.X.X'
+  implementation 'androidx.work:work-runtime:X.X.X'
+  implementation 'com.google.android.gms:play-services-auth:X.X.X'
+  implementation 'com.facebook.android:facebook-android-sdk:X.X.X'
+  implementation 'com.android.volley:volley:X.X.X'
+
+  // Other dependencies
+  implementation 'androidx.constraintlayout:constraintlayout:X.X.X'
+}
+```
+
+</details>
+
+<details>
+  <summary>Create custom Launcher Manifest</summary>
+
+Big Fish Games uses a custom launcher manifest file to initialize the BFG SDK. To get the file, copy it from the BFG SDK Sample App:
+
+1. Navigate to the root folder of your unzipped Unity SDK.
+2. Copy the launcher manifest, LauncherManifest.xml /SampleApp/Samples/<SampleProject-Root>/Assets/Plugins/Android/LauncherManifest.xml to your own project.
+
+:::info 
+
+If you need to make any changes to the manifest, do so **after** copying over the file. You can only specify one custom launcher manifest in Unity.
+
+:::
+
+Once the file is copied and modified as needed, ensure you set the **Custom Launcher Manifest** setting in Unity:
+
+1. In Unity, open **Project Settings**.
+2. Navigate to the **Player** section.
+3. Expand **Publishing Settings** and scroll down to the **Build** section.
+4. Check **Custom Launcher Manifest**.
+
+</details>
+
+<details>
+  <summary>Verify your integration</summary>
+
+Once you’ve completed the setup for Android, your project should have the following project folder structure. If you are missing any folders and/or files, you can copy the post-copy folder and all its contents from the BFG SDK Sample App into your own project.
+
+| **Directory** | **Description** |
+|---|---|
+| **Plugins/Android** | Root folder for all needed android integration files. |
+| **Plugins/Android/FirebaseApp.androidlib** | Contains needed files for Firebase Analytics. |
+| **Plugins/Android/FirebaseCrashlytics.androidlib** | Contains needed files for Firebase Crashlytics. |
+| **Plugins/Android/Google** | Contains Android Manifest files. |
+| **Plugins/Android/Google/post-copy** | Used by build system to copy specific files to their correct app. |
+| **Plugins/Android/Google/post-copy/launcher** | Contains Google services .JSON files. These files are used by Firebase for Crashlytics integration. |
+| **Plugins/Android/Google/post-copy/launcher/src/main/res/mipmap** | Contains App Icons. This structure can change depending on team/project setup. |
+| **Plugins/Android/Google/post-copy/launcher/src/main/res/raw** | Contains the BFG Config files. |
+| **Plugins/Android/Google/post-copy/launcher/src/main/res/values** | Contains refs.xml files. |
+| **Plugins/Android/Google/post-copy/launcher/src/main/res/xml** | Contains optional debugging files. |
+</details>
