@@ -65,16 +65,78 @@ Below is an example of adding a listener for a Purchase Succeeded notification t
 ```csharp
 using BFGSDK;
 
-public class PurchaseController
-{
-  public void Initialize()
-  {
+public class PurchaseController {
+  public void Initialize() {
     NotificationCenter.Instance.AddObserver(PurchaseSucceeded, bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED);
   }
   
-  private void PurchaseSucceeded(string productId)
-  {
+  private void PurchaseSucceeded(string productId) {
     Debug.Log($"Purchase succeeded for product id: {productId}");
   }
 }
 ```
+
+### Additional Steps for Android Targets
+
+<details>
+  <summary>Install Android Firebase and Google Dependency Manager</summary>
+
+The .unitypackage of these plugins must be downloaded from the [Google Unity Archives](https://developers.google.com/unity/archive) and installed into your Unity Project.
+
+1. Double-click on the .unitypackage and follow the instructions for the import process.
+2. Import everything that Unity recommends in the import package window.
+
+Failing to import everything that Unity lists will result in complications when exporting your Unity Android gradle project, attempting builds in Android Studio, and building an APK directly in Unity.
+
+It may also be beneficial to add a few auto-generated files to your version control system's ignore file, but this step is entirely optional and should be considered based on how your project prefers to handle files that are dirtied from builds:
+
+```
+/Assets/StreamingAssets/google-services-desktop.json*
+/Assets/Plugins/Android/FirebaseCrashlytics.androidlib/res/values/crashlytics_build_id.xml*
+```
+
+</details>
+
+<details>
+  <summary>Resolve Firebase dependencies</summary>
+
+After importing the Unity SDK, the external Firebase SDKs (by way of the External Dependency Manager plugin) will embed a number of supporting files within your project. If the External Dependency Manager plugin is not available, you will be prompted to resolve dependencies.
+
+:::info 
+
+If you are not prompted, trigger the Android resolution by selecting **Assets > External Dependency Manager > Android Resolver > Resolve**. The "Force Resolve" option may be needed in rare circumstances.
+
+:::
+
+After resolution, the following files will be added to your project:
+
+- Assets/Plugins/Android/FirebaseApp.androidlib/*
+- Assets/Plugins/Android/FirebaseCrashlytics.androidlib/*
+- Assets/GeneratedLocalRepo/*
+
+If you have custom gradle build files, the Firebase SDKs will also automatically edit these gradle build files within your project:
+
+- Assets/Plugins/Android/mainTemplate.gradle
+- Assets/Plugins/Android/gradleTemplate.properties (Unity v2019.3 or newer)
+
+</details>
+
+<details>
+  <summary>Enable 'Android TV Compatibility' setting</summary>
+
+:::info 
+
+If Android TV Compatibility is not enabled, you will receive the following error when building your project:
+
+> BfgUnitySdkSample-2021.3.9/goog/launcher/src/main/AndroidManifest.xml:5:3-30:17: AAPT: error: resource drawable/app_banner (aka com.bigfishgames.bfgsdkunitygoogle:drawable/app_banner) not found.
+
+:::
+
+To enable the ‘Android TV Compatibility’ setting:
+
+1. In Unity, open your **Project Settings**.
+2. Navigate to the **Player** section.
+3. Expand **Other Settings**.
+4. Check **Android TV Compatibility** and **Android Game**.
+
+</details>
