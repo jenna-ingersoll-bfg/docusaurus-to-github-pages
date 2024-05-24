@@ -271,3 +271,252 @@ Once you’ve completed the setup for Android, your project should have the foll
 | **Plugins/Android/Google/post-copy/launcher/src/main/res/values** | Contains refs.xml files. |
 | **Plugins/Android/Google/post-copy/launcher/src/main/res/xml** | Contains optional debugging files. |
 </details>
+
+### Additional Steps for iOS Targets
+
+<details>
+  <summary>Resolve Firebase dependencies</summary>
+
+After importing the Unity SDK, certain dependencies, such as Firebase, will attempt to configure your system to use CocoaPods. This means that the External Dependency Manager's iOS Resolver will be configured to include CocoaPods dependencies within a .xcworkspace file, and all of your developer and build tools will need to open/operate on the .xcworkspace file instead of the .xcodeproj file. 
+
+While it's safer to use CocoaPods to manage iOS dependencies, it may not be appropriate for all projects. You may decide to use an alternative setup:
+
+**Alternative 1: Embed CocoaPods directly within a generated .xcodeproj file**
+
+One alternative is to embed CocoaPods directly within the generated .xcodeproj by changing the iOS Resolver Settings:
+
+1. In Unity, go to **Assets > External Dependency Manager > iOS Resolver > Settings** to open your iOS Resolver settings.
+2. Change the value of the "Cocoapods Integration" dropdown from "Xcode Workspace - Add Cocoapods to the Xcode Workspace" to "Xcode Project - Add Cocoapods to the Xcode project."
+3. Verify the setting was changed within ProjectSettings/GvhProjectSettings.xml and track the change in your source control system.
+
+**Alternative 2: Add Firebase dependencies without CocoaPods**
+
+If your project is not capable of supporting CocoaPods, then the Firebase dependencies can be included with the use of a support package.
+
+:::warning 
+
+Your project may already include references to other iOS libraries outside of Firebase. The process detailed in this section does not automatically resolve any dependencies apart from Firebase, and you will need to manage them manually on your own.
+
+:::
+
+1. In Unity, go to **Assets > External Dependency Manager > iOS Resolver > Settings** to open your iOS Resolver settings.
+2. Locate **CocoaPods Integration** setting and change it to "None - Do not integrate CocoaPods."
+3. Verify the setting was changed within ProjectSettings/GvhProjectSettings.xml and track the change in your source control system.
+4. Download the Firebase support file, com.bfg.sdk.ext.firebase-support*, from the same place you downloaded the Unity SDK package.
+5. Extract the package and rename the extracted folder to something that will be unique in your project's "Packages" directory. We recommend naming it "com.bfg.sdk.ext.firebase-support" to stay aligned with the package's ID, but it's ultimately up to your project's preferred naming scheme.
+6. Move or copy the folder into your project's root "Packages" folder.
+
+After performing the above, the BFG Unity SDK will automatically include Firebase's dependencies within your generated Xcode project.
+
+Note that your resulting Xcode project will still have a "Pods" folder, even though the project is not using CocoaPods. This is to allow the Firebase Unity SDK's automatic symbol upload build phase to run as expected.
+
+</details>
+
+<details>
+  <summary>Verify minimum iOS version</summary>
+
+1. In Unity, open your **Project Settings**.
+2. Navigate to the **Player** section.
+3. Expand **Other Settings**.
+4. For **Target minimum iOS Version**, verify that the correct minimum supported iOS version is selected.
+
+Alternatively, you can set the "MinimumOSVersion" key in your Info.plist file.
+
+</details>
+
+<details>
+  <summary>Set up the BFG SDK config file</summary>
+
+The BFG SDK config file, bfg_config.json, provides the basic settings that will be used as the settings values during the first and subsequent launches. The BFG SDK Sample App provides a template with default values that you can build upon for your project. To copy it into your project:
+
+1. Navigate to the root folder of your unzipped Unity SDK.
+2. Copy the config file, bfg_config.json from /Packages/com.bfg.sdk/Editor/Plugins/iOS/bfg_config.json to the following location in your project: /Assets/Plugins/iOS/bfg_config.json
+3. In Unity, open the **BFG > Build Settings** dialog.
+4. Under **iOS Settings**, set the file path for **bfg_config.json File Path**.
+
+To learn about the settings and configuration options in the BFG SDK config file, go to the iOS section of Configure the BFG SDK.
+</details>
+
+<details>
+  <summary>Modify the BFGUnityAppController.mm file</summary>
+
+Big Fish Games uses a custom BFGUnityAppController.mm file to initialize the BFG SDK. In most integrations, you can simply use the sample BFGUnityAppController.mm in the BFG SDK Sample App:
+
+1. Navigate to the root folder of your unzipped Unity SDK.
+2. Copy BFGUnityAppController.mm from /SampleApp/com.bfg.sdk/Runtime/Plugins/iOS/ to your own project.
+
+BFGUnityAppController.mm will be copied over to the exported iOS project and will act as the App Delegate in Xcode.
+
+::: info
+
+If you choose to make changes to this file after exporting the iOS Xcode project, then be sure to replicate those changes back into the file at Packages/com.bfg.sdk/Runtime/Plugins/iOS/BFGUnityAppController.mm.
+
+:::
+
+**(Optional) Add a Pause/Resume Delegate to BFGUnityAppController.mm** 
+
+To add the ability to pause and resume, add this code to set the bfgManagerPauseResumeDelegate:
+
+```objectivec
+@interface BFGUnityAppController : UnityAppController <bfgManagerPauseResumeDelegate>
+@end
+
+@implementation BFGUnityAppController
+- (BOOL)application:(UIApplication*) application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  // Set the Pause Resume delegate
+  [bfgManager addPauseResumeDelegate:self];
+}
+
+// Implement bfgManagerPauseResumeDelegate callbacks
+- (void)bfgManagerShouldPauseGame
+{
+  NSLog(@"Game should be paused because the Native iOS SDK is about to block the display.");
+}
+- (void)bfgManagerShouldResumeGame
+{
+  NSLog(@"Game can resume because the Native iOS SDK is about to unblock the display.");
+}
+@end
+```
+
+**(Optional) Customize the top view controller** 
+
+The sample BFGUnityAppController.mm file assumes that your top view controller window is inside the App Delegate. However, if your top view controller will not be ready until later, use the following procedure to initialize the Native iOS SDK:
+
+```objectivec
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  [bfgManager initWithLaunchOptions:launchOptions];
+}
+```
+
+When your main window is ready, use the following code:
+
+```objectivec
+- (void)myViewControllerReady
+{
+  [bfgManager startWithParentViewController:myMainViewController];
+}
+```
+
+**(Optional) Workaround for games locked in landscape orientation** 
+
+::: warning
+
+This workaround should only be used if your game is meant to be **locked** on Landscape mode. Do not use this if your game supports both Portrait and Landscape modes on iOS devices.
+
+:::
+
+A crash sometimes occurs for games that only support landscape orientation on an iPhone. The current fix is to add the following code to your BFGUnityAppController.mm file:
+
+```objectivec
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window
+{
+  UIViewController *viewWalker = window.rootViewController;
+  while (viewWalker != nil)
+  {
+    if ([viewWalker isKindOfClass:[UIImagePickerController class]] && !viewWalker.isBeingDismissed)
+    {
+      return UIInterfaceOrientationMaskAll;
+    }
+    viewWalker = viewWalker.presentedViewController;
+  }
+  return UIInterfaceOrientationMaskLandscape;
+}
+```
+
+</details>
+
+<details>
+  <summary>Export the project to Xcode</summary>
+
+Developers will have more flexibility to customize the integration of the Big Fish and Rave SDKs by exporting the Unity project to Xcode.
+
+1. In Unity, go to **BFG > Build Settings** to set your Big Fish build settings. For more information about these settings, see BFG Unity Build Settings.
+2. Once you’re done, close the **Build Settings** dialog.
+3. Open Unity’s **Build Settings**.
+4. Select **iOS** from the **Platform** list, then click the **Switch Platform** button.
+5. Click **Build And Run**.
+6. Navigate to the desired location on your computer, and save the project.
+
+If you enabled the Big Fish build settings in Step 1, the build will automatically perform all of the post-processing steps required for your build and ensure that all supporting settings files, startup calls, plist entries, linked frameworks, build phases, build settings, etc are integrated correctly into the exported Xcode project.
+
+:::warning
+
+If you do not enable the build settings using the BFG > Build Settings menu, you must add all dependencies and settings via your own post processing scripts; otherwise, the exported projects will either fail or have runtime errors.
+
+:::
+
+::: info
+
+When building your project with Xcode or the Xcode command line tools, you must use the generated .xcworkspace instead of the generated .xcodeproj unless you change your iOS Resolver settings (see “CocoaPods Alternatives” under “Resolve Firebase dependencies”, above).
+
+:::
+</details>
+
+<details>
+  <summary>Update plist file</summary>
+
+After you export your project from Unity to Xcode, verify that your Info.plist file has all the required settings:
+
+**Mobile Telemetry Services (MTS)**
+
+> To support Big Fish reporting through Mobile Telemetry Services (MTS), add the following key-value pair to your Info.plist file. The “BFG_ENVIRON_TEST” is a String value type. This step is necessary to ensure that MTS data gets routed to the appropriate environment once the game goes live. Without this setting, you will see a warning on the Xcode and device consoles. 
+
+```xml
+<key>BFGEnviron</key>
+<string>BFG_ENVIRON_TEST</string>
+```
+
+**AppIdentifierPrefix Setting**
+
+> The SDK requires the AppIdentifierPrefix to be added to the game's Info.plist file. 
+
+```xml
+<key>AppIdentifierPrefix</key>
+<string>${AppIdentifierPrefix}</string>
+```
+
+**Privacy Settings and Localized InfoPlist.strings**
+
+> The four required privacy text settings (``NSCameraUsageDescription``, ``NSPhotoLibraryUsageDescription``, ``NSBluetoothAlwaysUsageDescription``, and ``NSBluetoothPeripheralUsageDescription``) can be localized by using localized Info.plists in Xcode.
+> 
+> There are five supported languages for the Permission strings located in the localized InfoPlist.strings files:
+
+```xml title="EN"
+"NSCameraUsageDescription" = "Used to take a profile picture.";
+"NSPhotoLibraryUsageDescription" = "Used to choose a profile picture.";
+"NSBluetoothAlwaysUsageDescription" = "Used to find, connect and transfer data between different devices.";
+"NSBluetoothPeripheralUsageDescription" = "Used to find, connect and transfer data between different devices.";
+```
+
+```xml title="FR"
+"NSCameraUsageDescription" = "Sert à prendre une photo pour le profil.";
+"NSPhotoLibraryUsageDescription" = "Sert à choisir une photo pour le profil.";
+"NSBluetoothAlwaysUsageDescription" = "Utilisé pour rechercher, connecter et transférer des données entre différents appareils.";
+"NSBluetoothPeripheralUsageDescription" = "Utilisé pour rechercher, connecter et transférer des données entre différents appareils.";
+```
+
+```xml title="DE"
+"NSCameraUsageDescription" = "Um ein Profilbild zu machen.";
+"NSPhotoLibraryUsageDescription" = "Für die Auswahl eines Profilbildes.";
+"NSBluetoothAlwaysUsageDescription" = "Damit können Geräte gefunden, miteinander verbunden und Daten übertragen werden.";
+"NSBluetoothPeripheralUsageDescription" = "Damit können Geräte gefunden, miteinander verbunden und Daten übertragen werden.";
+```
+
+```xml title="JA"
+"NSCameraUsageDescription" = "プロフィール写真の撮影に使用します。";
+"NSPhotoLibraryUsageDescription" = "プロフィール写真の選択に使用します。";
+"NSBluetoothAlwaysUsageDescription" = "異なるデバイス間でデータを検索、接続、転送するために使用されます。";
+"NSBluetoothPeripheralUsageDescription" = "異なるデバイス間でデータを検索、接続、転送するために使用されます。";
+```
+
+```xml title="RU"
+"NSCameraUsageDescription" = "Сделайте фото профиля.";
+"NSPhotoLibraryUsageDescription" = "Выберите фото профиля.";
+"NSBluetoothAlwaysUsageDescription" = "Используется для поиска, подключения и передачи данных между разными устройствами.";
+"NSBluetoothPeripheralUsageDescription" = "Используется для поиска, подключения и передачи данных между разными устройствами.";
+```
+
+</details>
