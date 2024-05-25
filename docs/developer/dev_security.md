@@ -1,18 +1,10 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Integrate the BFG SDK
+# Integrate the Unity SDK
 
-This section walks you through adding the BFG SDK to your game and setting up the most basic interactions required between your game and the BFG SDK.
+This section walks you through adding the Unity SDK to your game and setting up the most basic interactions required between your game and the BFG SDK.
 
-If you're upgrading from a previous version of the BFG SDK, see [Upgrade to the Latest Version](./upgrade).
-
-The steps for integrating the BFG SDK are unique for the SDK you are using. Select your SDK below:
-
-- [Unity SDK](#unity)
-- [Native iOS SDK](#ios)
-- [Native Android SDK](#android)
-
-## Unity SDK Integration {#unity}
+If you're upgrading from a previous version of the Unity SDK, see [Upgrade to the Latest Version](./upgrade-unitysdk).
 
 :::info
 
@@ -20,7 +12,7 @@ Ensure that you are using a compatible version of Unity for your version of the 
 
 :::
 
-**Add the Unity SDK with Unity Package Manager (v10.6 and later)**
+## Add the Unity SDK with Unity Package Manager (v10.6 and later)
 
 Newer releases of the BFG SDK allow you to integrate and upgrade the Unity SDK through the Unity Package Manager (UPM).
 
@@ -36,7 +28,7 @@ To add the Unity SDK to the UPM:
 8. Navigate to your Packages list. You will see ``[BFG] SDK`` in your Packages list, pointing to the version you downloaded.
 
 
-**Import the com.bfg.sdk Package (v10.5 and earlier)**
+## Import the com.bfg.sdk Package (v10.5 and earlier)
 
 Integrate the Unity SDK by downloading and copying the Unity SDK com.bfg.sdk package into your project.
 
@@ -46,11 +38,11 @@ Integrate the Unity SDK by downloading and copying the Unity SDK com.bfg.sdk pac
 4. Close Unity (this is more of a recommendation than a requirement).
 5. Copy the com.bfg.sdk folder into your project's **Packages** folder. The result should be located at: [PROJECT ROOT]/Packages/com.bfg.sdk.
 
-**Open the Imported Package (v10.5 and earlier)**
+## Open the Imported Package (v10.5 and earlier)
 
 Some of the 3rd party SDKs required for game development handle their dependencies through an external and/or proprietary dependency manager. When you first open your imported Unity project, these external managers may ask you to resolve dependencies and add configuration files to your project.
 
-**Receive Native SDK event notifications in Unity**
+## Receive Native SDK event notifications in Unity
 
 The Unity SDK is a wrapper for the native Android and iOS SDKs, meaning all SDK event notifications are dispatched at the native SDK layer and sent to the Unity layer.
 
