@@ -347,7 +347,7 @@ Big Fish Games uses a custom BFGUnityAppController.mm file to initialize the BFG
 
 BFGUnityAppController.mm will be copied over to the exported iOS project and will act as the App Delegate in Xcode.
 
-::: info
+:::info
 
 If you choose to make changes to this file after exporting the iOS Xcode project, then be sure to replicate those changes back into the file at Packages/com.bfg.sdk/Runtime/Plugins/iOS/BFGUnityAppController.mm.
 
@@ -402,7 +402,7 @@ When your main window is ready, use the following code:
 
 **(Optional) Workaround for games locked in landscape orientation** 
 
-::: warning
+:::warning
 
 This workaround should only be used if your game is meant to be **locked** on Landscape mode. Do not use this if your game supports both Portrait and Landscape modes on iOS devices.
 
@@ -448,7 +448,7 @@ If you do not enable the build settings using the BFG > Build Settings menu, you
 
 :::
 
-::: info
+:::info
 
 When building your project with Xcode or the Xcode command line tools, you must use the generated .xcworkspace instead of the generated .xcodeproj unless you change your iOS Resolver settings (see “CocoaPods Alternatives” under “Resolve Firebase dependencies”, above).
 
@@ -519,4 +519,85 @@ After you export your project from Unity to Xcode, verify that your Info.plist f
 "NSBluetoothPeripheralUsageDescription" = "Используется для поиска, подключения и передачи данных между разными устройствами.";
 ```
 
+</details>
+
+<details>
+  <summary>Run plist_updater.py script</summary>
+
+The plist_updater.py script whitelists most of Big Fish's third-party library domains in your Info.plist “App Transport Security” settings. It has one parameter, the full path to the Xcode project. The script will make a backup of the files it modifies.
+
+Run it here: https://extsvn.bigfishgames.com/svn/bfglib/releases/tools/plist_updater.py
+
+:::warning
+
+Ensure that you download/copy the script with execute permissions. If the script is copied without execute permissions, it will not run.
+
+:::
+</details>
+
+<details>
+  <summary>Enable Swift support in Xcode</summary>
+
+The iOS SDK uses Swift for some of its implementation, and you must enable Swift in Xcode.
+
+:::info 
+
+If your game already uses Swift, you might not need to make the below changes. However, we recommend that you review these settings and verify that they match your game's current settings.
+
+:::
+
+1. Navigate to the **Build Settings** tab in your Xcode project.
+2. In the **Build Options** section, set "Always Embed Swift Standard Libraries" to **YES**.
+3. In the **Linking** section, add an entry to the "Runpath Search Path" for **/usr/lib/swift @executable_path/Frameworks**
+
+:::info 
+
+The order of the entries in the “Runpath Search Paths” are important. "/usr/lib/swift" needs to be the first path in the list.
+
+:::
+
+4. In the **Packaging** section, set "Defines Module" to **YES**.
+5. In the **Search Paths** section, add the following entries:
+
+```
+$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)
+$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)
+```
+
+6. In the **Apple Clang - Language - Modules** section, set the "Enable Modules (C and Objective-C)" and "Enable Clang Module Debugging" options to **YES**
+
+</details>
+
+<details>
+  <summary>Add Linked Flags to Xcode's Build Settings</summary>
+
+1. Navigate to the **Build Settings** tab in your Xcode project.
+2. To support Rave, add **-ObjC** to "Other Linker Flags".
+3. If you previously had **-lz** in "Other Linker Flags", you may now remove it.
+
+</details>
+
+<details>
+  <summary>Verify your integration</summary>
+
+Here are some steps to help you verify that the Unity SDK for iOS integration was successful:
+
+1. Verify that the exported Xcode project is set up to link to all required frameworks.
+  1. Select your Target in the Project Navigator.
+  2. Select the **General** tab.
+  3. Scroll down to the **Frameworks, Libraries, and Embedded Content** section.
+2. Ensure that the correct provisioning profile is being used to build the project. In Xcode, this is found in the **Signing & Capabilities** tab. Additionally, make sure that **Automatically manage signing** is unchecked.
+3. If you are building locally, then add the Capabilities for any feature you would like to test in the local build. In the **Signing & Capabilities** tab, click the “+ Capabilities” button and add any of the following capabilities:
+  - Associated Domains (for Universal Links)
+  - In-App purchase
+  - Push Notification
+  - Sign In With Apple
+
+You can run the app without including any capabilities but certain features will not function properly unless the corresponding Capability has been added.
+
+:::info
+
+In the event that Step 3 fails to build or launch the app on a device, you might need to change which build system Xcode is using. In Xcode 11, all projects default to being built with Apple's **New Build System**. Generally this works without issue; however, build issues may occur especially if you are running custom build scripts. If your game doesn't successfully build and run on the device, change back to using the Legacy Build System. To do so, go to **File > Project Settings** and change the two Build System drop downs to **Legacy Build System**.
+
+:::
 </details>
