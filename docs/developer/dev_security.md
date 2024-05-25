@@ -12,7 +12,7 @@ Ensure that you are using a compatible version of Unity for your version of the 
 
 :::
 
-## Add the Unity SDK with Unity Package Manager (v10.6 and later)
+## Use the Unity Package Manager (v10.6 and later)
 
 Newer releases of the BFG SDK allow you to integrate and upgrade the Unity SDK through the Unity Package Manager (UPM).
 
@@ -38,15 +38,13 @@ Integrate the Unity SDK by downloading and copying the Unity SDK com.bfg.sdk pac
 4. Close Unity (this is more of a recommendation than a requirement).
 5. Copy the com.bfg.sdk folder into your project's **Packages** folder. The result should be located at: [PROJECT ROOT]/Packages/com.bfg.sdk.
 
-## Open the Imported Package (v10.5 and earlier)
-
 Some of the 3rd party SDKs required for game development handle their dependencies through an external and/or proprietary dependency manager. When you first open your imported Unity project, these external managers may ask you to resolve dependencies and add configuration files to your project.
 
-## Receive Native SDK event notifications in Unity
+## Receive Native SDK event notifications
 
-The Unity SDK is a wrapper for the native Android and iOS SDKs, meaning all SDK event notifications are dispatched at the native SDK layer and sent to the Unity layer.
+The Unity SDK is a wrapper for the native Android and iOS SDKs, and all SDK event notifications are dispatched at the native SDK layer and sent to the Unity layer.
 
-In order for your Unity SDK NotificationCenter event listeners to be called when a BFG SDK event occurs:
+In order to call your Unity SDK ``NotificationCenter`` event listeners when a BFG SDK event occurs:
 
 1. Open your bootstrap Unity Scene.
 2. Add a GameObject to the scene and name it **PersistentUnityMessageHandler**.
@@ -68,7 +66,7 @@ public class PurchaseController {
 }
 ```
 
-### Additional Steps for Android Targets
+## Additional Steps for Android Targets
 
 <details>
   <summary>Install Android Firebase and Google Dependency Manager</summary>
@@ -264,7 +262,7 @@ Once you’ve completed the setup for Android, your project should have the foll
 | **Plugins/Android/Google/post-copy/launcher/src/main/res/xml** | Contains optional debugging files. |
 </details>
 
-### Additional Steps for iOS Targets
+## Additional Steps for iOS Targets
 
 <details>
   <summary>Resolve Firebase dependencies</summary>
