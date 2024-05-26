@@ -65,7 +65,7 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docId: 'developer/dev_welcome',
+          docId: 'developer/dev-welcome',
           label: 'Developer User Guide',
         },
         {
