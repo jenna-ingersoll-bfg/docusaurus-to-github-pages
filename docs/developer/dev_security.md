@@ -193,7 +193,7 @@ To support sending to the correct environment for production and release builds,
 
 :::warning 
 
-The meta-data entry must be at the <application> level of the manifest or it won't be recognized.
+The meta-data entry must be at the \<application> level of the manifest or it won't be recognized.
 
 :::
 
