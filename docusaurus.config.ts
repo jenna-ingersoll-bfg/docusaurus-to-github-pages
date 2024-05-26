@@ -95,7 +95,7 @@ const config: Config = {
           items: [
             {
               label: 'Developer User Guide',
-              to: '/docs/developer/dev_welcome',
+              to: '/docs/developer/dev-welcome',
             },
             {
               label: 'Producer Handbook',
