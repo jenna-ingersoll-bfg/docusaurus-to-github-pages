@@ -2,11 +2,6 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 export default {
   devSidebar: [
-    {
-      type: 'html',
-      value: 'The ANCHOR',
-      className: 'sidebar-title',
-    },
     'developer/dev-welcome', 
     'developer/publishing',
     {
