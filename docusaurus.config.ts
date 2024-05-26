@@ -8,16 +8,13 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://docs.bigfishgames.com',
-  baseUrl: '/',
+  url: 'https://jenna-ingersoll-bfg.github.io',
+  baseUrl: '/docusaurus-to-github-pages/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'bigfishgames', // Usually your GitHub org/user name.
-  projectName: 'prod-anchor', // Usually your repo name.
-
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
+  organizationName: 'jenna-ingersoll-bfg', // Usually your GitHub org/user name.
+  projectName: 'docusaurus-to-github-pages', // Usually your repo name.
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -27,6 +24,9 @@ const config: Config = {
     locales: ['en'],
   },
 
+  onBrokenLinks: 'ignore',
+  onBrokenMarkdownLinks: 'ignore',
+  
   presets: [
     [
       'classic',
@@ -54,7 +54,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/bfg-logo.png',
+    image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: 'The ANCHOR',
       logo: {
@@ -65,19 +65,19 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docId: 'developer/dev-welcome',
+          docId: 'developer/dev_welcome',
           label: 'Developer User Guide',
         },
         {
           type: 'doc',
           position: 'right',
-          docId: 'producer/prod-welcome',
+          docId: 'producer/prod_welcome',
           label: 'Producer Handbook',
         },
-       {
+        {
           type: 'doc',
           position: 'right',
-          docId: 'bfgsdk/bfgsdk-welcome',
+          docId: 'bfgsdk/bfgsdk_welcome',
           label: 'APIs & SDKs',
         },
       ],
@@ -95,11 +95,11 @@ const config: Config = {
           items: [
             {
               label: 'Developer User Guide',
-              to: '/docs/developer/dev-welcome',
+              to: '/docs/developer/dev_welcome',
             },
             {
               label: 'Producer Handbook',
-              to: '/docs/producer/prod-welcome',
+              to: '/docs/producer/prod_welcome',
             },
             {
               label: 'BFGSDK Reference',
