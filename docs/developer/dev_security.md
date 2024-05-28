@@ -37,7 +37,7 @@ While it is not required that you use Big Fish’s solution for account deletion
   - If the player clicks **No, Go Back**, return to your game’s settings dialog.
   - If the player clicks **YES, Delete My Account**, open a confirmation dialog. Here is some sample text you can use:
 
-<div style={{margin-left: 10 + 'px' }}>
+<div style={{paddingLeft: '10px' }}>
 >> Are you sure you want to delete your account?
 >>
 >> :warning: You will NOT be able to recover your progress. <br />
