@@ -1,109 +1,191 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Privacy Manifest
+# Crash Reporting
 
-:small_blue_diamond: **Tools to use:** BFG SDK
+:small_blue_diamond: **Tools to use:** Firebase Crashlyitcs, BFG SDK
 
-## What is a Privacy Manifest?
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
 
-Apple requires that all 3rd party SDKs must include a **privacy manifest** if it collects data about the person using apps that include 3rd party SDK's, enables the app to collect data about people using the app, or contacts tracking domains. The privacy manifest file is a property list that records the types of data collected by your app or any 3rd party SDK.
+## What is Crash Reporting? 
+
+A **crash reporting system** monitors your app for crashes and helps you track, prioritize, and fix stability issues that affect the quality of your game. Crash reports often include data such as stack traces, type of crash, trends and version of software.
+
+Games published by Big Fish use **Firebase Crashlytics** to provide real-time crash data for your game. Firebase Crashlytics saves you troubleshooting time by intelligently grouping crashes and highlighting the circumstances that lead up to them. 
+
+:::tip[Pre-Requisite]
+
+Firebase Crashlytics is integrated directly into the BFG SDK, and most of the functionality is already set up for you. Prior to configuring Firebase Crashlytics, you must first integrate the BFG SDK into your game code. 
+
+:::
+
+## Enabling Firebase Crashlytics 
+
+1. Open the Firebase Console.
+2. In the left panel, click **Crashlytics**.
+3. If your Firebase project has multiple games registered, select the game from the dropdown next to Crashlytics in the top bar of the console.
+4. Click **Enable Crashlytics**.
+
+## Integrating Firebase Crashlytics
+
+To get started with Firebase, you must install the Firebase SDK to your project. This process will be different based on the BFG SDK you are using. 
+
+### Unity SDK
+
+<details>
+  <summary>Download the Firebase SDK package</summary>
+
+:::tip [Pre-Requisite]
+
+For iOS development, you must have CocoaPods installed to handle iOS dependencies.
+
+:::
+
+1. Download the Firebase Unity SDK package. **NOTE**: The BFG SDK may not support the latest Firebase Unity SDK. Use one of the following links to download the supported version(s) for the BFG SDK release you are using. See [3rd Party Compatibility Charts](../bfgsdk/compatibility-charts) to identify which version to download.
+  - [Firebase Unity SDK v11.6.0](https://dl.google.com/firebase/sdk/unity/firebase_unity_sdk_11.6.0.zip) :arrow_upper_right:
+  - [Firebase Unity SDK v9.3.0](https://dl.google.com/firebase/sdk/unity/firebase_unity_sdk_9.3.0.zip) :arrow_upper_right:
+2. Unzip the downloaded Firebase Unity SDK file.
+2. In Unity, go to **Assets > Import Package > Custom Package**.
+3. Import the following SDKs:
+  - Crashlytics: FirebaseCrashlytics.unitypackage
+  - Analytics: FirebaseAnalytics.unitypackage
+4. In the **Import Unity Package** window, click **Import**.
+
+</details>
+
+<details>
+  <summary>Add Firebase configuration file(s)</summary>
+
+1. Open the Firebase Console.
+2. In the left panel, click **Crashlytics**.
+3. Download your Firebase config file: 
+  - For Android: Click **Download google-services.json**
+  - For iOS: Click **Download GoogleService-Info.plist**
+4. Add the configuration file(s) to the root of your Android and/or Xcode project. 
+5. In Unity, open the **BFG > Build Settings** menu.
+6. Locate the option "Folder Copied on Postprocess". Specify the path to your configuration file(s).
+
+The Unity SDK ships with a post-processor build script that handles many of the modifications that occur to your Android and/or Xcode project during the build process. 
+
+For iOS, when the iOS Build Processor runs, it will add the ``<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key><false>`` entry to the game's plist file to ensure it is disabled by default if the "Update pList" flag is set. This ensures that the GDPR consent dialog will be displayed prior to initializing Firebase Analytics and Crashlytics.
+
+</details>
+
+<details>
+  <summary>Update manifest file with Analytics meta tag (Android only)</summary>
+
+The following update to your game's manifest file defers any reporting until the BFG SDK enables it and the GDPR conditions are accepted. 
+
+1. Locate and open your app’s main manifest file.
+2. In the application section of your main manifest file, add the following entry:
+
+```xml
+<meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+```
+
+</details>
+
+<details>
+  <summary>Set up CocoaPods (iOS only)</summary>
+
+The Firebase Unity SDKs utilize CocoaPods to manage iOS dependencies. Ensure that you have CocoaPods installed on your system before installing the Firebase Unity SDKs.
+
+**CocoaPods Error Message**
+
+Certain combinations of macOS and Xcode versions have issues when automatically setting up CocoaPods on your project export. You may receive the following error message: 
+
+> Failed to install CocoaPods for the current user.
+> 
+> It will not be possible to install CocoaPods in the generated Xcode project which will result in link errors when building your application.
+
+You can further verify this issue by looking for the following in the error output:
+
+```
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/ruby.h:33:  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/ruby/ruby.h:24:10: fatal error: 'ruby/config.h' file not found
+```
+
+In the event of this error, perform the following steps:
+
+1. Close Unity.
+2. In a Terminal window, enter the following code:
+
+```
+sudo cp /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/universal-darwin20/ruby/config.h /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/ruby/
+cd $(xcode-select -p)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0
+sudo ln -s universal-darwin20 universal-darwin19
+gem install --user-install cocoapods
+```
 
 :::info
 
-For each type of data and API your app or third-party SDK collects and uses, record the reasons why you are collecting this data in your privacy manifest file. This manifest will be a requirement for apps in the app store after May 1st, 2024. For more information, refer to [Privacy manifest files | Apple Developer Documentation](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files) :arrow_upper_right:.
+An alternative to the above steps is to to install the latest version of Ruby via Homebrew. However, Homebrew does not automatically add its version to your $PATH. If you choose to install Ruby via Homebrew, you need to manually add its version to your path.
 
 :::
 
-To comply with Apple’s requirement, the BFG SDK includes a privacy manifest declaring what data the BFG SDK tracks. It also includes the following 3rd party privacy manifest information:
+</details>
 
-- Zendesk
-- Google Firebase
-- AppsFlyer
-- Rave
-- Unity LTS
-- MTS
 
-:::warning
 
-The BFG SDK does not include API or data collection information in the privacy manifest for the Facebook SDK's.
 
-:::
+## Initializing Firebase Crashlytics
 
-## Data Collected by the BFG SDK
+Select the BFG SDK you are using to find out how to initialize Firebase Crashlytics:
 
-The BFG SDK collects user data with our [Mobile Telemetry Service (MTS)](./tools-mts) and Game Telemetry Service (GTS).
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
 
-The following table lists the types of data collected in the BFG SDK privacy manifest: 
+In order to work, you must initialize Crashlytics by invoking ``bfgCrashlytics.InitializeAsync`` during startup. Nothing will be captured by Crashlytics until initialization. Since initialization is asynchronous, we recommend waiting until the async task is complete before doing anything that should be tracked by Crashlytics.
 
-| **Collected Data Type** | **Linked to User** | **Used for Tracking** | **Collection Purposes** | **Sources** |
-|---|---|---|---|---|
-| **Name<br /><br />Phone Number<br /><br />Other User Contact Info<br /><br />Other User Content** | YES | NO | App functionality<br /><br />Product Personalization | MTS<br /><br />Zendesk |
-| **Email Address** | YES | NO | App functionality<br /><br />Product Personalization<br /><br />Developer's Advertising or Marketing | MTS |
-| **Coarse Location** | NO | NO | App functionality<br /><br />Analytics | MTS<br /><br />Zendesk<br /><br />AppsFlyer |
-| **Precise Location** | NO | NO |   | Zendesk |
-| **Device ID** | YES | YES | App functionality<br /><br />Analytics<br /><br />Developer's Advertising or Marketing<br /><br />Other Purposes<br /><br />3rd party Advertising | MTS<br /><br />Zendesk |
-| **User ID** | YES | NO | App functionality<br /><br />Analytics<br /><br />Developer's Advertising or Marketing<br /><br />Other Purposes<br /><br />3rd party Advertising | MTS<br /><br />Zendesk |
-| **Crash Data** | NO | NO | Analytics | Firebase |
-| **Audio Data** | NO | NO | App functionality | Zendesk |
-| **Photos or Videos** | NO | NO | App functionality | Zendesk<br /><br />Rave |
-| **Browsing History** | YES | YES | App functionality | Zendesk |
-| **Search History** | YES | NO | App functionality | Zendesk |
-| **Purchase History** | YES | NO | App functionality | MTS<br /><br />AppsFlyer |
-| **Advertising Data** | YES | NO | 3rd party Advertising | Zendesk<br /><br />AppsFlyer |
-| **Product Interaction** | YES | NO | Analytics | Zendesk<br /><br />Firebase |
-| **Customer Support** | NO | NO | App functionality | Zendesk |
-| **Other Diagnostic Data** | NO | NO | Analytics | Zendesk |
-| **Other Data Type** | NO | NO | Analytics | Firebase |
+If your game supports any sort of soft-reset mechanism that reinitializes your game and its dependencies, we recommend calling ``bfgCrashlytics.Shutdown()`` prior to the restart.
 
-The following table lists the BFG SDK Required-Reason APIs for the privacy manifest file:
+```csharp
+bfgCrashlytics.InitializeAsync().ContinueWith(task => {
+  if (task.Result.Succeeded) {
+    // OK to use bfgCrashlytics methods
+  }
+  else {
+    // Not OK to use bfgCrashlytics methods
+    Debug.LogError($"Failed to initialize crashlytics: {task.Result}");
+  }
+});
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
 
-| **API Category** | **Reason** |
-|---|---|
-| **File Timestamp** | C617.1: Inside app or group container, per documentation |
-| **User Defaults** | CA92.1: Access info from the same app, per documentation<br />1C8F.1: Access info from same App Group, per documentation |
-| **System Boot Time** | 35F9.1: Measure time on-device, per documentation |
+```java
+Coming soon! 
+```
+  </TabItem>
 
-## Requirements for Privacy Manifest Data Inclusion 
+  <TabItem value="iOS" label="Native iOS">
 
-If game teams collect some other data on their own or if they have any other 3rd party SDK’s that are not in the BFG SDK, such as Leanplum, IronSource, etc., they should cover the privacy details in their own privacy manifest file.
+You must initialize Firebase Crashlytics and Firebase Analytics before initializing the Native iOS SDK: 
 
-### Data Collection 
+```objectivec
+// *** This import statement is required in your AppDelegate.
+#import <bfg_iOS_Crashlytics/bfg_iOS_Crashlytics.h>
+...
+@implementation AppDelegate
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  ...
+  // *** Initialize Firebase Crashlytics and Analytics BEFORE initializing BFG SDK
+  [[bfgCrashlytics getInstance] start];
+  // *** Actually start the Big Fish SDK
+  [bfgManager startWithLaunchOptions:launchOptions parentViewController:rootVC];
+  ...
+}
+@end
+```
+  </TabItem>
+</Tabs>
 
-If you need to write your own privacy manifest, follow these steps:
 
-1. Create your privacy manifest file in any convenient place you want in your project.
-2. Add your data collection practices to your privacy manifest file.
-3. Obtain the Privacy Report from your Archive, this will help you when you declare your data collection in the App Store Connect.
 
-If you have any 3rd party SDK's in your project that contain their own privacy manifest, you can view this file to see what data they collect in the SDK’s privacy report. 
 
-### Required Reason API Usage 
 
-Applications are allowed to track their users with their permission, determined by their GDPR selections, but they are never allowed to track fingerprints. Apple created a new category of APIs called Required Reason APIs to ensure the correct use of the APIs that can be used to track fingerprints to improve user experience. These Required Reason APIs are: 
 
-- [File TimeStamp APIs](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393) :arrow_upper_right:
-- [System Boot Time APIs](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278393) :arrow_upper_right:
-- [Disk Space APIs](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278397) :arrow_upper_right:
-- [Active Keyboards APIs](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278400) :arrow_upper_right:
-- [User Defaults APIs](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api#4278401) :arrow_upper_right:
 
-If you are using one or more of these APIs, you must add them to your privacy manifest file with at least one approved reason for their use.
-
-### Tracking Domains
-
-A Tracking Domain refers to a domain that is used for tracking user activity across websites or apps for advertising or data aggregation purposes.
-
-iOS v17 automatically blocks connections to tracking domains in cases when a user has not provided tracking permission by declining the App Tracking Transparency (ATT). Before iOS v17,  some 3rd party SDK's might start tracking by default, without checking if they can track users unless specifically told not to. To prevent accidental connections like this, Apple requires you to include your tracking domains in your privacy manifest file.
-
-With Xcode 15, the Points of Interest Instrument can show the connections to the tracking domains during your testing. This allows you to find whether a tracking domain is following ATT policy correctly. If the domain is allowed, declare it as a tracking domain in your privacy manifest file.
-
-The BFG SDK’s privacy manifest file includes Firebase, Facebook, and AppsFlyer 3rd party tracking domains. If you have other tracking domains in your app, refer to [Apple’s Guide](https://developer.apple.com/documentation/xcode/detecting-when-your-app-contacts-domains-that-may-be-profiling-users#Analyze-your-apps-networking-behavior) :arrow_upper_right: on using the Points of Interest Instrument to detect them.
-
-## Additional Resources and Documentation 
-
-- [Describing data use in privacy manifests | Apple Developer Documentation](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_data_use_in_privacy_manifests) :arrow_upper_right:
-- [Describing use of required reason API | Apple Developer Documentation](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api) :arrow_upper_right:
-- [Privacy updates for App Store submissions - Latest News - Apple Developer](https://developer.apple.com/news/?id=r1henawx) :arrow_upper_right:
-- [Upcoming third-party SDK requirements - Support - Apple Developer](https://developer.apple.com/support/third-party-SDK-requirements) :arrow_upper_right:
-- [Get started with privacy manifests - WWDC23 - Videos - Apple Developer](https://developer.apple.com/videos/play/wwdc2023/10060/)
-- [Verify app dependencies with digital signatures - WWDC23 - Videos - Apple Developer](https://developer.apple.com/videos/play/wwdc2023/10061) :arrow_upper_right:
+For more information on Firebase Crashlytics, see Google’s documentation at Getting Started with Firebase Crashlytics or watch their video at Introducing Firebase Crashlytics.
