@@ -59,9 +59,9 @@ Below are some examples to help visualize the behavior described above, all of w
 
 | **Scenarios** | **Result** |
 |---|---|
-| **App launches.<br />ATT is displayed after 10 seconds.<br />User chooses accept or decline the dialog after 10 seconds.** | AppsFlyer network calls are made after the dialog is dismissed (i.e., 20 seconds after app launch). The IFA sent to AppsFlyer is based on the user’s ATT selection (valid if accepted; all-zeros if declined). |
-| **App launches.<br />ATT is displayed after 10 seconds.<br />User does not make an ATT selection for the next 2 minutes.** | AppsFlyer network calls are made 60 seconds after launch, while the ATT dialog is displayed, and an all-zero IFA is sent to AppsFlyer. |
-| **App launches.<br />ATT is not displayed until 2 minutes later.** | AppsFlyer network calls are made immediately upon the ATT dialog being displayed, and an all-zero IFA is sent to AppsFlyer. |
+| **App launches.<br /><br />ATT is displayed after 10 seconds.<br /><br />User chooses accept or decline the dialog after 10 seconds.** | AppsFlyer network calls are made after the dialog is dismissed (i.e., 20 seconds after app launch). The IFA sent to AppsFlyer is based on the user’s ATT selection (valid if accepted; all-zeros if declined). |
+| **App launches.<br /><br />ATT is displayed after 10 seconds.<br /><br />User does not make an ATT selection for the next 2 minutes.** | AppsFlyer network calls are made 60 seconds after launch, while the ATT dialog is displayed, and an all-zero IFA is sent to AppsFlyer. |
+| **App launches.<br /><br />ATT is not displayed until 2 minutes later.** | AppsFlyer network calls are made immediately upon the ATT dialog being displayed, and an all-zero IFA is sent to AppsFlyer. |
 
 ## Additional Information
 
