@@ -1,205 +1,121 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Account Deletion
+# App Tracking Transparency (iOS Only) 
 
 :small_blue_diamond: **Tools to use:** BFG SDK
 
-```mdx-code-block
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-```
+## What is App Tracking Transparency? 
 
-## What is Account Deletion? 
+**App Tracking Transparency** (or **ATT**) requires apps to request user authorization in order to collect app-related data that tracks the user or the device. All apps on iOS devices must use ATT if they collect data about end-users and share it with other companies for the purpose of tracking across apps and websites.
 
-All games published by Big Fish must give the player the option to delete the account from within the game itself. This feature, called **account deletion**, ensures that all account information, including any data associatated with the account is completely removed from the developer's (i.e. Big Fish) records. The account deletion feature gives the player complete control over the personal information that they've shared. 
+To comply with ATT, the BFG SDK includes Apple's ``AppTrackingTransparency`` framework, which presents an app-tracking authorization request to the user and provides the tracking authorization status.
 
-The BFG SDK includes methods that ensure your game is compliant with Apple’s and/or Google’s account deletion standards.
+## Game Requirements 
+In order to comply with Apple’s privacy practices, your game must meet the following requirements:
+
+- If the player has not previously made an ATT selection, then upon completion of the ``onPoliciesCompleted`` callback, your game must display a pop-up explaining ATT.
+- Your game must configure a listener for the ATT dialog dismissal notification,`` BFGSDK.bfgCommon.BFG_NOTIFICATION_ATT_DIALOG_DISMISSED`` in order to determine whether the user has made an ATT selection.
+- Upon dismissal of the pre-pop-up, your game must make a call to ``bfgManager.requestTrackingAuthorization()`` to display the ATT prompt. If done correctly, the BFG SDK will fire the ``BFGSDK.bfgCommon.BFG_NOTIFICATION_ATT_DIALOG_DISMISSED`` notification once the user has made a selection.
+
+# Recommended Workflow 
+We recommend using the following high-level workflow to ensure that your game is compliant with Apple’s ATT requirements:
+
+1. Display the GDPR dialog using the BFG SDK, and fire the ``onPoliciesCompleted`` callback.
+2. Display a localized pop-up dialog explaining ATT.
+3. Upon dismissal of the localized pop-up, call ``bfgManager.requestTrackingAuthorization()`` to display the ATT prompt. If done correctly, the BFG SDK will fire the ``BFGSDK.bfgCommon.BFG_NOTIFICATION_ATT_DIALOG_DISMISSED`` notification once the user has made a selection.
+4. Once a selection is made, return the player to the gameplay.
+
+## Available ATT States 
+The following key has been added to all [Mobile Telemetry Services (MTS)](./tools-mts) calls in the ``deviceInfo`` section ``appTrackingTransparencyStatus``. This key reflects the current state of the user's ATT selection.
+
+| **State** | **Name** | **Description** |
+|---|---|---|
+| **0** | Not Determined | The user has not made an ATT selection yet. |
+| **1** | Restricted | The user does not have the option of making an ATT selection; this typically occurs for child accounts where tracking is restricted or disabled. |
+| **2** | Declined | The user has declined the ATT selection. |
+| **3** | Accepted | The user has accepted the ATT selection. |
+
+In addition to the above ATT status flag in MTS events, the existing ``ifaEnabled`` flag is also affected by the user's ATT selection.
 
 :::info
 
-To use the Account Deletion feature, you must upgrade to one of the following BFG SDK versions or later:
-
-- Unity SDK v9.6.1
-- Native Android SDK v7.7.0
-- Native iOS SDK v7.7.1
+For iOS 14+, this flag will always be 0 unless the user has tracking enabled. The ``ifa`` value itself in MTS events may or may not be valid (non-zero), and is not directly tied to ``ifaEnabled``.
 
 :::
 
-## Account Deletion Workflow 
+## AppsFlyer and the ATT Timeout 
 
-While it is not required that you use Big Fish’s solution for account deletion, we recommend using the following workflow to ensure that your game is compliant with Apple and Google’s standards:
-
-1. Add an option called **Delete Account** in your game’s settings.
-2. When a player clicks **Delete Account**, open a prompt that contains a warning stating the ramifications of deleting their account. Here is some sample text you can use:
-
-<div style={{marginLeft: '50px' }}>
-> By tapping <span style={{color: 'red'}}>YES</span>, your request will be submitted to be processed.
->
-> Be aware that this will **DELETE ALL** of your **PURCHASES**, **GAME PROGRESS**, and **PROFILES** in **EACH** of your Big Fish games.
->
-> **Are you sure you want to request account deletion?**
-</div>
-
-3. Provide two options: **YES, Delete My Account** and **No, Go Back**.
-  - If the player clicks **No, Go Back**, return to your game’s settings dialog.
-  - If the player clicks **YES, Delete My Account**, open a confirmation dialog. Here is some sample text you can use:
-
-<div style={{marginLeft: '50px' }}>
-> Are you sure you want to delete your account?
->
-> :warning: You will NOT be able to recover your progress. <br />
-> :warning: You will NOT be able to reverse this action. <br />
-> :warning: Your games will be permanently RESET.
-</div>
-
-  - If the player continues with the account deletion, send a request to Customer Support to delete the account.
+The BFG SDK uses a timer (default 60 seconds) to delay the initial startup of AppsFlyer, and define when the first set of AppsFlyer network calls will go out. This delay gives the player time to make an ATT selection and obtain a valid Identifier for Advertisers (IFA/IDFA) result.
 
 :::info 
 
-Clicking **YES, Delete My Account** will not immediately delete a player’s data, as the actual account deletion is performed by Customer Support. This process may take up to 2 weeks to complete.
+It is important to note that the ATT dialog _must_ be displayed first, before the AppsFlyer network calls will be made even if the timer has expired. If an ATT selection is made by the user before the timer has expired, the AppsFlyer network calls will go out immediately, and the timer is cancelled/waived.
 
 :::
 
-4. Provide two options: **YES, Delete My Account** and **No, Go Back**.
-  - If the player clicks **No, Go Back**, return to your game’s settings dialog.
-  - If the player clicks **YES, Delete My Account**, open a final dialog confirming that the request has been submitted, log out the player, and reset the game. Here is some sample text you can use:
+This timer is also configurable by the app if an ``att_timeout`` is supplied in the BFG SDK config file, bfg_config.json. If the app is closed prior to showing ATT, and then cold started, the timeout will start over when the app launches. Only add/change this value if directed by Big Fish Games.
 
-<div style={{marginLeft: '50px' }}>
-> We are processing your account deletion request, which may take up to 14 business days. We will log you out and reset the game at this point.
-</div>
+Below are some examples to help visualize the behavior described above, all of which use the default 60-second timeout:
 
-5. When the user clicks Done, return to the game’s settings dialog.
+| **Scenarios** | **Result** |
+|---|---|
+| **App launches.<br />ATT is displayed after 10 seconds.<br />User chooses accept or decline the dialog after 10 seconds.** | AppsFlyer network calls are made after the dialog is dismissed (i.e., 20 seconds after app launch). The IFA sent to AppsFlyer is based on the user’s ATT selection (valid if accepted; all-zeros if declined). |
+| **App launches.<br />ATT is displayed after 10 seconds.<br />User does not make an ATT selection for the next 2 minutes.** | AppsFlyer network calls are made 60 seconds after launch, while the ATT dialog is displayed, and an all-zero IFA is sent to AppsFlyer. |
+| **App launches.<br />ATT is not displayed until 2 minutes later.** | AppsFlyer network calls are made immediately upon the ATT dialog being displayed, and an all-zero IFA is sent to AppsFlyer. |
 
-:::info 
+## Additional Information
 
-It’s important to inform the player that the account deletion can take 14 days to process. During this time, up to when the account deletion is complete, the player will be able to continue to log into their account.
+Below is a collection of additional information and notes about ATT and how ATT affects other systems within the BFG SDK.
 
-:::
+<details>
+  <summary>How ATT Affects Deep Linking and Attribution</summary>
 
-## Implementing Account Deletion
+Since deferred deep linking requires an IFA for the deep link to be retrieved (after the app is installed and launched), if a user declines ATT, AppsFlyer will be unable to retrieve the deep link. This applies only to deferred deep linking, tapping a deep link prior to the app being installed and then retrieving the deep link automatically on the first launch.
 
-The BFG SDK and Rave SDK must be initialized before requesting account deletion. If the call to the ``requestAccountDeletion`` method is made too early, the application will attempt to call an uninitialized method and crash.
+If the user accepts ATT, this is not an issue.
 
-After you call the ``requestAccountDeletion`` method, the BFG SDK will send one of the following NSNotifications, depending on the result of the request:
+Non-deferred deep linking scenarios still work normally, regardless of the ATT selection made by the user.
 
-- ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED``
-- ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED``
+</details>
 
-The following sample code demonstrates how to add notification observers for the events that can be sent as a result of the account deletion request:
+<details>
+  <summary>Disable Tracking for ATT in iOS14+</summary>
 
-<Tabs>
-  <TabItem value="unity" label="Unity" default>
+There are two ways of disabling tracking for ATT in iOS 14+. There is no functional difference between these two methods, except the option in **Privacy > Tracking** allows for enabling/disabling globally for all apps.
 
-```csharp
-NotificationCenter.Instance.AddObserver(OnAccountDeletionRequestSuccess, bfgCommon.BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED);
-NotificationCenter.Instance.AddObserver(OnAccountDeletionRequestFailure, bfgCommon.BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED);
+1. In the **Privacy > Tracking** settings.
+2. In the app’s settings.
 
-private void OnAccountDeletionRequestSuccess(string eventData)
-{
-  Debug.Log($"OnAccountDeletionRequestSuccess called - {bfgCommon.BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED}");
-}
+The tracking options above will not appear for the specific app until the ATT dialog is displayed in the app first. However, the global option for disabling/enabling tracking is still available regardless.
+</details>
 
-private void OnAccountDeletionRequestFailure(string resultJson)
-{
-  JSONNode resultNode = JSON.Parse(resultJson);
-  int resultCode = resultNode["result"];
-  AccountDeletionRequestResult errorResult = (AccountDeletionRequestResult)resultCode;
-  Debug.Log($"OnAccountDeletionRequestFailure called - {bfgCommon.BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED}: {errorResult} - {resultCode}");
-}
-```
-  </TabItem>
-  <TabItem value="android" label="Native Android">
+<details>
+  <summary>Customize the ATT Text</summary>
 
-```java
-NSNotificationCenter.defaultCenter() 
-  .addObserver(this, "requestAccountDeletionSucceeded", "BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED", null);
+Add the ``NSUserTrackingUsageDescription`` entry to the game's Info.plist file to customize verbiage around the ATT prompt.
+</details>
 
-NSNotificationCenter.defaultCenter()
-  .addObserver(this, "requestAccountDeletionFailed", "BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED", null);
-        
-public void requestAccountDeletionSucceeded(final NSNotification notification) {
-  bfgLog.d(TAG,String.format("requestAccountDeletionSucceeded called - %s", bfgRaveInternal.BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED));
+<details>
+  <summary>Additional Notes</summary>
 
-  // User has been logged out of Rave so we need to update the UI to reflect it
-  updateRaveUI();
-}
+-  The MTS ATT key (``appTrackingTransparencyStatus``) is not added to payloads for iOS 13 and lower, even though Limit Ad Tracking is available in lower OS versions.
+- If a device is upgraded from iOS 13 or lower to iOS 14, and Limit Ad Tracking was enabled, then the Tracking setting will automatically be disabled for all apps in iOS 14.
+- Unity contains additional ATT status values that are not available in the native iOS SDK. These are internal values that should never appear in MTS payloads:
+  - -1: iOS version is less than iOS 14; ATT status does not apply.
+  - -2: Non-iOS device.
+  - -3: An error occurred when trying to determine the ATT status.
 
-public void requestAccountDeletionFailed(final NSNotification notification) {
-  Hashtable<String, Integer> notificationData = (Hashtable<String, Integer>)notification.getObject();
-  int errorCode = notificationData.get("result");
-  bfgRave.AccountDeletionRequestResult errorResult = bfgRave.AccountDeletionRequestResult.values()[errorCode];
-  bfgLog.d(TAG,String.format("requestAccountDeletionFailed called - %s: %s - %d", bfgRaveInternal.BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED, errorResult, errorCode));
-}
-```
-  </TabItem>
+- When an app is launched for the first time with ATT having already been disabled globally, the ‘appTrackingTransparencyStatus’ key’s value in MTS events will be set as 'declined' (and not undetermined). The ATT dialog will also not be displayed in this case, even if the requestTrackingAuthorization API call is made by the developer which is what triggers ATT to display normally.
+- The ATT dialog will only ever display once per app install. Once the user has made an ATT selection, it will not display again regardless of whether or not the tracking is enabled or disabled repeatedly in Settings.
+- AppsFlyer purchase events are still sent, even if the user declines ATT, however, the IFA will obviously not be attached to the event like all AppsFlyer events.
+</details>
 
-  <TabItem value="iOS" label="Native iOS">
-
-```objectivec
-// Success will result in the user automatically being logged out of Rave by the BFG SDK
-[[NSNotificationCenter defaultCenter] addObserver:self
-  selector:@selector(accountDeletionSucceeded:)
-  name:BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED
-  object:nil];
-   
-// A userInfo object is returned with BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED. It's value is an integer.
-// NetworkUnavailable
-// FailedToSend
-[[NSNotificationCenter defaultCenter] addObserver:self
-  selector:@selector(accountDeletionFailed:)
-  name:BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED
-  object:nil];
-}
-
--(void)accountDeletionSucceeded:(NSNotification *)notification {
-  NSLog(@"%@", BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED);
-}
-
--(void)accountDeletionFailed:(NSNotification *)notification {
-  NSDictionary *userInfo = notification.userInfo;
-  NSNumber * result = [userInfo objectForKey:@"result"];
-  long lResult = [result longValue];
-  NSString * strResult = @"UNSET";
-  switch(lResult) {
-    case NetworkUnavailable:
-      strResult = @"NetworkUnavailable";
-      break;
-    case FailedToSend:
-      strResult = @"FailedToSend";
-      break;
-    default: break;
-  }
-  NSLog(@"%@: %@ - %@", BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED, strResult, result);
-}
-```
-  </TabItem>
-</Tabs>
-
-## Verifying the implementation
-
-To test your implementation, add the following code to your BFG SDK config file, bfg_config.json when testing. Ensure you REMOVE it for production:
-
-```
-"internal_sdk_debugging": { "test_request_account_deletion" : true }
-```
-
-This code will append an extra string to the ticket subject so that it will be ignored by Customer Support. You can confirm that a request ticket was sent by searching for tickets containing ``"sdktest123 - Big Fish Account Deletion Request."``
-
-## Additional Resources and Documentation
-
-**Requirements from Apple and Google**
-
-- [Offering account deletion in your app (Apple Support Documentation)](https://developer.apple.com/support/offering-account-deletion-in-your-app) :upper-right-arrow:
-- [Understanding Google Play’s app account deletion requirements (Google Play Console Help)](https://support.google.com/googleplay/android-developer/answer/13327111?sjid=13588466845803626281-NC) :upper-right-arrow:
-
-**UI String Localization**
-
-Localization strings are available for the account deletion UI to support games localized in multiple languages. You can access the localization strings [following this link](https://docs.google.com/spreadsheets/d/1FMECXrD1ME7dovdrR22CsUKswMa9EKRS/edit#gid=902652280).
+## Additional Resources and Documentation 
 
 **BFG SDK Sample App Implementation**
 
-An example implementation can be found in the BFG SDK Sample App. The account deletion implementation includes a button, notification observers, and selectors. Locate the implementation in the following files:
+An example implementation can be found in the BFG SDK Sample App. Locate the implementation in the following files:
 
-- Unity SDK: BfgZendeskListeners.cs
-- Native Android SDK: MainActivity.java
-- Native iOS SDK: BFGRaveViewController
+- Unity SDK: HandleAttNotification.cs, BfgPolicyListener.cs
+- Native iOS SDK: BFGUIKitExampleAppDelegate.m with the didFinishLaunchingWithOptions method
+
