@@ -27,7 +27,7 @@ While it is not required that you use Big Fish’s solution for account deletion
 1. Add an option called **Delete Account** in your game’s settings.
 2. When a player clicks **Delete Account**, open a prompt that contains a warning stating the ramifications of deleting their account. Here is some sample text you can use:
 
-> By tapping <span style="{{color:red}}">YES</span>, your request will be submitted to be processed.
+> By tapping <span style={{color: 'red'}}>YES</span>, your request will be submitted to be processed.
 >
 > Be aware that this will **DELETE ALL** of your **PURCHASES**, **GAME PROGRESS**, and **PROFILES** in **EACH** of your Big Fish games.
 >
