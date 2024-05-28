@@ -27,25 +27,21 @@ While it is not required that you use Big Fish’s solution for account deletion
 1. Add an option called **Delete Account** in your game’s settings.
 2. When a player clicks **Delete Account**, open a prompt that contains a warning stating the ramifications of deleting their account. Here is some sample text you can use:
 
-> 
-> By tapping <span style={{color: 'red'}}>YES</span>, your request will be submitted to be processed.
->
-> Be aware that this will **DELETE ALL** of your **PURCHASES**, **GAME PROGRESS**, and **PROFILES** in **EACH** of your Big Fish games.
->
-> **Are you sure you want to request account deletion?**
->
+>> By tapping <span style={{color: 'red'}}>YES</span>, your request will be submitted to be processed.
+>>
+>> Be aware that this will **DELETE ALL** of your **PURCHASES**, **GAME PROGRESS**, and **PROFILES** in **EACH** of your Big Fish games.
+>>
+>> **Are you sure you want to request account deletion?**
 
 3. Provide two options: **YES, Delete My Account** and **No, Go Back**.
   - If the player clicks **No, Go Back**, return to your game’s settings dialog.
   - If the player clicks **YES, Delete My Account**, open a confirmation dialog. Here is some sample text you can use:
 
->
-> Are you sure you want to delete your account?
->
-> :warning: You will NOT be able to recover your progress. <br />
-> :warning: You will NOT be able to reverse this action. <br />
-> :warning: Your games will be permanently RESET.
->
+>> Are you sure you want to delete your account?
+>>
+>> :warning: You will NOT be able to recover your progress. <br />
+>> :warning: You will NOT be able to reverse this action. <br />
+>> :warning: Your games will be permanently RESET.
 
   - If the player continues with the account deletion, send a request to Customer Support to delete the account.
 
@@ -59,9 +55,7 @@ Clicking **YES, Delete My Account** will not immediately delete a player’s dat
   - If the player clicks **No, Go Back**, return to your game’s settings dialog.
   - If the player clicks **YES, Delete My Account**, open a final dialog confirming that the request has been submitted, log out the player, and reset the game. Here is some sample text you can use:
 
->
-> We are processing your account deletion request, which may take up to 14 business days. We will log you out and reset the game at this point.
->
+>> We are processing your account deletion request, which may take up to 14 business days. We will log you out and reset the game at this point.
 
 5. When the user clicks Done, return to the game’s settings dialog.
 
