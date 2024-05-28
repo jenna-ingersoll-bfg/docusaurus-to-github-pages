@@ -42,7 +42,7 @@ The following table lists the types of data collected in the BFG SDK privacy man
 | **Coarse Location** | NO | NO | App functionality<br /><br />Analytics | MTS<br /><br />Zendesk<br /><br />AppsFlyer |
 | **Precise Location** | NO | NO |   | Zendesk |
 | **Device ID** | YES | YES | App functionality<br /><br />Analytics<br /><br />Developer's Advertising or Marketing<br /><br />Other Purposes<br /><br />3rd party Advertising | MTS<br /><br />Zendesk |
-| **User ID** | YES | NO | App functionality<br /><br />Analytics<br /><br />Developer's Advertising or Marketing<br>Other Purposes<br /><br />3rd party Advertising | MTS<<br /><br />Zendesk |
+| **User ID** | YES | NO | App functionality<br /><br />Analytics<br /><br />Developer's Advertising or Marketing<br>Other Purposes<br /><br />3rd party Advertising | MTS<br /><br />Zendesk |
 | **Crash Data** | NO | NO | Analytics | Firebase |
 | **Audio Data** | NO | NO | App functionality | Zendesk |
 | **Photos or Videos** | NO | NO | App functionality | Zendesk<br /><br />Rave |
