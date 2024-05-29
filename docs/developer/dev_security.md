@@ -59,12 +59,11 @@ For iOS development, you must have CocoaPods installed to handle iOS dependencie
 1. Download the Firebase Unity SDK package. **NOTE**: The BFG SDK may not support the latest Firebase Unity SDK. Use one of the following links to download the supported version(s) for the BFG SDK release you are using. See [3rd Party Compatibility Charts](../bfgsdk/compatibility-charts) to identify which version to download.
   - [Firebase Unity SDK v11.6.0](https://dl.google.com/firebase/sdk/unity/firebase_unity_sdk_11.6.0.zip) :arrow_upper_right:
   - [Firebase Unity SDK v9.3.0](https://dl.google.com/firebase/sdk/unity/firebase_unity_sdk_9.3.0.zip) :arrow_upper_right:
-  
 2. Unzip the downloaded Firebase Unity SDK file.
 2. In Unity, go to **Assets > Import Package > Custom Package**.
 3. Import the following SDKs:
-  - Crashlytics: FirebaseCrashlytics.unitypackage
-  - Analytics: FirebaseAnalytics.unitypackage
+    - Crashlytics: FirebaseCrashlytics.unitypackage
+    - Analytics: FirebaseAnalytics.unitypackage
 4. In the **Import Unity Package** window, click **Import**.
 
 </details>
