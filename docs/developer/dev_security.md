@@ -19,7 +19,7 @@ Games published by Big Fish use **Firebase Crashlytics** to provide real-time cr
 
 Firebase Crashlytics is integrated directly into the BFG SDK, and most of the functionality is already set up for you. Prior to configuring Firebase Crashlytics, you must first integrate the BFG SDK into your game code. 
 
-Additionally, to use Firebase in your game, you need to register your game with your Firebase project. Registering your app is often called "adding" your app to your project. See Firebase's documentation for more information: 
+Additionally, to use Firebase in your game, you need to register your game with your Firebase project. See Firebase's documentation for more information: 
 
 - [Register your app with Firebase (Unity)](https://firebase.google.com/docs/unity/setup#register-app) :arrow_upper_right:
 - [Register your app with Firebase (Android)](https://firebase.google.com/docs/android/setup#register-app) :arrow_upper_right:
@@ -209,6 +209,86 @@ Once complete, remove the code to crash your app once you have confirmed that yo
 
 </details>
 
+### Native iOS SDK
+
+The Native iOS includes bfg_iOS_Crashlytics.framework, which wraps the initialization of Firebase Analytics, Firebase Performance, and the Firebase Crashlytics API. This framework is found in the framework/Plugin/Release directory of the Native iOS SDK download.
+
+:::info
+
+If your game currently integrates Firebase Analytics and/or Firebase Performance, remove those files and update your import statements in favor of the ones included in the Native iOS SDK. 
+
+:::
+
+<details>
+  <summary>Add bfg_iOS_Crashlytics.framework to your project </summary>
+
+1. In Xcode, select your game's target from the **Targets** window.
+2. Select the **General** tab.
+3. Scroll down to the **Frameworks, Libraries and Embedded Content** section.
+4. At the bottom of the list, click the **+** button.
+5. Navigate to the bfg_iOS_Crashlytics.framework, and click **Open**.
+6. In the **Embed** column, ensure the framework is set to **Do Not Embed**.
+
+</details>
+
+<details>
+  <summary>Verify Framework Search Paths</summary>
+
+1. In Xcode, click the **Build Settings**.
+2. For **Framework Search Paths**, verify that the correct path is set to bfg_iOS_Crashlytics.framework.
+
+:::info 
+
+The paths will vary depending on where the frameworks exist relative to the Xcode project. For example, if you downloaded the bfg_iOS_Crashlytics framework at the same level as your game's project file, the frameworks would be located at:
+
+```
+${PROJECT_DIR}/bfg_iOS_sdk_7_2/framework/Plugin/Release
+```
+
+:::
+
+For debug testing, you need to use the bfg_iOS_Crashlytics debug framework. Add this to the Framework Search Paths:
+
+1. Click the arrow to the left of **Framework Search Paths** to expand the search paths list.
+2. Add the path to the debug framework location (it should be located in the Plugin/Debug folder in the BFG SDK package) by entering its location to the right of the Debug key.
+
+</details>
+
+<details>
+  <summary>Add Firebase configuration file</summary>
+
+1. Open the Firebase Console.
+2. In the left panel, click **Crashlytics**.
+3. Click **Download GoogleService-Info.plist**
+4. Add the configuration file(s) to the root of your Xcode project. 
+
+</details>
+
+<details>
+  <summary>Upload dSYM File to Crashlytics</summary>
+
+To generate human readable crash reports, Crashlytics needs your project's debug symbol (dSYM) files. Upload your dSYM files to Crashlytics: 
+
+1. In Xcode, select your game's target from the **Targets** window.
+2. Select the **Build Settings** tab.
+3. Set **Debug Information Format** to **DWARF with dSYM File** for both your debug and release build types. 
+4. Add the following run script as the final entry to your the production target's build phase:
+
+```
+echo "Uploading DSYM files to Firebase Crashlytics"
+"${SRCROOT}/../../framework/Scripts/upload-symbols" -gsp "<path/to/GoogleService-Info.plist>" --build-phase
+```
+</details>
+
+<details>
+  <summary>Force a test crash to finish setup</summary>
+
+To finish setting up Crashlytics and see initial data in the Crashlytics dashboard of the Firebase Console, you need to [force a test crash](#testing-your-implementation).
+
+Once complete, remove the code to crash your app once you have confirmed that your app is sending the crash reports.
+
+</details>
+
 ## Testing your implementation
 
 1. Add code to your app to force a test crash. The following sample code can be used:
@@ -360,22 +440,19 @@ You must initialize Firebase Crashlytics and Firebase Analytics before initializ
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  ...
   // *** Initialize Firebase Crashlytics and Analytics BEFORE initializing BFG SDK
   [[bfgCrashlytics getInstance] start];
   // *** Actually start the Big Fish SDK
   [bfgManager startWithLaunchOptions:launchOptions parentViewController:rootVC];
-  ...
 }
 @end
 ```
   </TabItem>
 </Tabs>
 
+## Additional Resources and Documentation
 
+For more information on Firebase Crashlytics, see Google’s documentation:
 
-
-
-
-
-For more information on Firebase Crashlytics, see Google’s documentation at Getting Started with Firebase Crashlytics or watch their video at Introducing Firebase Crashlytics.
+- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) :arrow_upper_right:
+- [Introducing Firebase Crashlytics (Video)](https://www.youtube.com/watch?v=k_mdNRZzd30&feature=youtu.be) :arrow_upper_right:
