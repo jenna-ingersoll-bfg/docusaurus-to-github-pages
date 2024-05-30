@@ -101,14 +101,29 @@ public void onStop() {
   // it is now safe to show branding, tutorials, intro videos, etc.
 }];
 ```
+
+In your BFGUnityAppController.mm file, add the following to the ``didFinishLaunchingWithOptions`` method:
+
+```objective c
+extern "C"
+{
+  void BfgPolicyListenerWrapper__setBfgPolicyListener();
+}
+-(BOOL)application:(UIApplication*) application didFinishLaunchingWithOptions:(NSDictionary*) options
+{
+  BfgPolicyListenerWrapper__setBfgPolicyListener();
+  // Initialize the SDK here
+  return YES;
+}
+```
   </TabItem>
 </Tabs>
 
-## Check for Controls
+## Checking for Controls
 
-**Controls** are used as signals to block or allow features and/or reporting events sent to 3rd parties based on the user's opt-in preference of a policy. The BFG SDK uses a controls list to determine which third parties will receive data.
+**Controls** are used as signals to block or allow features and/or reporting events sent to 3rd parties based on the user's opt-in preference of a policy. The BFG SDK uses a controls list to determine which 3rd parties will receive data.
 
-The ``bfgManager.didAcceptPolicyControl`` control affects the collection/transmission of data used by third-party-directed advertising. This method will return:
+The ``bfgManager.didAcceptPolicyControl`` control affects the collection/transmission of data used by 3rd party-directed advertising. This method will return:
 
 - YES / True if the user has accepted the control.
 - NO / False if declined or there is no record of the user accepting it.
@@ -177,7 +192,13 @@ The Facebook SDK can still initialize and even send the install event. Further e
 
 ## Using the Sample Policy
 
-The BFG SDK contains a sample policy that can be used when no policy is set up yet on the Big Fish servers. This allows developers to test their GDPR integration with third-party targeted advertising without setting up game-specific policies on the server. To use this feature, add the following setting to the BFG SDK config file, bfg_config.json:
+:::warning
+
+Testing the sample policies is only supported in debug builds of the BFG SDK.
+
+:::
+
+The BFG SDK contains a sample policy that can be used when no policy is set up yet on the Big Fish servers. This allows developers to test their GDPR integration with 3rd party targeted advertising without setting up game-specific policies on the server. To use this feature, add the following setting to the BFG SDK config file, bfg_config.json:
 
 ```json
 "gdpr": {
@@ -187,13 +208,13 @@ The BFG SDK contains a sample policy that can be used when no policy is set up y
 
 :::info 
 
-After testing with a sample policy, uninstall your app from the device you have used for testing. Third party reporting may have been disabled during testing.
+After testing with a sample policy, uninstall your app from the device you have used for testing. 3rd party reporting may have been disabled during testing.
 
 :::
 
 The following code sample demonstrates a sample policy file, sample_policies.json, which you can use to verify the content of what is being displayed. The sample policy includes two policies that will be shown in succession.
 
-- The first policy is an optional policy with third-party targeted advertising control.
+- The first policy is an optional policy with 3rd party targeted advertising control.
 - The second policy is a mandatory policy that the player must accept to continue.
 
 ```json
