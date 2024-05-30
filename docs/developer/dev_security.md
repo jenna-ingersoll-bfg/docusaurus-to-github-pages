@@ -279,7 +279,7 @@ For a full list of all the possible data provided in the ``conversionData`` coll
 
 </details>
 
-## Native iOS SDK
+### Native iOS SDK
 
 <details>
   <summary>Implement the bfgDeepLinkListener</summary>
@@ -368,5 +368,33 @@ Your Big Fish producer will provide you with the scheme you need to define in yo
 
 </details>
 
+<details>
+  <summary>Add support for Universal Links</summary>
 
+**Universal Links** is a deep linking protocol created by Apple and was introduced in iOS versions 9+. Universal Links enables app developers to create a two-way association between their mobile app and website. The advantage to supporting universal links is that tapping on them in an email or a banner ad can directly open your app if it is installed, instead of first routing the user through Safari or another browser. Universal links are similar to regular deep links in that they can launch your app and deliver a payload, but they have a slightly different structure inside the app code. 
 
+A universal link can be configured for any of four scenarios:
+
+- To take the user to the App Store.
+- To deep link to the Apple App Store for a download. In this scenario, when a user does not have your app installed, they will be taken to the App Store and, if they choose to install it, the universal link payload will be delivered, for example, as a deferred deep link or a referral link.
+- If the app is installed and the link is a deep link, it will take the user directly to the app and then deep link them to the given location, for example, if you want the user to access a bonus level.
+- If the app is installed and the link is a referral link, it will open the app.
+
+Your Big Fish producer will enable universal links through the AppsFlyer Developer Portal. You will be given a referral link similar to the one below, but it will be specific to your game.
+
+```
+//bfgsdk.onelink.me/yryN/4f196e66
+```
+
+To use universal links, you need to add another pass-through call to bfgManager in your app delegate:
+
+```objectivec
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
+{
+  [bfgManager applicationContinueUserActivity:userActivity restorationHandler:restorationHandler];
+  // Do any special processing of the universal link here
+  return YES;
+}
+```
+
+</details>
