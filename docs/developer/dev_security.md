@@ -1,401 +1,177 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Deep Linking
+# General Data Protection Regulation (GDPR)
 
-:small_blue_diamond: **Tools to use:** AppsFlyer, BFG SDK
+:small_blue_diamond: **Tools to use:** BFG SDK
 
-## What is Deep Linking?
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
 
-A **deep link** is a generic term for any link that opens the game remotely, whether or not it is installed on the user's device. From the player's perspective, they will click a link on an offer, ad, or message and be sent straight to the game advertised by the link. There are two different types of deep links:
+## What is GDPR? 
 
-- **Referral links** direct the user to an app (rather than a specific location in the app). If the app is installed on the device, the app will open. If it is not installed, then the user will be directed to the App Store to download the game.
-- **Deferred Deep Links** go to a specific location in the app, but cannot be executed immediately. If the app is not installed, the user will be prompted to install the game. Once installed and launched, a call-back is made to retrieve the deep link and execute it.
+The **General Data Protection Regulation (GDPR)** requires organizations to safeguard personal data and uphold the privacy rights of anyone in EU territory. To comply with GDPR, Big Fish has implemented a consent policy service called the **Consent Manager**. On each game launch and resume, the BFG SDK polls the service to find if there are consent policies for the user to see and accept. The game must be prepared to know when a policy is showing and when this policy check and display have been completed.
 
-Games published by Big Fish use **AppsFlyer** to create and manage deep links through campaigns. 
+Each game must also be prepared to alter the behavior of any manually integrated 3rd party SDKs and services based on the user's opt-in preference. For example, if the user chooses to opt-out to 3rd party targeted advertising, each game may need to stop sending data to specific 3rd party SDKs.
 
 :::tip[Pre-Requisite]
 
-Before continuing, ensure you meet the following pre-requisites:
-
-- Integrate the BFG SDK ([Unity](../bfgsdk/integrate-unitysdk) | [Native Android](../bfgsdk/integrate-androidsdk) | [Native iOS](../bfgsdk/integrate-iossdk))
-- [Enable AppsFlyer](./tools-appsflyer#enabling-appsflyer)
+You must first integrate the BFG SDK into your game code to use the Consent Manager.
 
 :::
 
-## Receiving Deep Link Notifications (Unity only)
+## Implementing the Consent Manager
 
-The Unity SDK includes the ability to deep link notifications. To listen for deep link notifications, you first need to register the deep link notifications defined in ``bfgCommon.cs``: 
+To implement consent policies in Unity, you need to add a call to ``bfgManager.addPolicyListener`` as early as possible in the game's run loop:
 
-```csharp
-void Start ()
-{
-  NotificationCenter.Instance.AddObserver(deeplink_notification_received, bfgCommon.NOTIFICATION_DEEPLINK_ONDEEPLINKRECEIVED);
-}
-
-// Triggered when the deep link notification is received
-public void deeplink_notification_received(string notification) {
-  Debug.Log (deeplink_notification_received: notification=" + notification);
-}
-```
-
-## Setting up Deep Links
-
-The process to set up deep links depends on which BFG SDK you are using. 
-
-### Unity SDK (Android Targets)
-
-<details>
-  <summary>Set up intent filters</summary>
-
-Your Big Fish producer will send you a code snippet of an intent filter to put into manifest file of your app. An **intent filter** determines the type of requests that come from another app component (such as AppsFlyer). To complete setup for deep links on Android, copy the intent-filter into the relevant ``<activity>`` on your AndroidManifest.xml file. The snippet contains the following values:
-
-- The ``host`` value, provided by your Big Fish producer.
-- The four-character pathPrefix, an auto-generated value from the AppsFlyer portal that is unique to your game.
-
-Here is an example of the code snippet for an intent filter:
-
-```xml
-<intent-filter android:autoVerify="true">
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="https"
-    android:host="bfgsdk.onelink.me"
-    android:pathPrefix="/yryN" />
-</intentfilter>
-```
-
-</details>
-
-<details>
-  <summary>Set up URI Scheme</summary>
-
-A URI scheme is a URL that leads users directly to your game, and is required for AppsFlyer links to work in Facebook. Whenever a Universal Link fails to open the app, the URI scheme can be used as a fallback to open the application.
-
-Your Big Fish producer will provide you with the scheme you need to define in your manifest file. Add another filter to your manifest that handles specific deep link schemes for your game. In the following example, the scheme is ``bfgsample``. Include this filter right below the intent filter you previously added for AppsFlyer:
-
-```xml
-<intent-filter>
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="bfgsample" />
-</intent-filter>
-```
-
-</details>
-
-### Unity SDK (iOS Targets)
-
-<details>
-  <summary>Set the Delegate to Receive Callbacks</summary>
-
-1. Open the file, com.bfg.sdk/Runtime/Plugins/iOS/BFGUnityAppController.mm
-2. In BFGUnityAppController.mm, add the following code to the ``didFinishLaunchingWithOptions`` method before initializing the BFG SDK:
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
 
 ```csharp
-extern "C"
+// Call this method as early as possible.
+void ButtonToAddPolicyListener()
 {
-  void BfgDeepLinkDelegateWrapper_setDeepLinkListener();
+  bfgManager.addPolicyListener (willShowPolicies, onPoliciesCompleted);
+  Debug.LogFormat("PolicyControls - Listener added");
 }
--(BOOL)application:(UIApplication*) application didFinishLaunchingWithOptions:(NSDictionary*) options
+
+// SDK is about to show policies.
+void willShowPolicies (string notification)
 {
-  BfgDeepLinkDelegateWrapper_setDeepLinkListener();
-
-  // Initialize the BFG SDK here
-
-  return YES;
+  Debug.LogFormat("PolicyControls willShowPolicies: " + notification);
 }
-```
 
-</details>
-
-<details>
-  <summary>Update the App Delegate to Use Universal Links</summary>
-
-1. Open the file, com.bfg.sdk/Runtime/Plugins/iOS/BFGUnityAppController.mm
-2. In BFGUnityAppController.mm, add another pass-through call to ``bfgManager``, which will update the App Delegate to use universal links through AppsFlyer.
-
-```csharp
--(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *restorableObjects))restorationHandler;
+// SDK has finished showing policies.
+void onPoliciesCompleted (string notification)
 {
-  return [bfgManager applicationContinueUserActivity:userActivity restorationHandler:restorationHandler];
+  // Game can start displaying vital game content
+  Debug.LogFormat("PolicyControls policiesCompleted: " + notification);
+  // After policies have been completed, verify if the user accepted or declined the policy.
+  Verify_Policy_Status();
 }
 ```
-
-</details>
-
-<details>
-  <summary>Add URI scheme to your plist</summary>
-
-A URI scheme is a URL that leads users directly to your game, and is required for AppsFlyer links to work in Facebook. Whenever a Universal Link fails to open the app, the URI scheme can be used as a fallback to open the application.
-
-Your Big Fish producer will provide you with the scheme you need to define in your game configuration. In the following example, the scheme is ``bfgsample``. The scheme is added to your game's plist file:
-
-```xml
-<key>CFBundleURLSchemes</key>
-<array>
-  <string>bfgsample</string>
-</array>
-```
-
-</details>
-
-### Native Android SDK 
-
-<details>
-  <summary>Implement the bfgDeepLinkListener</summary>
-
-Implement the ``bfgDeepLinkListener`` in your main ``bfgActivity``:
+  </TabItem>
+  <TabItem value="android" label="Native Android">
 
 ```java
-public class AndroidExampleActivity extends bfgActivity implements bfgDeepLinkListener
-```
-
-</details>
-
-<details>
-  <summary>Override the OnDeepLinkReceived callback</summary>
-
-Override the ``onDeepLinkReceived`` callback to handle the received deep link:
-
-```java
-public void onDeepLinkReceived(final String deepLink, Map<String,String> conversionData, final String error) {
-  if (!TextUtils.isEmpty(deepLink)) {
-    bfgLog.d(this.getLocalClassName(), "Deep link received: \n" + deepLink);
-  } else if (!TextUtils.isEmpty(error)) {
-    bfgLog.d(this.getLocalClassName(), "Deep link retrieve error: " + error + " from UA tracking provider");
+private bfgPolicyListener mPolicyListener = new bfgPolicyListener() {
+  @Override
+  public void willShowPolicies() {
+    // halt engaging UI
   }
-  // The UA tracking provider returned additional information about the deep link that launched
-  // the app. Inspect its content to gain insight regarding the source of the link. For links
-  // originated from Facebook the deepLinkString will always be null and you'll need to look
-  // for the deeplink in the conversionData dictionary. Ask your producer for the specific field
-  // you should be looking for in this dictionary.
-  // An example payload for a basic Facebook link could look like:
-  // conversionData = {
-  //    "af_ad": "testadname",
-  //    "af_deeplink": true,
-  //    "af_sub1": "testsubpub",
-  //    "af_sub2": "testplacement",
-  //    "campaign": "testcampaign",
-  //    "host": "sdktest",
-  //    "is_retargeting": true,
-  //    "media_source": "Social Facebook",
-  //    "path": "/reward/coins/1000/abc123",
-  //    "scheme": "bfgsample",
-  //    "shortlink": "dlfbpost"
-  // }
-  // For this example, you might be interested in the 'path' field of the dictionary, where you could extract
-  // a promo code or other meaningful information for your game.
-  if (conversionData != null) {
-    bfgLog.d(this.getLocalClassName(), "onDeepLinkReceived: conversion data: " + conversionData + " from UA tracking provider");
+
+  @Override
+  public void onPoliciesCompleted() {
+    // it is now safe to show branding, tutorials, intro videos, etc.
+    // This is where games should check for 3rd party control acceptance and gate 3rd party
+    // data collection that does not adhere to GDPR requirements if the policy was not accepted.
+    // See Step 2 for more info on what to do for control checking.
+  }
+}
+
+public void onStart() {
+  super.onStart();
+  bfgManager.addPolicyListener(mPolicyListener);
+}
+
+public void onStop() {
+  super.onStop();
+  bfgManager.removePolicyListener(mPolicyListener);
+}
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+
+```objectivec
+[bfgManager addPolicyListener:self willShowPolicies:nil onPoliciesCompleted:^{
+  // it is now safe to show branding, tutorials, intro videos, etc.
+}];
+```
+  </TabItem>
+</Tabs>
+
+## Handling Facebook if user does not consent
+
+If a user does not consent, Facebook events should no longer be used for targeted advertising. In order to do this, you first need to verify if the user has accepted or declined the last policy displayed, and then if it has been declined, disable Facebook's targeted advertising.
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+```csharp
+void Verify_Policy_Status ()
+{
+  bool didAccept = bfgManager.didAcceptPolicyControl(bfgCommon.THIRDPARTYTARGETEDADVERTISING);
+  if (!didAccept)
+  {
+    Debug.LogFormat("PolicyControls declined. Disable Facebook targeted advertising.");
+    bfgManager.setLimitEventAndDataUsage(true);
   }
 }
 ```
+  </TabItem>
+  <TabItem value="native" label="Native Android/iOS">
 
-</details>
+1. Use the Facebook SDK's ``setLimitEventAndDataUsage`` method.
+2. Set it to true if the user has not accepted ``THIRDPARTYTARGETEDADVERTISING``.
 
-<details>
-  <summary>Set listener callback</summary>
+The Facebook SDK can still initialize and even send the install event. Further events must wait for the result of the user's opt-in preference. Then use the ``setLimitEventAndDataUsage`` method accordingly.
+  </TabItem>
+</Tabs>
 
-Set your listener callback with `setDeepLinkListener` in ``onCreate()``.
+## Using the Sample Policy
 
-:::info
+The BFG SDK contains a sample policy that can be used when no policy is set up yet on the Big Fish servers. This allows developers to test their GDPR integration with third-party targeted advertising without setting up game-specific policies on the server. To use this feature, add the following setting to the BFG SDK config file, bfg_config.json:
 
-Set the listener callback before initializing the SDK to ensure that deep links are not missed.
+```json
+"gdpr": {
+  "useSamplePolicies": true
+}
+```
+
+:::info 
+
+After testing with a sample policy, uninstall your app from the device you have used for testing. Third party reporting may have been disabled during testing.
 
 :::
 
-```java
-bfgGameReporting.sharedInstance().setDeepLinkListener(this);
-```
+The following code sample demonstrates a sample policy file, sample_policies.json, which you can use to verify the content of what is being displayed. The sample policy includes two policies that will be shown in succession.
 
-</details>
+- The first policy is an optional policy with third-party targeted advertising control.
+- The second policy is a mandatory policy that the player must accept to continue.
 
-<details>
-  <summary>Set up intent filters</summary>
-
-Your Big Fish producer will send you a code snippet of an intent filter to put into manifest file of your app. An **intent filter** determines the type of requests that come from another app component (such as AppsFlyer). To complete setup for deep links on Android, copy the intent-filter into the relevant ``<activity>`` on your AndroidManifest.xml file. The snippet contains the following values:
-
-- The ``host`` value, provided by your Big Fish producer.
-- The four-character pathPrefix, an auto-generated value from the AppsFlyer portal that is unique to your game.
-
-Here is an example of the code snippet for an intent filter:
-
-```xml
-<intent-filter android:autoVerify="true">
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="https"
-    android:host="bfgsdk.onelink.me"
-    android:pathPrefix="/yryN" />
-</intentfilter>
-```
-
-</details>
-
-<details>
-  <summary>Set up URI Scheme</summary>
-
-A URI scheme is a URL that leads users directly to your game, and is required for AppsFlyer links to work in Facebook. Whenever a Universal Link fails to open the app, the URI scheme can be used as a fallback to open the application.
-
-Your Big Fish producer will provide you with the scheme you need to define in your manifest file. Add another filter to your manifest that handles specific deep link schemes for your game. In the following example, the scheme is ``bfgsample``. Include this filter right below the intent filter you previously added for AppsFlyer:
-
-```xml
-<intent-filter>
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="bfgsample" />
-</intent-filter>
-```
-
-**Referral URL / URI Scheme**
-
-You will get the shared scheme in the ``deepLinkString`` field if a referral URL opens your game. Nothing needs to be done by the game at this point since the goal of the referral is to simply open the app.
-
-```
-"deepLinkString": "bfgsample://",
-"conversionData": {
-    "af_dp": "bfgsample://",
-    "link": "https://bfgsample.onelink.me/lmNv/dlfbpost"
-}
-```
-
-**First Launch Installation Attribution**
-
-When your game launches for the first time, you will receive an ``onDeepLinkReceived`` callback with information on the installation attribution. The **deepLink** parameter will be ``null`` unless the first launch resulted from a deferred deep link. The contents of the ``conversionData`` collection will vary, depending on whether the installation was organic, from a deep link, or a deferred deep link from one of our advertising partners, such as Facebook.
-
-For example, an organic installation will provide the following ``conversionData``:
-
-```
-"af_message": "organic install",
-"af_status": "Organic",
-"is_first_launch": "true"
-```
-
-For a full list of all the possible data provided in the ``conversionData`` collection, see [Conversion data payloads and scenarios](https://support.appsflyer.com/hc/en-us/articles/360000726098-Conversion-data-payloads-and-scenarios) :arrow_upper_right: in AppsFlyer's documentation.
-
-</details>
-
-### Native iOS SDK
-
-<details>
-  <summary>Implement the bfgDeepLinkListener</summary>
-
-Set up your ``AppDelegate`` to conform to the ``bfgDeepLinkListener`` protocol:
-
-```objectivec
-@interface BFGUIKitExampleAppDelegate () <bfgPlacementDelegate, bfgManagerPauseResumeDelegate, bfgDeepLinkListener>
-```
-
-Next, setup the ``bfgDeepLinkListener`` listener before initializing the BFG SDK.
-
-```objectivec
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  [bfgGameReporting setDeepLinkListener:self];
-  [bfgManager startWithLaunchOptions:launchOptions parentViewController:myRootViewController];
-}
-```
-
-</details>
-
-<details>
-  <summary>Implement the onDeepLinkReceived callback</summary>
-
-Confirm that your listener implements the ``onDeepLinkReceived:conversionData:error:`` method to retrieve any deep links that have been received:
-
-```objectivec
-#pragma mark - bfgDeepLinkListener
-
--(void) onDeepLinkReceived:(NSString * _Nullable)deepLinkString conversionData:(NSDictionary* _Nullable)conversionData error:(NSError * _Nullable)error
-{
-  if (error)
+```json
+[
   {
-      BFGUIKitExampleLog(@"An error occurred in the UA tracking provider. Error: %ld: %@", error.code, error.localizedDescription);
-      return;
-  }
-  if (deepLinkString.length)
+    "id": "5cbac95c-7c53-42ed-8701-802449a93e40",
+    "title": "Terms of Service",
+    "policyText": "<h1>H1 header<\/h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<h3>Links<\/h3><a href=\"https:\/\/www.bigfishgames.com\/company\/privacy.html\">Tap here<\/a><h3>Bold text<\/h3><p>Some <strong>bold<\/strong> text inside regular text<\/p><br><h3>Unordered List<\/h3><ul><li>Coffee<\/li><li>Tea<\/li><li>Milk<\/li><\/ul><br><h3>Ordered List<\/h3><ol><li>Coffee<\/li><li>Tea<\/li><li>Milk<\/li><\/ol>",
+    "instructionText": "Scroll to bottom and accept.",
+    "acceptButtonText": "Accept",
+    "declineButtonText": "Decline",
+    "controls": ["THIRDPARTYTARGETEDADVERTISING"],
+    "optInText": ["I Accept One", "I Accept Two. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."],
+    "config": {
+      "placementEvent": "startup",
+      "userGroup": "new",
+      "ageVerification": false,
+      "optional": true
+    }
+  },
   {
-      NSString *message = [NSString stringWithFormat:@"Deep link received: %@", deepLinkString];                      
-      NSLog(@"[DeepLink]: %@", deepLinkString);
+    "id": "470556f8-34ff-4e2f-8e77-49931e0247a8",
+    "title": "Terms of Service 2",
+    "policyText": "<h1>H1 header<\/h1><h3>Unordered List<\/h3><ul><li>Coffee<\/li><li>Tea<\/li><li>Milk<\/li><\/ul><br><h3>Ordered List<\/h3><ol><li>Coffee<\/li><li>Tea<\/li><li>Milk<\/li><\/ol>",
+    "instructionText": "Scroll to bottom and accept.",
+    "acceptButtonText": "Accept",
+    "optInText": ["I Accept"],
+    "controls": [],
+    "config": {
+      "placementEvent": "startup",
+      "userGroup": "new",
+      "ageVerification": false,
+      "optional": false
+    }
   }
-  else
-  {
-      BFGUIKitExampleLog(@"The UA tracking provider didn't have a deep link for us");
-  }
-  // The UA tracking provider returned additional information about the universal link and/or deeplink
-  // that launched the app. Inspect its content to gain insight regarding the source of the link.
-  // For links originated from Facebook the deepLinkString will always be nil, and you'll need to
-  // look for the deeplink in the conversionData dictionary. Ask your producer for the specific field
-  // you should be looking for in this dictionary.
-  // An example payload for a basic Facebook link could look like:
-  // conversionData = {
-  //    "af_deeplink": true,
-  //    "host": "facebook",
-  //    "media_source": "Social Facebook",
-  //    "path": "/reward/coins/1000/abc123",
-  //    "scheme": "bfgsample",
-  //    "shortlink": "dlfbpost"
-  // }
-  // For this example, you might be interested in the 'path' field of the dictionary, where you could extract
-  // a promo code or other meaningful information for your game.
-  NSString *hostString = conversionData[@"host"];
-  NSString *pathString = conversionData[@"path"];
-  if (conversionData && conversionData.count > 0 && [hostString isEqualToString:@"facebook"] && pathString.length)
-  {
-      BFGUIKitExampleLog(@"The UA tracking provider provided additional conversion data for the universal link and/or deep link: %@", conversionData);
-  }
-}
+]
 ```
-
-</details>
-
-<details>
-  <summary>Add URI scheme to your plist</summary>
-
-A URI scheme is a URL that leads users directly to your game, and is required for AppsFlyer links to work in Facebook. Whenever a Universal Link fails to open the app, the URI scheme can be used as a fallback to open the application.
-
-Your Big Fish producer will provide you with the scheme you need to define in your game configuration. In the following example, the scheme is ``bfgsample``. The scheme is added to your game's plist file:
-
-```xml
-<key>CFBundleURLSchemes</key>
-<array>
-  <string>bfgsample</string>
-</array>
-```
-
-</details>
-
-<details>
-  <summary>Add support for Universal Links</summary>
-
-**Universal Links** is a deep linking protocol created by Apple and was introduced in iOS versions 9+. Universal Links enables app developers to create a two-way association between their mobile app and website. The advantage to supporting universal links is that tapping on them in an email or a banner ad can directly open your app if it is installed, instead of first routing the user through Safari or another browser. Universal links are similar to regular deep links in that they can launch your app and deliver a payload, but they have a slightly different structure inside the app code. 
-
-A universal link can be configured for any of four scenarios:
-
-- To take the user to the App Store.
-- To deep link to the Apple App Store for a download. In this scenario, when a user does not have your app installed, they will be taken to the App Store and, if they choose to install it, the universal link payload will be delivered, for example, as a deferred deep link or a referral link.
-- If the app is installed and the link is a deep link, it will take the user directly to the app and then deep link them to the given location, for example, if you want the user to access a bonus level.
-- If the app is installed and the link is a referral link, it will open the app.
-
-Your Big Fish producer will enable universal links through the AppsFlyer Developer Portal. You will be given a referral link similar to the one below, but it will be specific to your game.
-
-```
-//bfgsdk.onelink.me/yryN/4f196e66
-```
-
-To use universal links, you need to add another pass-through call to bfgManager in your app delegate:
-
-```objectivec
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
-{
-  [bfgManager applicationContinueUserActivity:userActivity restorationHandler:restorationHandler];
-  // Do any special processing of the universal link here
-  return YES;
-}
-```
-
-</details>
