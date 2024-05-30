@@ -349,6 +349,7 @@ Confirm that your listener implements the ``onDeepLinkReceived:conversionData:er
       BFGUIKitExampleLog(@"The UA tracking provider provided additional conversion data for the universal link and/or deep link: %@", conversionData);
   }
 }
+```
 
 </details>
 
