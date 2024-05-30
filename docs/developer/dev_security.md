@@ -233,6 +233,8 @@ Here is an example of the code snippet for an intent filter:
 </intentfilter>
 ```
 
+</details>
+
 <details>
   <summary>Set up URI Scheme</summary>
 
