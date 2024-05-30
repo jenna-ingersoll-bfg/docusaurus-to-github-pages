@@ -64,7 +64,7 @@ Add the following values to the BFG SDK config file(s), bfg_config.json. Note th
 </details>
 
 <details>
-  <summary>Initiate the Purchasing service</summary>
+  <summary>Initiate the purchasing service</summary>
 
 Initiate the purchasing service early in your game's run loop to have it available by the time users start playing your game: 
 
@@ -254,6 +254,105 @@ As usual, after awarding a purchase, you must call ``bfgPurchase.finishPurchase`
 
 </details>
 
+### Native Android SDK
+
+<details>
+  <summary>Add required values to config file</summary>
+
+Add the following values to the BFG SDK config file(s), bfg_config.json. 
+
+```json
+{
+  "core": {
+    "app_name": "Your game's name",
+    "app_store": "Your game's App Store: google or amazon",
+  },
+}
+```
+</details>
+
+<details>
+  <summary>Initialize in-app purchasing</summary>
+
+The in-app purchasing system is initialized in each activity that processes purchases. It begins in the ``bfgActivity onCreate`` method, with processing continuing asynchronously when triggered by notification handler delegates.
+
+The following code example shows an example of the ``bfgActivity`` class that you need to extend.
+
+```java
+class MyActivity extends bfgActivity {
+private boolean billingIsInitialized = false;  // Flag: The in-app purchasing system is ready for use
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  // Normally developers would call super.onCreate() as the first statement in the method, but
+  // calling this before the SDK is initialized will trigger a warning that the bfgManager was
+  // accessed before it was initialized.
+  bfgGameReporting.sharedInstance().setDeepLinkListener(this);
+  bfgManager.initializeWithActivity(this, savedInstanceState);
+  super.onCreate(savedInstanceState);
+
+  // Start the purchasing system
+  registerPurchaseNotificationObservers(this);
+  bfgPurchase.sharedInstance().setupService(this);
+}
+```
+</details>
+
+<details>
+  <summary>Start the purchasing service</summary>
+
+To start the purchasing service, call the ``bfgPurchase.sharedInstance().setupService()`` method from the current Activity's ``onCreate`` event handler:
+
+```java
+protected void onCreate(Bundle savedInstanceState) {
+  registerPurchaseNotificationObservers(this);
+  bfgPurchase.sharedInstance().setupService(this);
+}
+```
+
+In response, the purchasing service will raise one of the following notifications:
+
+- ``bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED``
+- ``bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_FAILED``
+
+Games should not use any other ``bfgPurchase`` methods until the ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` notification is received.
+
+:::info
+
+If a ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_FAILED`` notification is received due to lack of a network connection, the biling system will not initialize. However, when the network connectivity is later regained, the billing system will be initialized and a ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` notification will be sent asynchronously.
+
+:::
+</details>
+
+<details>
+  <summary>Acquire product information</summary>
+
+Once the purchasing system is initialized successfully and you have received the ``bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` notification, the game defines its consumable products and requests updated product information from the Google Play store. 
+
+After product information is retrieved from the store, one of the following notifications will be raised:
+
+- ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION``
+- ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION_FAILED``
+
+When ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` is received, the game retrieves information about any updated products using ``bfgPurchase productInformation`` method.
+
+```java
+// Notification handler: Billing successfully initialized
+@SuppressWarnings("unused")
+public void handleBillingInitialized(NSNotification notification) {
+  billingIsInitialized = true;
+  HashSet<String> allProductIds = getProductIdList();  // Generate the list of all products
+  bfgPurchase.sharedInstance().defineConsumableSKUs(allProductIds);  // All consumable items
+  bfgPurchase.sharedInstance().acquireProductInformation((List<String>) allProductIds);
+  //Process notification...
+}
+```
+
+These methods may also be used later to update the game's definition of which products are available. This is typically done if the game changes the products available during gameplay, such as when a sale starts or ends.
+
+</details>
+
+
+
 ## Restoring Purchases
 
 If the user re-installs the game and had previously purchased non-consumable items, your game must restore those purchased items back to the user. Only **non-consumable items** can be restored. 
@@ -264,15 +363,27 @@ Due to Apple guidelines, the restore process must be triggered by the user. To a
 
 :::
 
-Use the bfgPurchase.restorePurchases() function to restore purchases:
+Use the ``bfgPurchase.restorePurchases`` method to restore purchases:
+
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
 
 ```csharp
 public void Restore() {
   bfgPurchase.restorePurchases();
 }
 ```
+  </TabItem>
+  <TabItem value="android" label="Android" default>
 
-You should receive a ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` notification for each previously purchased non-consumable that is restored. After all of these notifications have posted, ``bfgCommon.NOTIFICATION_RESTORE_SUCCEEDED``  or ``bfgCommon.NOTIFICATION_RESTORE_FAILED`` will be posted.
+```java
+bfgPurchase.sharedInstance().restorePurchase(productIds);
+```
+  </TabItem>
+</Tabs>
+
+You should receive a ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` notification for each previously purchased non-consumable that is restored. After all of these notifications have posted, ``bfgCommon.NOTIFICATION_RESTORE_SUCCEEDED``  or ``bfgCommon.NOTIFICATION_RESTORE_FAILED`` will be posted indicating the restore process has either completed or failed.
 
 When restoring purchases, we recommend you follow these best practices:
 
@@ -281,7 +392,7 @@ When restoring purchases, we recommend you follow these best practices:
 - If you receive ``bfgCommon.NOTIFICATION_RESTORE_FAILED``, then the Apple App Store and/or Google Play Store could not be reached and you should indicate to the user that the restore could not be completed.
 
 
-## Receiving notifications for in-app purchases
+## Receiving IAP Notifications
 
 The BFG SDK includes the ability to receive and track in-app purchase events. Notifications may be sent at any time after the purchasing system is initialized. The game should always be ready to process these notifications, not just after starting a purchase flow.
 
