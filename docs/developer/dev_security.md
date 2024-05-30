@@ -198,7 +198,7 @@ public void onDeepLinkReceived(final String deepLink, Map<String,String> convers
 <details>
   <summary>Set listener callback</summary>
 
-Set your listener callback with setDeepLinkListener in onCreate().
+Set your listener callback with `setDeepLinkListener` in ``onCreate()``.
 
 :::info
 
@@ -278,3 +278,95 @@ For example, an organic installation will provide the following ``conversionData
 For a full list of all the possible data provided in the ``conversionData`` collection, see [Conversion data payloads and scenarios](https://support.appsflyer.com/hc/en-us/articles/360000726098-Conversion-data-payloads-and-scenarios) :arrow_upper_right: in AppsFlyer's documentation.
 
 </details>
+
+## Native iOS SDK
+
+<details>
+  <summary>Implement the bfgDeepLinkListener</summary>
+
+Set up your ``AppDelegate`` to conform to the ``bfgDeepLinkListener`` protocol:
+
+```objectivec
+@interface BFGUIKitExampleAppDelegate () <bfgPlacementDelegate, bfgManagerPauseResumeDelegate, bfgDeepLinkListener>
+```
+
+Next, setup the ``bfgDeepLinkListener`` listener before initializing the BFG SDK.
+
+```objectivec
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  [bfgGameReporting setDeepLinkListener:self];
+  [bfgManager startWithLaunchOptions:launchOptions parentViewController:myRootViewController];
+}
+```
+
+</details>
+
+<details>
+  <summary>Implement the onDeepLinkReceived callback</summary>
+
+Confirm that your listener implements the ``onDeepLinkReceived:conversionData:error:`` method to retrieve any deep links that have been received:
+
+```objectivec
+#pragma mark - bfgDeepLinkListener
+
+-(void) onDeepLinkReceived:(NSString * _Nullable)deepLinkString conversionData:(NSDictionary* _Nullable)conversionData error:(NSError * _Nullable)error
+{
+  if (error)
+  {
+      BFGUIKitExampleLog(@"An error occurred in the UA tracking provider. Error: %ld: %@", error.code, error.localizedDescription);
+      return;
+  }
+  if (deepLinkString.length)
+  {
+      NSString *message = [NSString stringWithFormat:@"Deep link received: %@", deepLinkString];                      
+      NSLog(@"[DeepLink]: %@", deepLinkString);
+  }
+  else
+  {
+      BFGUIKitExampleLog(@"The UA tracking provider didn't have a deep link for us");
+  }
+  // The UA tracking provider returned additional information about the universal link and/or deeplink
+  // that launched the app. Inspect its content to gain insight regarding the source of the link.
+  // For links originated from Facebook the deepLinkString will always be nil, and you'll need to
+  // look for the deeplink in the conversionData dictionary. Ask your producer for the specific field
+  // you should be looking for in this dictionary.
+  // An example payload for a basic Facebook link could look like:
+  // conversionData = {
+  //    "af_deeplink": true,
+  //    "host": "facebook",
+  //    "media_source": "Social Facebook",
+  //    "path": "/reward/coins/1000/abc123",
+  //    "scheme": "bfgsample",
+  //    "shortlink": "dlfbpost"
+  // }
+  // For this example, you might be interested in the 'path' field of the dictionary, where you could extract
+  // a promo code or other meaningful information for your game.
+  NSString *hostString = conversionData[@"host"];
+  NSString *pathString = conversionData[@"path"];
+  if (conversionData && conversionData.count > 0 && [hostString isEqualToString:@"facebook"] && pathString.length)
+  {
+      BFGUIKitExampleLog(@"The UA tracking provider provided additional conversion data for the universal link and/or deep link: %@", conversionData);
+  }
+}
+
+</details>
+
+<details>
+  <summary>Add URI scheme to your plist</summary>
+
+A URI scheme is a URL that leads users directly to your game, and is required for AppsFlyer links to work in Facebook. Whenever a Universal Link fails to open the app, the URI scheme can be used as a fallback to open the application.
+
+Your Big Fish producer will provide you with the scheme you need to define in your game configuration. In the following example, the scheme is ``bfgsample``. The scheme is added to your game's plist file:
+
+```xml
+<key>CFBundleURLSchemes</key>
+<array>
+  <string>bfgsample</string>
+</array>
+```
+
+</details>
+
+
+
