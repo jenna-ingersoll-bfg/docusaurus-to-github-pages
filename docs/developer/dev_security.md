@@ -23,7 +23,18 @@ You must first integrate the BFG SDK into your game code to use the Consent Mana
 
 ## Implementing the Consent Manager
 
-To implement consent policies in Unity, you need to add a call to ``bfgManager.addPolicyListener`` as early as possible in the game's run loop:
+To implement consent policies, you need to add a call to ``bfgManager.addPolicyListener`` as early as possible in the game's run loop. When a listener is registered, it will immediately get a callback indicating the current state:
+
+- ``willShowPolicies`` if consent is required
+- ``onPoliciesCompleted`` if not consent is not required
+
+Games should be prepared for asynchronous callbacks that can occur at seemingly arbitrary times. A good way to think about the callbacks is the ``willShowPolicies`` is a UI red light, and ``onPoliciesCompleted`` is a UI green light. 
+
+:::info 
+
+Games can continue to launch in the background while waiting for the callback from the BFG SDK. However, it is important that you do not show any engaging game UI until after the BFG SDK finishes showing the policies, including custom UI from deep link payloads, interstitial payloads, push notification payloads, branding, or anything else that contains user-actionable UI.
+
+:::
 
 <Tabs>
   <TabItem value="unity" label="Unity" default>
@@ -53,6 +64,8 @@ void onPoliciesCompleted (string notification)
 ```
   </TabItem>
   <TabItem value="android" label="Native Android">
+
+Add the listener in their activity's ``onStart`` method and remove it in the ``onStop`` method. 
 
 ```java
 private bfgPolicyListener mPolicyListener = new bfgPolicyListener() {
@@ -91,6 +104,49 @@ public void onStop() {
   </TabItem>
 </Tabs>
 
+## Check for Controls
+
+**Controls** are used as signals to block or allow features and/or reporting events sent to 3rd parties based on the user's opt-in preference of a policy. The BFG SDK uses a controls list to determine which third parties will receive data.
+
+The ``bfgManager.didAcceptPolicyControl`` control affects the collection/transmission of data used by third-party-directed advertising. This method will return:
+
+- YES / True if the user has accepted the control.
+- NO / False if declined or there is no record of the user accepting it.
+
+An example call would look similar to this:
+
+<Tabs>
+  <TabItem value="unity" label="Unity" default>
+
+ ```csharp 
+if (bfgManager.didAcceptPolicyControl(bfgCommon.THIRDPARTYTARGETEDADVERTISING))
+{
+  // The game is clear to do stuff that may send data eventually provided to 3rd party targeted advertisers.
+}
+```
+  </TabItem>
+  <TabItem value="android" label="Native Android">
+
+```java
+if (bfgManager.sharedInstance().didAcceptPolicyControl(bfgManager.PolicyControlConstants.THIRD_PARTY_TARGETED_ADVERTISING)) {
+  // The game is clear to do stuff that may send data eventually provided to 3rd party targeted advertisers.
+}
+```
+  </TabItem>
+  <TabItem value="ios" label="Native iOS">
+
+```objectivec
+if ([bfgManager didAcceptPolicyControl:@"THIRDPARTYTARGETEDADVERTISING")
+{
+  // The game is clear to do stuff that may send data eventually provided to 3rd party targeted advertisers.
+}
+```
+  </TabItem>
+</Tabs>
+
+Any 3rd party features included in the SDK (AppsFlyer, Facebook, Rave, etc) are handled, and any additional ones added by the team outside of the BFG SDK (ironSource, LeanPlum, etc) need to be handled separately. 
+
+
 ## Handling Facebook if user does not consent
 
 If a user does not consent, Facebook events should no longer be used for targeted advertising. In order to do this, you first need to verify if the user has accepted or declined the last policy displayed, and then if it has been declined, disable Facebook's targeted advertising.
@@ -110,7 +166,7 @@ void Verify_Policy_Status ()
 }
 ```
   </TabItem>
-  <TabItem value="native" label="Native Android/iOS">
+  <TabItem value="native" label="Native Android / iOS">
 
 1. Use the Facebook SDK's ``setLimitEventAndDataUsage`` method.
 2. Set it to true if the user has not accepted ``THIRDPARTYTARGETEDADVERTISING``.
