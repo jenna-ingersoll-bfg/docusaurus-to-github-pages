@@ -47,7 +47,7 @@ Add the following values to the BFG SDK config file(s), bfg_config.json. Note th
 }
 ```
   </TabItem>
-  <TabItem value="ios" label="iOS" default>
+  <TabItem value="ios" label="iOS">
 
 ```json
 {
@@ -82,7 +82,7 @@ public void StartService() {
 The Android purchase service startup is asynchronous. When the purchase service completes, the ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` or ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_FAILED`` notification will be raised. Wait for the successful startup before acquiring product information.
 
   </TabItem>
-  <TabItem value="ios" label="iOS" default>
+  <TabItem value="ios" label="iOS">
 
 ```csharp
 using BFGSDK;
@@ -200,7 +200,7 @@ The purchase will either succeed or fail, and you will receive one of the follow
 - ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` 
 - ``bfgCommon.NOTIFICATION_PURCHASE_FAILED``
 
-On success, your game should perform unlock the item, award award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds. If you do not make this call, your game will continue to receive notifications for completed purchases each time it starts and the user will not be able to purchase the product again.
+On success, your game should perform unlock the item, award award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
 
 :::info
 
@@ -351,6 +351,71 @@ These methods may also be used later to update the game's definition of which pr
 
 </details>
 
+<details>
+  <summary>Add purchase workflow</summary>
+
+After the available items and their product information are obtained, you can allow users to start purchasing. When a player purchases and item, call the following:
+
+```java
+public void buy(final String productid) {
+// record that this was a direct user action
+userTriggeredPurchase = true;
+bfgManager.getParentViewController().runOnUiThread(new Runnable() {
+  @Override
+  public void run() {
+    if (bfgPurchase.sharedInstance().canStartPurchase(productid)) {
+      if (!bfgPurchase.sharedInstance().beginPurchase(productid)) {
+        purchaseFailedDialog();
+      }
+    } else {
+      bfgLog.w(TAG, String.format("Attempt to purchase '%s' when a purchase can't be started. Skipping purchase.", productid));
+      purchaseFailedDialog();
+    }
+  }
+});
+```
+
+The purchase will either succeed or fail, and you will receive one of the following notifications:
+
+- ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED`` (providing the purchased product's product ID)
+- ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT`` (providing the product ID and a receipt returned by the store)
+- ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED``
+
+On success, your game should perform unlock the item, award award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds to notify the store that the purchase transaction is complete. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
+
+:::warning
+
+The following methods are deprecated: 
+
+- ``consumePurchase``
+-  ``defineConsumableSKUs`` 
+
+If your game uses either of these methods, update your game code to use ``finishPurchase`` instead.
+
+:::
+
+When a purchase fails, the ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED notification is raised``. The notification's payload includes the product ID, but does not provide any details about possible causes of the failure. However, a ``PurchaseStatus`` object is created that provides detailed information on the failure. Use the ``bfgPurchase.sharedInstance().getPurchaseStatus`` method at any time to return the ``PurchaseStatus`` object with information on the most recent purchase attempt for any given product ID.
+
+```java
+@SuppressWarnings("unused")
+public void handlePurchaseFailed(NSNotification notification) {
+    String productId = (String) notification.getObject();
+    PurchaseStatus purchaseStatus = bfgPurchase.sharedInstance().getPurchaseStatus(productId);
+}
+```
+
+The PurchaseStatus object provides the following properties with information about the purchase attempt:
+
+- ``productID``: 	A string returning the product ID (SKU)
+- ``errorCode``: A string returning the error. Possible values include:
+    - "SUCCESS": The most recent purchase attempt was successful
+    - "BILLING_UNAVAILABLE": The in-app purchase system is not currently available
+    - "DEVELOPER_ERROR": Attempt to purchase an undefined product or other invalid use of the purchase system
+    - "ERROR": The purchase failed for an unexpected reason. No further information is available
+    - "FEATURE_NOT_SUPPORTED": The game attempted to perform an operation that is not supported
+- ``isRestored``: A boolean returning whether the product was previously purchased and has been restored from the store
+
+</details>
 
 
 ## Restoring Purchases
@@ -507,3 +572,122 @@ After the game has initialized the SDK, start listening for these notifications:
 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restoreDidSucceed:) name:NOTIFICATION_RESTORE_SUCCEEDED object:nil];
 ```
 </details>
+
+
+## Implement receipt verification (Android only)
+
+Games running on Android devices can verify purchases with a receipt returned by the Google Play store. If you want to implement your own server-side receipt verification process, follow this procedure:
+
+1. Subscribe to the ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT`` notification (rather than ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED``).
+2. Add the following code in your notification method:
+
+<Tabs>
+  <TabItem value="google" label="Google" default>
+
+```java
+Purchase purchase = (Purchase)notification.getObject();
+String receipt = purchase.getReceipt();
+```
+  </TabItem>
+  <TabItem value="amazon" label="Amazon" default>
+
+```java
+AmazonPurchase purchase = (AmazonPurchase)notification.getObject();
+String receiptId = purchase.getReceiptId();
+String userId = purchase.getUserId
+```
+  </TabItem>
+</Tabs>
+
+3. Get a list of unconsumed Google purchases by calling the ``bfgPurchase.getVolatileInventory`` method after you receive the ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` notification. Requesting product information first, triggers an update to your inventory from Google (the inventory authority), and will give you the most up-to-date inventory.
+
+```java
+if (bfgPurchase.sharedInstance() instanceof bfgPurchaseGoogle) {
+  ((bfgPurchaseGoogle) bfgPurchase.sharedInstance()).getVolatileInventory();
+}
+```
+
+:::info
+
+Alternatively, you can use the ``bfgPurchase.postCurrentInventory`` method for Google Play purchases to request asynchronous delivery of the inventory data. If delivery succeeds, ``bfgPurchase.NOTIFICATION_POST_CURRENT_INVENTORY_SUCCEEDED`` will be issued, and the notification argument will contain the GoogleInventory object.
+
+```java
+NSNotificationCenter.defaultCenter().addObserver(this, "notification_post_current_inventory_succeeded", bfgPurchase.NOTIFICATION_POST_CURRENT_INVENTORY_SUCCEEDED, null);
+
+if (bfgPurchase.sharedInstance() instanceof bfgPurchaseGoogle) { 
+  ((bfgPurchaseGoogle) bfgPurchase.sharedInstance()).postCurrentInventory(); 
+}
+
+public void notification_post_current_inventory_succeeded(NSNotification notification) { 
+  GoogleInventory currentGoogleInventory = (GoogleInventory)(notification.getObject());
+}
+```
+
+:::
+ 
+4. (Optional) To add additional parameters to the developer payload, call ``completePurchase(String productID, String additionalPayload)``:
+
+```java
+if (bfgPurchase.sharedInstance() instanceof bfgPurchaseGoogle) {
+  // this is a google purchase
+  ((bfgPurchaseGoogle) bfgPurchase.sharedInstance()).completePurchase(productId, additionalPayloadString);
+}
+else {
+  // this is an amazon purchase
+  bfgPurchase.completePurchase(productId);
+}
+```
+
+:::info 
+
+When validating the developer payload in the receipt, be sure to only validate against the "game" portion of the developer payload JSON object.
+
+```json
+JSONObject oReceipt = new JSONObject(receipt);
+String developerPayload = oReceipt.getString("developerPayload");
+JSONObject oDeveloperPayload = new JSONObject(developerPayload);
+String gameDeveloperPayload = oDeveloperPayload.getString("game");
+//validate against gameDeveloperPayload, not the full developer payload.
+```
+
+:::
+
+### Restrictions on verifying with the Native Android SDK
+
+Big Fish servers do not implement inventory management for Android purchases. The Native Android SDK relies on Google Play and the Amazon Store to record customer inventories and purchase histories.
+
+The Native Android SDK's own receipt verification algorithm is applied to product purchases only; it is not applied to purchase restore operations or to the confirmation of purchase consume operations. For this reason, an application can receive a ``NOTIFICATION_RESTORE_SUCCEEDED`` notification for a product SKU during the purchase restore flow, even if the product failed due to an unsuccessful receipt verification.
+
+Developers' options for awarding purchases are as follows:
+
+- The application awards purchases in response to ``NOTIFICATION_PURCHASE_SUCCEEDED`` and ``NOTIFICATION_RESTORE_SUCCEEDED``. In this case, receipt verification cannot prevent the award of falsified purchases, e.g., purchases falsified using a program that impersonates Google Play. However, receipt verification is useful to Big Fish for reporting purposes.
+- The application awards purchases in response to ``NOTIFCATION_PURCHASE_SUCCEEDED``, but does not award purchases in response to ``NOTIFICATION_RESTORE_SUCCEEDED``. Note that this policy should NOT be used for products like a “buy-wall” product. Purchase restoration should always be applied to such products because it should be possible for the customer to purchase the product on one device and receive it on another device. This policy can also result in the loss of a legitimate purchase if, for example, network connectivity is lost after the customer's payment has been accepted but before ``NOTIFICATION_PURCHASE_SUCCEEDED`` is issued.
+- Implement a server-based inventory management system to retain information about purchases that passed receipt verification. This can be used to:
+    - Restore only verified purchases
+    - Mitigate or eliminate loss of legitimate purchases
+
+For information on Google's documented best practices for developer-implemented receipt verification, also see:
+
+- [Google Play In-App Billing - Security and Design](http://developer.android.com/google/play/billing/billing_best_practices.html) :arrow_upper_right:
+- [Google Play Developer API - Using the API Efficiently](https://developer.android.com/google/play/developer-api.html#practices) :arrow_upper_right: 
+
+### Receipt verification on non-Big Fish servers
+
+If you are implementing your own server-side receipt verification, you can get a token by casting the purchase to the appropriate product type for the Android-based store (Google Play or Amazon): 
+
+<Tabs>
+  <TabItem value="google" label="Google" default>
+
+```java
+Purchase purchase;
+(GooglePurchase) purchase.getToken();
+```
+  </TabItem>
+  <TabItem value="amazon" label="Amazon" default>
+
+```java
+(AmazonPurchase) purchase.getReceiptId();
+```
+  </TabItem>
+</Tabs>
+
