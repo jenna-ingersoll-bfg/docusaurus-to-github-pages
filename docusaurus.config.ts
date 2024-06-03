@@ -105,6 +105,22 @@ const config: Config = {
               label: 'BFGSDK Reference',
               to: '/docs/bfgsdk/sdktest',
             },
+            {
+              label: 'BFGSDK Reference Converted 1',
+              to: '/docs/bfgsdk/converted_bfg_disk_utils',
+            },
+            {
+              label: 'BFGSDK Reference Converted 2',
+              to: '/docs/bfgsdk/converted_bfg_disk_utils-members',
+            },
+            {
+              label: 'BFGSDK Reference Converted 1',
+              to: '/docs/bfgsdk/original_bfg_disk_utils',
+            },
+            {
+              label: 'BFGSDK Reference Converted 2',
+              to: '/docs/bfgsdk/original_bfg_disk_utils-members',
+            },
           ],
         },
         {
