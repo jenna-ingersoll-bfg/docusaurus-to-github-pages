@@ -64,7 +64,7 @@ Add the following values to the BFG SDK config file(s), bfg_config.json. Note th
 </details>
 
 <details>
-  <summary>Initiate the purchasing service</summary>
+  <summary>Start the purchasing service</summary>
 
 Initiate the purchasing service early in your game's run loop to have it available by the time users start playing your game: 
 
@@ -200,7 +200,7 @@ The purchase will either succeed or fail, and you will receive one of the follow
 - ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` 
 - ``bfgCommon.NOTIFICATION_PURCHASE_FAILED``
 
-On success, your game should perform unlock the item, award award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
+On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
 
 :::info
 
@@ -354,7 +354,7 @@ These methods may also be used later to update the game's definition of which pr
 <details>
   <summary>Add purchase workflow</summary>
 
-After the available items and their product information are obtained, you can allow users to start purchasing. When a player purchases and item, call the following:
+After the available items and their product information are obtained, you can allow users to start purchasing. When a player purchases an item, call the following:
 
 ```java
 public void buy(final String productid) {
@@ -381,7 +381,7 @@ The purchase will either succeed or fail, and you will receive one of the follow
 - ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT`` (providing the product ID and a receipt returned by the store)
 - ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED``
 
-On success, your game should perform unlock the item, award award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds to notify the store that the purchase transaction is complete. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
+On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds to notify the store that the purchase transaction is complete. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
 
 :::warning
 
@@ -394,7 +394,7 @@ If your game uses either of these methods, update your game code to use ``finish
 
 :::
 
-When a purchase fails, the ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED notification is raised``. The notification's payload includes the product ID, but does not provide any details about possible causes of the failure. However, a ``PurchaseStatus`` object is created that provides detailed information on the failure. Use the ``bfgPurchase.sharedInstance().getPurchaseStatus`` method at any time to return the ``PurchaseStatus`` object with information on the most recent purchase attempt for any given product ID.
+When a purchase fails, the ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED`` notification is raised. The notification's payload includes the product ID, but does not provide any details about possible causes of the failure. However, a ``PurchaseStatus`` object is created that provides detailed information on the failure. Use the ``bfgPurchase.sharedInstance().getPurchaseStatus`` method at any time to return the ``PurchaseStatus`` object with information on the most recent purchase attempt for any given product ID.
 
 ```java
 @SuppressWarnings("unused")
@@ -417,6 +417,126 @@ The PurchaseStatus object provides the following properties with information abo
 
 </details>
 
+### Native iOS SDK
+
+<details>
+  <summary>Add required values to config file</summary>
+
+Add the following values to the BFG SDK config file(s), bfg_config.json.
+
+```json
+{
+  "core": {
+    "app_name": "Your game's name",
+    "app_store_id": "Your game's Apple Store ID",
+    "hbi": "Your game's HBI",
+  },
+}
+```
+
+</details>
+
+<details>
+  <summary>Start the purchasing service</summary>
+
+To start the purchasing service, call the ``startService`` method:
+
+```objectivec
+[bfgPurchase startService]
+```
+
+:::info
+
+When you start purchase services, you may immediately begin receiving notifications if any outstanding purchases did not complete.
+
+:::
+
+To support Promoted In-App Purchases (purchases that are configured and initiated at the App Store), place the ``startService`` command before the root view controller is initialized in your app delegate's ``didFinishLaunchingWithOptions``.
+
+</details>
+
+<details>
+  <summary>Acquire product information</summary>
+
+Once the purchasing service is initialized, acquire the product information for each of the items available for purchase in your game. 
+
+```objectivec
+NSSet *allProductIds = [NSSet setWithArray:@[ kProductIdConsumable, kProductIdUnlock ]];
+[bfgPurchase acquireProductInformationForProducts:allProductIds];
+```
+
+The ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` notification will be triggered once the operation is finished. It contains a dictionary of two keys, ``*_SUCCESSES_*`` and ``*_FAILURES_*``. The values associated with these keys are arrays of strings. The strings are product IDs.
+
+- ``BFG_ACQUIRE_PRODUCT_INFO_SUCCESSES_USER_INFO_KEY``: Returns all product IDs for which product information was acquired.
+- ``BFG_ACQUIRE_PRODUCT_INFO_FAILURES_USER_INFO_KEY``: Returns all product IDs for which product information could not be acquired. This generally means the product ID was not found in the App Store.
+
+The following code demonstrates how a successful transaction appears, when the call succeeds but no product information has been returned yet:
+
+```objectivec
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acquireProductInfoDidSucceed:) name:NOTIFICATION_PURCHASE_PRODUCTINFORMATION object:nil];
+
+- (void)acquireProductInfoDidSucceed:(NSNotification *)notification {
+  NSArray *successes = notification.userInfo[BFG_ACQUIRE_PRODUCT_INFO_SUCCESSES_USER_INFO_KEY];
+  if ([successes count]) {
+    // Add debug logging showing that the request succeeded
+    // Set a global flag that purchasing is ready
+    return;
+  }
+  else {
+    // Add debug logging showing that the request failed
+    // You'll need to retry acquire later
+  }
+}
+```
+
+:::info
+
+If the ``acquireProductInformation`` method returns ``NO``, you will need to try again. No purchases can occur until this method succeeds, and you have been notified with the product information.
+
+Products are managed in iTunes Connect, so be sure to handle success and failure cases. The notification `*_USER_INFO_KEY` will contain a dictionary with a single ``bfgPurchaseObject SKPaymentTransaction``. This is the object you receive when you are notified that a purchase succeeded (or failed).
+
+:::
+
+</details>
+
+<details>
+  <summary>Add purchasing workflow</summary>
+
+After the available items and their product information are obtained, you can allow users to start purchasing. When a player purchases an item, call the following:
+
+```objectivec
+NSString *productId = @"your_product_id";
+if ([bfgPurchase canStartPurchase:productId]) {
+  [bfgPurchase startPurchase:productId];
+}
+else {
+  // Present UI indicating that the purchase cannot be completed at this time.
+}
+```
+
+The purchase will either succeed or fail, and you will receive one of the following notifications:
+
+- ``NOTIFICATION_PURCHASE_SUCCEEDED``
+- ``NOTIFICATION_PURCHASE_FAILED``
+
+These notifications contain a ``userInfo`` object that will be a dictionary with a key ``BFG_PURCHASE_OBJECT_USER_INFO_KEY`` whose value is a ``bfgPurchaseObject``.
+
+On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
+
+Once the purchase finishes, you will receive a notification called ``NOTIFICATION_FINISH_PURCHASE_COMPLETE`` containing a ``userInfo`` dictionary object with a key ``BFG_PURCHASE_OBJECT_USER_INFO_KEY`` whose value is a ``bfgPurchaseObject`.
+
+You can discover products that have been successfully purchased but not yet been awarded to the player by calling ``bfgPurchase + (NSArray<bfgPurchaseObject *> *)deliverablePurchases``.
+
+:::info
+
+The ``bfgPurchaseObject`` has a field called canceled. When a purchase is started, Apple allows the user to accept or cancel the purchase. If the user cancels the purchase, the purchase fails. When your code is notified that the purchase failed, check the canceled field of the ``bfgPurchaseObject``.
+
+- If the value is ``NO``, let the user know that the purchase did not succeed
+- If the value is ``YES``, you do not need to do anything, as the user expected the purchase to fail
+
+:::
+
+</details>
 
 ## Restoring Purchases
 
@@ -652,7 +772,7 @@ String gameDeveloperPayload = oDeveloperPayload.getString("game");
 
 :::
 
-### Restrictions on verifying with the Native Android SDK
+### Restrictions when using the Native Android SDK
 
 Big Fish servers do not implement inventory management for Android purchases. The Native Android SDK relies on Google Play and the Amazon Store to record customer inventories and purchase histories.
 
@@ -671,7 +791,7 @@ For information on Google's documented best practices for developer-implemented 
 - [Google Play In-App Billing - Security and Design](http://developer.android.com/google/play/billing/billing_best_practices.html) :arrow_upper_right:
 - [Google Play Developer API - Using the API Efficiently](https://developer.android.com/google/play/developer-api.html#practices) :arrow_upper_right: 
 
-### Receipt verification on non-Big Fish servers
+### Using non-Big Fish Servers
 
 If you are implementing your own server-side receipt verification, you can get a token by casting the purchase to the appropriate product type for the Android-based store (Google Play or Amazon): 
 
@@ -691,3 +811,41 @@ Purchase purchase;
   </TabItem>
 </Tabs>
 
+## Promoted In-App Purchases (iOS Only)
+
+With iOS, you can promote in-app purchases so users can browse them directly on the App Store. **Promoted In-App Purchases** are displayed on your game's product page and visible in search results on the App Store. pThey fall into two main categories:
+
+- One-time purchases
+- Subscriptions
+
+To support promoted in-app purchases, call the ``startService`` method at the top of your app's ``didFinishLaunchingWithOptions`` method in the App Delegate, before the root view controller is initialized.
+ 
+By default, promoted in-app prrchases are deferred when they are received. These purchases are processed at the discretion of the game developer after onboarding.
+
+- Call ``bfgPurchase hasDeferredPayments`` to determine if there are promoted in-app purchases waiting to be processed
+- Call ``bfgPurchase processDeferredPayments`` to add promoted in-app purchases into the payment flow
+
+:::info
+
+ ``hasDeferredPayments`` is optional, as nothing will happen if there are no purchases to process when calling processDeferredPayments.
+
+:::
+
+### Testing Promoted In-App Purchases
+
+To test the promoted in-app purchases workflow:
+
+1. Create a [test URL](https://developer.apple.com/documentation/storekit/in-app_purchase/testing_promoted_in-app_purchases) :arrow_upper_right: such as:
+
+```
+itms-services://?action=purchaseIntent&bundleId=com.bigfishgames.bfgsdkios&productIdentifier=com.bigfishgames.bfgsdkios.consumeme
+```
+
+2. Launch the app on a device through Xcode.
+3. Send the test URL above to the device using iMessage. Copy and paste the test URL into Safari. The app should open and finish the purchasing process flow for the product id in the test URL.
+
+:::info
+
+MTS events will trigger based on the result of the purchase attempt. This is true for both the ``NOTIFICATION_PURCHASE_SUCCEEDED`` and ``NOTIFICATION_PURCHASE_FAILED`` notifications.
+
+:::
