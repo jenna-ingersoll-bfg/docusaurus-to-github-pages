@@ -41,6 +41,8 @@ jobs:
           
       - name: Install dependencies
         run: yarn install --frozen-lockfile --non-interactive
+      - name: Install search
+        run: yarn add docusaurus-lunr-search
       - name: Build website
         run: yarn build
         
