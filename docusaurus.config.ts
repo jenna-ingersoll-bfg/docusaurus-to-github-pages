@@ -52,10 +52,6 @@ const config: Config = {
     },
   ],
 
-  plugins: [[require.resolve("docusaurus-lunr-search"), {
-    enableHighlight: true
-  }]],
-  
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',

@@ -40,9 +40,7 @@ jobs:
           cache: yarn
           
       - name: Install dependencies
-        run: yarn install --non-interactive
-      - name: Install search
-        run: yarn add docusaurus-lunr-search
+        run: yarn install --frozen-lockfile --non-interactive
       - name: Build website
         run: yarn build
         
