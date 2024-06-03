@@ -523,7 +523,7 @@ These notifications contain a ``userInfo`` object that will be a dictionary with
 
 On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
 
-Once the purchase finishes, you will receive a notification called ``NOTIFICATION_FINISH_PURCHASE_COMPLETE`` containing a ``userInfo`` dictionary object with a key ``BFG_PURCHASE_OBJECT_USER_INFO_KEY`` whose value is a ``bfgPurchaseObject`.
+Once the purchase finishes, you will receive a notification called ``NOTIFICATION_FINISH_PURCHASE_COMPLETE`` containing a ``userInfo`` dictionary object with a key ``BFG_PURCHASE_OBJECT_USER_INFO_KEY`` whose value is a ``bfgPurchaseObject``.
 
 You can discover products that have been successfully purchased but not yet been awarded to the player by calling ``bfgPurchase + (NSArray<bfgPurchaseObject *> *)deliverablePurchases``.
 
@@ -560,10 +560,19 @@ public void Restore() {
 }
 ```
   </TabItem>
-  <TabItem value="android" label="Android" default>
+  <TabItem value="android" label="Android">
 
 ```java
 bfgPurchase.sharedInstance().restorePurchase(productIds);
+```
+  </TabItem>
+  <TabItem value="ios" label="iOS">
+
+```objectivec
+- (void)restorePurchases
+{
+  [bfgPurchase restorePurchases];
+}
 ```
   </TabItem>
 </Tabs>
