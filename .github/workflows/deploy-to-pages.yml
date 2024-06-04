@@ -38,7 +38,7 @@ jobs:
         run: |
           docker run -i \
             -e "TYPESENSE_API_KEY=xyz" \
-            -e "TYPESENSE_HOST=bfg.a1.typesense.net" \
+            -e "TYPESENSE_HOST=host.docker.internal" \
             -e "TYPESENSE_PORT=443" \
             -e "TYPESENSE_PROTOCOL=https" \
             -e "CONFIG=$(cat $GITHUB_WORKSPACE/search-config.json | jq -r tostring)" \
