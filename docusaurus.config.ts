@@ -145,21 +145,6 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
       additionalLanguages: ['csharp','java'],
     },
-    typesense: {
-      typesenseCollectionName: 'bfg-anchor',
-      typesenseServerConfig: {
-        nodes: [
-          {
-            host: 'host.docker.internal',
-            port: 443,
-            protocol: 'https',
-          },
-        ],
-        apiKey: 'xyz',
-      },
-      typesenseSearchParameters: {},
-      contextualSearch: true,
-    },
   } satisfies Preset.ThemeConfig,
 };
 
