@@ -36,24 +36,24 @@ jobs:
  
       - Create Typesense server
         run: |
-        docker run -d \
-          -p 8108:8108 \
-          --name typesense \
-          -v /tmp/typesense:/data \
-          typesense/typesense:26.0 \
-          --api-key=xyz \
-          --data-dir /data \
-          --enable-cors
+          docker run -d \
+            -p 8108:8108 \
+            --name typesense \
+            -v /tmp/typesense:/data \
+            typesense/typesense:26.0 \
+            --api-key=xyz \
+            --data-dir /data \
+            --enable-cors
 
       - name: Run Docker scraper
         run: |
-        docker run -i \
-          -e "TYPESENSE_API_KEY=xyz" \
-          -e "TYPESENSE_HOST=host.docker.internal" \
-          -e "TYPESENSE_PORT=443" \
-          -e "TYPESENSE_PROTOCOL=https" \
-          -e "CONFIG=$(cat $GITHUB_WORKSPACE/search-config.json | jq -r tostring)" \
-          typesense/docsearch-scraper:0.9.1
+          docker run -i \
+            -e "TYPESENSE_API_KEY=xyz" \
+            -e "TYPESENSE_HOST=host.docker.internal" \
+            -e "TYPESENSE_PORT=443" \
+            -e "TYPESENSE_PROTOCOL=https" \
+            -e "CONFIG=$(cat $GITHUB_WORKSPACE/search-config.json | jq -r tostring)" \
+            typesense/docsearch-scraper:0.9.1
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
