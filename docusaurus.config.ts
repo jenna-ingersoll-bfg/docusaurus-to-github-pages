@@ -151,8 +151,8 @@ const config: Config = {
         nodes: [
           {
             host: 'localhost',
-            port: 443,
-            protocol: 'https',
+            port: 80,
+            protocol: 'http',
           },
         ],
         apiKey: 'xyz',

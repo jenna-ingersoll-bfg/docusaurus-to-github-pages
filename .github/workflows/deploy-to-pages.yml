@@ -50,8 +50,8 @@ jobs:
           docker run -i \
             -e "TYPESENSE_API_KEY=xyz" \
             -e "TYPESENSE_HOST=localhost" \
-            -e "TYPESENSE_PORT=443" \
-            -e "TYPESENSE_PROTOCOL=https" \
+            -e "TYPESENSE_PORT=80" \
+            -e "TYPESENSE_PROTOCOL=http" \
             -e "CONFIG=$(cat $GITHUB_WORKSPACE/search-config.json | jq -r tostring)" \
             typesense/docsearch-scraper:0.9.1
 
