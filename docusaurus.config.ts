@@ -150,7 +150,7 @@ const config: Config = {
       typesenseServerConfig: {
         nodes: [
           {
-            host: 'localhost',
+            host: 'host.docker.internal',
             port: 80,
             protocol: 'http',
           },
