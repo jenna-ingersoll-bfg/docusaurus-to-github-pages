@@ -23,6 +23,32 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
+  build-typesense:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # versions are wrapped in quotes to preserve the exact versions
+        # especially numbers that has "0" on right-most side (e.g. 26.0)
+        typesense-version: ['0.25.2', '26.0']
+        typesense-port: ['8108:8108']
+
+    services:
+      typesense:
+        image: typesense/typesense:${{ matrix.typesense-version }}
+
+    steps:
+      - name: Start Typesense
+        run: |
+          docker run -d \
+          --add-host=host.docker.internal:host-gateway \
+          -p ${{ matrix.typesense-port }} \
+          --name typesense \
+          -v /tmp/typesense:/data \
+          typesense/typesense:${{ matrix.typesense-version}} \
+          --api-key=xyz \
+          --data-dir /data \
+          --enable-cors
+
   deploy:
     environment:
       name: github-pages
