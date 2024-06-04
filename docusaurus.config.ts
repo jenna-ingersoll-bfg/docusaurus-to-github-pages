@@ -105,10 +105,6 @@ const config: Config = {
               label: 'BFGSDK Reference',
               to: '/docs/bfgsdk/sdktest',
             },
-            {
-              label: 'BFGSDK Reference',
-              to: '/docs/bfgsdk/converted_bfg_disk_utils',
-            },
           ],
         },
         {
