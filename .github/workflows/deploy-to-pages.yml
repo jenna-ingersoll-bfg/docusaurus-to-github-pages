@@ -47,6 +47,10 @@ jobs:
             --api-key=xyz \
             --data-dir /data \
             --enable-cors
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
       - name: Run Docker scraper
         run: |
           docker run -i \
