@@ -36,18 +36,6 @@ jobs:
       - name: Check docker version
         run: docker --version
 
-      - name: Create Typesense server
-        run: |
-          docker run -d \
-            --add-host=host.docker.internal:host-gateway \
-            -p 8108:8108 \
-            --name typesense \
-            -v /tmp/typesense:/data \
-            typesense/typesense:26.0 \
-            --api-key=xyz \
-            --data-dir /data \
-            --enable-cors
-
       - name: Install jq
         run: sudo apt-get install jq
 
