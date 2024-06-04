@@ -22,13 +22,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+  run_scraper:
+    runs-on:ubuntu-latest
     steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
       - name: Run Docker scraper
         run: |
           docker run -it \
@@ -39,6 +37,13 @@ jobs:
             -e "CONFIG=$(cat $GITHUB_WORKSPACE/search-config.json | jq -r tostring)" \
             typesense/docsearch-scraper:0.9.1
 
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout 
         uses: actions/checkout@v4
         with:
