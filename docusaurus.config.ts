@@ -150,7 +150,7 @@ const config: Config = {
       typesenseServerConfig: {
         nodes: [
           {
-            host: 'bfg.a1.typesense.net',
+            host: 'host.docker.internal',
             port: 443,
             protocol: 'https',
           },
