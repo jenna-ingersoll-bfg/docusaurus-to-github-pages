@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -51,6 +53,8 @@ const config: Config = {
       },
     },
   ],
+
+  themes: ['docusaurus-theme-search-typesense'],
 
   themeConfig: {
     // Replace with your project's social card
@@ -140,6 +144,21 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
       additionalLanguages: ['csharp','java'],
+    },
+    typesense: {
+      typesenseCollectionName: 'bfg-anchor',
+      typesenseServerConfig: {
+        nodes: [
+          {
+            host: 'bfg.a1.typesense.net',
+            port: 443,
+            protocol: 'https',
+          },
+        ],
+        apiKey: 'xyz',
+      },
+      typesenseSearchParameters: {},
+      contextualSearch: true,
     },
   } satisfies Preset.ThemeConfig,
 };

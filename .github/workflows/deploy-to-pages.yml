@@ -29,6 +29,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Run Docker scraper
+        run: |
+          docker run -it \
+            -e "TYPESENSE_API_KEY=xyz" \
+            -e "TYPESENSE_HOST=bfg.a1.typesense.net" \
+            -e "TYPESENSE_PORT=443" \
+            -e "TYPESENSE_PROTOCOL=https" \
+            -e "CONFIG=$(cat $GITHUB_WORKSPACE/search-config.json | jq -r tostring)" \
+            typesense/docsearch-scraper:0.9.1
+
       - name: Checkout 
         uses: actions/checkout@v4
         with:
@@ -40,7 +50,7 @@ jobs:
           cache: yarn
           
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive
+        run: yarn install --non-interactive 
       - name: Build website
         run: yarn build
         
