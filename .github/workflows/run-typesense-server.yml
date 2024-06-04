@@ -5,31 +5,26 @@ on:
   push:
     branches: [DOC-123-typesense]
 
+
+
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # versions are wrapped in quotes to preserve the exact versions
-        # especially numbers that has "0" on right-most side (e.g. 26.0)
-        typesense-version: ['0.25.2', '26.0']
-        typesense-port: ['8108:8108']
 
     services:
       typesense:
         image: typesense/typesense:${{ matrix.typesense-version }}
 
-    steps:
-      - name: Start Typesense
+      - name: Create Typesense server
         run: |
           docker run -d \
-          -p ${{ matrix.typesense-port }} \
-          --name typesense \
-          -v /tmp/typesense:/data \
-          typesense/typesense:${{ matrix.typesense-version}} \
-          --api-key=xyz \
-          --data-dir /data \
-          --enable-cors
-
-      - name: Curl Typesense
-        run: sleep 1 && curl http://localhost:8108/health
+            --add-host=host.docker.internal:host-gateway \
+            -p 8108:8108 \
+            --name typesense \
+            -v /tmp/typesense:/data \
+            typesense/typesense:26.0 \
+            --api-key=xyz \
+            --data-dir /data \
+            --enable-cors
