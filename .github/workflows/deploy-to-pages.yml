@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Docker scraper
         run: |
-          docker run -it \
+          docker run -i \
             -e "TYPESENSE_API_KEY=xyz" \
             -e "TYPESENSE_HOST=bfg.a1.typesense.net" \
             -e "TYPESENSE_PORT=443" \
