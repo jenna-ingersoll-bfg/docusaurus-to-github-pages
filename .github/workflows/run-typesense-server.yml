@@ -15,7 +15,7 @@ jobs:
 
     services:
       typesense:
-        image: typesense/typesense:26.0
+        image: typesense/typesense
 
       - name: Create Typesense server
         run: |
