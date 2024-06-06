@@ -89,10 +89,10 @@ const config: Config = {
           label: 'APIs & SDKs',
         },
         {
-          type: 'doc',
+          to: '/internal/producer/prod_welcome',
+          label: 'BFG Internal',          
           position: 'right',
-          docId: '/internal/producer/prod_welcome',
-          label: 'BFG Internal',
+          activeBaseRegex: `/internal/`,
         },
       ],
     },
