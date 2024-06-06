@@ -150,12 +150,12 @@ const config: Config = {
       typesenseServerConfig: {
         nodes: [
           {
-            host: 'localhost',
+            host: 'typesense-bqj1b9x1k78r2.cpln.app',
             port: 443,
-            protocol: 'http',
+            protocol: 'https',
           },
         ],
-        apiKey: 'xyz',
+        apiKey: 'testingapikey',
       },
       typesenseSearchParameters: {},
       contextualSearch: true,

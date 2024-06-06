@@ -1,0 +1,42 @@
+name: Run DocSearch Scraper
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      api-key:
+        description: 'Your Typesense API Key.'
+        required: true
+      host:
+        description: 'The hostname or IP address of your Typesense server.'
+        required: true
+      port:
+        description: 'The port of your Typesense server. Defaults to "8108".'
+        required: false
+        default: "8108"
+      protocol:
+        description: 'The protocol over which the scraper should connect to your Typesense server. Defaults to "http".'
+        required: false
+        default: http
+      config:
+        description: 'The path to your DocSearch config JSON file, relative to the root of your repository. Defaults to "docsearch.config.json".'
+        required: false
+        default: docsearch.config.json
+
+jobs:
+  run-docsearch-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run DocSearch Scraper
+        shell: bash
+        run: |
+          docker run \
+            -e CONFIG="$(cat docsearch.config.json | jq -r tostring)" \
+            -e TYPESENSE_API_KEY=testingapikey \
+            -e TYPESENSE_HOST=typesense-bqj1b9x1k78r2.cpln.app \
+            -e TYPESENSE_PORT=443 \
+            -e TYPESENSE_PROTOCOL=https \
+            typesense/docsearch-scraper
