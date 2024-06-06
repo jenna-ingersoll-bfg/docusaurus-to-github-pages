@@ -91,7 +91,7 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docPluginId: 'internal',
+          docID: '/internal/producer/prod_welcome',
           label: 'BFG Internal',
         },
       ],
