@@ -51,7 +51,7 @@ const config: Config = {
         id: 'internal',
         path: 'internal',
         routeBasePath: 'internal',
-        sidebarPath: './sidebarsInternal.js',
+        sidebarPath: './sidebarsInternal.ts',
       },
     ],
   ],
