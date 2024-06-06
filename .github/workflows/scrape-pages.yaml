@@ -35,4 +35,8 @@ jobs:
         run: |
           docker run \
             -e CONFIG="$(cat docsearch.config.json | jq -r tostring)" \
+            -e TYPESENSE_API_KEY=testingapikey
+            -e TYPESENSE_HOST=typesense-bqj1b9x1k78r2.cpln.app
+            -e TYPESENSE_PORT=443
+            -e TYPESENSE_PROTOCOL=https
             typesense/docsearch-scraper
