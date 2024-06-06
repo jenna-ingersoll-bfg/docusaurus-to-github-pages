@@ -85,14 +85,14 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docId: 'producer/prod_welcome',
-          label: 'Producer Handbook',
+          docId: 'bfgsdk/bfgsdk_welcome',
+          label: 'APIs & SDKs',
         },
         {
           type: 'doc',
           position: 'right',
-          docId: 'bfgsdk/bfgsdk_welcome',
-          label: 'APIs & SDKs',
+          docPluginId: 'internal',
+          label: 'BFG Internal',
         },
       ],
     },
@@ -110,10 +110,6 @@ const config: Config = {
             {
               label: 'Developer User Guide',
               to: '/docs/developer/dev-welcome',
-            },
-            {
-              label: 'Producer Handbook',
-              to: '/docs/producer/prod_welcome',
             },
             {
               label: 'BFGSDK Reference',
