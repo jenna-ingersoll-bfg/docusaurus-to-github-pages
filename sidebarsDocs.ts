@@ -75,7 +75,6 @@ export default {
       ]
     },
   ],
-  prodSidebar: ['producer/prod_welcome'],
   sdkSidebar: [
     'bfgsdk/bfgsdk_welcome', 
     'bfgsdk/sdktest',

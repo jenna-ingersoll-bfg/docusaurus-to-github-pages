@@ -32,13 +32,27 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          path: 'docs',
+          routeBasePath: 'docs',
+          sidebarPath: './sidebarsDocs.ts',
         },
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
+    ],
+  ],
+
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'internal',
+        path: 'internal',
+        routeBasePath: 'internal',
+        sidebarPath: './sidebarsInternal.js',
+      },
     ],
   ],
 
@@ -54,7 +68,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/bfg-logo.png',
     navbar: {
       title: 'The ANCHOR',
       logo: {
