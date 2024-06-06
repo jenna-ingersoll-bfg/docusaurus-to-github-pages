@@ -34,9 +34,5 @@ jobs:
         shell: bash
         run: |
           docker run \
-            -e TYPESENSE_API_KEY=${{ github.event.inputs.api-key }} \
-            -e TYPESENSE_HOST="${{ github.event.inputs.host }}" \
-            -e TYPESENSE_PORT="${{ github.event.inputs.port }}" \
-            -e TYPESENSE_PROTOCOL="${{ github.event.inputs.protocol }}" \
-            -e CONFIG="$(cat ${{ github.event.inputs.config }} | jq -r tostring)" \
+            -e CONFIG="$(cat docsearch.config.json | jq -r tostring)" \
             typesense/docsearch-scraper
