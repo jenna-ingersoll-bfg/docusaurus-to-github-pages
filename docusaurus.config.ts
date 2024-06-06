@@ -158,6 +158,7 @@ const config: Config = {
         ],
         apiKey: 'testingapikey',
       },
+    },
   } satisfies Preset.ThemeConfig,
 };
 
