@@ -42,6 +42,8 @@ const config: Config = {
     ],
   ],
 
+  themes: ['docusaurus-theme-search-typesense'],
+
   headTags: [
     {
       tagName: 'link',
@@ -141,6 +143,21 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
       additionalLanguages: ['csharp','java'],
     },
+    typesense: {
+      // Replace this with the name of your index/collection.
+      // It should match the "index_name" entry in the scraper's "config.json" file.
+      typesenseCollectionName: 'docusaurus-2',
+
+      typesenseServerConfig: {
+        nodes: [
+          {
+            host: 'typesense-bqj1b9x1k78r2.cpln.app',
+            port: 443,
+            protocol: 'https',
+          },
+        ],
+        apiKey: 'testingapikey',
+      },
   } satisfies Preset.ThemeConfig,
 };
 
