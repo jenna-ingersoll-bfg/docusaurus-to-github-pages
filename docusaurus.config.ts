@@ -42,7 +42,7 @@ const config: Config = {
     ],
   ],
 
-  themes: ['docusaurus-theme-search-typesense'],
+  themes: ['@docusaurus/docusaurus-theme-search-typesense'],
 
   headTags: [
     {
