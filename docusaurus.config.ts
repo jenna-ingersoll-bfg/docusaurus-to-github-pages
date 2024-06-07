@@ -46,6 +46,18 @@ const config: Config = {
 
   themes: ['docusaurus-theme-search-typesense'],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'internal',
+        path: 'internal',
+        routeBasePath: 'internal',
+        sidebarPath: './sidebarsInternal.ts',
+      },
+    ],
+  ],
+
   headTags: [
     {
       tagName: 'link',
