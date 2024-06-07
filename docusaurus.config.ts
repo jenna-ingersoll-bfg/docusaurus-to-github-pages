@@ -42,7 +42,7 @@ const config: Config = {
     ],
   ],
 
-  themes: ['@docusaurus/docusaurus-theme-search-typesense'],
+  themes: ['docusaurus-theme-search-typesense'],
 
   headTags: [
     {
@@ -144,10 +144,7 @@ const config: Config = {
       additionalLanguages: ['csharp','java'],
     },
     typesense: {
-      // Replace this with the name of your index/collection.
-      // It should match the "index_name" entry in the scraper's "config.json" file.
       typesenseCollectionName: 'docusaurus-2',
-
       typesenseServerConfig: {
         nodes: [
           {
@@ -158,6 +155,8 @@ const config: Config = {
         ],
         apiKey: 'testingapikey',
       },
+      typesenseSearchParameters: {},
+      contextualSearch: true,
     },
   } satisfies Preset.ThemeConfig,
 };
