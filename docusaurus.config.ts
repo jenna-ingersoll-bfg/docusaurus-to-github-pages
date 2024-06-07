@@ -32,7 +32,9 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          path: 'docs',
+          routeBasePath: 'docs',
+          sidebarPath: './sidebarsDocs.ts',
         },
         blog: false,
         theme: {
@@ -56,7 +58,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/bfg-logo.png',
     navbar: {
       title: 'The ANCHOR',
       logo: {
@@ -73,14 +75,14 @@ const config: Config = {
         {
           type: 'doc',
           position: 'right',
-          docId: 'producer/prod_welcome',
-          label: 'Producer Handbook',
-        },
-        {
-          type: 'doc',
-          position: 'right',
           docId: 'bfgsdk/bfgsdk_welcome',
           label: 'APIs & SDKs',
+        },
+        {
+          to: '/internal/producer/prod_welcome',
+          label: 'BFG Internal',          
+          position: 'right',
+          activeBaseRegex: `/internal/`,
         },
       ],
     },
@@ -98,10 +100,6 @@ const config: Config = {
             {
               label: 'Developer User Guide',
               to: '/docs/developer/dev-welcome',
-            },
-            {
-              label: 'Producer Handbook',
-              to: '/docs/producer/prod_welcome',
             },
             {
               label: 'BFGSDK Reference',
