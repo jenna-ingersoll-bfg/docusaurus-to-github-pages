@@ -42,6 +42,10 @@ jobs:
           
       - name: Install dependencies
         run: yarn install --non-interactive 
+
+      - name: Install search
+        run: yarn add docusaurus-theme-search-typesense@next
+        
       - name: Build website
         run: yarn build
         
