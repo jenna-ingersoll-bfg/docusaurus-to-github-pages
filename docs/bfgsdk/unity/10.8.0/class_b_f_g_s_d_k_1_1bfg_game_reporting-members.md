@@ -1,0 +1,51 @@
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><img src="Icon-100.png" alt="Logo" /></td>
+<td><div id="projectname">
+Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
+</div>
+<div id="projectbrief">
+Use to access BFG core SDK functionality
+</div></td>
+</tr>
+</tbody>
+</table>
+
+  - [BFGSDK](namespace_b_f_g_s_d_k.html)
+  - [bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html)
+
+BFGSDK.bfgGameReporting Member List
+
+This is the complete list of members for
+[BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html),
+including all inherited members.
+
+|                                                                                                                                                                                                                                                                |                                                                         |              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------ |
+| [dismissVisiblePlacement](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#ab8283af6911045cf202a0c23c8ea1933)()                                                                                                                                                    | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [getCustomData](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#ac54aa29d622aaef4983e5dcb6ca77b47)()                                                                                                                                                              | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logCustomEvent](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a44d05c08f336bd1910f67e3b0af8768d)(string name, string\[\] additionalDetailsKeys, string\[\] additionalDetailsValues)                                                                            | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logCustomEvent](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#addace0bd3f8175202b12faf30fb7fa24)(string name, Dictionary\< string, string \> additionalDetails)                                                                                                | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logCustomEvent](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a575be75112fcc98790172342667dbaf0)(string name, long \_value, long level, string details1, string details2, string details3, Dictionary\< string, string \> additionalDetails)                   | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logCustomEvent](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a4f1ae8a2dd5672301dcfb256751012e7)(string name, long value, long level, string details1, string details2, string details3, string\[\] additionalDetailsKeys, string\[\] additionalDetailsValues) | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logCustomEventSerialized](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a4273bf7d12f4aca4345e49e88c4f174e)(string name, long \_value, long level, string details1, string details2, string details3, string additionalDetails)                                 | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logCustomPlacement](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a8ad277ddf06e7ef58500052276a2b689)(string placementName)                                                                                                                                     | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logLevelFinished](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#aa0ede9561e9755bd0a086598877c7ed4)(string levelID)                                                                                                                                             | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logLevelStart](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a248a3e31bf19219d39acd0a0a90194dc)(string levelID)                                                                                                                                                | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logRewardedVideoSeenWithProvider](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#aa2be91c089bb0e84e24b9ebfc9a63dd9)(string provider)                                                                                                                            | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [logRewardedVideoSeenWithProviderVideoLocation](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a5316ca49f106dd1e41886e52838738aa)(string provider, string videoLocation)                                                                                         | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [reportUserAcquisitionEvent](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#acbca40a16ad741ed5c4b60f64f208388)(string eventName, string eventDetailsJsonString)                                                                                                  | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [setCustomData](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a5fcdfdeeca48ffe379c4da5a1c9ccc1d)(Dictionary\< long, string \> customData)                                                                                                                       | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [setLastLevelPlayed](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a864903f31edddf48759de81376cdba17)(string lastLevel)                                                                                                                                         | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [setPlayerSpend](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a719bdb73f129031eb611562693a4947d)(float playerSpend)                                                                                                                                            | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+| [setSuppressPlacement](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a8af06bf78e168555db7ff6cf4384450b)(bool suppressPlacements)                                                                                                                                | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
+
+-----
+
+Generated
+by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4
