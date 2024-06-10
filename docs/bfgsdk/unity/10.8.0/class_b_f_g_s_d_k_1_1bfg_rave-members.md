@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html)
 
@@ -56,8 +38,3 @@ inherited members.
 | [requestAccountDeletion](class_b_f_g_s_d_k_1_1bfg_rave.html#a685fa585555f66599bf2926c77981bf7)()                         | [BFGSDK.bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html) | inlinestatic |
 | [selectRaveAppDataKey](class_b_f_g_s_d_k_1_1bfg_rave.html#a25d7cf2f8a556a1ca9099f4d8a672ced)(string key)                 | [BFGSDK.bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html) | inlinestatic |
 | [setFacebookReadPermissions](class_b_f_g_s_d_k_1_1bfg_rave.html#a30229455a7bcd316db49bea99ba3f51f)(string permissions)   | [BFGSDK.bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html) | inlinestatic |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

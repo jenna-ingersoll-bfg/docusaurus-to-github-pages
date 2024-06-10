@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
 Here is a list of all documented class members with links to the class
 documentation for each member:
 
@@ -31,8 +13,3 @@ documentation for each member:
   - openReferralURL() : [BFGSDK.bfgAppManager](class_b_f_g_s_d_k_1_1bfg_app_manager.html#a1b49fc91f41b8a9fef5e47887c4cd373),
     [BFGSDK.EditorBfgAppManager](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html#a86e6bcded55dafcfc72c8a080beafff3),
     [BFGSDK.IOSBfgAppManager](class_b_f_g_s_d_k_1_1_i_o_s_bfg_app_manager.html#acea38816ac13a3f06fd0429643e7f5c7)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

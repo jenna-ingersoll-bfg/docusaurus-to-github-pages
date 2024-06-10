@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
 Class Index
 
 [A](#letter_A) | [B](#letter_B) | [C](#letter_C) | [E](#letter_E) | [I](#letter_I) | [J](#letter_J) | [M](#letter_M) | [N](#letter_N) | [P](#letter_P) | [R](#letter_R) | [S](#letter_S) | [U](#letter_U) | [W](#letter_W) | [X](#letter_X)
@@ -175,8 +157,3 @@ Class Index
 
   - X  
     [XcodeProjectUtility](class_xcode_project_utility.html)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

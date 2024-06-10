@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
 Here is a list of all documented class members with links to the class
 documentation for each member:
 
@@ -30,8 +12,3 @@ documentation for each member:
     [BFGSDK.IOSBfgManager](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html#a2cb440d00d4f67f56159513b6975aa72)
   - dismissVisiblePlacement() : [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#ab8283af6911045cf202a0c23c8ea1933)
   - dynamicFrameworks : [XcodeProjectUtility](class_xcode_project_utility.html#a3bcad2525b4dfa3969d133511c69578e)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

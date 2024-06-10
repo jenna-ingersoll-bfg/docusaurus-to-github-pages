@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
  
 
 ### \- r -
@@ -37,8 +19,3 @@ Use to access BFG core SDK functionality
   - restorePurchase() : [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#a3bfa3076513b34622a085a4340e4ae31)
   - restorePurchases() : [BFGSDK.bfgPurchase](class_b_f_g_s_d_k_1_1bfg_purchase.html#abcd179fc0bc00c0a5410aa9594e0c4ea)
   - resumeUsingService() : [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#ac7e4ffaaf749ef9e3cb18fc5b36b1149)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

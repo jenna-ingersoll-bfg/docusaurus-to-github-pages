@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
 Here is a list of all documented class members with links to the class
 documentation for each member:
 
@@ -57,8 +39,3 @@ documentation for each member:
     [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#aa44bb1a6e31d10803ef48b59396a5253)
   - NOTIFICATION\_RESTORE\_FAILED : [BFGSDK.bfgCommon](class_b_f_g_s_d_k_1_1bfg_common.html#aa469505548f8d3da737782636b51e2ff)
   - NOTIFICATION\_RESTORE\_SUCCEEDED : [BFGSDK.bfgCommon](class_b_f_g_s_d_k_1_1bfg_common.html#aec11135633ece29af22489bdb292c7a0)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

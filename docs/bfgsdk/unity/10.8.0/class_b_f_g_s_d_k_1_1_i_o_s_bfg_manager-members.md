@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [IOSBfgManager](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html)
 
@@ -55,8 +37,3 @@ including all inherited members.
 | [showTerms](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html#aac8fee23b4d908eb769146086467aaad)()                                                                                         | [BFGSDK.IOSBfgManager](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html) | inline |
 | [showWebBrowser](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html#ad1fecb6ed113adbc270a595f11976b27)(string startPage)                                                                    | [BFGSDK.IOSBfgManager](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html) | inline |
 | [userID](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html#afa1f476ebfaf3a256ff44e47a7c60c1e)()                                                                                            | [BFGSDK.IOSBfgManager](class_b_f_g_s_d_k_1_1_i_o_s_bfg_manager.html) | inline |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

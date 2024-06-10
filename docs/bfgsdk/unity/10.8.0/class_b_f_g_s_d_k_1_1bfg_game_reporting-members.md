@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html)
 
@@ -44,8 +26,3 @@ including all inherited members.
 | [setLastLevelPlayed](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a864903f31edddf48759de81376cdba17)(string lastLevel)                                                                                                                                         | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
 | [setPlayerSpend](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a719bdb73f129031eb611562693a4947d)(float playerSpend)                                                                                                                                            | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
 | [setSuppressPlacement](class_b_f_g_s_d_k_1_1bfg_game_reporting.html#a8af06bf78e168555db7ff6cf4384450b)(bool suppressPlacements)                                                                                                                                | [BFGSDK.bfgGameReporting](class_b_f_g_s_d_k_1_1bfg_game_reporting.html) | inlinestatic |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

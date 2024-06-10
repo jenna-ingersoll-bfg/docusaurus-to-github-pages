@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [iOSBuildSettings](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html)
 
@@ -39,8 +21,3 @@ including all inherited members.
 | [googleServicesPlistPath](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html#aa4d7577bca4ae5eae5645ed3d46b1718)       | [BFGSDK.iOSBuildSettings](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html) |  |
 | [performRequiredPostProcessing](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html#ad224a8a3830aeeb66b0474b4f283894a) | [BFGSDK.iOSBuildSettings](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html) |  |
 | [updatePlist](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html#a0d5a36c0d90bffb792f895876a0d20d4)                   | [BFGSDK.iOSBuildSettings](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html) |  |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

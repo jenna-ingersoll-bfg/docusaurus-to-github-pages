@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
 XcodeProjectUtility Member List
 
 This is the complete list of members for
@@ -57,8 +39,3 @@ inherited members.
 | [WriteToDisk](class_xcode_project_utility.html#a21efa79890bebdc702b1d25f711c272e)()                                                                                                              | [XcodeProjectUtility](class_xcode_project_utility.html) | inline |
 | [XcodeProjectUtility](class_xcode_project_utility.html#a308936d19639a2cc71529a6676fbcf01)(string projectPath)                                                                                    | [XcodeProjectUtility](class_xcode_project_utility.html) | inline |
 | [zendeskFrameworks](class_xcode_project_utility.html#aca942e791e2831f42159fc3e0b2b10b3)                                                                                                          | [XcodeProjectUtility](class_xcode_project_utility.html) |        |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

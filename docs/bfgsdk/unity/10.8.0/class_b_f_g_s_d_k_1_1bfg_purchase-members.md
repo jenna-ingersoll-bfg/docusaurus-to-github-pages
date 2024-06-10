@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [bfgPurchase](class_b_f_g_s_d_k_1_1bfg_purchase.html)
 
@@ -49,8 +31,3 @@ all inherited members.
 | [startPurchase](class_b_f_g_s_d_k_1_1bfg_purchase.html#a11a5d9a66b93f427afff7e841f165804)(string productId, string details1, string details2, string details3, Dictionary\< string, string \> additionalDetails) | [BFGSDK.bfgPurchase](class_b_f_g_s_d_k_1_1bfg_purchase.html) | inlinestatic |
 | [startService](class_b_f_g_s_d_k_1_1bfg_purchase.html#a542dc3c3294b02f6875e916b0b69963b)()                                                                                                                       | [BFGSDK.bfgPurchase](class_b_f_g_s_d_k_1_1bfg_purchase.html) | inlinestatic |
 | [startService](class_b_f_g_s_d_k_1_1bfg_purchase.html#a7a0fe29dfc4de71fd7f07a7bdc8b0ee3)(ref string error)                                                                                                       | [BFGSDK.bfgPurchase](class_b_f_g_s_d_k_1_1bfg_purchase.html) | inlinestatic |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

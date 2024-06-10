@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [EditorBfgAppManager](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html)
 
@@ -33,8 +15,3 @@ including all inherited members.
 | [launchAppWithParams](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html#ab39ffb6c52ab72b1fd824b3b1125658f)(string bundleIdentifier, string parameterString) | [BFGSDK.EditorBfgAppManager](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html) | inline |
 | [launchStoreWithApp](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html#a5fb4316c9d543dfb6e18b67e5a8a8152)(string appID)                                     | [BFGSDK.EditorBfgAppManager](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html) | inline |
 | [openReferralURL](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html#a86e6bcded55dafcfc72c8a080beafff3)(string url)                                          | [BFGSDK.EditorBfgAppManager](class_b_f_g_s_d_k_1_1_editor_bfg_app_manager.html) | inline |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

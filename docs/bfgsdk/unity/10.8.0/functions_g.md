@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
 Here is a list of all documented class members with links to the class
 documentation for each member:
 
@@ -47,8 +29,3 @@ documentation for each member:
   - getVolatileInventory() : [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#a8cb0e78650d3913927c1de69fbc13b8a)
   - googleFlavorSettings : [BFGSDK.AndroidBuildSettings](class_b_f_g_s_d_k_1_1_android_build_settings.html#a80bcb0eb8b88b7a2c36f9aa57df522c5)
   - googleServicesPlistPath : [BFGSDK.iOSBuildSettings](class_b_f_g_s_d_k_1_1i_o_s_build_settings.html#aa4d7577bca4ae5eae5645ed3d46b1718)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

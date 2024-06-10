@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [bfgAnalytics](class_b_f_g_s_d_k_1_1bfg_analytics.html)
 
@@ -127,8 +109,3 @@ methods } else { // Not OK to use
 [bfgAnalytics](class_b_f_g_s_d_k_1_1bfg_analytics.html "API for interfacing with BFG-managed Firebase Analytics.")
 methods Debug.LogError($"Failed to initialize Firebase analytics:
 {task.Result}"); } });
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
  
 
 ### \- c -
@@ -46,8 +28,3 @@ Use to access BFG core SDK functionality
   - currentRaveDisplayName() : [BFGSDK.bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html#a05f96429cc7cc00327c5ee9db130f6f8)
   - currentRaveEmail() : [BFGSDK.bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html#a75d75e5b803e337f940131b003c05de7)
   - currentRaveId() : [BFGSDK.bfgRave](class_b_f_g_s_d_k_1_1bfg_rave.html#a8dd194cad7dc3c1f870ba89efa3a715b)
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

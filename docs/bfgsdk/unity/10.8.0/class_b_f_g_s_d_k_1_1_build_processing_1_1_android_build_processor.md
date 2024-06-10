@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [BuildProcessing](namespace_b_f_g_s_d_k_1_1_build_processing.html)
   - [AndroidBuildProcessor](class_b_f_g_s_d_k_1_1_build_processing_1_1_android_build_processor.html)
@@ -202,8 +184,3 @@ Unity project prior to export.
   - Returns  
     Context to use when calling
     [Postprocess](class_b_f_g_s_d_k_1_1_build_processing_1_1_android_build_processor.html#a4890a19b4848d84a29cb344d11683f87 "Apply all settings and modifications required by the BFG SDK to an exported Android project.").
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

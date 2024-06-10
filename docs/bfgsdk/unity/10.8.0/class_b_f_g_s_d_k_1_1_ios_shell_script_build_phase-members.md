@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [IosShellScriptBuildPhase](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html)
 
@@ -31,8 +13,3 @@ including all inherited members.
 | [name](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html#a74185aa708d16519bd7aafc524b5c6bc)        | [BFGSDK.IosShellScriptBuildPhase](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html) |  |
 | [shellPath](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html#a90e2c93b9a527f4a70ecfe9f4c1b4963)   | [BFGSDK.IosShellScriptBuildPhase](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html) |  |
 | [shellScript](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html#ad2b82e85f561c0d5ebff2952b0d097d5) | [BFGSDK.IosShellScriptBuildPhase](class_b_f_g_s_d_k_1_1_ios_shell_script_build_phase.html) |  |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

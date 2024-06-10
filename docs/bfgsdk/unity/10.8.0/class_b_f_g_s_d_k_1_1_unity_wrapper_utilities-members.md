@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [UnityWrapperUtilities](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html)
 
@@ -37,8 +19,3 @@ including all inherited members.
 | [GetDictionaryFromKeyValueArrays\< TKey, TValue \>](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html#a53b3a0cee2d3248ac0d05c7cc52a8cab)(TKey\[\] keys, TValue\[\] values)             | [BFGSDK.UnityWrapperUtilities](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html) | inlinestatic |
 | [GetDictionaryKeysAsArray\< TKey, TValue \>](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html#a79331ad4cb70c60534fe305054b12474)(Dictionary\< TKey, TValue \> genericDictionary)      | [BFGSDK.UnityWrapperUtilities](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html) | inlinestatic |
 | [GetDictionaryValuesAsArray\< TKey, TValue \>](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html#a1f86c0e513da4f3e3b00fb89e3d3a65a)(Dictionary\< TKey, TValue \> genericDictionary)    | [BFGSDK.UnityWrapperUtilities](class_b_f_g_s_d_k_1_1_unity_wrapper_utilities.html) | inlinestatic |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4

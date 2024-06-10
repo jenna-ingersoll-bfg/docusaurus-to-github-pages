@@ -1,21 +1,3 @@
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img src="Icon-100.png" alt="Logo" /></td>
-<td><div id="projectname">
-Big Fish Unity SDK<span id="projectnumber"> 10.8.0</span>
-</div>
-<div id="projectbrief">
-Use to access BFG core SDK functionality
-</div></td>
-</tr>
-</tbody>
-</table>
-
   - [BFGSDK](namespace_b_f_g_s_d_k.html)
   - [bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html)
 
@@ -69,8 +51,3 @@ including all inherited members.
 | [setCurrentUser](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#ab80218431a91bda1e48df98cd3829e8f)(string userId)                                | [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html) | inlinestatic |
 | [setupService](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#a81489a72200869eb4803bebc36ea08dd)()                                               | [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html) | inlinestatic |
 | [stopUsingService](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#a7d7b9475b71324d7d9f0b48c7a1397e7)()                                           | [BFGSDK.bfgPurchaseAndroid](class_b_f_g_s_d_k_1_1bfg_purchase_android.html) | inlinestatic |
-
------
-
-Generated
-by [![doxygen](doxygen.svg)](https://www.doxygen.org/index.html) 1.9.4
