@@ -8,7 +8,6 @@ BFGSDK.EditorPromoCode Class Reference
 
 Inheritance diagram for BFGSDK.EditorPromoCode:
 
-![](class_b_f_g_s_d_k_1_1_editor_promo_code.png)
 
 ##  Public Member Functions
 

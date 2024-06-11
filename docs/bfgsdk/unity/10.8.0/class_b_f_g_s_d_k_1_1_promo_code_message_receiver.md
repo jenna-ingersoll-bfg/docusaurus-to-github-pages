@@ -12,7 +12,6 @@ system via UnitySendMessage().
 
 Inheritance diagram for BFGSDK.PromoCodeMessageReceiver:
 
-![](class_b_f_g_s_d_k_1_1_promo_code_message_receiver.png)
 
 ##  Properties
 

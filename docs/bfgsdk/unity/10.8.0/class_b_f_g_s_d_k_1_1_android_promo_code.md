@@ -8,7 +8,6 @@ BFGSDK.AndroidPromoCode Class Reference
 
 Inheritance diagram for BFGSDK.AndroidPromoCode:
 
-![](class_b_f_g_s_d_k_1_1_android_promo_code.png)
 
 ##  Public Member Functions
 

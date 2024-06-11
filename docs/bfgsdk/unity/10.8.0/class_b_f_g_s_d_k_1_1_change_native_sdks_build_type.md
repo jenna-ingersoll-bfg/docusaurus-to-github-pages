@@ -14,7 +14,6 @@ please use extreme caution.
 
 Inheritance diagram for BFGSDK.ChangeNativeSdksBuildType:
 
-![](class_b_f_g_s_d_k_1_1_change_native_sdks_build_type.png)
 
 ## Detailed Description
 

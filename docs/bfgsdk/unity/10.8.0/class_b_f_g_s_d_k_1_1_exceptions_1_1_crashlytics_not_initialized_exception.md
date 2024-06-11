@@ -14,7 +14,6 @@ initialized
 Inheritance diagram for
 BFGSDK.Exceptions.CrashlyticsNotInitializedException:
 
-![](class_b_f_g_s_d_k_1_1_exceptions_1_1_crashlytics_not_initialized_exception.png)
 
 ## Detailed Description
 

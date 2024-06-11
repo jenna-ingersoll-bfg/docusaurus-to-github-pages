@@ -102,7 +102,7 @@ and message associated with the error that occurred.
 
 An example of a valid payload would be the following:
 
-{
+\{
 
 "rewardType": "coins",
 
@@ -112,7 +112,7 @@ An example of a valid payload would be the following:
 
 An example of an error payload would be the following:
 
-{
+\{
 
 "errorCode": "abbreviated",
 

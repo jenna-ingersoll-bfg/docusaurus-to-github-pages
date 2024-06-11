@@ -14,7 +14,6 @@ BFG SDK build processor for Android.
 
 Inheritance diagram for BFGSDK.BuildProcessing.AndroidBuildProcessor:
 
-![](class_b_f_g_s_d_k_1_1_build_processing_1_1_android_build_processor.png)
 
 ##  Public Member Functions
 

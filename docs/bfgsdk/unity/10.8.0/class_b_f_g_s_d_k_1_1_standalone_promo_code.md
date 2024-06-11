@@ -8,7 +8,6 @@ BFGSDK.StandalonePromoCode Class Reference
 
 Inheritance diagram for BFGSDK.StandalonePromoCode:
 
-![](class_b_f_g_s_d_k_1_1_standalone_promo_code.png)
 
 ##  Public Member Functions
 

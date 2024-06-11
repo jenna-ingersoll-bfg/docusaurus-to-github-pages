@@ -12,7 +12,7 @@ BFGSDK.bfgRave Class Reference
 enum  
 
 [AccountDeletionRequestResult](class_b_f_g_s_d_k_1_1bfg_rave.html#a921a9f166704327943bb3768481b841f)
-{ **Success** = 0 , **FailedForAuth** , **NetworkUnavailable** ,
+\{ **Success** = 0 , **FailedForAuth** , **NetworkUnavailable** ,
 **FailedToSend** }
 
  

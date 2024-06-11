@@ -14,7 +14,6 @@ while the build is running
 
 Inheritance diagram for BFGSDK.BFGBuildSettings:
 
-![](class_b_f_g_s_d_k_1_1_b_f_g_build_settings.png)
 
 ##  Static Public Member Functions
 

@@ -15,7 +15,6 @@ configuration.
 Inheritance diagram for
 BFGSDK.BuildProcessing.BuildSettingsConfigurationException:
 
-![](class_b_f_g_s_d_k_1_1_build_processing_1_1_build_settings_configuration_exception.png)
 
 ##  Public Member Functions
 

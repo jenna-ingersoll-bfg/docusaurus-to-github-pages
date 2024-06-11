@@ -13,7 +13,6 @@ NotificationCenter class
 
 Inheritance diagram for PersistentUnityMessageHandler:
 
-![](class_persistent_unity_message_handler.png)
 
 ## Detailed Description
 

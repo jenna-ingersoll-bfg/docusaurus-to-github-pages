@@ -8,7 +8,6 @@ BFGSDK.IPromoCode Interface Reference
 
 Inheritance diagram for BFGSDK.IPromoCode:
 
-![](interface_b_f_g_s_d_k_1_1_i_promo_code.png)
 
 ##  Public Member Functions
 

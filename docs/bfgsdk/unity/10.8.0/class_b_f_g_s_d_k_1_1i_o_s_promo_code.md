@@ -8,7 +8,6 @@ BFGSDK.iOSPromoCode Class Reference
 
 Inheritance diagram for BFGSDK.iOSPromoCode:
 
-![](class_b_f_g_s_d_k_1_1i_o_s_promo_code.png)
 
 ##  Public Member Functions
 

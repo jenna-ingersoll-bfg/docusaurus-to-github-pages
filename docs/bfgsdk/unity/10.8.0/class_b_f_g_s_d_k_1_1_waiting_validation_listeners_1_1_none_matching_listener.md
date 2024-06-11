@@ -10,7 +10,6 @@ BFGSDK.WaitingValidationListeners.NoneMatchingListener Class Reference
 Inheritance diagram for
 BFGSDK.WaitingValidationListeners.NoneMatchingListener:
 
-![](class_b_f_g_s_d_k_1_1_waiting_validation_listeners_1_1_none_matching_listener.png)
 
 ##  Public Member Functions
 
@@ -110,7 +109,7 @@ error occurred.
     <td>JSON representing what kind of error occurred. It will be in the format
     <div class="fragment">
     <div class="line">
-    {<span class="stringliteral">"errorCode"</span>: <span class="stringliteral">"abbreviated"</span>, <span class="stringliteral">"errorMessage"</span>: <span class="stringliteral">"Description here"</span>}
+    \{<span class="stringliteral">"errorCode"</span>: <span class="stringliteral">"abbreviated"</span>, <span class="stringliteral">"errorMessage"</span>: <span class="stringliteral">"Description here"</span>}
     </div>
     </div></td>
     </tr>
