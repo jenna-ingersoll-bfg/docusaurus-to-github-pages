@@ -11,8 +11,7 @@
   <table class="memberdecls">
     <tr class="heading">
       <td colspan="2">
-        <h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>Static Public Member
-          Functions</h2>
+        <h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>Static Public Member Functions</h2>
       </td>
     </tr>
     <tr class="memitem:af0e78846a4941a818db2b629aa7eb24e">
