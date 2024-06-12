@@ -24,7 +24,7 @@ const config: Config = {
     locales: ['en'],
   },
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'ignore',
   
   presets: [

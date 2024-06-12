@@ -2,6 +2,7 @@ name: Run DocSearch Scraper
 
 on:
   push:
+    branches: [multi-instance]
   workflow_dispatch:
     inputs:
       api-key:
