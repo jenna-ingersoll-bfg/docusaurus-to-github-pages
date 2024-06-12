@@ -1,3 +1,7 @@
+import AddAuthScript from '@site/src/components/Authenticate';
+
+<AddAuthScript />
+
 # Producer Handbook
 
 The Big Fish Producer Handbook walks through the internal processes for onboarding a new studio and game. In addition, you’ll find processes, resources and tips to help support game teams during the game development process.
