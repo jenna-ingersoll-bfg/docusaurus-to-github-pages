@@ -5,7 +5,6 @@
     <li class="navelem"><a class="el" href="class_b_f_g_s_d_k_1_1bfg_disk_utils.html">bfgDiskUtils</a></li>
   </ul>
 </div>
-</div>
 <div class="header">
   <div class="summary">
     <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
