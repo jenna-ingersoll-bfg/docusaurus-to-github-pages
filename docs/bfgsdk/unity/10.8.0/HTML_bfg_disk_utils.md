@@ -1,7 +1,7 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="class_b_f_g_s_d_k_1_1bfg_disk_utils-members.html">List of all members</a>  </div>
+<a href="class_b_f_g_s_d_k_1_1bfg_disk_utils-members.html">List of all members</a>
   <div class="headertitle"><div class="title">BFGSDK.bfgDiskUtils Class Reference</div></div>
 </div>
 <div class="contents">
