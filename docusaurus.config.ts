@@ -56,6 +56,11 @@ const config: Config = {
     },
   ],
 
+  scripts: [
+    'https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js',
+    'https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js',
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/bfg-logo.png',
