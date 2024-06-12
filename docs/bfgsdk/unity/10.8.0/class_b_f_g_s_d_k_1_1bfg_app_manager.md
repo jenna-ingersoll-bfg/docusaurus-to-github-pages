@@ -250,7 +250,7 @@ Presents app in the App Store for user to install.
     
     |       |                                                                                                                                                                                          |
     | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | appID | App's iTunes identifier. This number can be found at <http://linkmaker.itunes.apple.com> and is a string of numbers. For example, the iTunes identifier for the iBooks app is 364709193. |
+    | appID | App's iTunes identifier. This number can be found at ()[http://linkmaker.itunes.apple.com] and is a string of numbers. For example, the iTunes identifier for the iBooks app is 364709193. |
     
 
 ## [◆ ](#a1b49fc91f41b8a9fef5e47887c4cd373)openReferralURL()
