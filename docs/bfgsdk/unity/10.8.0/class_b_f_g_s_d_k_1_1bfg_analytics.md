@@ -105,7 +105,7 @@ methods.
 [bfgAnalytics.InitializeAsync()](class_b_f_g_s_d_k_1_1bfg_analytics.html#a327774162869dc5ec1a42fea7afb0cda "Initialize and configure Firebase Analytics. Must be called prior to any other bfgAnalytics methods.").ContinueWith(task
 =\> \{ if (task.Result.Succeeded) \{ // OK to use
 [bfgAnalytics](class_b_f_g_s_d_k_1_1bfg_analytics.html "API for interfacing with BFG-managed Firebase Analytics.")
-methods } else \{ // Not OK to use
+methods \} else \{ // Not OK to use
 [bfgAnalytics](class_b_f_g_s_d_k_1_1bfg_analytics.html "API for interfacing with BFG-managed Firebase Analytics.")
 methods Debug.LogError($"Failed to initialize Firebase analytics:
-\{task.Result}"); } });
+\{task.Result\}"); \} \});

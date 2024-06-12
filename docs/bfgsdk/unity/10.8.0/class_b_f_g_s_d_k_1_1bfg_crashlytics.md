@@ -139,10 +139,10 @@ methods.
 [bfgCrashlytics.InitializeAsync()](class_b_f_g_s_d_k_1_1bfg_crashlytics.html#a6013b0ba541302c309d096a6d92099d1 "Initialize and configure Crashlytics. Must be called prior to any other bfgCrashlytics methods.").ContinueWith(task
 =\> \{ if (task.Result.Succeeded) \{ // OK to use
 [bfgCrashlytics](class_b_f_g_s_d_k_1_1bfg_crashlytics.html "API for interfacing with BFG-managed Crashlytics.")
-methods } else \{ // Not OK to use
+methods \} else \{ // Not OK to use
 [bfgCrashlytics](class_b_f_g_s_d_k_1_1bfg_crashlytics.html "API for interfacing with BFG-managed Crashlytics.")
 methods Debug.LogError($"Failed to initialize crashlytics:
-\{task.Result}"); } });
+\{task.Result\}"); \} \});
 
 ## [◆ ](#a3a072e21e6fce8ee080e2092f210364a)Log()
 

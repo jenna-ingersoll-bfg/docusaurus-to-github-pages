@@ -18,7 +18,7 @@ wrapper class for the native Android purchase functionality.
 enum  
 
 [bfgStoreType](class_b_f_g_s_d_k_1_1bfg_purchase_android.html#af90298863ce99fda49d5511cd75312c8)
-\{ **google** , **amazon** }
+\{ **google** , **amazon** \}
 
  
 

@@ -108,7 +108,7 @@ An example of a valid payload would be the following:
 
 "coins": "1000"
 
-}
+\}
 
 An example of an error payload would be the following:
 
@@ -118,7 +118,7 @@ An example of an error payload would be the following:
 
 "errorMessage": "Description here"
 
-}
+\}
 
   - Parameters
     

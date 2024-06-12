@@ -54,7 +54,7 @@ void 
  
 
 Gets the string and argument values from the message json payload of
-format: \{"name": "name\_val", "arg": \{"arg\_json\_val"}.
+format: \{"name": "name\_val", "arg": \{"arg\_json\_val"\}.
 [More...](class_b_f_g_s_d_k_1_1_notification_center.html#a795b1c8431fea9d22e90203034d93d3b)  
 
  
@@ -159,7 +159,7 @@ Registers a handler to a notification.
 </table>
 
 Gets the string and argument values from the message json payload of
-format: \{"name": "name\_val", "arg": \{"arg\_json\_val"}.
+format: \{"name": "name\_val", "arg": \{"arg\_json\_val"\}.
 
   - Parameters
     

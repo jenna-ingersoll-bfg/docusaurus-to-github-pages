@@ -19,7 +19,7 @@ enum  
 [Google](class_b_f_g_s_d_k_1_1_android_build_settings.html#af6efca103e5e27caf97004e756f4de84a8b36e9207c24c76e6719268e49201d94)
 = 0 ,
 [Amazon](class_b_f_g_s_d_k_1_1_android_build_settings.html#af6efca103e5e27caf97004e756f4de84ab3b3a6ac74ecbd56bcdbefa4799fb9df)
-= 1 }
+= 1 \}
 
  
 

@@ -190,7 +190,7 @@ readonly string 
 readonly string 
 
 [FacebookDisplayName](class_xcode_project_utility.html#ad1bb2fe26da85eb97cf1441679bc6375)
-= "$\{PRODUCT\_NAME}"
+= "$\{PRODUCT\_NAME\}"
 
  
 
@@ -798,10 +798,10 @@ Sets the entitlements file for this project.
 
 \=
 
-"GOOGLE\_SERVICE\_PLIST=\\"$\{SRCROOT}/GoogleService-Info.plist\\"\\n" +
+"GOOGLE\_SERVICE\_PLIST=\\"$\{SRCROOT\}/GoogleService-Info.plist\\"\\n" +
 
-"\\"$\{PROJECT\_DIR}/Resources/Scripts/upload-symbols\\" -gsp
-\\"$\{GOOGLE\_SERVICE\_PLIST}\\" --build-phase"
+"\\"$\{PROJECT\_DIR\}/Resources/Scripts/upload-symbols\\" -gsp
+\\"$\{GOOGLE\_SERVICE\_PLIST\}\\" --build-phase"
 
   - Deprecated:\\n The Firebase SDK now attaches the run script
     automatically.
@@ -824,7 +824,7 @@ Sets the entitlements file for this project.
 
 "WebP.framework"
 
-}
+\}
 
   - Deprecated:\\n Unused - Will be removed in a future version.
 
@@ -840,7 +840,7 @@ Sets the entitlements file for this project.
 
 |                                                                              |
 | ---------------------------------------------------------------------------- |
-| readonly string XcodeProjectUtility.FacebookDisplayName = "$\{PRODUCT\_NAME}" |
+| readonly string XcodeProjectUtility.FacebookDisplayName = "$\{PRODUCT\_NAME\}" |
 
   - Deprecated:\\n Use what's defined in your project's instead.
 
@@ -862,7 +862,7 @@ Sets the entitlements file for this project.
 
 "FBSDKShareKit.framework"
 
-}
+\}
 
   - Deprecated:\\n Unused - Will be removed in a future version.
 
@@ -923,6 +923,6 @@ IosBuildConstants.Frameworks.Concat(IosBuildConstants.WeakFrameworks).ToArray()
 
 "ZendeskCoreSDK.framework"
 
-}
+\}
 
   - Deprecated:\\n Unused - Will be removed in a future version.
