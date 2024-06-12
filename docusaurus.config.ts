@@ -44,6 +44,18 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'internal',
+        path: 'internal',
+        routeBasePath: 'internal',
+        sidebarPath: './sidebarsInternal.js',
+      },
+    ],
+  ],
+  
   themes: ['docusaurus-theme-search-typesense'],
 
   headTags: [
