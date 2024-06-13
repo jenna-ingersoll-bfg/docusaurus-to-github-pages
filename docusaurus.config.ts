@@ -44,18 +44,6 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'internal',
-        path: 'internal',
-        routeBasePath: 'internal',
-        sidebarPath: './sidebarsInternal.ts',
-      },
-    ],
-  ],
-  
   themes: ['docusaurus-theme-search-typesense'],
 
   headTags: [
@@ -79,22 +67,21 @@ const config: Config = {
       },
       items: [
         {
-          type: 'doc',
+          type: 'docSidebar',
           position: 'right',
-          docId: 'developer/dev-welcome',
+          sidebarId: 'devSidebar',
           label: 'Developer User Guide',
         },
         {
-          type: 'doc',
+          type: 'docSidebar',
           position: 'right',
-          docId: 'bfgsdk/bfgsdk_welcome',
+          sidebarId: 'sdkSidebar',
           label: 'APIs & SDKs',
         },
         {
-          to: '/internal/producer/prod_welcome',
-          label: 'BFG Internal',          
+          href: 'https://bfgdeveloper.refined.site/space/PUBDOC/5321981993/Internal+Big+Fish+Handbooks',
           position: 'right',
-          activeBaseRegex: `/internal/`,
+          label: 'BFG Internal',          
         },
       ],
     },
