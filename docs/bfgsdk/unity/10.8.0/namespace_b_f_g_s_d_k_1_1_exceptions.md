@@ -1,0 +1,3 @@
+# BFGSDK.Exceptions Namespace Reference
+
+<div class="contents"><table class="memberdecls"><tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a> Classes</h2></td></tr><tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#160;</td><td class="mdescRight">Custom exception handler for when Crashlytics is used but has not been initialized  <a href="#details">More...</a><br /></td></tr><tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr></table></div> 
