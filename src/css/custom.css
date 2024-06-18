@@ -104,21 +104,93 @@ section .text--center {
   transform: translateY(100%)
 }
 
-/** 
-  * SDK Reference * 
+/********************** 
+  * SDK Reference  
   * Styles for the BFG SDK docs produced by Doxygen
-*/
+***********************/
 
-/* Settings for Member List */
 
-table.memberdecls tr[class^='memitem'] {
+/* Settings for Member Documentation */
+
+.memtitle {
+	padding: 8px;
+  margin-top: 40px;
+	margin-bottom: -1px;
+	border-top: 1px solid #dadde1;
+	border-left: 1px solid #dadde1;
+	border-right: 1px solid #dadde1;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	background-repeat: repeat-x;
+	background-color: #00000008;
+	line-height: 1.25;
+	font-weight: 400;
+	font-size: 1rem;
   font-family: var(--ifm-font-family-monospace);
+  float: left;
 }
 
+.memitem {
+  display: table !important;
+  width: 100%;
+}
 
+.memproto, dl.reflist dt {
+  border-top: 1px solid #dadde1;
+  border-left: 1px solid #dadde1;
+  border-right: 1px solid #dadde1;
+  padding: 6px 0px 6px 0px;
+  color: #002344;
+  background-color: #00000008;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+  border-top-right-radius: 4px;
+}
 
+table.mlabels {
+	border-spacing: 0px;
+}
 
+table.mlabels * {
+  border: none;
+  font-size: 0.85rem;
+}
 
+td.mlabels-left {
+	width: 100%;
+	padding: 0px;
+}
+
+td.mlabels-right {
+	vertical-align: bottom;
+	padding: 0px;
+	white-space: nowrap;
+}
+
+table.memname tr:nth-child(2n) {
+  background-color: var(--ifm-table-background);
+}
+
+table.memname td {
+  padding-bottom: 0px;
+}
+
+table.memname td:not(:first-child) {
+  padding-left: 0;
+}
+
+table.memname td:nth-child(2) {
+  padding-right: 6px;
+}
+
+table.memname tr:not(:first-child) td {
+  padding-top: 0px;
+}
+
+.paramname {
+	color: #FF8000;
+	white-space: nowrap;
+  font-weight: bold;
+}
 
 
 
@@ -151,31 +223,11 @@ table.memberdecls tr[class^='memitem'] {
 	width: 100%;
 }
 
-.memtitle {
-	padding: 8px;
-	margin-bottom: -1px !important;
-	border-top: 1px solid #dadde1;
-	border-left: 1px solid #dadde1;
-	border-right: 1px solid #dadde1;
-	border-top-right-radius: 4px;
-	border-top-left-radius: 4px;
-	background-repeat: repeat-x;
-	background-color: #00000008;
-	line-height: 1.25;
-	font-weight: 300;
-	font-size: 0.95rem !important;
-  font-family: var(--ifm-font-family-monospace);
-  float:left;
-}
-
 .mempage {
 	width: 100%;
 }
 
-.memitem {
-  display: table !important;
-  width: 100%;
-}
+
 
 .memname {
   font-weight: 400;
@@ -187,16 +239,7 @@ table.memberdecls tr[class^='memitem'] {
 	vertical-align: bottom;
 }
 
-.memproto, dl.reflist dt {
-  border-top: 1px solid #dadde1;
-  border-left: 1px solid #dadde1;
-  border-right: 1px solid #dadde1;
-  padding: 6px 0px 6px 0px;
-  color: #002344;
-  background-color: #00000008;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
-  border-top-right-radius: 4px;
-}
+
 
 .memdoc, dl.reflist dd {
   border-bottom: 1px solid #dadde1;      
@@ -260,37 +303,4 @@ dl.reflist dd {
         vertical-align: top;
 }
 
-table.mlabels {
-	border-spacing: 0px;
-}
 
-td.mlabels-left {
-	width: 100%;
-	padding: 0px;
-}
-
-td.mlabels-right {
-	vertical-align: bottom;
-	padding: 0px;
-	white-space: nowrap;
-}
-
-span.mlabels {
-        margin-left: 8px;
-}
-
-span.mlabel {
-        background-color: #0081FA;
-        border-top:1px solid #0067C9;
-        border-left:1px solid #0067C9;
-        border-right:1px solid #8DC8FF;
-        border-bottom:1px solid #8DC8FF;
-	text-shadow: none;
-	color: white;
-	margin-right: 4px;
-	padding: 2px 3px;
-	border-radius: 3px;
-	font-size: 7pt;
-	white-space: nowrap;
-	vertical-align: middle;
-}
