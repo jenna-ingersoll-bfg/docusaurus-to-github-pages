@@ -94,41 +94,78 @@ const config: Config = {
       style: 'light',
       links: [
         {
-          title: 'Docs',
+          title: 'For Developers',
           items: [
             {
-              label: 'Developer User Guide',
-              to: '/docs/developer/dev-welcome',
+              label: 'Publishing',
+              to: '/docs/developer/publishing',
             },
             {
-              label: 'BFGSDK Reference',
-              to: '/docs/bfgsdk/sdktest',
+              label: 'Onboarding',
+              to: '/docs/developer/onboarding',
+            },
+            {
+              label: 'Security & Privacy',
+              to: '/docs/developer/security',
+            },
+            {
+              label: 'Build & Release',
+              to: '/docs/developer/build-release',
+            },
+            {
+              label: 'Tools & Services',
+              to: '/docs/developer/tools-services',
+            },
+            {
+              label: 'Game Features',
+              to: '/docs/developer/game-features',
+            },
+            {
+              label: 'BFG SDK',
+              href: 'https://bfgdeveloper.refined.site/space/PUBDOC/5321981993/Internal+Big+Fish+Handbooks',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'BFG SDKs',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Unity SDK',
+              to: '/docs/bfgsdk/integrate-unitysdk',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'Native Android SDK',
+              to: '/docs/bfgsdk/integrate-androidsdk',
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Native iOS SDK',
+              to: '/docs/bfgsdk/integrate-iossdk',
             },
           ],
         },
         {
-          title: 'More',
+          title: 'Internal Resources',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: 'Producer Handbook',
+              href: 'https://bfgdeveloper.refined.site/space/PUBDOC/4915302298/Producer+Handbook',
+            },
+            {
+              label: 'Central Tech Handbook',
+              href: 'https://bfgdeveloper.refined.site/space/PUBDOC/5321064548/Central+Technology+Handbook',
+            },
+          ],
+        },
+        {
+          title: 'Contact Us',
+          items: [
+            {
+              label: 'Message Us on Slack',
+              href: 'https://slack.com/app_redirect?channel=C01L8U8L6KC',
+            },
+            {
+              label: 'Open a bug in Jira',
+              href: 'https://bigfishgames.atlassian.net/secure/CreateIssue.jspa?pid=10517',
             },
           ],
         },
