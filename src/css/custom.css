@@ -117,6 +117,10 @@ h2.groupheader {
 
 /* Settings for Member List */
 
+table.memberdecls {
+  display: table;
+}
+
 table.memberdecls tr:nth-child(2n) {
   background-color: var(--ifm-table-background);
 }
@@ -133,12 +137,12 @@ table.memberdecls tr[class^='memitem'] {
   background-color: #f6f6f6;
   padding: 10px; 
   font-size: 0.95rem;
-  white-space: nowrap;
 }
 
 .memItemLeft {
   min-width: 150px;
-  font-weight:bold;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 .mdescLeft,.mdescRight {
@@ -200,7 +204,7 @@ table.mlabels {
 	border-spacing: 0px;
 }
 
-table.mlabels *, table.params * {
+table.mlabels *, table.params *, table.memname *, table.fieldtable * {
   border: none;
   font-size: 0.85rem;
 }
@@ -215,6 +219,15 @@ td.mlabels-right {
 	padding: 0px;
 	white-space: nowrap;
 }
+
+table.fieldtable * {
+  border: none;
+}
+
+.fieldtable th {
+  text-align: left;
+}
+
 
 .memname {
   font-weight: 400;
@@ -269,7 +282,6 @@ span.mlabel {
 	white-space: nowrap;
   font-weight: bold;
 }
-
 
 .paramtype {
 	white-space: nowrap;
