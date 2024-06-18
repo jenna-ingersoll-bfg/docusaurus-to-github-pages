@@ -133,6 +133,13 @@ const config: Config = {
           ],
         },
       ],
+      logo: {
+        alt: 'Big Fish Games Logo',
+        src: 'img/bfg-logo-boxed-inline.png',
+        href: 'https://www.bigfishgames.com',
+        width: 400,
+        height: 106,
+      },
       copyright: `Copyright © ${new Date().getFullYear()}`,
     },
     prism: {
