@@ -320,7 +320,7 @@ The Zendesk xcframework files are found in com.bfg.sdk/Runtime/Plugins/iOS/Extra
 **Upgrading to v10.2.0**
 
 <details>
-  <summary>(Android) Upgrade Zendesk and minSdkVersion
+  <summary>(Android) Upgrade Zendesk and minSdkVersion</summary>
 To update Zendesk and the minimum SDK version:
 
 1. Open the ProjectSettings.asset file through **Unity Player Settings**.
