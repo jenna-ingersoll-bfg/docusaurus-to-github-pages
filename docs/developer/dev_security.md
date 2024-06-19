@@ -1,860 +1,762 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# In-App Purchasing
+# Unity SDK Release Notes
 
-:small_blue_diamond: **Tools to use:** Firebase Crashlyitcs, BFG SDK
+Keep track of every change to the Unity SDK. This changelog lists all additions and updates to the Unity SDK, in chronological order.
 
-```mdx-code-block
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-```
+**DOWNLOAD RELEASES**: Access to all releases including and after v10.5.0 are available on Big Fish's [GitHub release repo](https://github.com/bigfishgames-external/sdk-unity-releases/releases).
 
-## What is In-App Purchasing? 
+:::note 
 
-**In-app purchasing (IAP)** allows players to buy extra content and/or assets directly from the game, without interrupting the player experience. There are two types of items that can be purchased:
-
-- **Consumable items** are items in a player's inventory that temporarily increase the playing power of the game. Once used, these items are no longer available and are removed from the player's inventory. Examples include potions to increase health, additional lives, or in-game currency (such as diamonds). 
-- **Non-consumable items** are items that are kept for the entirety of the player's history. Examples include removing ads from a game or unlocking a VIP island in the game.
-
-All games published by Big Fish must integrate in-app purchasing into their game using the BFG SDK. 
-
-:::tip[Pre-Requisite]
-
-You must integrate the BFG SDK into your game code to implement in-app purchasing.
+The Unity SDK wraps the Native Android and Native iOS SDKs. To complete your upgrade, ensure that you follow the upgrade steps for the Unity SDK in addition to the upgrade steps detailed for each of the Native BFG SDKs you are using in your project.
 
 :::
 
-## Setting up In-App Purchasing
+## 10.8.1 (June 06, 2024) 
 
-This process to set up in-app purchasing will be different based on the BFG SDK you are using.
+- No updates were made to the Native Android SDK in this release.
+- Updated the Native iOS SDK to v8.6.1, which includes bug fixes.
+- Updated BigFishScenePack to resolve an unexpected error.
 
-### Unity SDK
+**Upgrading to v10.8.1**
 
 <details>
-  <summary>Add required values to config file</summary>
+  <summary>Update BigFishScenePack (iOS only)</summary>
 
-Add the following values to the BFG SDK config file(s), bfg_config.json. Note that if you are developing for both Android and iOS, you need to update both config files. 
+1. Replace the BigFishScenePack.xcframework with the new version.
+2. Replace the BigFishScenePack.bundle with the new version.
+</details>
 
-<Tabs>
-  <TabItem value="android" label="Android" default>
+<hr />
+
+## 10.8.0 (May 21, 2024) 
+
+- Updated the Native Android SDK to v8.8.0, which includes an update to Google Play Billing Library.
+- Updated the Native iOS SDK to v8.6.0, which includes updates to 3rd party libraries.
+- Updated Facebook Unity SDK for iOS to v17.0.1.
+- Fixed a Unity SDK application crash from Unity 2022.3.17 LTS+ due to a missing static method.
+- Fixed a bug where Success purchases generated exceptions.
+
+**Upgrading to v10.8.0**
+
+:::info
+
+If your xcworkspace file is not generated after a Unity iOS build, make sure you run the ``pod install`` command for the exported Xcode project.
+
+:::
+
+<details>
+  <summary>Update the Facebook SDK</summary>
+
+Update the value of ``facebookClientToken`` in the iOSBuildConfig.json file with the value found under **Settings > Advanced > Client Token** in the Facebook App Dashboard.
+
+Since the BFG SDK now uses the Facebook SDKs as pod dependencies, remove the following Facebook frameworks from the folder, com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic
+
+- FBAEMKit.xcframework
+- FBSDKCoreKit_Basics.xcframework
+- FBSDKCoreKit.xcframework
+- FBSDKLoginKit.xcframework
+- FBSDKShareKit.xcframework
+
+</details>
+
+<hr />
+
+## 10.7.1 (March 29, 2024) 
+
+- Updated the Native Android SDK to v8.7.0, which includes an update to the Rave SDK.
+- No updates were made to the Native iOS SDK in this release.
+- Updated the Firebase Unity SDK to v11.6.0 to support Android API 34.
+- **Android Billing**: Removed deprecated methods ``bfgPurchaseAndroid.startUsingService()`` and ``bfgPurchase.startService()`` as they are no longer required for initialization of the billing service. The method ``bfgPurchaseAndroid.setupService()`` should be used to initialize Android purchasing.
+- **Android Manifest**: A custom AndroidManifest.xml file can now be placed directly in the Assets/Plugins/Android folder without build errors and file deletion. The path to it can specified in the **Build Settings** option of the **BFG** menu in Unity.
+
+<hr />
+
+## 10.7.0 (March 22, 2024) 
+
+- No updates were made to the Native Android SDK in this release.
+- Updated the Native iOS SDK to v8.5.0, which includes the Privacy Manifest file.
+- **Firebase Analytics**: The Unity iOS SDK will automatically enable and disable the setting based on the user's GDPR selection.
+- **Unity Sample App**: Added the ``priceString`` field to the ``ProductInfo`` class of the APurchaseController file in the Unity Sample App to demonstrate the usage of localized price strings on iOS devices.
+- Removed deprecation warnings from ``bfgGameReporting.logCustomEvent()`` methods. These methods are still the preferred way of sending custom events.
+
+**Upgrading to v10.7.0**
+
+<details>
+  <summary>Remove calls to Firebase Analytics</summary>
+
+Remove any manual calls to ``FirebaseAnalytics.SetAnalyticsCollectionEnabled(bool)`` within your Unity project. These calls are no longer needed because Firebase Analytics will automatically enable and disable the setting based on the user's GDPR selection.
+
+</details>
+
+<hr />
+
+## 10.6.1 (Feb 15, 2024) 
+
+- Updated the Native Android SDK to v8.6.1, which includes a fix for the standalone newsletter sign-up.
+- Updated the Native iOS SDK to v8.4.1, which includes a fix for the standalone newsletter sign-up.
+- Updated libraries to include bug fixes in iOS and Android.
+
+<hr />
+
+## 10.6.0 (Jan 09, 2024) 
+
+- Updated the Native Android SDK to v8.6.0, which includes an update to the Facebook SDK.
+- Updated the Native iOS SDK to v8.4.0, which includes an update to the Zendesk SDK.
+- **Unity Update**: Updated to Unity v2022.3.10 LTS which includes an update to Gradle v7.1.2. Additionally, updated the Sample App to support the new version of Unity.
+- **UPM Integration**: Added the ability to integrate or upgrade the Unity SDK using the “Add package from tarball” Unity Package Manager option.
+- Added Newsletter Opt-In checkbox for all localities and text updates for the checkbox and policies.
+- [iOS] Updated to Zendesk v7.0 for chatbot support.
+
+**Upgrading to v10.6.0**
+
+<details>
+  <summary>Update to Unity v2022.3.10 LTS</summary>
+
+With the update to Unity v2022.3.10 LTS, the minimum requirements are now:
+- iOS v12
+- Java v11
+- Gradle v7.1.2
+- Android Studio Bumblebee v2021.1.1+
+
+Update Gradle by setting the two new gradle files, baseProjectTemplate.gradle and settingsTemplate.gradle, in the **Android Player Settings**.
+
+</details>
+
+<details>
+  <summary>Update Unity Sample App</summary>
+
+Overwrite the modified files in your project’s /Assets/Plugins/Android/ folder with the files in the BfgUnitySdkSample-2022.3.10/Assets/Plugins/Android/ folder and re-apply any changes your team also made to those files. Additionally, add the two new gradle files as "Custom Base Gradle Template" and "Custom Gradle Settings Template" in the **Android Player Settings**.
+
+</details>
+
+<details>
+  <summary>Update for UPM Integration</summary>
+
+1. Download unity-sdk-10.6.0.tgz from Big Fish’s [GitHub release repo](https://github.com/bigfishgames-external/sdk-unity-releases/releases).  
+2. Extract the contents of the downloaded file, unity-sdk-10.6.0.tgz.
+3. Open the extracted contents and locate the file, unity-sdk-10.6.0-upm.tgz.
+4. Copy the file unity-sdk-10.6.0-upm.tgz to a location on your machine where you would like Unity to import it from.
+5. Open Unity and navigate to **Window > Package Manager**.
+6. In the **Package Manager** window, click the **+** button in the upper-left corner.
+7. Select **Add package from tarball** and select the Unity SDK tarball file you copied earlier. Unity will automatically re-import it and compile once selected.
+8. Navigate to your Packages list. You will see ``[BFG] SDK`` in your Packages list, pointing to the version you downloaded.
+
+</details>
+
+<details>
+  <summary>(iOS) Update Zendesk Version</summary>
+
+Remove the existing Zendesk xcframework files from your project and replace them with the frameworks found in/frameworks/ThirdParty/Zendesk/*. It's no longer necessary to strip architectures before submitting your game to the App Store.
+
+</details>
+
+<details>
+  <summary>(iOS) Update to support Newsletter Opt-In</summary>
+
+Update your /Frameworks/ThirdParty/RaveSocial.xcframework and /Frameworks/Resources/BigFishScenePack.bundle or the entire com.bfg.sdk package with the files from the release.
+
+</details>
+
+<hr />
+
+## 10.5.0 (Sept 26, 2023) 
+
+- Updated the Native Android SDK to v8.5.0, which adds support for Google Billing 6.
+- Updated the Native iOS SDK to v8.3.0, which includes minor updates to the iOS Sample App.
+- Updated Google Billing libraries to v6.0.1.
+- Hardened purchasing for null product properties in iOS.
+
+**Upgrading to v10.5.0**
+
+<details>
+  <summary>(Android) Update to Google Billing v6</summary>
+
+To update Google Billing to v6.0.1, update the Google billing version in the mainTemplate.gradle file to 6.0.1:
 
 ```json
-{
-  "core": {
-    "app_name": "Your game's name",
-    "app_store": "Your game's App Store: google or amazon",
-  },
+dependencies {    
+  implementation 'com.android.billingclient:billing:6.0.1'
 }
 ```
-  </TabItem>
-  <TabItem value="ios" label="iOS">
+
+</details>
+
+<hr />
+
+## 10.4.0 (June 23, 2023) 
+
+- Updated the Native Android SDK to v8.4.0, which adds support for Google Billing 5.
+- Updated the Native iOS SDK to v8.2.0, which updates the Facebook SDK.
+- Updated Google Billing version to v5.0.0.
+- Updated the Unity iOS Facebook SDK to v11.2.1. Facebook Graph API v10 will be deprecated at the end of June 2023.
+- Added a new SDK component ``PersistentUnityMessageHandler``, which is used to receive Unity SDK notifications across all Unity scenes. Prior to this release, developers used the ``UnityMessageHandler`` component to every scene individually. 
+- Added ``DisableBitcode.cs`` post-build step to the Unity Sample App in response to Xcode 14 ending support for the ``BITCODE_ENABLED`` option.
+- Fixed a typo in the BFG SDK notification variable ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT``. This typo caused purchase data, including the purchase receipt, to not be passed into Unity observers of ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT``. Refer to GooglePurchaseController.cs in the Unity Sample App for usage of ``NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT``.
+
+**Upgrading to v10.4.0**
+
+<details>
+  <summary>Update Facebook Graph Version</summary>
+
+Facebook Graph API v10 will be deprecated at the end of June 2023.
+
+1. Update the version used in any calls to the Facebook Graph API for your app.
+2. Update the version used in the Facebook dashboard under **Settings > Advanced > Update API Version**.
+
+</details>
+
+<details>
+  <summary>Update to PersistentUnityMessageHandler</summary>
+
+To use the new ``PersistentUnityMessageHandler``:
+
+1. Remove all instances of the ``UnityMessageHandler`` component usage from all Unity scenes in your app.
+2. Inside your init/bootstrap scene, create a new ``GameObject`` and add the ``PersistentUnityMessageHandler`` component to it.
+
+The ``UnityMessageHandler`` component, which actually handles processing the notifications and calling your listeners in Unity, will automatically be added next to the ``PersistentUnityMessageHandler`` component in your GameObject.
+
+</details>
+
+<details>
+  <summary>(Android) Update to Google Billing v5</summary>
+
+To update Google Billing to v5.0.0, update the Google billing version in the mainTemplate.gradle file to 5.0.0:
 
 ```json
-{
-  "core": {
-    "app_name": "Your game's name",
-    "app_store_id": "Your game's Apple Store ID",
-    "hbi": "Your game's HBI",
-  },
-}
-```
-  </TabItem>
-</Tabs>
-
-</details>
-
-<details>
-  <summary>Start the purchasing service</summary>
-
-Initiate the purchasing service early in your game's run loop to have it available by the time users start playing your game: 
-
-<Tabs>
-  <TabItem value="android" label="Android" default>
-
-```csharp
-using BFGSDK;
-public void StartService() {
-  bfgPurchaseAndroid.setupService();
-  hasStarted = bfgPurchaseAndroid.startUsingService();
-}
-```
-
-The Android purchase service startup is asynchronous. When the purchase service completes, the ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` or ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_FAILED`` notification will be raised. Wait for the successful startup before acquiring product information.
-
-  </TabItem>
-  <TabItem value="ios" label="iOS">
-
-```csharp
-using BFGSDK;
-public void StartService() {
-  bfgPurchase.startService();
-}
-```
-  </TabItem>
-</Tabs>
-
-</details>
-
-<details>
-  <summary>Acquire product information</summary>
-
-Once the purchasing service is initialized, acquire the product information for each of the items (both consumable and non-consumable) available for purchase in your game. Contact your Big Fish producer for a list of items that will be available in your game. 
-
-To acquire product information, use the ``bfgPurchase.acquireProductInformation`` method:
-
-<Tabs>
-  <TabItem value="android" label="Android" default>
-
-```csharp
-using BFGSDK;
-public void notification_billing_initialize_succeeded(string notification)
-{
-  List<string> productIds = new List<string>();
-  // Define consumable items
-  productIds.Add("com.bigfishgames.bfgsdkandroidgooglef2p.hintcoins";
-  productIds.Add("com.bigfishgames.bfgsdkandroidgooglef2p.highestpricew");
-  bfgPurchaseAndroid.defineConsumableSKUs(productIds);
-  // Add non-consumable items to the overall item list
-  productIds.Add("com.bigfishgames.bfgsdkios.seunlock");
-  if (!bfgPurchase.acquireProductInformation(productIds))
-  {
-    Debug.Log("There is no internet connection, try again.");
-  }
-  else
-  {
-    Debug.Log("Product information request has been sent.");
-  }
-}
-```
-  </TabItem>
-  <TabItem value="ios" label="iOS" default>
-
-```csharp
-using BFGSDK;
-public void StartService() {
-  bfgPurchase.startService();
-
-  List<string> productIds = new List<string>();
-  productIds.Add("com.bigfishgames.bfgsdkios.consumeme");
-  productIds.Add("com.bigfishgames.bfgsdkios.seunlock");
-  if (!bfgPurchase.acquireProductInformation(productIds)) {
-    Debug.Log("There is no internet connection, try again.");
-  }
-  else {
-    Debug.Log("Product information request has been sent.");
-  }
-}
-```
-  </TabItem>
-</Tabs>
-
-The ``bfgCommon.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` notification will be triggered once the operation is finished. It contains a JSON dictionary of two keys. The values associated with these keys are arrays of strings. The strings are product IDs.
-
-- ``BFG_ACQUIRE_PRODUCT_INFO_SUCCESSES_USER_INFO_KEY``: Returns all product IDs for which product information was acquired.
-- ``BFG_ACQUIRE_PRODUCT_INFO_FAILURES_USER_INFO_KEY``: Returns all product IDs for which product information could not be acquired. This generally means the product ID was not found in the App Store.
-
-The following code demonstrates how the notification should be treated when it is received:
-
-```csharp
-void notification_product_information (string notification) {
-  if (!String.IsNullOrEmpty(notification)) {
-    JSONNode root_node = JSON.Parse(notification);
-    JSONArray successes = root_node["BFG_ACQUIRE_PRODUCT_INFO_SUCCESSES_KEY"].AsArray;
-    JSONArray failures = root_node["BFG_ACQUIRE_PRODUCT_INFO_FAILURES_KEY"].AsArray;
-    if (failures.Count > 0)
-    {
-      Debug.Log("Unexpected failures acquiring product info for the following products: " +
-          failures.ToString());
-      Debug.Log("Purchases can not start, try again.");
-      return;
-    }
-    string successesString = successes.ToString();
-    Debug.Log("Acquired product info for: " + successesString + ". Purchases can be made now.");
-  }
+dependencies {    
+  implementation 'com.android.billingclient:billing:5.0.0'
 }
 ```
 
 </details>
 
 <details>
-  <summary>Implement in-app purchases</summary>
+  <summary>(iOS) Update Facebook SDK</summary>
 
-After the available items and their product information are obtained, you can render your game's catalog and allow users to start purchasing. Do this by setting a specific product ID to each element in your catalog. When the user taps on an element of the catalog, the following can be called:
+To update the Facebook SDK for iOS targets:
 
-```csharp
-public bool Purchase(string productId)
-{
-  // canStartPurchase is optional, but recommended. This method 
-  // verifies that your game is ready to process purchases
-  if (bfgPurchase.canStartPurchase(productId))
-  {
-    bfgPurchase.startPurchase(productId);
-    return true;
-  }
-  return false;
-}
-```
-
-The purchase will either succeed or fail, and you will receive one of the following notifications:
-
-- ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` 
-- ``bfgCommon.NOTIFICATION_PURCHASE_FAILED``
-
-On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
-
-:::info
-
-Consider storing a record that the purchase completed successfully. The BFG SDK does not automatically store purchase information.
-
-:::
-
-The following code demonstrates how to complete a purchase event, by granting the item or notifying the user of a failure:
-
-```csharp
-void purchase_succeeded(string notification) {
-  Debug.Log("notification_purchase_succeeded: notification=" + notification);
-  string productId = "";
-  // Parse root node of notification JSON
-  JSONNode root_node = JSON.Parse (notification);
-  // Extract productID
-  productId = root_node ["BFG_PURCHASE_OBJECT_USER_INFO_KEY"]["productInfo"]["productID"];
-  if (String.IsNullOrEmpty(productId)) {
-    Debug.Log("notification_purchase_succeeded: unable to retrieve product ID: " + notification);
-    return;
-  }
-  // Extract restore value and productTitle
-  bool isRestore = root_node ["BFG_PURCHASE_OBJECT_USER_INFO_KEY"]["restore"].AsBool;
-  string productTitle = root_node ["BFG_PURCHASE_OBJECT_USER_INFO_KEY"]["productInfo"]["title"];
-  bfgPurchase.finishPurchase(productId);
-  if (isRestore) {
-    Debug.Log("Your purchase has been restored.");
-  }
-  else {
-    Debug.Log("Thank you for your purchase.");
-  }
-  // Unlock the purchase(award the purchase to the user).
-  // Get the product information by calling bfgPurchase.productInformation(productId) and persist it with the game state.
-  // Surface a popover UI or other action to thank the user for their purchase.
-}
-void purchase_failed(string productId) {
-  Debug.Log("purchase_failed: purchase has failed for product: " + productId);
-  // Inform the user of the failure and prompt them to try again.
-}
-```
-</details>
-
-<details>
-  <summary>(Optional) Detect and deliver unawarded completed purchases</summary>
-
-The standard way of handling in-app purchases is to listen for ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` notifications, award the product when you receive one, then call the ``bfgPurchase.finishPurchase`` method.
-
-An alternative is to detect if there are any completed purchases that have not yet been awarded to the player by calling the ``bfgPurchase.deliverablePurchases`` method. If you are concerned that you are somehow missing purchase notifications, this method will return anything that you should be awarding the player.
-
-As usual, after awarding a purchase, you must call ``bfgPurchase.finishPurchase`` to complete the purchase.
+1. Remove the following frameworks from your project:
+    - FBSDKCoreKit.framework
+    - FBSDKLoginKit.framework
+    - FBSDKShareKit.framework
+2. Replace the removed frameworks with their xcframework files found in com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic.
+3. Add FBAEMKit.xcframework and FBSDKCoreKit_Basics.xcframework from the same directory.
+4. In the Unity Editor, navigate to **General > Frameworks & Libraries** and set each of the xcframeworks above to ‘Embed and sign’.
 
 </details>
 
-### Native Android SDK
+<hr />
+
+## 10.3.0 (Apr 6, 2023) 
+
+- Updated the Native Android SDK to v8.3.0, which includes minor bug fixes.
+- Updated the Native iOS SDK to v8.1.0, which includes updates to AppsFlyer, Zendesk, and the minimum iOS version.
+- [iOS] Updated the Sample App to disable bitcode for iOS in a Unity project. Apps submitted to the Apps Store as of April 2023 must be built in Xcode 14 with bitcode disabled. The updated sample project can be found in Samples/BfgUnitySdkSample-2021.3.9/Assets/Scripts/Editor/DisableBitcode.cs.
+
+**Upgrading to v10.3.0**
 
 <details>
-  <summary>Add required values to config file</summary>
+  <summary>(iOS) Update to Xcode 14</summary>
 
-Add the following values to the BFG SDK config file(s), bfg_config.json. 
+Apps submitted to the Apps Store as of April 2023 must be built in Xcode 14 with bitcode disabled. After updating to Xcode 14, ensure you disable bitcode:
+
+1. In Xcode, open **Build Settings**.
+2. Search for ‘bitcode’ and set **Bitcode Enabled** to "NO" for your project and targets.
+
+This does not impact dependencies.
+
+</details>
+
+<details>
+  <summary>(iOS) Update AppsFlyer</summary>
+
+Remove AppsFlyerLib.xcframework from your project and replace it with the new version found in the framework/ThirdParty directory.
+
+The AppsFlyerLib.xcframework is found in com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic
+
+</details>
+
+<details>
+  <summary>(iOS) Update Zendesk</summary>
+
+1. Remove the reference to the strip-architectures script from your **Build Phases > Run Script** that points to the old Zendesk frameworks.
+2. Change the minimum SDK version to 11 under the **General** tab.
+3. Remove the following old Zendesk frameworks from your project:
+    - CommonUISDK.framework
+    - ZendeskCoreSDK.framework
+    - ZendeskProviderSDK.framework  
+    - ZendeskSDK.framework
+4. Add the following new xcframeworks from the distribution framework/ThirdParty/Zendesk directory to your project:
+    - CommonUISDK.xcframework
+    - MessagingAPI.xcframework
+    - MessagingSDK.xcframework
+    - SDKConfigurations.xcframework
+    - SupportProvidersSDK.xcframework
+    - SupportSDK.xcframework
+    - ZendeskCoreSDK.xcframework
+5. Go to **General > Frameworks & Libraries** to set each of the xcframeworks above to "Embed and sign".
+
+The Zendesk xcframework files are found in com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic
+
+</details>
+
+<hr />
+
+## 10.2.0 (Nov 23, 2022) 
+
+- Updated the Native Android SDK to v8.2.0, which includes an update to Zendesk.
+- Updated the Native iOS SDK to v8.0.0, which includes minor bug fixes.
+- **Unity Sample App**: Updated the Big Fish Unity Sample to run on LTS Unity 2021.3.9f1. Older versions of the Unity sample app are removed.
+- Added LTS Unity 2021.3.9f1 support. LTS Unity can be downloaded from here using the Unity Hub install option.
+- (Android) Updated minimum Android SDK to v22. NOTE: If you’re updating to Unity 2021 then the minimum Android SDK is v22. If you are on Unity 2020 or earlier, the minimum Android SDK remains v21.
+- Updated the Unity SDK to encrypt the config file, bfg_config.json file during post-build. The file, bfg_config_encrypted is added to the exported project, and the SDK will load the encrypted config if available. The config file, bfg_config.json can be removed if desired for security reasons. If the encrypted file is removed, the SDK will fall back and use the plain text version instead.
+- Fixed a crash in the Unity SDK that occurs when attempting to purchase using a null ``productId``.
+- (Android) Added support for the latest Android Studio versions Chipmunk and Dolphin.
+- (Android) Built Native Android plugin with Gradle v6.5.1 to align more with the Unity toolchain requirements (unity 2021.3.9f1 requires min version 6.1.1).
+- (iOS) Updated Unity SDK hardware strings and device common names for the latest iOS devices.
+- (iOS) Investigated compatibility with newer Apple M1 chips. Due to 3rd party dependencies, apps built with Apple M1 chips need to disable bitcode.
+
+**Upgrading to v10.2.0**
+
+<details>
+  <summary>(Android) Upgrade Zendesk and minSdkVersion
+To update Zendesk and the minimum SDK version:
+
+1. Open the ProjectSettings.asset file through **Unity Player Settings**.
+2. Navigate to the “Other Settings” drop-down.
+3. Update the minimum SDK.API version to 22.
+4. Open the project manifest file, AndroidManifest.xml file and add the following code:
+
+```xml
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+```
+
+5. Open your mainTemplate.gradle file and add/update the following dependencies:
 
 ```json
-{
-  "core": {
-    "app_name": "Your game's name",
-    "app_store": "Your game's App Store: google or amazon",
-  },
+dependencies {
+  implementation group: 'com.zendesk', name: 'support', version: '5.1.0'
+  implementation 'com.zendesk.belvedere2:belvedere:3.0.5'
 }
 ```
+
 </details>
 
 <details>
-  <summary>Initialize in-app purchasing</summary>
+  <summary>(Android) Resolve android:screenOrientation errors</summary>
 
-The in-app purchasing system is initialized in each activity that processes purchases. It begins in the ``bfgActivity onCreate`` method, with processing continuing asynchronously when triggered by notification handler delegates.
+To resolve an error referring to android:screenOrientation when building your app:
 
-The following code example shows an example of the ``bfgActivity`` class that you need to extend.
+1. Open your project's launcher manifest file, LauncherManifest.xml.
+2. Find the ``<Activity>`` tag and add the following:
 
-```java
-class MyActivity extends bfgActivity {
-private boolean billingIsInitialized = false;  // Flag: The in-app purchasing system is ready for use
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  // Normally developers would call super.onCreate() as the first statement in the method, but
-  // calling this before the SDK is initialized will trigger a warning that the bfgManager was
-  // accessed before it was initialized.
-  bfgGameReporting.sharedInstance().setDeepLinkListener(this);
-  bfgManager.initializeWithActivity(this, savedInstanceState);
-  super.onCreate(savedInstanceState);
-
-  // Start the purchasing system
-  registerPurchaseNotificationObservers(this);
-  bfgPurchase.sharedInstance().setupService(this);
-}
 ```
+tools:replace="android:screenOrientation"
+```
+
+3. Open your project's gradle file, mainTemplate.gradle.
+4. Add the following line to the very bottom of your gradle file when using IL2CPP as your scripting backend:
+
+```
+**IL_CPP_BUILD_SETUP**
+```
+
 </details>
 
-<details>
-  <summary>Start the purchasing service</summary>
+<hr />
 
-To start the purchasing service, call the ``bfgPurchase.sharedInstance().setupService()`` method from the current Activity's ``onCreate`` event handler:
+## 10.1.0 (Aug 25, 2022) 
 
-```java
-protected void onCreate(Bundle savedInstanceState) {
-  registerPurchaseNotificationObservers(this);
-  bfgPurchase.sharedInstance().setupService(this);
-}
+- Updated Native Android SDK to v8.1.0, which adds support for Google Billing 4 and Android 13.
+- Updated Unity (iOS & Android) SDK Firebase Crashlytics and Analytics to version 9.3.0 to keep the SDK and game teams up-to-date with the latest changes and fixes.
+- Fixed the following warning when building an exported Unity-Android gradle project in Android Studio: “The option setting 'android.enableR8=false' is deprecated”.
+- Updated com.google.gms:google-services:4.3.0 to com.google.gms:google-services:4.3.2 in launcherTemplate.gradle to fix the following warning in Android Studio:
+
+```
+”WARNING: API 'variant.getMergeResources()' is obsolete and has been replaced with 'variant.getMergeResourcesProvider()'“.
 ```
 
-In response, the purchasing service will raise one of the following notifications:
+- Added encryption of the bfg_config.json file during post build.
 
-- ``bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED``
-- ``bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_FAILED``
+**Upgrading to v10.1.0**
 
-Games should not use any other ``bfgPurchase`` methods until the ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` notification is received.
+<details>
+  <summary>Update Firebase Crashlytics and Analytics</summary>
+
+1. Remove all current Crashlytics and Analytics 7.0.1 folders from your Unity Project
+2. Remove all external-dependency-manager@1.2.162 folders from your Unity Project
 
 :::info
 
-If a ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_FAILED`` notification is received due to lack of a network connection, the biling system will not initialize. However, when the network connectivity is later regained, the billing system will be initialized and a ``bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` notification will be sent asynchronously.
-
-:::
-</details>
-
-<details>
-  <summary>Acquire product information</summary>
-
-Once the purchasing system is initialized successfully and you have received the ``bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED`` notification, the game defines its consumable products and requests updated product information from the Google Play store. 
-
-After product information is retrieved from the store, one of the following notifications will be raised:
-
-- ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION``
-- ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION_FAILED``
-
-When ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` is received, the game retrieves information about any updated products using ``bfgPurchase productInformation`` method.
-
-```java
-// Notification handler: Billing successfully initialized
-@SuppressWarnings("unused")
-public void handleBillingInitialized(NSNotification notification) {
-  billingIsInitialized = true;
-  HashSet<String> allProductIds = getProductIdList();  // Generate the list of all products
-  bfgPurchase.sharedInstance().defineConsumableSKUs(allProductIds);  // All consumable items
-  bfgPurchase.sharedInstance().acquireProductInformation((List<String>) allProductIds);
-  //Process notification...
-}
-```
-
-These methods may also be used later to update the game's definition of which products are available. This is typically done if the game changes the products available during gameplay, such as when a sale starts or ends.
-
-</details>
-
-<details>
-  <summary>Add purchase workflow</summary>
-
-After the available items and their product information are obtained, you can allow users to start purchasing. When a player purchases an item, call the following:
-
-```java
-public void buy(final String productid) {
-// record that this was a direct user action
-userTriggeredPurchase = true;
-bfgManager.getParentViewController().runOnUiThread(new Runnable() {
-  @Override
-  public void run() {
-    if (bfgPurchase.sharedInstance().canStartPurchase(productid)) {
-      if (!bfgPurchase.sharedInstance().beginPurchase(productid)) {
-        purchaseFailedDialog();
-      }
-    } else {
-      bfgLog.w(TAG, String.format("Attempt to purchase '%s' when a purchase can't be started. Skipping purchase.", productid));
-      purchaseFailedDialog();
-    }
-  }
-});
-```
-
-The purchase will either succeed or fail, and you will receive one of the following notifications:
-
-- ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED`` (providing the purchased product's product ID)
-- ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT`` (providing the product ID and a receipt returned by the store)
-- ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED``
-
-On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase.finishPurchase`` for every product that succeeds to notify the store that the purchase transaction is complete. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
-
-:::warning
-
-The following methods are deprecated: 
-
-- ``consumePurchase``
--  ``defineConsumableSKUs`` 
-
-If your game uses either of these methods, update your game code to use ``finishPurchase`` instead.
+external-dependency-manager@1.2.172 is required for the Crashlytics and Analytics updates and will be installed automatically when either the updated Crashlytics or Analytics 9.3.0 .unitypackage is installed.
 
 :::
 
-When a purchase fails, the ``bfgPurchase.NOTIFICATION_PURCHASE_FAILED`` notification is raised. The notification's payload includes the product ID, but does not provide any details about possible causes of the failure. However, a ``PurchaseStatus`` object is created that provides detailed information on the failure. Use the ``bfgPurchase.sharedInstance().getPurchaseStatus`` method at any time to return the ``PurchaseStatus`` object with information on the most recent purchase attempt for any given product ID.
-
-```java
-@SuppressWarnings("unused")
-public void handlePurchaseFailed(NSNotification notification) {
-    String productId = (String) notification.getObject();
-    PurchaseStatus purchaseStatus = bfgPurchase.sharedInstance().getPurchaseStatus(productId);
-}
-```
-
-The PurchaseStatus object provides the following properties with information about the purchase attempt:
-
-- ``productID``: 	A string returning the product ID (SKU)
-- ``errorCode``: A string returning the error. Possible values include:
-    - "SUCCESS": The most recent purchase attempt was successful
-    - "BILLING_UNAVAILABLE": The in-app purchase system is not currently available
-    - "DEVELOPER_ERROR": Attempt to purchase an undefined product or other invalid use of the purchase system
-    - "ERROR": The purchase failed for an unexpected reason. No further information is available
-    - "FEATURE_NOT_SUPPORTED": The game attempted to perform an operation that is not supported
-- ``isRestored``: A boolean returning whether the product was previously purchased and has been restored from the store
-
-</details>
-
-### Native iOS SDK
-
-<details>
-  <summary>Add required values to config file</summary>
-
-Add the following values to the BFG SDK config file(s), bfg_config.json.
-
-```json
-{
-  "core": {
-    "app_name": "Your game's name",
-    "app_store_id": "Your game's Apple Store ID",
-    "hbi": "Your game's HBI",
-  },
-}
-```
-
-</details>
-
-<details>
-  <summary>Start the purchasing service</summary>
-
-To start the purchasing service, call the ``startService`` method:
-
-```objectivec
-[bfgPurchase startService]
-```
-
-:::info
-
-When you start purchase services, you may immediately begin receiving notifications if any outstanding purchases did not complete.
-
-:::
-
-To support Promoted In-App Purchases (purchases that are configured and initiated at the App Store), place the ``startService`` command before the root view controller is initialized in your app delegate's ``didFinishLaunchingWithOptions``.
-
-</details>
-
-<details>
-  <summary>Acquire product information</summary>
-
-Once the purchasing service is initialized, acquire the product information for each of the items available for purchase in your game. 
-
-```objectivec
-NSSet *allProductIds = [NSSet setWithArray:@[ kProductIdConsumable, kProductIdUnlock ]];
-[bfgPurchase acquireProductInformationForProducts:allProductIds];
-```
-
-The ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` notification will be triggered once the operation is finished. It contains a dictionary of two keys, ``*_SUCCESSES_*`` and ``*_FAILURES_*``. The values associated with these keys are arrays of strings. The strings are product IDs.
-
-- ``BFG_ACQUIRE_PRODUCT_INFO_SUCCESSES_USER_INFO_KEY``: Returns all product IDs for which product information was acquired.
-- ``BFG_ACQUIRE_PRODUCT_INFO_FAILURES_USER_INFO_KEY``: Returns all product IDs for which product information could not be acquired. This generally means the product ID was not found in the App Store.
-
-The following code demonstrates how a successful transaction appears, when the call succeeds but no product information has been returned yet:
-
-```objectivec
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acquireProductInfoDidSucceed:) name:NOTIFICATION_PURCHASE_PRODUCTINFORMATION object:nil];
-
-- (void)acquireProductInfoDidSucceed:(NSNotification *)notification {
-  NSArray *successes = notification.userInfo[BFG_ACQUIRE_PRODUCT_INFO_SUCCESSES_USER_INFO_KEY];
-  if ([successes count]) {
-    // Add debug logging showing that the request succeeded
-    // Set a global flag that purchasing is ready
-    return;
-  }
-  else {
-    // Add debug logging showing that the request failed
-    // You'll need to retry acquire later
-  }
-}
-```
-
-:::info
-
-If the ``acquireProductInformation`` method returns ``NO``, you will need to try again. No purchases can occur until this method succeeds, and you have been notified with the product information.
-
-Products are managed in iTunes Connect, so be sure to handle success and failure cases. The notification `*_USER_INFO_KEY` will contain a dictionary with a single ``bfgPurchaseObject SKPaymentTransaction``. This is the object you receive when you are notified that a purchase succeeded (or failed).
-
-:::
-
-</details>
-
-<details>
-  <summary>Add purchasing workflow</summary>
-
-After the available items and their product information are obtained, you can allow users to start purchasing. When a player purchases an item, call the following:
-
-```objectivec
-NSString *productId = @"your_product_id";
-if ([bfgPurchase canStartPurchase:productId]) {
-  [bfgPurchase startPurchase:productId];
-}
-else {
-  // Present UI indicating that the purchase cannot be completed at this time.
-}
-```
-
-The purchase will either succeed or fail, and you will receive one of the following notifications:
-
-- ``NOTIFICATION_PURCHASE_SUCCEEDED``
-- ``NOTIFICATION_PURCHASE_FAILED``
-
-These notifications contain a ``userInfo`` object that will be a dictionary with a key ``BFG_PURCHASE_OBJECT_USER_INFO_KEY`` whose value is a ``bfgPurchaseObject``.
-
-On success, your game should unlock the item, award the purchase to the user, and persist the state of the game and purchase. Then, call ``bfgPurchase finishPurchase`` for every product that succeeds. If you do not make this call, your game will hold the purchase in an incomplete state. You will continue to receive notifications for the purchase each time it starts and the user will not be able to purchase the product again.
-
-Once the purchase finishes, you will receive a notification called ``NOTIFICATION_FINISH_PURCHASE_COMPLETE`` containing a ``userInfo`` dictionary object with a key ``BFG_PURCHASE_OBJECT_USER_INFO_KEY`` whose value is a ``bfgPurchaseObject``.
-
-You can discover products that have been successfully purchased but not yet been awarded to the player by calling ``bfgPurchase + (NSArray<bfgPurchaseObject *> *)deliverablePurchases``.
-
-:::info
-
-The ``bfgPurchaseObject`` has a field called canceled. When a purchase is started, Apple allows the user to accept or cancel the purchase. If the user cancels the purchase, the purchase fails. When your code is notified that the purchase failed, check the canceled field of the ``bfgPurchaseObject``.
-
-- If the value is ``NO``, let the user know that the purchase did not succeed
-- If the value is ``YES``, you do not need to do anything, as the user expected the purchase to fail
-
-:::
-
-</details>
-
-## Restoring Purchases
-
-If the user re-installs the game and had previously purchased non-consumable items, your game must restore those purchased items back to the user. Only **non-consumable items** can be restored. 
-
-:::info[INFO - iOS ONLY]
-
-Due to Apple guidelines, the restore process must be triggered by the user. To accomplish this, we recommend adding a button to your UI that allows the user to restore their previous purchases.
-
-:::
-
-Use the ``bfgPurchase.restorePurchases`` method to restore purchases:
-
-
-<Tabs>
-  <TabItem value="unity" label="Unity" default>
-
-```csharp
-public void Restore() {
-  bfgPurchase.restorePurchases();
-}
-```
-  </TabItem>
-  <TabItem value="android" label="Android">
-
-```java
-bfgPurchase.sharedInstance().restorePurchase(productIds);
-```
-  </TabItem>
-  <TabItem value="ios" label="iOS">
-
-```objectivec
-- (void)restorePurchases
-{
-  [bfgPurchase restorePurchases];
-}
-```
-  </TabItem>
-</Tabs>
-
-You should receive a ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED`` notification for each previously purchased non-consumable that is restored. After all of these notifications have posted, ``bfgCommon.NOTIFICATION_RESTORE_SUCCEEDED``  or ``bfgCommon.NOTIFICATION_RESTORE_FAILED`` will be posted indicating the restore process has either completed or failed.
-
-When restoring purchases, we recommend you follow these best practices:
-
-- On Success, unlock the item, award the purchase to the user, and persist the state
-- Wait for ``bfgCommon.NOTIFICATION_RESTORE_SUCCEEDED``. This is your indication that all products that can be restored at this time have been.
-- If you receive ``bfgCommon.NOTIFICATION_RESTORE_FAILED``, then the Apple App Store and/or Google Play Store could not be reached and you should indicate to the user that the restore could not be completed.
-
-
-## Receiving IAP Notifications
-
-The BFG SDK includes the ability to receive and track in-app purchase events. Notifications may be sent at any time after the purchasing system is initialized. The game should always be ready to process these notifications, not just after starting a purchase flow.
-
-The process to set up notifications depends on which BFG SDK you are using. Select your SDK below for more information:
-
-<details>
-  <summary>Unity SDK</summary>
-
-To listen for in-app purchase notifications, you first need to register to observe IAP notifications defined in ``bfgCommon.cs``: 
-
-```csharp
-// Notifies when a purchase is completed successfully
-NotificationCenter.Instance.AddObserver(purchase_succeeded, bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED);
-// Notifies when a purchase fails
-NotificationCenter.Instance.AddObserver(purchase_failed, bfgCommon.NOTIFICATION_PURCHASE_FAILED);
-// Notifies when a restoration of a purchase is successful
-NotificationCenter.Instance.AddObserver(restore_succeeded, bfgCommon.NOTIFICATION_RESTORE_SUCCEEDED);
-// Notifies when a restoration of a purchase fails
-NotificationCenter.Instance.AddObserver(restore_failed, bfgCommon.NOTIFICATION_RESTORE_FAILED);
-// When a purchase is made, contains the product information about the purchase
-NotificationCenter.Instance.AddObserver(notification_product_information, bfgCommon.NOTIFICATION_PURCHASE_PRODUCTINFORMATION);
-// (Android only) Notifies when purchase services were initialized successfully
-NotificationCenter.Instance.AddObserver (notification_billing_initialize_succeeded, bfgCommon.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED);
-// (Android only) Notifies when purchase services were unable to be initialized
-NotificationCenter.Instance.AddObserver (notification_billing_initialize_failed, bfgCommon.NOTIFICATION_BILLING_INITIALIZE_FAILED);
-```
-</details>
-
-<details>
-  <summary>Native Android SDK</summary>
-
-After the game has initialized the Big Fish SDK, start listening for the following notifications:
-
-```java
-// Notifies when purchase services were initialized successfully
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_billing_init_succeeded",
-    bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_SUCCEEDED);
-
-// Notifies when purchase services were unable to be initialized
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_billing_init_failed",
-    bfgPurchase.NOTIFICATION_BILLING_INITIALIZE_FAILED);
-
-// When a purchase is made, contains the product information about the purchase
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_productinformation",
-    bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION);
-
-// Notifies when a purchase is completed successfully
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_purchase_succeeded",
-    bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED);
-
-// Notifies of a successful purchase with a receipt for processing on the server
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_purchase_succeeded_with_receipt",
-    bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT);
-
-// Notifies when a purchase fails
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_purchase_failed",
-    bfgPurchase.NOTIFICATION_PURCHASE_FAILED);
-
-// Notifies when a restoration of a purchase is successful
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_restore_succeeded",
-    bfgPurchase.NOTIFICATION_RESTORE_SUCCEEDED);
-
-// Notifies when a restoration of a purchase fails
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_restore_failed",
-    bfgPurchase.NOTIFICATION_RESTORE_FAILED);
-
-// Notifies when the process to restore a purchase is complete
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_restore_completed",
-    bfgPurchase.NOTIFICATION_RESTORE_COMPLETED);
-
-// Notifies when a purchase SKU is revoked and no longer available
-NSNotificationCenter.defaultCenter()
-  .addObserver(this,
-    "notification_purchase_revoked",
-    bfgPurchase.NOTIFICATION_PURCHASE_REVOKED);
-```
-</details>
-
-<details>
-  <summary>Native iOS SDK</summary>
-
-After the game has initialized the SDK, start listening for these notifications:
-
-```objectivec
-// When a purchase is made, contains the product information about the purchase
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acquireProductInfoDidSucceed:) name:NOTIFICATION_PURCHASE_PRODUCTINFORMATION object:nil];
-// Notifies when a purchase fails
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseDidFail:) name:NOTIFICATION_PURCHASE_FAILED object:nil];
-// 	Notifies when a purchase is completed successfully
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseDidSucceed:) name:NOTIFICATION_PURCHASE_SUCCEEDED object:nil];
-// Notifies when a restoration of a purchase fails
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restoreDidFail:) name:NOTIFICATION_RESTORE_FAILED object:nil];
-// Notifies when a restoration of a purchase is successful
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restoreDidSucceed:) name:NOTIFICATION_RESTORE_SUCCEEDED object:nil];
-```
-</details>
-
-
-## Implement receipt verification (Android only)
-
-Games running on Android devices can verify purchases with a receipt returned by the Google Play store. If you want to implement your own server-side receipt verification process, follow this procedure:
-
-1. Subscribe to the ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT`` notification (rather than ``bfgPurchase.NOTIFICATION_PURCHASE_SUCCEEDED``).
-2. Add the following code in your notification method:
-
-<Tabs>
-  <TabItem value="google" label="Google" default>
-
-```java
-Purchase purchase = (Purchase)notification.getObject();
-String receipt = purchase.getReceipt();
-```
-  </TabItem>
-  <TabItem value="amazon" label="Amazon" default>
-
-```java
-AmazonPurchase purchase = (AmazonPurchase)notification.getObject();
-String receiptId = purchase.getReceiptId();
-String userId = purchase.getUserId
-```
-  </TabItem>
-</Tabs>
-
-3. Get a list of unconsumed Google purchases by calling the ``bfgPurchase.getVolatileInventory`` method after you receive the ``bfgPurchase.NOTIFICATION_PURCHASE_PRODUCTINFORMATION`` notification. Requesting product information first, triggers an update to your inventory from Google (the inventory authority), and will give you the most up-to-date inventory.
-
-```java
-if (bfgPurchase.sharedInstance() instanceof bfgPurchaseGoogle) {
-  ((bfgPurchaseGoogle) bfgPurchase.sharedInstance()).getVolatileInventory();
-}
-```
-
-:::info
-
-Alternatively, you can use the ``bfgPurchase.postCurrentInventory`` method for Google Play purchases to request asynchronous delivery of the inventory data. If delivery succeeds, ``bfgPurchase.NOTIFICATION_POST_CURRENT_INVENTORY_SUCCEEDED`` will be issued, and the notification argument will contain the GoogleInventory object.
-
-```java
-NSNotificationCenter.defaultCenter().addObserver(this, "notification_post_current_inventory_succeeded", bfgPurchase.NOTIFICATION_POST_CURRENT_INVENTORY_SUCCEEDED, null);
-
-if (bfgPurchase.sharedInstance() instanceof bfgPurchaseGoogle) { 
-  ((bfgPurchaseGoogle) bfgPurchase.sharedInstance()).postCurrentInventory(); 
-}
-
-public void notification_post_current_inventory_succeeded(NSNotification notification) { 
-  GoogleInventory currentGoogleInventory = (GoogleInventory)(notification.getObject());
-}
-```
-
-:::
- 
-4. (Optional) To add additional parameters to the developer payload, call ``completePurchase(String productID, String additionalPayload)``:
-
-```java
-if (bfgPurchase.sharedInstance() instanceof bfgPurchaseGoogle) {
-  // this is a google purchase
-  ((bfgPurchaseGoogle) bfgPurchase.sharedInstance()).completePurchase(productId, additionalPayloadString);
-}
-else {
-  // this is an amazon purchase
-  bfgPurchase.completePurchase(productId);
-}
-```
+3. Download the [Crashlytics 9.3.0](https://dl.google.com/firebase/sdk/unity/dotnet4/FirebaseCrashlytics_9.3.0.unitypackage) unitypackage.
+4. Download the [Analytics 9.3.0(https://dl.google.com/firebase/sdk/unity/dotnet4/FirebaseAnalytics_9.3.0.unitypackage) unitypackage.
+5. Install Crashlytics and Analytics 9.3.0 into your Unity app using the **Assets > Import Package > Custom Package** menu.
 
 :::info 
 
-When validating the developer payload in the receipt, be sure to only validate against the "game" portion of the developer payload JSON object.
+The Google Dependency Manager will try to resolve the installation. If it fails to do so or you experience issues, you can try forcing the resolution using the Unity menu: **Assets > External Dependency Manager > Android Resolver > Force Resolve**.
+
+:::
+
+If you run into a CocoaPods compatibility error, you will need to update your Cocoapods to the version the error mentions before building.
+
+</details>
+
+<details>
+  <summary>(Android) Upgrade to Android 13 support</summary>
+
+Update the Target API Level value to 33 in your Unity Project in the **Android Player Settings**.
+
+</details>
+
+<details>
+  <summary>(Android) Fix API warning errors</summary>
+
+Update your project's gradle file, mainTemplate.gradle file with the following in order to resolve the warning: “WARNING: API 'variant.getMergeResources()' is obsolete and has been replaced with 'variant.getMergeResourcesProvider()' “.
 
 ```json
-JSONObject oReceipt = new JSONObject(receipt);
-String developerPayload = oReceipt.getString("developerPayload");
-JSONObject oDeveloperPayload = new JSONObject(developerPayload);
-String gameDeveloperPayload = oDeveloperPayload.getString("game");
-//validate against gameDeveloperPayload, not the full developer payload.
+dependencies {
+  classpath 'com.google.gms:google-services:4.3.2'
+}
 ```
+
+</details>
+
+<details>
+  <summary>Configure bfg_config.json encryption</summary>
+
+The file bfg_config_encrypted is added to the exported project, and the SDK will load the encrypted config if available. The bfg_config.json can be removed if desired for security reasons. If the bfg_config_encrypted file is removed, the SDK will fall back and use the plain text bfg_config.json file.
+
+</details>
+
+<hr />
+
+## 10.0.0 (July 25, 2022) 
+
+- Updated the Native Android SDK to v8.0.0, which adds support for Android 12 / API 31.
+- Updated the Native iOS SDK to v7.7.2, which adds the ability to configure AppsFlyer via the bfg_config.json file.
+- Added Android 12 (API 31) support.
+- Added LTS Unity 2020.3.32f1 support.
+- Updated the Big Fish Unity Sample to run on LTS Unity 2020.3.32f1. The updated sample is now named BfgUnitySdkSample-2020.3.32.
+- Added the ability to configure AppsFlyer dev key may now be configured from bfg_config.json.
+- Expanded ``bfgRave.sharedInstance().requestAccountDeletion()`` method to support deletion of non-authenticated (“guest”) Rave accounts.
+- Removed the ``FailedForAuth`` notification.
+- Removed BfgUnitySdkSample-2019.4-unsupported sample project. 
+
+**Upgrading to v10.0.0**
+
+<details>
+  <summary>(Android) Update versionCode in Gradle file</summary>
+
+Update the ``versionCode`` in your build.gradle file to ``[10.0.0]``. If you fail to update the version code, you will receive the following error: 
+
+```
+Rave Socialization Error
+
+Required Rave Setting
+"ravesettings.general.serveurl" is not set
+```
+
+</details>
+
+<details>
+  <summary>(Android) Upgrade targetSDKVersion in Gradle file</summary>
+
+Update the targetSdkVersion and compileSdkVersion to 31 in your project's gradle file, build.gradle as follows:
+
+```
+compileSdkVersion 31
+
+defaultConfig {
+  minSdkVersion 16
+  targetSdkVersion 31
+}
+```
+
+</details>
+
+<details>
+  <summary>(Android) Update 3rd Party Dependencies</summary>
+  
+Update the 3rd party dependencies in your project's gradle file and gradle properties file to fix an incompatibility with the current Facebook SDK version and Android 12.
+
+1. Make the following updates to the dependencies section of your project's gradle file, build.gradle:
+
+```
+classpath 'com.android.tools.build:gradle:4.0.0'
+implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
+implementation 'com.squareup.moshi:moshi:1.12.0'
+ext.kotlin_version = '1.5.10'
+```
+
+2. Make the following updates to your gradle properties file, gradle-wrapper.properties:
+
+```
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
+```
+
+Note: If you compile in release mode and get the following error: [Invoke-customs are only supported starting with android 0 --min-api 26](https://stackoverflow.com/questions/49891730/invoke-customs-are-only-supported-starting-with-android-0-min-api-26), the cause is most likely due to the Kotlin update. This problem can be fixed by adding the following to your build.gradle file:
+
+```json
+android {
+  lintOptions {
+    abortOnError false
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>Update the Moshi plugin</summary>
+
+Updating the JSON plugin called Moshi is required. After upgrading your app, this update introduced an issue with how the SDK handles auto-loading and caching config files, specifically for Rave initialization.
+
+Note: Fresh app installs do not have this issue.
+
+</details>
+
+<details>
+  <summary>(Android) Set android:exported values to "true"</summary>
+
+Set the ``android:exported="true/false"`` flag in all activity, service, and receiver tags to "true":
+
+```xml
+<activity
+  android:name=".MainActivity"
+  android:label="@string/app_name"
+  android:launchMode="singleTask"
+  android:theme="@style/BFG.Material.DarkActionBar.Fullscreen"
+  android:exported="true">
+  <intent-filter>
+    <action android:name="android.intent.action.MAIN" />
+    <category android:name="android.intent.category.LAUNCHER" />
+  </intent-filter>
+
+</activity>
+```
+
+:::warning
+
+If you set the value to "false" in your main activity, your app will not launch. 
 
 :::
 
-### Restrictions when using the Native Android SDK
+</details>
 
-Big Fish servers do not implement inventory management for Android purchases. The Native Android SDK relies on Google Play and the Amazon Store to record customer inventories and purchase histories.
+<details>
+  <summary>Remove FailedForAuth notification code</summary>
 
-The Native Android SDK's own receipt verification algorithm is applied to product purchases only; it is not applied to purchase restore operations or to the confirmation of purchase consume operations. For this reason, an application can receive a ``NOTIFICATION_RESTORE_SUCCEEDED`` notification for a product SKU during the purchase restore flow, even if the product failed due to an unsuccessful receipt verification.
+If you are gating account deletion on users currently logged into a Rave-based account, you need to remove this gate. Rave creates and tracks “guest” account information for users who aren’t logged in, which must be removed when an account deletion request is made. Any code that depends on the ``FailedForAuth`` notification will no longer be called. We recommend that you either remove or re-write any required code that depends on the ``FailedForAuth`` notification.
 
-Developers' options for awarding purchases are as follows:
+</details>
 
-- The application awards purchases in response to ``NOTIFICATION_PURCHASE_SUCCEEDED`` and ``NOTIFICATION_RESTORE_SUCCEEDED``. In this case, receipt verification cannot prevent the award of falsified purchases, e.g., purchases falsified using a program that impersonates Google Play. However, receipt verification is useful to Big Fish for reporting purposes.
-- The application awards purchases in response to ``NOTIFCATION_PURCHASE_SUCCEEDED``, but does not award purchases in response to ``NOTIFICATION_RESTORE_SUCCEEDED``. Note that this policy should NOT be used for products like a “buy-wall” product. Purchase restoration should always be applied to such products because it should be possible for the customer to purchase the product on one device and receive it on another device. This policy can also result in the loss of a legitimate purchase if, for example, network connectivity is lost after the customer's payment has been accepted but before ``NOTIFICATION_PURCHASE_SUCCEEDED`` is issued.
-- Implement a server-based inventory management system to retain information about purchases that passed receipt verification. This can be used to:
-    - Restore only verified purchases
-    - Mitigate or eliminate loss of legitimate purchases
+<hr />
 
-For information on Google's documented best practices for developer-implemented receipt verification, also see:
+## 9.6.1 (June 8, 2022) 
 
-- [Google Play In-App Billing - Security and Design](http://developer.android.com/google/play/billing/billing_best_practices.html) :arrow_upper_right:
-- [Google Play Developer API - Using the API Efficiently](https://developer.android.com/google/play/developer-api.html#practices) :arrow_upper_right: 
+- Updated Native iOS SDK to v7.7.1, which contains an account deletion hot fix. To comply with Apple account deletion policy, ``requestAccountDeletion()`` has been expanded to handle unauthenticated (guest) accounts.
+- Removed the ``FailedForAuth`` notification, and any code that depends on this will no longer be called. We recommend that you either remove or re-write any required code that depends on the ``FailedForAuth`` notification being sent from iOS to Unity.
 
-### Using non-Big Fish Servers
+<hr />
 
-If you are implementing your own server-side receipt verification, you can get a token by casting the purchase to the appropriate product type for the Android-based store (Google Play or Amazon): 
+## 9.6.0 (May 13, 2022) 
 
-<Tabs>
-  <TabItem value="google" label="Google" default>
+- Updated Native Android SDK to v7.8.0, which removes the Cross Sell functionality from the BFG SDK.
+- Updated Native iOS SDK to v7.7.0, which removes the Cross Sell functionality from the BFG SDK.
+- Removed the Cross Sell button from the Unity Sample App. This completes the removal of all Cross Sell functionality. If you have any remaining Cross Sell Button logic or UI in your project, you will need to remove it.
+- Added Android functionality to access the user’s current Rave email address using ``bfgRave.currentRaveEmail()``.
 
-```java
-Purchase purchase;
-(GooglePurchase) purchase.getToken();
-```
-  </TabItem>
-  <TabItem value="amazon" label="Amazon" default>
+<hr />
 
-```java
-(AmazonPurchase) purchase.getReceiptId();
-```
-  </TabItem>
-</Tabs>
+## 9.5.0 (Feb 28, 2022) 
 
-## Promoted In-App Purchases (iOS Only)
+- Updated Native Android SDK to v7.7.0, which adds support for Account Deletion on Android mobile devices.
+- Updated Native iOS SDK to v7.6.0, which adds support for Promoted In-App Purchases and updates iOS AppsFlyer.
+- **Android Account Deletion**: Added a new wrapper method ``bfgRave.sharedInstance().requestAccountDeletion()``. This method will send a Zendesk support request including the current rave id to Customer Service for processing. One of the following ``NSNotifications`` will be received from this method: ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED`` or ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED``.
+- **iOS Promoted In-App Purchases**: Added two new wrapper methods to support promoted in-app purchases. Use ``bfgPurchase.hasDeferredPayments()`` to determine if there are Promoted In-App Purchases to queue and ``bfgPurchase.processDeferredPayments()`` to process queued Promoted In-App Purchases.
 
-With iOS, you can promote in-app purchases so users can browse them directly on the App Store. **Promoted In-App Purchases** are displayed on your game's product page and visible in search results on the App Store. pThey fall into two main categories:
+<hr />
 
-- One-time purchases
-- Subscriptions
+## 9.4.1 (Jan 4, 2022) 
 
-To support promoted in-app purchases, call the ``startService`` method at the top of your app's ``didFinishLaunchingWithOptions`` method in the App Delegate, before the root view controller is initialized.
- 
-By default, promoted in-app prrchases are deferred when they are received. These purchases are processed at the discretion of the game developer after onboarding.
+This release adds support for iOS Account Deletion on iOS mobile devices to support privacy requirements effective June 30th, 2022. An Android version will come in a future release as it is not a requirement by the Google Play Store (yet).
 
-- Call ``bfgPurchase hasDeferredPayments`` to determine if there are promoted in-app purchases waiting to be processed
-- Call ``bfgPurchase processDeferredPayments`` to add promoted in-app purchases into the payment flow
+This release contains the following changes:
 
-:::info
+- Updated Native iOS SDK to v7.5.1, which adds support for Account Deletion on iOS mobile devices.
+- **iOS Account Deletion**: Added new wrapper method ``bfgRave.requestAccountDeletion()``. This method will send a Zendesk support request including the current rave id to Customer Service for processing. One of the following ``NSNotifications`` will be received from this method: ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED`` or ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED``.
 
- ``hasDeferredPayments`` is optional, as nothing will happen if there are no purchases to process when calling processDeferredPayments.
+<hr />
+
+## 9.4.0 (Nov 18, 2021) 
+
+- Updated Native Android SDK to v7.6.0, which addresses the JCenter deprecation.
+- Updated Native iOS SDK to v7.5.0, which fixes a display issue in Zendesk.
+- (Android) Fixed the method ``bfgPurchaseAndroid.finishPurchase()`` to correctly be called for non-consumables on purchase completion.
+- (Android) Removed the "Re Enable Non-Consumable" button and command from the sample application because no automatic mechanism for this exists on Google's end. If you need to re-enable a non-consumable purchase:
+    - Make the purchase of the non-consumable product, change it to a consumable product, refund it through the Google Play Console, then finally change it back to a non-consumable product.
+- (Android) Added missing SDK localization for DE, NL, JA, KR, ES, FR, PT-BR, ZH-CN, ZH-TW, RU, and IT.
+- (Android) Added missing Google and Amazon purchasing event handlers to the Sample App.
+
+<hr />
+
+## 9.3.2 (Oct 25, 2021) 
+
+This release updates the Native Android SDK to v7.5.1, which addresses missing localization strings.
+
+<hr />
+
+## 9.3.1 (Oct 19, 2021) 
+
+- (Android) Fixed a bug in v9.3.0, where MTS incorrectly reported the BFG Android SDK build version
+
+:::warning 
+
+If you upgraded to v9.3.0, you are required to upgrade to v9.3.1. To do so, simply replace your Android .aar with the 9.3.1 .aar to get the version number update. 
+
+:::
+
+<hr />
+
+## 9.3.0 (Oct 14, 2021) 
+
+This version adds compatibility to [Android 11/API 30](https://developer.android.com/distribute/play-policies#APILevel30). Games will need to be compatible with Android 11 / API 30 starting November 1, 2021 if you want to be able to post updates to Google Play Store moving forward. 
+
+This release includes the following changes:
+
+- Updated Native Android SDK to v7.5.0, which adds Android 11 / API 30 compatibility.
+- Updated Native iOS SDK to v7.4.0, which adds iOS 15 compatibility.
+- **Android 11 / API 30 compatibility check**: The Unity SDK is compatible with Android 11 / API 30.
+- **iOS 15 compatibility check**: The Unity SDK is compatible with iOS version 15.
+- (iOS) The "bfgsdkunity" URI scheme is no longer erroneously included in the built Xcode project's Info.plist for external teams when using the SDK post-process build system.
+- Removed all references to the Age Gate functionality as it has been deprecated.
+
+<hr />
+
+## 9.2.1 (Sept 29, 2021) 
+
+(Android) Fixed a bug in v9.2.0, where MTS incorrectly reported the BFG Android SDK build version.
+
+:::warning 
+
+If you upgraded to v9.2.0, you are required to upgrade to v9.2.1. To do so, simply replace your Android .aar with the 9.2.1 .aar to get the version number update. 
 
 :::
 
-### Testing Promoted In-App Purchases
+<hr />
 
-To test the promoted in-app purchases workflow:
+## 9.2.0 (Sept 24, 2021) 
 
-1. Create a [test URL](https://developer.apple.com/documentation/storekit/in-app_purchase/testing_promoted_in-app_purchases) :arrow_upper_right: such as:
+- Updated Native Android SDK to v7.4.0, which includes minor bug fixes.
+- Updated Native iOS SDK to v7.3.0, which includes minor bug fixes.
+- Deprecated BfgUnitySdkSample-2019.4 and renamed to BfgUnitySdkSample-2019.4-unsupported.
+- Removed BfgUnitySdkSample-2019.2 which will no longer be supported.
+- Added BfgUnitySdkSample-2020.3 built off of Unity 2020.3.3f1 LTS. Using Unity 2020+ will require you to set iOS 11 as the minimum iOS version within Unity "Player Settings".
 
-```
-itms-services://?action=purchaseIntent&bundleId=com.bigfishgames.bfgsdkios&productIdentifier=com.bigfishgames.bfgsdkios.consumeme
-```
+<hr />
 
-2. Launch the app on a device through Xcode.
-3. Send the test URL above to the device using iMessage. Copy and paste the test URL into Safari. The app should open and finish the purchasing process flow for the product id in the test URL.
+## 9.1.0 (Aug 24, 2021) 
 
-:::info
+- Updated Native Android SDK to v7.3.0, which includes required updates to Android billing.
+- Updated Native iOS SDK to v7.2.5, which includes minor bug fixes.
+- Adds the ``GetAllAuthSources`` API to ``BfgRaveUtilities`` to retrieve auth types a user is signed in with.
 
-MTS events will trigger based on the result of the purchase attempt. This is true for both the ``NOTIFICATION_PURCHASE_SUCCEEDED`` and ``NOTIFICATION_PURCHASE_FAILED`` notifications.
+<hr />
 
-:::
+## 9.0.2 (May 24, 2021) 
+
+- Updated Native iOS SDK to v7.2.4. This includes a change to how games retrieve Facebook permissions in Limited Login and Classic modes.
+- Updated Facebook SDK to v9.2.0. This update supports additional social permissions in limited login mode.
+- Updated Rave SDK to version 3.9.11
+- Updated AppsFlyer SDK to version 6.2.6
+- (Sample app only) Removes calls to set Facebook read permissions after the ATT dialog is dismissed
+- Adds the ability to retrieve app-associated Facebook friends, if the user is authenticated through Facebook, using the new asynchronous method ``bfgRave getAppAssociatedFacebookFriends``. 
+
+<hr />
+
+## 9.0.1 (Apr 29, 2021) 
+
+This release modifies ``bfgutils::attStatus`` to return the status for all iOS versions again. This is needed to properly set the FB login mode on iOS versions 14.0 through 14.4.
+
+- Updated the Native iOS SDK to v7.2.3.
+
+**Known Issues**
+
+Our Sample code currently does not handle two edge case scenarios, though these could be handled fairly easily at the game implementation level if needed:
+
+- On iOS 14.0 to 14.4, since ATT is not displayed, toggling the global ATT setting does not cause a cold start for the application. Because of this, if a game uses the sample code we have in our Sample apps or in the developer docs, the Facebook login mode is not updated immediately (i.e., when the app is warm started after the ATT tracking setting has changed). It will be updated appropriately on the next cold start. This can be handled by checking the ATT status on every warm start.
+- On iOS 14.0 to 14.4, a user may globally disable the ATT tracking, which will cause the app to be set to limited login mode. If the user then re-enables tracking globally, there is currently no sample code for the app to re-enable classic login mode. We cannot reenable classic mode without prompting the user for ATT, so it is not advised to switch back to classic mode. This can be handled by the app by checking for iOS 14.0 to 14.4 on every warm or cold start, and switching the login mode back to classic.
+
+<hr />
+
+## 9.0.0 (Apr 27, 2021) 
+
+Apple released information on April 20th, Upcoming App Tracking Transparency requirements, which states that iOS 14.5 will become the first version where App Tracking Transparency is enforced.
+
+This hotfix includes the following changes to account for this update:
+
+- Disables ATT consent calls for iOS 14.0 - iOS 14.4 (ATT dialog cannot be displayed)
+- Add a new method to check whether or not the ATT dialog should be displayed: ``bfgManager::attMeetsSystemRequirements``. This will only return true for iOS 14.5 and higher versions.
+- Modified ``attSelectionRequired`` and ``requestTrackingAuthorization`` to use this new method.
+- Modified ``bfgutils::attStatus`` to use this new method (but this was quickly ‘undone’ in 7.2.3 (see change list above for 7.2.3)
+- This also changes MTS events so that the ``appTrackingTransparencyStatus`` flag will not be included for iOS versions 14.0 to 14.4 (and it is still not included in iOS 13 and lower - though this is not new to 7.2.2).
+- Removes AppsFlyer call for ``waitForATTUserAuthorization`` (timeout for starting AF) when ATT consent dialog is not shown (this fix applies to games on earlier versions of iOS14)). The game could still add this call themselves however.
+
+**Unity Note**
+
+This was the first release where we moved the Unity SDK to be on a new versioning line of its own. Unity is now version 9.0.0, which includes the Native iOS SDK v7.2.2 and Native Android SDK v7.1.5.
+
+<hr />
+
+## 7.2.1 (Apr 7, 2021) 
+
+- Updated the AppsFlyer SDK to 6.2.4. This includes fixes for SKAdNetwork.
+- Updated the Facebook SDK to 9.0.1 and includes Limited Login
+- Updated the Rave SDK to 3.9.10-402, which includes support for Limited Login and a fix for SIWA login. Note: the BigFishScenePack.bundle was updated and must be updated by all games.
+- Update Zendesk to send iOS 9 users to a non-javascript web portal
+- Update Zendesk to handle sending users to the correct localized Zendesk site, or default to English for non-supported languages, on a game by game basis.
+- Expose a new API for sending custom events to AppsFlyer (support for SKAdNetwork)
+- Updated Crashlytics on Unity builds to include the Unity version for fatal and non-fatal events (key: “UnityVersion”)
+- Fixed an issue with ``bfgResourcesUniversal`` targeting the iPhoneSimulator platform, which was causing build issues in Unity
+- Added an optional ‘game controlled AppsFlyer startup’ mode that is intended to be used only by games that are not displaying the ATT dialog
+- Fixed high severity issue in deserializing MTS events for older versions of the SDK.  
+
+<hr />
+
+## 7.2.0 (Jan 21, 2021) 
+
+- Unity SDK now delivered as a Unity Package for ease of integration
+- ATT framework APIs exposed via new SDK methods, wrapped for Unity developers
+- ATT status now included in MTS device info payload
+- Minimum iOS version support is now 10
+- Firebase Crashlytics (7.0.1) and Analytics (7.0.1) are now included using the official Unity SDKs rather than embedding in the native layers
+- Updated 3rd Party SDKs
+    - AppsFlyer SDK updated to version 6.0.3
+    - Facebook SDK updated to version 8.2
+    - Rave SDK updated to version 3.9.8-399
+    - Zendesk SDK updated to version 4.0.1
+
+<hr />
+
+## 7.1.1 (Aug 2020) 
+
+- Fixed high severity issue in deserializing MTS events for older versions of the SDK.  
+
+<hr />
+
+## 7.1.0 (July 2020) 
+
+- Updated Zendesk SDK to version 5.0 (iOS) and 3.0.2 (Android). This update to Zendesk removes the UIWebView which was present in their SDK.
+- PromoCode (aka redemption service) support is now included in the SDK. 
+- Added support for developers who integrate Firebase Analytics.
