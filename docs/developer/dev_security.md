@@ -93,14 +93,12 @@ Review the list of required user data types that you will need to disclose below
       <td>No</td>
     </tr>
     <tr>
-      <td>
-
-Add a link that users can use to request that their data be deleted. This link will be shown on your Google Play store listing, and should:
-
-- Refer to your app or developer name that is shown on your store listing.
-- Prominently feature the steps that users should take to request that their data be deleted.
-- Specify the types of data that are deleted or kept and any additional retention period.
-
+      <td>Add a link that users can use to request that their data be deleted. This link will be shown on your Google Play store listing, and should:
+        <ul>
+          <li>Refer to your app or developer name that is shown on your store listing.</li>
+          <li>Prominently feature the steps that users should take to request that their data be deleted.</li>
+          <li>Specify the types of data that are deleted or kept and any additional retention period.</li>
+        </ul>
       </td>
       <td>Big Fish Games will provide a link.</td>
     </tr>
