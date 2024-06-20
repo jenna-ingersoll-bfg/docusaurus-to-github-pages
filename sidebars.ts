@@ -160,11 +160,6 @@ export default {
       type: 'category',
       label: 'Unity SDK v10.7',
       items: [
-        'bfgsdk/unity/integrate-unitysdk',
-        'bfgsdk/unity/configure-unitysdk',
-        'bfgsdk/unity/upgrade-unitysdk',
-        'bfgsdk/unity/sample-unitysdk',
-        'bfgsdk/unity/release-unitysdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -181,11 +176,6 @@ export default {
       type: 'category',
       label: 'Native Android SDK v8.7',
       items: [
-        'bfgsdk/android/integrate-androidsdk',
-        'bfgsdk/android/configure-androidsdk',
-        'bfgsdk/android/upgrade-androidsdk',
-        'bfgsdk/android/sample-androidsdk',
-        'bfgsdk/android/release-androidsdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -202,11 +192,6 @@ export default {
       type: 'category',
       label: 'Native iOS SDK v8.5',
       items: [
-        'bfgsdk/ios/integrate-iossdk',
-        'bfgsdk/ios/configure-iossdk',
-        'bfgsdk/ios/upgrade-iossdk',
-        'bfgsdk/ios/sample-iossdk',
-        'bfgsdk/ios/release-iossdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -232,11 +217,6 @@ export default {
       type: 'category',
       label: 'Unity SDK v10.6',
       items: [
-        'bfgsdk/unity/integrate-unitysdk',
-        'bfgsdk/unity/configure-unitysdk',
-        'bfgsdk/unity/upgrade-unitysdk',
-        'bfgsdk/unity/sample-unitysdk',
-        'bfgsdk/unity/release-unitysdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -253,11 +233,6 @@ export default {
       type: 'category',
       label: 'Native Android SDK v8.6',
       items: [
-        'bfgsdk/android/integrate-androidsdk',
-        'bfgsdk/android/configure-androidsdk',
-        'bfgsdk/android/upgrade-androidsdk',
-        'bfgsdk/android/sample-androidsdk',
-        'bfgsdk/android/release-androidsdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -274,11 +249,6 @@ export default {
       type: 'category',
       label: 'Native iOS SDK v8.4',
       items: [
-        'bfgsdk/ios/integrate-iossdk',
-        'bfgsdk/ios/configure-iossdk',
-        'bfgsdk/ios/upgrade-iossdk',
-        'bfgsdk/ios/sample-iossdk',
-        'bfgsdk/ios/release-iossdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -304,11 +274,6 @@ export default {
       type: 'category',
       label: 'Unity SDK v10.5',
       items: [
-        'bfgsdk/unity/integrate-unitysdk',
-        'bfgsdk/unity/configure-unitysdk',
-        'bfgsdk/unity/upgrade-unitysdk',
-        'bfgsdk/unity/sample-unitysdk',
-        'bfgsdk/unity/release-unitysdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -325,11 +290,6 @@ export default {
       type: 'category',
       label: 'Native Android SDK v8.5',
       items: [
-        'bfgsdk/android/integrate-androidsdk',
-        'bfgsdk/android/configure-androidsdk',
-        'bfgsdk/android/upgrade-androidsdk',
-        'bfgsdk/android/sample-androidsdk',
-        'bfgsdk/android/release-androidsdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
@@ -346,11 +306,6 @@ export default {
       type: 'category',
       label: 'Native iOS SDK v8.3',
       items: [
-        'bfgsdk/ios/integrate-iossdk',
-        'bfgsdk/ios/configure-iossdk',
-        'bfgsdk/ios/upgrade-iossdk',
-        'bfgsdk/ios/sample-iossdk',
-        'bfgsdk/ios/release-iossdk',
         {
           type: 'category',
           label: 'SDK Class Reference',
