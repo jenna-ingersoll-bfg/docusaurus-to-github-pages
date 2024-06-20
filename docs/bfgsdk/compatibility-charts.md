@@ -1,3 +1,6 @@
+---
+displayed_sidebar: sdkSidebar_latest
+---
 # 3rd Party Version Updates
 
 <style> {` th, td { vertical-align: top; } `}</style>

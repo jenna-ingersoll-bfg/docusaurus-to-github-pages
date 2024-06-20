@@ -1,3 +1,6 @@
+---
+displayed_sidebar: sdkSidebar_latest
+---
 # Big Fish API Reference
 
 Welcome Developer! On this site, you will find the full API reference for the BFG SDKs.
