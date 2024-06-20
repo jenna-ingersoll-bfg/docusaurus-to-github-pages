@@ -4,7 +4,7 @@
 
 Keep track of every change to the Native iOS SDK. This changelog lists all additions and updates to the Native iOS SDK, in chronological order.
 
-**DOWNLOAD RELEASES**: Access to all releases including and after v8.3.0 are available on Big Fish's [GitHub release repo](https://github.com/bigfishgames-external/sdk-ios-releases/releases) :arrow-upper-right:.
+**DOWNLOAD RELEASES**: Access to all releases including and after v8.3.0 are available on Big Fish's [GitHub release repo](https://github.com/bigfishgames-external/sdk-ios-releases/releases) :arrow_upper_right:.
 
 <hr />
 
