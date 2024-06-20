@@ -58,5 +58,50 @@ Review the list of required user data types that you will need to disclose below
       <td>Is all of the user data collected by your app encrypted in transit? Learn about how you should answer.</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td rowspan="8">
+        <strong>Account Deletion</strong>
+        <p>Which of the following methods of account creation does your app support? Select all that apply</p>
+        <p>This includes accounts created entirely within your app, or by redirecting users to a webpage where they can create an account.</p>
+        <p>Usernames include user IDs, email addresses, and phone numbers. Authentication includes two-factor, one-time password, biometric, or single sign-on authentication.</p>
+      </td>
+      <td>Username and password</td>
+      <td>No</td>
+    </tr>
+    <tr> 
+      <td>Username and other authentication</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Username, password, and other authentication</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>OAuth</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Other</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>My app does not allow users to create an account</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Do you provide a way for users to request that some or all of their data can be deleted, without requiring them to delete their account? Providing this functionality gives users more control over their data. </td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>
+
+Add a link that users can use to request that their data be deleted. This link will be shown on your Google Play store listing, and should:
+
+- Refer to your app or developer name that is shown on your store listing.
+- Prominently feature the steps that users should take to request that their data be deleted.
+- Specify the types of data that are deleted or kept and any additional retention period.
+      </td>
+      <td>Big Fish Games will provide a link.</td>
+    </tr>
   </tbody>
 </table>
