@@ -1,5 +1,7 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
+# Security & Privacy Standards (SANDBOX TESTING PAGE)
+
 ## Google Data Safety Checklist
 
 This checklist is designed to assist game teams in answering the Google Play privacy and security questions within the data safety form on the App Content page in Play Console.
@@ -93,7 +95,8 @@ Review the list of required user data types that you will need to disclose below
       <td>No</td>
     </tr>
     <tr>
-      <td>Add a link that users can use to request that their data be deleted. This link will be shown on your Google Play store listing, and should:
+      <td>
+        <p>Add a link that users can use to request that their data be deleted. This link will be shown on your Google Play store listing, and should:</p>
         <ul>
           <li>Refer to your app or developer name that is shown on your store listing.</li>
           <li>Prominently feature the steps that users should take to request that their data be deleted.</li>
