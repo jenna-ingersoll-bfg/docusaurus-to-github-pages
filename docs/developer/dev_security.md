@@ -1,178 +1,233 @@
 # Security & Privacy Standards (SANDBOX TESTING PAGE)
 
-# Unity SDK Release Notes
+# Native Android SDK Release Notes
 
-Keep track of every change to the Unity SDK. This changelog lists all additions and updates to the Unity SDK, in chronological order.
+Keep track of every change to the Native Android SDK. This changelog lists all additions and updates to the Native Android SDK, in chronological order.
 
-**DOWNLOAD RELEASES**: Access to all releases including and after v10.5.0 are available on Big Fish's [GitHub release repo](https://github.com/bigfishgames-external/sdk-unity-releases/releases).
+**DOWNLOAD RELEASES**: Access to all releases including and after v8.5.0 are available on Big Fish's [GitHub release repo](https://github.com/bigfishgames-external/sdk-android-releases/releases).
 
-:::note 
+## 8.8.0 (May 21, 2024) 
 
-The Unity SDK wraps the Native Android and Native iOS SDKs. To complete your upgrade, ensure that you follow the upgrade steps for the Unity SDK in addition to the upgrade steps detailed for each of the Native BFG SDKs you are using in your project.
+- Updated Google Play Billing Library to v6.2.0.
+- Updated Crashlytics to v18.6.3.
+- Update Moshi to v1.14.0.
+- Updated Kotlin to v1.7.10.
+- Updated Gradle wrapper to v6.7.1.
+- Updated Rave to v4.2.7.
+- Fixed an MTS install event not being sent properly when first opening the app and closing the app without an internet connection
 
-:::
-
-## 10.8.1 (June 06, 2024) 
-
-- No updates were made to the Native Android SDK in this release.
-- Updated the Native iOS SDK to v8.6.1, which includes bug fixes.
-- Updated BigFishScenePack to resolve an unexpected error.
-
-**Upgrading to v10.8.1**
+**Upgrading to v8.8.0**
 
 <details>
-  <summary>Update BigFishScenePack (iOS only)</summary>
+  <summary>Update Gradle file</summary>
 
-1. Replace the BigFishScenePack.xcframework with the new version.
-2. Replace the BigFishScenePack.bundle with the new version.
+Update the Google Billing, Crashlytics, and Moshi versions in your project's gradle file, build.gradle:
+
+```
+implementation("com.android.billingclient:billing:6.2.0")
+implementation("com.google.firebase:firebase-crashlytics:18.6.3")
+implementation("com.squareup.moshi:moshi:1.14.0")
+```
+
+Additionally, update the version of Kotlin:
+
+```
+ext.kotlin_version = '1.7.10'
+```
+
+</details>
+
+<details>
+  <summary>Update Rave </summary>
+
+1. Download Rave v4.2.7 from Rave Android Release.
+2. Unpack the new version of Rave and replace all corresponding AARs in your project with the newest version.
 </details>
 
 <hr />
 
-## 10.8.0 (May 21, 2024) 
+## 8.7.0 (March 29, 2024) 
 
-- Updated the Native Android SDK to v8.8.0, which includes an update to Google Play Billing Library.
-- Updated the Native iOS SDK to v8.6.0, which includes updates to 3rd party libraries.
-- Updated Facebook Unity SDK for iOS to v17.0.1.
-- Fixed a Unity SDK application crash from Unity 2022.3.17 LTS+ due to a missing static method.
-- Fixed a bug where Success purchases generated exceptions.
-
-**Upgrading to v10.8.0**
-
-:::info
-
-If your xcworkspace file is not generated after a Unity iOS build, make sure you run the ``pod install`` command for the exported Xcode project.
-
-:::
-
-<details>
-  <summary>Update the Facebook SDK</summary>
-
-Update the value of ``facebookClientToken`` in the iOSBuildConfig.json file with the value found under **Settings > Advanced > Client Token** in the Facebook App Dashboard.
-
-Since the BFG SDK now uses the Facebook SDKs as pod dependencies, remove the following Facebook frameworks from the folder, com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic
-
-- FBAEMKit.xcframework
-- FBSDKCoreKit_Basics.xcframework
-- FBSDKCoreKit.xcframework
-- FBSDKLoginKit.xcframework
-- FBSDKShareKit.xcframework
-
-</details>
-
-<hr />
-
-## 10.7.1 (March 29, 2024) 
-
-- Updated the Native Android SDK to v8.7.0, which includes an update to the Rave SDK.
-- No updates were made to the Native iOS SDK in this release.
-- Updated the Firebase Unity SDK to v11.6.0 to support Android API 34.
-- **Android Billing**: Removed deprecated methods ``bfgPurchaseAndroid.startUsingService()`` and ``bfgPurchase.startService()`` as they are no longer required for initialization of the billing service. The method ``bfgPurchaseAndroid.setupService()`` should be used to initialize Android purchasing.
-- **Android Manifest**: A custom AndroidManifest.xml file can now be placed directly in the Assets/Plugins/Android folder without build errors and file deletion. The path to it can specified in the **Build Settings** option of the **BFG** menu in Unity.
-
-<hr />
-
-## 10.7.0 (March 22, 2024) 
-
-- No updates were made to the Native Android SDK in this release.
-- Updated the Native iOS SDK to v8.5.0, which includes the Privacy Manifest file.
-- **Firebase Analytics**: The Unity iOS SDK will automatically enable and disable the setting based on the user's GDPR selection.
-- **Unity Sample App**: Added the ``priceString`` field to the ``ProductInfo`` class of the APurchaseController file in the Unity Sample App to demonstrate the usage of localized price strings on iOS devices.
+- Updated Rave to v4.2.4. This requires the Android Minimum SDK to be updated from v21 to v23.
+- **Android Billing**: Removed deprecated method ``bfgPurchase.sharedInstance().startUsingService()`` as it is no longer required for initialization of the billing service.
 - Removed deprecation warnings from ``bfgGameReporting.logCustomEvent()`` methods. These methods are still the preferred way of sending custom events.
 
-**Upgrading to v10.7.0**
+**Upgrading to v8.7.0**
 
 <details>
-  <summary>Remove calls to Firebase Analytics</summary>
+  <summary>Update Rave</summary>
 
-Remove any manual calls to ``FirebaseAnalytics.SetAnalyticsCollectionEnabled(bool)`` within your Unity project. These calls are no longer needed because Firebase Analytics will automatically enable and disable the setting based on the user's GDPR selection.
+1. Replace Rave aar files in their folders (RaveFacebookPlugin.aar, RaveGooglePlugin.aar, RaveSocial.aar, RaveUtils.aar, and xmlScene.aar) with the updated v4.2.4 files.
+2. Rave v4.2.4 requires three additional library dependencies. Add the following in your project's gradle file, build.gradle.
+
+```
+dependencies {     
+  implementation 'androidx.security:security-crypto:1.0.0'
+  implementation 'androidx.work:work-runtime:2.8.1'
+  implementation 'com.android.volley:volley:1.2.1'
+}
+```
+
+3. In your project's manifest file, AndroidManifest.xml, override ``RaveUniversalActivity`` orientation by adding the following new activity within the application tag:
+
+```xml
+<activity android:name="co.ravesocial.sdk.RaveUniversalActivity" tools:replace="android:screenOrientation" android:screenOrientation = "user" />
+```
+
+4. In the config file, bfg_config.json, remove the following Rave keys if they are in use:
+
+```
+"RaveSettings.General.PhoneContactsUpdateInterval"
+"RaveSettings.Facebook.ContactsUpdateInterval"
+```
+
+5. Refer to the following links to ensure that all deprecated/removed settings are replaced:
+    - [Deprecated/Replaced Rave Settings](https://bf-docs.ravesocial.co/android-changelog.html#android-4-2-0-release) :arrow-upper-right:
+    - [Upgrading the Rave SDK](https://bf-docs.ravesocial.co/android.html#upgrading-the-rave-sdk) :arrow-upper-right:
+    - [Rave Available Settings](https://bf-docs.ravesocial.co/android.html#available-settings) :arrow-upper-right:
+
+:::info 
+
+You might have a manifest merge conflict when compiling your application due to Rave changing the resolution strategy ``android:allowBackup`` to false. This happens if you declared ``android:allowBackup="true"`` in the application tag of an AndroidManifest.xml and you have no resolution strategy is defined. For more information about handling merge manifests conflicts, visit [Manage manifest files | Android Studio | Android Developers](https://developer.android.com/build/manage-manifests) :arrow-upper-right:
+
+:::
 
 </details>
 
 <hr />
 
-## 10.6.1 (Feb 15, 2024) 
+## 8.6.1 (Feb 15, 2024) 
 
-- Updated the Native Android SDK to v8.6.1, which includes a fix for the standalone newsletter sign-up.
-- Updated the Native iOS SDK to v8.4.1, which includes a fix for the standalone newsletter sign-up.
-- Updated libraries to include bug fixes in iOS and Android.
+- Fixed a bug in the Standalone Newsletter sign-up flow. It was not functioning correctly due to the removal of a UI element in the Rave SDK code.
 
 <hr />
 
-## 10.6.0 (Jan 09, 2024) 
+## 8.6.0 (Jan 09, 2024) 
 
-- Updated the Native Android SDK to v8.6.0, which includes an update to the Facebook SDK.
-- Updated the Native iOS SDK to v8.4.0, which includes an update to the Zendesk SDK.
-- **Unity Update**: Updated to Unity v2022.3.10 LTS which includes an update to Gradle v7.1.2. Additionally, updated the Sample App to support the new version of Unity.
-- **UPM Integration**: Added the ability to integrate or upgrade the Unity SDK using the “Add package from tarball” Unity Package Manager option.
-- Added Newsletter Opt-In checkbox for all localities and text updates for the checkbox and policies.
-- [iOS] Updated to Zendesk v7.0 for chatbot support.
+- Updated the Facebook SDK to v16.2.0.
+- Added email marketing explicit opt-in with updated BF scene pack.
 
-**Upgrading to v10.6.0**
+**Upgrading to v8.6.0**
 
 <details>
-  <summary>Update to Unity v2022.3.10 LTS</summary>
+  <summary>Update Facebook SDK</summary>
 
-With the update to Unity v2022.3.10 LTS, the minimum requirements are now:
-- iOS v12
-- Java v11
-- Gradle v7.1.2
-- Android Studio Bumblebee v2021.1.1+
+1. Update the ``facebook-android-sdk`` version in the project's gradle file, build.gradle to 16.2.0:
 
-Update Gradle by setting the two new gradle files, baseProjectTemplate.gradle and settingsTemplate.gradle, in the **Android Player Settings**.
+```json
+dependencies {    
+  implementation 'com.facebook.android:facebook-android-sdk:16.2.0
+}
+```
+
+2. Add the Facebook Client Token to your app’s strings.xml and AndroidManifest.xml files in addition to the app-id that is already there. This is required by Facebook for v13 and above.
+
+3. Add ``facebook_app_id`` and ``facebook_client_token`` to your Strings.xml file:
+
+```xml
+<string name="facebook_app_id">[app-id]</string>
+<string name="facebook_client_token">[app-token]</string>
+```
+
+4. Add the string entries to the project's manifest file, AndroidManifest.xml:
+
+```xml
+<application android:label="@string/app_name" >
+  <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+  <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+</application>
+```
 
 </details>
 
 <details>
-  <summary>Update Unity Sample App</summary>
+  <summary>Update Email Marketing Explicit Opt-In</summary>
 
-Overwrite the modified files in your project’s /Assets/Plugins/Android/ folder with the files in the BfgUnitySdkSample-2022.3.10/Assets/Plugins/Android/ folder and re-apply any changes your team also made to those files. Additionally, add the two new gradle files as "Custom Base Gradle Template" and "Custom Gradle Settings Template" in the **Android Player Settings**.
+Simply ensure you are using the latest Scene pack.
 
-</details>
-
-<details>
-  <summary>Update for UPM Integration</summary>
-
-1. Download unity-sdk-10.6.0.tgz from Big Fish’s [GitHub release repo](https://github.com/bigfishgames-external/sdk-unity-releases/releases).  
-2. Extract the contents of the downloaded file, unity-sdk-10.6.0.tgz.
-3. Open the extracted contents and locate the file, unity-sdk-10.6.0-upm.tgz.
-4. Copy the file unity-sdk-10.6.0-upm.tgz to a location on your machine where you would like Unity to import it from.
-5. Open Unity and navigate to **Window > Package Manager**.
-6. In the **Package Manager** window, click the **+** button in the upper-left corner.
-7. Select **Add package from tarball** and select the Unity SDK tarball file you copied earlier. Unity will automatically re-import it and compile once selected.
-8. Navigate to your Packages list. You will see ``[BFG] SDK`` in your Packages list, pointing to the version you downloaded.
-
-</details>
-
-<details>
-  <summary>(iOS) Update Zendesk Version</summary>
-
-Remove the existing Zendesk xcframework files from your project and replace them with the frameworks found in/frameworks/ThirdParty/Zendesk/*. It's no longer necessary to strip architectures before submitting your game to the App Store.
-
-</details>
-
-<details>
-  <summary>(iOS) Update to support Newsletter Opt-In</summary>
-
-Update your /Frameworks/ThirdParty/RaveSocial.xcframework and /Frameworks/Resources/BigFishScenePack.bundle or the entire com.bfg.sdk package with the files from the release.
+A checkbox was added to accept marketing emails and the privacy policy text changed. Additionally, users based in the United States will see a birth year selection as a requirement while other regions will not see this requirement.
 
 </details>
 
 <hr />
 
-## 10.5.0 (Sept 26, 2023) 
+## 8.5.0 (Sept 26, 2023) 
 
-- Updated the Native Android SDK to v8.5.0, which adds support for Google Billing 6.
-- Updated the Native iOS SDK to v8.3.0, which includes minor updates to the iOS Sample App.
-- Updated Google Billing libraries to v6.0.1.
-- Hardened purchasing for null product properties in iOS.
+- Added a new method ``bfgManager.sharedInstance().isInitialLaunch()`` that returns true when the application has been launched for the first time ever, otherwise, it returns false.
+- Moved the Account Deletion SDK notification strings ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED`` and ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED`` from the BFG SDK internal class ``bfgRaveInternal`` to the public ``bfgRave`` class.
+- Updated the following 3rd party libraries:
+    - Android v14 (Target API v34)
+    - Facebook v16.0.1
+    - Google Billing v6.0.1
+    - Rave v3.9.14
 
-**Upgrading to v10.5.0**
+**Upgrading to v8.5.0**
 
 <details>
-  <summary>(Android) Update to Google Billing v6</summary>
+  <summary>Update Account Deletion notification strings</summary>
 
-To update Google Billing to v6.0.1, update the Google billing version in the mainTemplate.gradle file to 6.0.1:
+Replace the following Account Deletion notification IDs:
+
+```
+bfgRaveInternal.BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED
+bfgRaveInternal.BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED
+```
+
+with the following:
+
+```
+bfgRave.BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED
+bfgRave.BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED
+```
+
+</details>
+
+<details>
+  <summary>Update to Android v14</summary>
+
+The Android SDK now supports the target API v34. Update ``targetSdkVersion`` in the project's gradle file, build.gradle to 34:
+
+```json
+defaultConfig {
+  targetSdkVersion 34
+}
+```
+
+</details>
+
+<details>
+  <summary>Update Facebook</summary>
+
+1. Update the facebook-android-sdk version in the project's gradle file, build.gradle to 16.0.1:
+
+```json
+dependencies {    
+  implementation 'com.facebook.android:facebook-android-sdk:16.0.1
+}
+```
+
+2. Add ``facebook_app_id`` and ``facebook_client_token`` to your strings.xml file
+
+```xml
+<string name="facebook_app_id">[app-id]</string>
+<string name="facebook_client_token">[app-token]</string>
+```
+
+3. Add the string entries to the project's manifest file, AndroidManifest.xml:
+
+```xml
+<application android:label="@string/app_name">
+  <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+  <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+</application>
+```
+
+</details>
+
+<details>
+  <summary>Update Google Billing </summary>
+
+Update the billing client version in the project's gradle file, build.gradle to v6.0.1:
 
 ```json
 dependencies {    
@@ -182,46 +237,47 @@ dependencies {
 
 </details>
 
+<details>
+  <summary>Update Rave</summary>
+
+Copy the files from the release (in the AARs folder) and replace existing AARs files with the following new files:
+
+- RaveFacebookPlugin.aar
+- RaveSocial.aar
+- XMLScene.aar
+- RaveGooglePlugin.aar
+- RaveUtils.aar
+
+</details>
+
 <hr />
 
-## 10.4.0 (June 23, 2023) 
+## 8.4.0 (June 23, 2023) 
 
-- Updated the Native Android SDK to v8.4.0, which adds support for Google Billing 5.
-- Updated the Native iOS SDK to v8.2.0, which updates the Facebook SDK.
 - Updated Google Billing version to v5.0.0.
-- Updated the Unity iOS Facebook SDK to v11.2.1. Facebook Graph API v10 will be deprecated at the end of June 2023.
-- Added a new SDK component ``PersistentUnityMessageHandler``, which is used to receive Unity SDK notifications across all Unity scenes. Prior to this release, developers used the ``UnityMessageHandler`` component to every scene individually. 
-- Added ``DisableBitcode.cs`` post-build step to the Unity Sample App in response to Xcode 14 ending support for the ``BITCODE_ENABLED`` option.
-- Fixed a typo in the BFG SDK notification variable ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT``. This typo caused purchase data, including the purchase receipt, to not be passed into Unity observers of ``bfgCommon.NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT``. Refer to GooglePurchaseController.cs in the Unity Sample App for usage of ``NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT``.
+- Updated ``BFGUnityPlayerActivity`` to now implement ``IUnityPlayerLifecycleEvents``. Lifecycle events are now being passed to the Unity Player just as the standard `UnityPlayerActivity` does. Unity-classes.jar is also updated to include this change.
 
-**Upgrading to v10.4.0**
+**Upgrading to v8.4.0**
 
 <details>
-  <summary>Update Facebook Graph Version</summary>
+  <summary>Amazon Tester App testing for API 30+</summary>
 
-Facebook Graph API v10 will be deprecated at the end of June 2023.
+It was discovered that Amazon purchasing does not work on API 30 and above when using the Amazon Tester App. This can be fixed by modifying the AndroidManifest.xml file for your Amazon app. This does not apply to Amazon Live App Testing builds.
 
-1. Update the version used in any calls to the Facebook Graph API for your app.
-2. Update the version used in the Facebook dashboard under **Settings > Advanced > Update API Version**.
+In order to purchase using the Amazon Tester App for Amazon devices running API 30 or higher, you will need to add the following to your manifest file, at the root level of the file, under the manifest tag:
+
+```xml
+<queries>
+  <package android:name="com.amazon.sdktestclient" />
+</queries>
+```
 
 </details>
 
 <details>
-  <summary>Update to PersistentUnityMessageHandler</summary>
+  <summary>Update Google Billing</summary>
 
-To use the new ``PersistentUnityMessageHandler``:
-
-1. Remove all instances of the ``UnityMessageHandler`` component usage from all Unity scenes in your app.
-2. Inside your init/bootstrap scene, create a new ``GameObject`` and add the ``PersistentUnityMessageHandler`` component to it.
-
-The ``UnityMessageHandler`` component, which actually handles processing the notifications and calling your listeners in Unity, will automatically be added next to the ``PersistentUnityMessageHandler`` component in your GameObject.
-
-</details>
-
-<details>
-  <summary>(Android) Update to Google Billing v5</summary>
-
-To update Google Billing to v5.0.0, update the Google billing version in the mainTemplate.gradle file to 5.0.0:
+Update the billing client version in the project's gradle file, build.gradle to v5.0.0:
 
 ```json
 dependencies {    
@@ -231,111 +287,43 @@ dependencies {
 
 </details>
 
-<details>
-  <summary>(iOS) Update Facebook SDK</summary>
+<hr />
 
-To update the Facebook SDK for iOS targets:
+## 8.3.0 (Apr 6, 2023) 
 
-1. Remove the following frameworks from your project:
-    - FBSDKCoreKit.framework
-    - FBSDKLoginKit.framework
-    - FBSDKShareKit.framework
-2. Replace the removed frameworks with their xcframework files found in com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic.
-3. Add FBAEMKit.xcframework and FBSDKCoreKit_Basics.xcframework from the same directory.
-4. In the Unity Editor, navigate to **General > Frameworks & Libraries** and set each of the xcframeworks above to ‘Embed and sign’.
-
-</details>
+- Modified the Account Deletion Request Subject to remove a duplicate instance of the word ‘Account’.
+- Updated Android logic for generating the ``BFGUDID``.
+- Added debug output when a purchase fails because no test users are logged into the device.
 
 <hr />
 
-## 10.3.0 (Apr 6, 2023) 
+## 8.2.0 (Nov 23, 2022) 
 
-- Updated the Native Android SDK to v8.3.0, which includes minor bug fixes.
-- Updated the Native iOS SDK to v8.1.0, which includes updates to AppsFlyer, Zendesk, and the minimum iOS version.
-- [iOS] Updated the Sample App to disable bitcode for iOS in a Unity project. Apps submitted to the Apps Store as of April 2023 must be built in Xcode 14 with bitcode disabled. The updated sample project can be found in Samples/BfgUnitySdkSample-2021.3.9/Assets/Scripts/Editor/DisableBitcode.cs.
+- **Zendesk Update**: Updated Zendesk to v5.1.0. This update addresses crashes during ticket attachment and provides more context about required permissions when adding attachments to Zendesk tickets (a Google featuring requirement). It also supports Android 13 (API 33), which requires new granular media permissions for attaching images to Zendesk tickets.
+- Updated minimum Android SDK to v21 as a required part of the Zendesk v5.1.0 update.
+- Upgraded Gradle to v6.5.1 in support of Unity 2021.3.9f1 and Unity toolchain requirements.
+- Added support for the latest Android Studio versions Chipmunk and Dolphin.
+- Fixed a crash when attempting to make a purchase using a null ``productId``.
 
-**Upgrading to v10.3.0**
-
-<details>
-  <summary>(iOS) Update to Xcode 14</summary>
-
-Apps submitted to the Apps Store as of April 2023 must be built in Xcode 14 with bitcode disabled. After updating to Xcode 14, ensure you disable bitcode:
-
-1. In Xcode, open **Build Settings**.
-2. Search for ‘bitcode’ and set **Bitcode Enabled** to "NO" for your project and targets.
-
-This does not impact dependencies.
-
-</details>
+**Upgrading to v8.2.0**
 
 <details>
-  <summary>(iOS) Update AppsFlyer</summary>
+  <summary>Update Zendesk and minSDKVersion</summary>
 
-Remove AppsFlyerLib.xcframework from your project and replace it with the new version found in the framework/ThirdParty directory.
-
-The AppsFlyerLib.xcframework is found in com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic
-
-</details>
-
-<details>
-  <summary>(iOS) Update Zendesk</summary>
-
-1. Remove the reference to the strip-architectures script from your **Build Phases > Run Script** that points to the old Zendesk frameworks.
-2. Change the minimum SDK version to 11 under the **General** tab.
-3. Remove the following old Zendesk frameworks from your project:
-    - CommonUISDK.framework
-    - ZendeskCoreSDK.framework
-    - ZendeskProviderSDK.framework  
-    - ZendeskSDK.framework
-4. Add the following new xcframeworks from the distribution framework/ThirdParty/Zendesk directory to your project:
-    - CommonUISDK.xcframework
-    - MessagingAPI.xcframework
-    - MessagingSDK.xcframework
-    - SDKConfigurations.xcframework
-    - SupportProvidersSDK.xcframework
-    - SupportSDK.xcframework
-    - ZendeskCoreSDK.xcframework
-5. Go to **General > Frameworks & Libraries** to set each of the xcframeworks above to "Embed and sign".
-
-The Zendesk xcframework files are found in com.bfg.sdk/Runtime/Plugins/iOS/Extras~/XCFrameworks/Dynamic
-
-</details>
-
-<hr />
-
-## 10.2.0 (Nov 23, 2022) 
-
-- Updated the Native Android SDK to v8.2.0, which includes an update to Zendesk.
-- Updated the Native iOS SDK to v8.0.0, which includes minor bug fixes.
-- **Unity Sample App**: Updated the Big Fish Unity Sample to run on LTS Unity 2021.3.9f1. Older versions of the Unity sample app are removed.
-- Added LTS Unity 2021.3.9f1 support. LTS Unity can be downloaded from here using the Unity Hub install option.
-- (Android) Updated minimum Android SDK to v22. NOTE: If you’re updating to Unity 2021 then the minimum Android SDK is v22. If you are on Unity 2020 or earlier, the minimum Android SDK remains v21.
-- Updated the Unity SDK to encrypt the config file, bfg_config.json file during post-build. The file, bfg_config_encrypted is added to the exported project, and the SDK will load the encrypted config if available. The config file, bfg_config.json can be removed if desired for security reasons. If the encrypted file is removed, the SDK will fall back and use the plain text version instead.
-- Fixed a crash in the Unity SDK that occurs when attempting to purchase using a null ``productId``.
-- (Android) Added support for the latest Android Studio versions Chipmunk and Dolphin.
-- (Android) Built Native Android plugin with Gradle v6.5.1 to align more with the Unity toolchain requirements (unity 2021.3.9f1 requires min version 6.1.1).
-- (iOS) Updated Unity SDK hardware strings and device common names for the latest iOS devices.
-- (iOS) Investigated compatibility with newer Apple M1 chips. Due to 3rd party dependencies, apps built with Apple M1 chips need to disable bitcode.
-
-**Upgrading to v10.2.0**
-
-<details>
-  <summary>(Android) Upgrade Zendesk and minSdkVersion</summary>
-To update Zendesk and the minimum SDK version:
-
-1. Open the ProjectSettings.asset file through **Unity Player Settings**.
-2. Navigate to the “Other Settings” drop-down.
-3. Update the minimum SDK.API version to 22.
-4. Open the project manifest file, AndroidManifest.xml file and add the following code:
+1. Open your project's manifest file, AndroidManifest.xml and add the following code:
 
 ```xml
 <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 ```
 
-5. Open your mainTemplate.gradle file and add/update the following dependencies:
+2. Open your project's gradle file, build.gradle and add the following dependencies:
 
 ```json
+defaultConfig {
+  minSdkVersion 21
+}
+
 dependencies {
   implementation group: 'com.zendesk', name: 'support', version: '5.1.0'
   implementation 'com.zendesk.belvedere2:belvedere:3.0.5'
@@ -344,170 +332,127 @@ dependencies {
 
 </details>
 
-<details>
-  <summary>(Android) Resolve android:screenOrientation errors</summary>
-
-To resolve an error referring to android:screenOrientation when building your app:
-
-1. Open your project's launcher manifest file, LauncherManifest.xml.
-2. Find the ``<Activity>`` tag and add the following:
-
-```
-tools:replace="android:screenOrientation"
-```
-
-3. Open your project's gradle file, mainTemplate.gradle.
-4. Add the following line to the very bottom of your gradle file when using IL2CPP as your scripting backend:
-
-```
-**IL_CPP_BUILD_SETUP**
-```
-
-</details>
-
 <hr />
 
-## 10.1.0 (Aug 25, 2022) 
+## 8.1.0 (Aug 25, 2022) 
 
-- Updated Native Android SDK to v8.1.0, which adds support for Google Billing 4 and Android 13.
-- Updated Unity (iOS & Android) SDK Firebase Crashlytics and Analytics to version 9.3.0 to keep the SDK and game teams up-to-date with the latest changes and fixes.
-- Fixed the following warning when building an exported Unity-Android gradle project in Android Studio: “The option setting 'android.enableR8=false' is deprecated”.
-- Updated com.google.gms:google-services:4.3.0 to com.google.gms:google-services:4.3.2 in launcherTemplate.gradle to fix the following warning in Android Studio:
-
-```
-”WARNING: API 'variant.getMergeResources()' is obsolete and has been replaced with 'variant.getMergeResourcesProvider()'“.
-```
-
-- Added encryption of the bfg_config.json file during post build.
-
-**Upgrading to v10.1.0**
+- Updated the Google Play Billing library to v4.1
+- **Android 13 / API 33 Compatibility**: The Android target API level has been increased to 33, which is Android 13.
+- Made general improvements to our Billing API
+- Updated Firebase Crashlytics to 18.2.12 to keep the SDK and game teams up-to-date with the latest changes and fixes.
 
 <details>
-  <summary>Update Firebase Crashlytics and Analytics</summary>
-
-1. Remove all current Crashlytics and Analytics 7.0.1 folders from your Unity Project
-2. Remove all external-dependency-manager@1.2.162 folders from your Unity Project
-
-:::info
-
-external-dependency-manager@1.2.172 is required for the Crashlytics and Analytics updates and will be installed automatically when either the updated Crashlytics or Analytics 9.3.0 .unitypackage is installed.
-
-:::
-
-3. Download the [Crashlytics 9.3.0](https://dl.google.com/firebase/sdk/unity/dotnet4/FirebaseCrashlytics_9.3.0.unitypackage) unitypackage.
-4. Download the [Analytics 9.3.0(https://dl.google.com/firebase/sdk/unity/dotnet4/FirebaseAnalytics_9.3.0.unitypackage) unitypackage.
-5. Install Crashlytics and Analytics 9.3.0 into your Unity app using the **Assets > Import Package > Custom Package** menu.
+  <summary>Update Google Billing Library</summary>
 
 :::info 
 
-The Google Dependency Manager will try to resolve the installation. If it fails to do so or you experience issues, you can try forcing the resolution using the Unity menu: **Assets > External Dependency Manager > Android Resolver > Force Resolve**.
+The Google Play Console introduced a new, "Allow users to purchase more than 1 of this product in a single transaction" option for Google Billing 4, but the BFG SDK does not support it at this time. Ensure that the "Allow users to purchase more than 1 of this product in a single transaction" checkbox in Google Play Console is unchecked when creating or updating IAP SKUs for your apps.
 
 :::
 
-If you run into a CocoaPods compatibility error, you will need to update your Cocoapods to the version the error mentions before building.
-
-</details>
-
-<details>
-  <summary>(Android) Upgrade to Android 13 support</summary>
-
-Update the Target API Level value to 33 in your Unity Project in the **Android Player Settings**.
-
-</details>
-
-<details>
-  <summary>(Android) Fix API warning errors</summary>
-
-Update your project's gradle file, mainTemplate.gradle file with the following in order to resolve the warning: “WARNING: API 'variant.getMergeResources()' is obsolete and has been replaced with 'variant.getMergeResourcesProvider()' “.
+Update your app’s gradle file, build.gradle with the following changes:
 
 ```json
 dependencies {
-  classpath 'com.google.gms:google-services:4.3.2'
+  implementation 'com.android.billingclient:billing:4.1.0'
 }
 ```
 
 </details>
 
 <details>
-  <summary>Configure bfg_config.json encryption</summary>
+  <summary>Update Android target version</summary>
 
-The file bfg_config_encrypted is added to the exported project, and the SDK will load the encrypted config if available. The bfg_config.json can be removed if desired for security reasons. If the bfg_config_encrypted file is removed, the SDK will fall back and use the plain text bfg_config.json file.
+Update your app’s gradle file, build.gradle with the following changes:
+
+```json
+android {
+  compileSdkVersion 33
+    
+  defaultConfig {
+    targetSdkVersion 33
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>Update Firebase Crashlytics</summary>
+
+Update your app’s gradle file, build.gradle with the following changes:
+
+```json
+dependencies {
+  classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
+  implementation 'com.google.firebase:firebase-crashlytics:18.2.12'
+}
+```
 
 </details>
 
 <hr />
 
-## 10.0.0 (July 25, 2022) 
+## 8.0.0 (July 25, 2022) 
 
-- Updated the Native Android SDK to v8.0.0, which adds support for Android 12 / API 31.
-- Updated the Native iOS SDK to v7.7.2, which adds the ability to configure AppsFlyer via the bfg_config.json file.
-- Added Android 12 (API 31) support.
-- Added LTS Unity 2020.3.32f1 support.
-- Updated the Big Fish Unity Sample to run on LTS Unity 2020.3.32f1. The updated sample is now named BfgUnitySdkSample-2020.3.32.
+- **Android 12 / API 31 Compatibility**: The Android target API level has been increased to 31, which is Android 12.
+- **3rd Party Library Updates**: To support the upgrade to Android 12, the following 3rd party SDK updates are included in this release:
+    - Updated the Facebook library to 12.3.0
+    - Updated Rave SDK to 3.9.8
+    - Updated Kotlin library to 1.5.10
+    - Updated the Gradle distribution to 6.1.1-all
+    - Updated the Android Gradle plugin to 4.0.0
+    - Updated the Moshi CodeGen to 1.12.0
+- Corrected a rare condition that may distort MTS session length telemetry.
+- The method ``requestAccountDeletion()`` has been expanded to support non-authenticated accounts.
 - Added the ability to configure AppsFlyer dev key may now be configured from bfg_config.json.
-- Expanded ``bfgRave.sharedInstance().requestAccountDeletion()`` method to support deletion of non-authenticated (“guest”) Rave accounts.
-- Removed the ``FailedForAuth`` notification.
-- Removed BfgUnitySdkSample-2019.4-unsupported sample project. 
+- Expanded the ``bfgRave.sharedInstance().requestAccountDeletion()`` method to support deletion of non-authenticated (“guest”) Rave accounts.
+- Removed ``FailedForAuth`` notification.
 
-**Upgrading to v10.0.0**
-
-<details>
-  <summary>(Android) Update versionCode in Gradle file</summary>
-
-Update the ``versionCode`` in your build.gradle file to ``[10.0.0]``. If you fail to update the version code, you will receive the following error: 
-
-```
-Rave Socialization Error
-
-Required Rave Setting
-"ravesettings.general.serveurl" is not set
-```
-
-</details>
+**Upgrading to v8.8.0**
 
 <details>
-  <summary>(Android) Upgrade targetSDKVersion in Gradle file</summary>
+  <summary>Upgrade Target SDK Version</summary>
 
-Update the targetSdkVersion and compileSdkVersion to 31 in your project's gradle file, build.gradle as follows:
+Update the targetSdkVersion and compileSdkVersion to 31 in the project's gradle file, build.gradle as follows:
 
-```
+```json
 compileSdkVersion 31
 
 defaultConfig {
-  minSdkVersion 16
-  targetSdkVersion 31
+
+minSdkVersion 16
+targetSdkVersion 31
 }
 ```
 
 </details>
 
 <details>
-  <summary>(Android) Update 3rd Party Dependencies</summary>
-  
-Update the 3rd party dependencies in your project's gradle file and gradle properties file to fix an incompatibility with the current Facebook SDK version and Android 12.
+  <summary>Update 3rd Party Dependencies</summary>
 
-1. Make the following updates to the dependencies section of your project's gradle file, build.gradle:
+Update 3rd party dependencies to fix an incompatibility with the current Facebook SDK version and Android 12. Update the following values in your build.gradle and gradle-wrapper.properties files:
 
-```
+```json
 classpath 'com.android.tools.build:gradle:4.0.0'
 implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
 implementation 'com.squareup.moshi:moshi:1.12.0'
 ext.kotlin_version = '1.5.10'
+gradle-wrapper.properties
 ```
-
-2. Make the following updates to your gradle properties file, gradle-wrapper.properties:
 
 ```
 distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
 ```
 
-Note: If you compile in release mode and get the following error: [Invoke-customs are only supported starting with android 0 --min-api 26](https://stackoverflow.com/questions/49891730/invoke-customs-are-only-supported-starting-with-android-0-min-api-26), the cause is most likely due to the Kotlin update. This problem can be fixed by adding the following to your build.gradle file:
+Note: If you compile in release mode and get the following error: [Invoke-customs are only supported starting with android 0 --min-api 26](https://stackoverflow.com/questions/49891730/invoke-customs-are-only-supported-starting-with-android-0-min-api-26); the cause of the error is most likely due to the Kotlin update. This problem can be fixed by adding the following to your build.gradle file:
 
 ```json
 android {
   lintOptions {
     abortOnError false
   }
+  
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
@@ -520,16 +465,16 @@ android {
 <details>
   <summary>Update the Moshi plugin</summary>
 
-Updating the JSON plugin called Moshi is required. After upgrading your app, this update introduced an issue with how the SDK handles auto-loading and caching config files, specifically for Rave initialization.
+Update the JSON plugin called Moshi is required. After upgrading your app, this update introduced an issue with how the SDK handles auto-loading and caching config files, specifically for Rave initialization.
 
 Note: Fresh app installs do not have this issue.
 
 </details>
 
 <details>
-  <summary>(Android) Set android:exported values to "true"</summary>
+  <summary>Set android:exported values to "true"</summary>
 
-Set the ``android:exported="true/false"`` flag in all activity, service, and receiver tags to "true":
+Set ``android:exported="true/false"`` flag in all activity, service, and receiver tags.
 
 ```xml
 <activity
@@ -542,13 +487,12 @@ Set the ``android:exported="true/false"`` flag in all activity, service, and rec
     <action android:name="android.intent.action.MAIN" />
     <category android:name="android.intent.category.LAUNCHER" />
   </intent-filter>
-
 </activity>
 ```
 
 :::warning
 
-If you set the value to "false" in your main activity, your app will not launch. 
+If you set the value to false in your main activity, your app will not launch. 
 
 :::
 
@@ -563,200 +507,338 @@ If you are gating account deletion on users currently logged into a Rave-based a
 
 <hr />
 
-## 9.6.1 (June 8, 2022) 
+## 7.8.0 (May 13, 2022) 
 
-- Updated Native iOS SDK to v7.7.1, which contains an account deletion hot fix. To comply with Apple account deletion policy, ``requestAccountDeletion()`` has been expanded to handle unauthenticated (guest) accounts.
-- Removed the ``FailedForAuth`` notification, and any code that depends on this will no longer be called. We recommend that you either remove or re-write any required code that depends on the ``FailedForAuth`` notification being sent from iOS to Unity.
-
-<hr />
-
-## 9.6.0 (May 13, 2022) 
-
-- Updated Native Android SDK to v7.8.0, which removes the Cross Sell functionality from the BFG SDK.
-- Updated Native iOS SDK to v7.7.0, which removes the Cross Sell functionality from the BFG SDK.
-- Removed the Cross Sell button from the Unity Sample App. This completes the removal of all Cross Sell functionality. If you have any remaining Cross Sell Button logic or UI in your project, you will need to remove it.
-- Added Android functionality to access the user’s current Rave email address using ``bfgRave.currentRaveEmail()``.
+- Removed Cross Sell button from the BFG SDK. This completes the removal of all Cross Sell functionality. If you have any remaining Cross Sell Button logic or UI in your project, you will need to remove it.
+- Removed deprecated Android Date functionality to reduce warnings in the SDK output.
+- Moved BFG SDK ``UnitySendMessage`` call off the Android UI thread to reduce potential ANRs.
+- Fixed a Dark Mode Text Bug for the Zendesk age picker.
+- Added a new script ``printGitHash.sh``. This script prints the Android SDK's git hash that was last built against from the Terminal. This file will need to be distributed separately as it is in the SDK's tools folder which is stripped out of the released android .aar file we distribute to game teams through SVN.
+    - Example usage: ``./printGitHash.sh <path-to-android-sdk-aar>``
+- Added functionality to access the user’s current Rave email address if they’re logged into Rave and have email address sharing enabled using bfgRave.getCurrentEmail().
+- Added the ability to configure the AppsFlyer dev key via bfg_config.json. To do so, add ``“devkey” : “<your key>”`` to the appsflyer section of bfg_config. If no dev key is provided, the Big Fish dev key is used by default.
 
 <hr />
 
-## 9.5.0 (Feb 28, 2022) 
+## 7.7.0 (Feb 28, 2022)
 
-- Updated Native Android SDK to v7.7.0, which adds support for Account Deletion on Android mobile devices.
-- Updated Native iOS SDK to v7.6.0, which adds support for Promoted In-App Purchases and updates iOS AppsFlyer.
-- **Android Account Deletion**: Added a new wrapper method ``bfgRave.sharedInstance().requestAccountDeletion()``. This method will send a Zendesk support request including the current rave id to Customer Service for processing. One of the following ``NSNotifications`` will be received from this method: ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED`` or ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED``.
-- **iOS Promoted In-App Purchases**: Added two new wrapper methods to support promoted in-app purchases. Use ``bfgPurchase.hasDeferredPayments()`` to determine if there are Promoted In-App Purchases to queue and ``bfgPurchase.processDeferredPayments()`` to process queued Promoted In-App Purchases.
-
-<hr />
-
-## 9.4.1 (Jan 4, 2022) 
-
-This release adds support for iOS Account Deletion on iOS mobile devices to support privacy requirements effective June 30th, 2022. An Android version will come in a future release as it is not a requirement by the Google Play Store (yet).
-
-This release contains the following changes:
-
-- Updated Native iOS SDK to v7.5.1, which adds support for Account Deletion on iOS mobile devices.
-- **iOS Account Deletion**: Added new wrapper method ``bfgRave.requestAccountDeletion()``. This method will send a Zendesk support request including the current rave id to Customer Service for processing. One of the following ``NSNotifications`` will be received from this method: ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED`` or ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED``.
+- **Account Deletion**: Added a new wrapper method ``bfgRave.sharedInstance().requestAccountDeletion()``. This method will send a Zendesk support request including the current rave id to Customer Service for processing. One of the following ``NSNotifications`` will be received from this method: ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_SUCCEEDED`` or ``BFG_RAVE_ACCOUNT_DELETION_REQUEST_FAILED``.
+- Updated the Rave SDK to v3.9.8.
+- Removed nearly all of the remaining semaphores in the Android Unity wrapper code to prevent future ANR concerns.
+- Fixed several UI display issues.
+- Fixed a crash involving the age date picker when creating a SUSI account on Android API 30+.
+- Handled an ‘out of memory’ exception that can be thrown in RaveSocial.getCurrentUser.
 
 <hr />
 
-## 9.4.0 (Nov 18, 2021) 
+## 7.6.0 (Nov 18, 2021) 
 
-- Updated Native Android SDK to v7.6.0, which addresses the JCenter deprecation.
-- Updated Native iOS SDK to v7.5.0, which fixes a display issue in Zendesk.
-- (Android) Fixed the method ``bfgPurchaseAndroid.finishPurchase()`` to correctly be called for non-consumables on purchase completion.
-- (Android) Removed the "Re Enable Non-Consumable" button and command from the sample application because no automatic mechanism for this exists on Google's end. If you need to re-enable a non-consumable purchase:
-    - Make the purchase of the non-consumable product, change it to a consumable product, refund it through the Google Play Console, then finally change it back to a non-consumable product.
-- (Android) Added missing SDK localization for DE, NL, JA, KR, ES, FR, PT-BR, ZH-CN, ZH-TW, RU, and IT.
-- (Android) Added missing Google and Amazon purchasing event handlers to the Sample App.
+- **JCenter Deprecation**: Migrated third-party SDKs to mavenCentral() repository from JCenter. As of February 1, 2022, JCenter will be deprecated and made read-only.
+- Updated the AppsFlyer library to v6.4.2 in order to stay up to date with security fixes.
+- Updated the Google Play Billing library to v3.0.3 to correct an issue where Google sometimes did not continue processing a purchase that was canceled before it was finished by upgrading to Google Play Billing library v3.0.3.
+- Rewrote the method ``bfgPurchaseGoogle.postCurrentInventory()`` to fix a crash and return a json string of all purchased non-consumable items. Prior to v7.3.0, this method returned a list of all available non-consumable items. If you use this method, switch to using ``GetProductInfo()`` for retrieving available sku data.
+    - To prevent the API from breaking, the method ``bfgPurchaseGoogle.postCurrentInventory()`` will always return true, even if an internet connection is unavailable. 
+    - The Google Play Billing library was changed in 3.x to cache the last-pulled inventory and to update when the internet connection is restored. The purchased non-consumables will be sent in the ``NOTIFICATION_POST_CURRENT_INVENTORY_SUCCEEDED`` payload (as they were previously).
+
+**Upgrading to v7.6.0**
+
+<details>
+  <summary>Remove references to JCenter</summary>
+
+In this release, we migrated the third-party SDKs to ``mavenCentral()`` repository from JCenter. Replace any references to ``jcenter()`` within the "repositories" section(s) with ``mavenCentral()`` as follows:
+
+```
+repositories {
+  // Replaces jcenter()
+  mavenCentral()
+}
+```
+
+</details>
+
+<details>
+  <summary>Update Google Billing libraries</summary>
+
+In this release, we updated the Google Play Billing library to v3.0.3. Update your build.gradle file as follows:
+
+```json
+dependencies {
+  implementation 'com.android.billingclient:billing:3.0.3'
+}
+```
+
+</details>
+
+<details>
+  <summary>Update AppsFlyer</summary>
+
+In this release, we updated the AppsFlyer library to 6.4.2 in order to stay up to date with security fixes. Update your app’s build.gradle ``com.appsflyer:af-android-sdk`` entry to 6.4.2 and ``com.android.installreferrer:installreferrer`` to 2.2 as follows:
+
+```json
+dependencies {
+  implementation 'com.appsflyer:af-android-sdk:6.4.2'
+  implementation 'com.android.installreferrer:installreferrer:2.2'
+}
+```
+
+</details>
 
 <hr />
 
-## 9.3.2 (Oct 25, 2021) 
+## 7.5.2 (Oct 27, 2021) 
 
-This release updates the Native Android SDK to v7.5.1, which addresses missing localization strings.
+This release fixed notifications and reporting for non-consumable products. All changes do not impact games that only use consumable products.
+
+The following bugs were identified and resolved:
+
+- Multiple ``NOTIFICATION_PURCHASE_SUCCEEDED`` and ``NOTIFICATION_PURCHASE_SUCCEEDED_WITH_RECEIPT`` notifications were sometimes sent for the same purchase of a non-consumable product
+- Multiple MTS messages were sometimes sent for the same purchase of a non-consumable product
+- The ``NOTIFICATION_RESTORE_SUCCEEDED`` notification wasn't sent for non-consumable purchases in response to the ``restorePurchase`` method call. Both ``NOTIFICATION_RESTORE_COMPLETED`` and ``NOTIFICATION_RESTORE_SUCCEEDED`` are now sent when calling ``restorePurchase``.
+- In addition, the Sample App has been updated to support receipt of both ``restorePurchase`` notifications, (``NOTIFICATION_RESTORE_COMPLETED`` and ``NOTIFICATION_RESTORE_SUCCEEDED``) and now displays a toast containing a list of restored products, if any, on launch.
 
 <hr />
 
-## 9.3.1 (Oct 19, 2021) 
+## 7.5.1 (Oct 25, 2021) 
 
-- (Android) Fixed a bug in v9.3.0, where MTS incorrectly reported the BFG Android SDK build version
+This minor release addresses missing strings that could have prevented Google Featuring for several games. The missing and/or incomplete localizations that Google cited were Korean and Chinese (Simplified and Traditional); however, to be proactive, we moved forward with a complete localization effort across all supported languages.
 
-:::warning 
+The localization languages supported by the SDK as of this release are:
 
-If you upgraded to v9.3.0, you are required to upgrade to v9.3.1. To do so, simply replace your Android .aar with the 9.3.1 .aar to get the version number update. 
+- EN
+- DE
+- NL
+- JA
+- KR
+- ES
+- FR
+- PT-BR
+- CN-ZH (Simplified Chinese)
+- ZH-TW (Traditional Chinese)
+- RU
+- IT
+
+<hr />
+
+## 7.5.0 (Oct 14, 2021) 
+
+- **Android 11 / API 30 Compatibility**: The Android target API level has been increased to 30, which is Android 11.
+- Removed the Age Gate feature from the library and sample app. This feature is no longer in use by any of our games, and is not expected to be used moving forward.
+- Added new permission to the manifest - ``com.google.android.gms.permission.AD_ID`` - to make it compatible with Android 12 future updates. 
+
+**Upgrading to v7.5.0**
+
+<details>
+  <summary>Upgrade Android Studio</summary>
+
+In order to develop on Android 11 / API 30, you must upgrade Android Studio to v2020.3 or higher. This upgrade includes updates to both Kotlin (203.1.x) and Java (11.0.x).
+
+:::info 
+
+A change in Android Studio’s versioning scheme occurred during with their latest release; for more information, see the https://developer.android.com/studio/releases#new-version-numbering.
 
 :::
 
-<hr />
-
-## 9.3.0 (Oct 14, 2021) 
-
-This version adds compatibility to [Android 11/API 30](https://developer.android.com/distribute/play-policies#APILevel30). Games will need to be compatible with Android 11 / API 30 starting November 1, 2021 if you want to be able to post updates to Google Play Store moving forward. 
-
-This release includes the following changes:
-
-- Updated Native Android SDK to v7.5.0, which adds Android 11 / API 30 compatibility.
-- Updated Native iOS SDK to v7.4.0, which adds iOS 15 compatibility.
-- **Android 11 / API 30 compatibility check**: The Unity SDK is compatible with Android 11 / API 30.
-- **iOS 15 compatibility check**: The Unity SDK is compatible with iOS version 15.
-- (iOS) The "bfgsdkunity" URI scheme is no longer erroneously included in the built Xcode project's Info.plist for external teams when using the SDK post-process build system.
-- Removed all references to the Age Gate functionality as it has been deprecated.
+</details>
 
 <hr />
 
-## 9.2.1 (Sept 29, 2021) 
+## 7.4.0 (Sept 24, 2021) 
 
-(Android) Fixed a bug in v9.2.0, where MTS incorrectly reported the BFG Android SDK build version.
+:::warning
 
-:::warning 
+Reporting of non-consumable products is broken in Android SDK v7.4 due to a change in Android's minimum requirements. If your game uses non-consumable products, do not use this version. You must upgrade to Android SDK v7.5 or later in order to support Android 11 / API 30.
 
-If you upgraded to v9.2.0, you are required to upgrade to v9.2.1. To do so, simply replace your Android .aar with the 9.2.1 .aar to get the version number update. 
+::::
+
+- Updated the AppsFlyer deep link handler to share the "deep_link_value" string from appsflyer if no ``af_dp`` value is set.
+- Removed multiple semaphores from methods in bfgPurchaseUnityWrapper.java to prevent a threadlock ANR when multiple threads attempt to interact with the Unity thread.
+- Removed the semaphore on ``bfgUtilsUnityWrapper.BfgUDID()`` to prevent a threadlock ANR when multiple threads are interacting with the object.
+- Increased the logging level on MTS server errors to assist developers with debugging event reporting.
+- Added documentation for the max size of ``logCustomEvent()``. This has been a long-standing limit and is not new functionality.
+- Fixed an issue for Zendesk where UI was unreadable in dark mode.
+
+<hr />
+
+## 7.3.0 (Aug 24, 2021) 
+
+- **Google Play Billing**: The in-app billing system has been updated to replace the obsolete AIDL-based Google purchase system with Google's new Google Play Billing system.
+- **Firebase Upgrade**: Firebase support remains at version, V7.0.1, but has been reconfigured to remain in parity with Firebase no longer supporting UPM.
+- **Amazon Device Manager (ADM) Upgrade**: The Amazon Device Manager has been upgraded to v1.1 to fix a crash and support Amazon devices running Fire OS7.
+- **API Update**: The method signature ``setCustomValue(key, value)`` has been renamed to ``setCustomData``. This method replaces the ``setBoolean``, ``setDouble``, ``setFloat``, ``setInt``, and ``setString`` methods of ``bfgCrashlytics`` in the Native Android SDK and will allow users to pass different data types into Crashlytics using a single method.
+
+Several minor changes have been incorporated into this release that do not expose changes to games beyond possible changes to the game's Gradle file:
+
+- Updated all uses of bfgAssert.nullParameter within the SDK to provide better logging if the SDK is called improperly from a game.
+- Removed all warning and supporting code for default products in in-app billing. No games are using this unsupported feature.
+- Updated library dependencies for Gradle in the Android Sample App to match new SDK requirements.
+- Removed support for non-default Notification Channels. No games are using this feature extension or intend to do so in the foreseeable future.
+- Deprecated the ``bfgPlacements.setSuppressPlacement`` function. Use the ``bfgreporting.bfgGameReporting.setSuppressPlacement`` function instead.
+- Fixed an application crash that occurs when there is a missing AppsFlyer end date in the Mobile Admin Dashboard.
+
+**Upgrading to v7.3.0**
+
+<details>
+  <summary>Update Firebase signing certificate</summary>
+
+The Firebase library requires creating/updating the [SHA-1 fingerprint of the signing certificate](https://firebase.google.com/support/guides/launch-checklist) :arrow-upper-right: for the Android platform. The SHA-1 fingerprint can be created by [following these steps](https://developers.google.com/android/guides/client-auth#using_play_app_signing) :arrow-upper-right:. Once created, add the fingerprint to your Firebase project by [following these steps](https://support.google.com/firebase/answer/9137403?hl=en#:~:text=In%20your%20Project%20settings%2C%20go,SHA%20fingerprint%2C%20then%20click%20Save) :arrow-upper-right:.
+
+If you already have a SHA-1 fingerprint, Google recommends deleting it and following the steps above.
+
+</details>
+
+<details>
+  <summary>Update Amazon Device Manager (ADM) Updates</summary>
+
+:::info
+
+The following ADM changes fix a crash that occurs in newer Amazon devices running Fire OS 7.
 
 :::
 
-<hr />
+The Amazon Device Manager has been upgraded to v1.1 to fix a crash and support Amazon devices running Fire OS7. To support this update, follow these steps:
 
-## 9.2.0 (Sept 24, 2021) 
+1. From your build.gradle file, remove
 
-- Updated Native Android SDK to v7.4.0, which includes minor bug fixes.
-- Updated Native iOS SDK to v7.3.0, which includes minor bug fixes.
-- Deprecated BfgUnitySdkSample-2019.4 and renamed to BfgUnitySdkSample-2019.4-unsupported.
-- Removed BfgUnitySdkSample-2019.2 which will no longer be supported.
-- Added BfgUnitySdkSample-2020.3 built off of Unity 2020.3.3f1 LTS. Using Unity 2020+ will require you to set iOS 11 as the minimum iOS version within Unity "Player Settings".
+```
+compileOnly files('libs/amazon-device-messaging-1.0.1.jar')
+```
 
-<hr />
+2. Remove amazon-device-messaging-1.0.1.jar from your Android project files. This file is no longer needed to support ADM.
+3. Update AndroidManifest.xml to implement a correction identified by Amazon in their previously required settings for push notification handling in apps that target Amazon devices. This change can be safely included in both Amazon and Google manifests.
 
-## 9.1.0 (Aug 24, 2021) 
+```xml
+<application>
+  <activity>
+    <service android:name="com.bigfishgames.bfglib.bfgPush.bfgADMMessageHandler"
+      android:permission="android.permission.BIND_JOB_SERVICE"
+      android:exported="false" />
+    <service android:name="com.bigfishgames.bfglib.bfgPush.bfgLegacyADMMessageHandler"
+      android:exported="false" />
+  </activity>
+</application>
+```
 
-- Updated Native Android SDK to v7.3.0, which includes required updates to Android billing.
-- Updated Native iOS SDK to v7.2.5, which includes minor bug fixes.
-- Adds the ``GetAllAuthSources`` API to ``BfgRaveUtilities`` to retrieve auth types a user is signed in with.
+</details>
 
-<hr />
+<details>
+  <summary>Update 3rd party dependencies</summary>
 
-## 9.0.2 (May 24, 2021) 
+A number of 3rd party libraries and dependencies were recently added, updated and/or removed. Ensure that these library versions have been updated in the dependencies section of your build.gradle file:
 
-- Updated Native iOS SDK to v7.2.4. This includes a change to how games retrieve Facebook permissions in Limited Login and Classic modes.
-- Updated Facebook SDK to v9.2.0. This update supports additional social permissions in limited login mode.
-- Updated Rave SDK to version 3.9.11
-- Updated AppsFlyer SDK to version 6.2.6
-- (Sample app only) Removes calls to set Facebook read permissions after the ATT dialog is dismissed
-- Adds the ability to retrieve app-associated Facebook friends, if the user is authenticated through Facebook, using the new asynchronous method ``bfgRave getAppAssociatedFacebookFriends``. 
+```json
+dependencies {
+  // Required for updates to Google Billing in BFG Android SDK v7.3.0
+  implementation 'com.android.billingclient:billing:3.0.0'
+  
+  // Updated in BFG Android SDK v7.1.6/v7.1.7
+  implementation 'com.appsflyer:af-android-sdk:6.2.3'
+  implementation 'com.android.installreferrer:installreferrer:2.1'
+  implementation 'com.facebook.android:facebook-android-sdk:8.2.0' 
+  implementation 'com.birbit:android-priority-jobqueue:2.0.1'
+  implementation 'com.google.android.gms:play-services-auth:18.1.0'
+  implementation 'com.google.android.gms:play-services-plus:17.0.0
+}
+```
 
-<hr />
+This dependency is no longer required and can safely be removed from your build.gradle file:
 
-## 9.0.1 (Apr 29, 2021) 
+```
+'com.google.android.gms:play-services-identity:15.0.0'
+```
 
-This release modifies ``bfgutils::attStatus`` to return the status for all iOS versions again. This is needed to properly set the FB login mode on iOS versions 14.0 through 14.4.
+</details>
 
-- Updated the Native iOS SDK to v7.2.3.
+<details>
+  <summary>Remove instances of consumePurchase method</summary>
 
-**Known Issues**
+The changes to Android purchasing in v7.3 require no changes in the game code. Note, however, that the ``consumePurchase`` method, previously used to consume a consumable product before finishing the purchase flow, is no longer needed and all instances of this method should be removed.
 
-Our Sample code currently does not handle two edge case scenarios, though these could be handled fairly easily at the game implementation level if needed:
+If you keep the ``consumePurchase`` method in your code, it will behave as follows:
 
-- On iOS 14.0 to 14.4, since ATT is not displayed, toggling the global ATT setting does not cause a cold start for the application. Because of this, if a game uses the sample code we have in our Sample apps or in the developer docs, the Facebook login mode is not updated immediately (i.e., when the app is warm started after the ATT tracking setting has changed). It will be updated appropriately on the next cold start. This can be handled by checking the ATT status on every warm start.
-- On iOS 14.0 to 14.4, a user may globally disable the ATT tracking, which will cause the app to be set to limited login mode. If the user then re-enables tracking globally, there is currently no sample code for the app to re-enable classic login mode. We cannot reenable classic mode without prompting the user for ATT, so it is not advised to switch back to classic mode. This can be handled by the app by checking for iOS 14.0 to 14.4 on every warm or cold start, and switching the login mode back to classic.
+- When used with a product that was defined using bfgPurchase's ``defineConsumableSKUs`` method, it has no effect.
+- If used with a product that was not properly defined using bfgPurchase's ``defineConsumableSKUs`` method, it adds the product SKU to the list of consumable SKUs. If one is pending, it consumes the purchase and it then has no further effect for the same product SKU.
 
-<hr />
-
-## 9.0.0 (Apr 27, 2021) 
-
-Apple released information on April 20th, Upcoming App Tracking Transparency requirements, which states that iOS 14.5 will become the first version where App Tracking Transparency is enforced.
-
-This hotfix includes the following changes to account for this update:
-
-- Disables ATT consent calls for iOS 14.0 - iOS 14.4 (ATT dialog cannot be displayed)
-- Add a new method to check whether or not the ATT dialog should be displayed: ``bfgManager::attMeetsSystemRequirements``. This will only return true for iOS 14.5 and higher versions.
-- Modified ``attSelectionRequired`` and ``requestTrackingAuthorization`` to use this new method.
-- Modified ``bfgutils::attStatus`` to use this new method (but this was quickly ‘undone’ in 7.2.3 (see change list above for 7.2.3)
-- This also changes MTS events so that the ``appTrackingTransparencyStatus`` flag will not be included for iOS versions 14.0 to 14.4 (and it is still not included in iOS 13 and lower - though this is not new to 7.2.2).
-- Removes AppsFlyer call for ``waitForATTUserAuthorization`` (timeout for starting AF) when ATT consent dialog is not shown (this fix applies to games on earlier versions of iOS14)). The game could still add this call themselves however.
-
-**Unity Note**
-
-This was the first release where we moved the Unity SDK to be on a new versioning line of its own. Unity is now version 9.0.0, which includes the Native iOS SDK v7.2.2 and Native Android SDK v7.1.5.
-
-<hr />
-
-## 7.2.1 (Apr 7, 2021) 
-
-- Updated the AppsFlyer SDK to 6.2.4. This includes fixes for SKAdNetwork.
-- Updated the Facebook SDK to 9.0.1 and includes Limited Login
-- Updated the Rave SDK to 3.9.10-402, which includes support for Limited Login and a fix for SIWA login. Note: the BigFishScenePack.bundle was updated and must be updated by all games.
-- Update Zendesk to send iOS 9 users to a non-javascript web portal
-- Update Zendesk to handle sending users to the correct localized Zendesk site, or default to English for non-supported languages, on a game by game basis.
-- Expose a new API for sending custom events to AppsFlyer (support for SKAdNetwork)
-- Updated Crashlytics on Unity builds to include the Unity version for fatal and non-fatal events (key: “UnityVersion”)
-- Fixed an issue with ``bfgResourcesUniversal`` targeting the iPhoneSimulator platform, which was causing build issues in Unity
-- Added an optional ‘game controlled AppsFlyer startup’ mode that is intended to be used only by games that are not displaying the ATT dialog
-- Fixed high severity issue in deserializing MTS events for older versions of the SDK.  
+</details>
 
 <hr />
 
-## 7.2.0 (Jan 21, 2021) 
+## 7.1.7 (July 25, 2021) 
 
-- Unity SDK now delivered as a Unity Package for ease of integration
-- ATT framework APIs exposed via new SDK methods, wrapped for Unity developers
-- ATT status now included in MTS device info payload
-- Minimum iOS version support is now 10
-- Firebase Crashlytics (7.0.1) and Analytics (7.0.1) are now included using the official Unity SDKs rather than embedding in the native layers
-- Updated 3rd Party SDKs
-    - AppsFlyer SDK updated to version 6.0.3
-    - Facebook SDK updated to version 8.2
-    - Rave SDK updated to version 3.9.8-399
-    - Zendesk SDK updated to version 4.0.1
+- **Facebook SDK Update to v 8.2.0**: Due to security issues involving Facebook login authentication through embedded browsers on Android devices, beginning in August 2021, Facebook will no longer allow login through embedded browsers on Facebook SDK versions less than 8.2.0. To resolve this issue, the Native BFG SDK has updated the Facebook SDK to version 8.2.0. For Facebook login authentication via Rave, this will require updating the ``implementation ('com.facebook.android:facebook-android-sdk:x.x.x')`` entry to 8.2.0 in your game's gradle build file, as well as updating your bfgLib-release.aar file with the version in this release. If your team uses the Facebook SDK directly for other purposes (such as GraphAPI v8.0 calls) to retrieve friend lists, you will need to test to make sure this functionality still works correctly.
 
 <hr />
 
-## 7.1.1 (Aug 2020) 
+## 7.1.6 (June 25, 2021) 
 
-- Fixed high severity issue in deserializing MTS events for older versions of the SDK.  
+- **AppsFlyer SDK Update to v6.2.3**: This addresses an issue where v4.11 does not properly reporting launch events, causing some AppsFlyer reporting to be lost. This was especially critical when purchase events were not reported properly. This release provides support for AppsFlyer 6.2.3 to address this problem and provide support for current AppsFlyer versions.
+
+<hr />
+
+## 7.1.5 (Dec 2020) 
+
+This release addresses a crash that is unique to EverMerge while retrieving a Firebase push token.
+
+<hr />
+
+## 7.1.4 (Nov 2020) 
+
+The SDK now includes the name value in all custom events logged by games. This addresses an issue in custom events where Android clients were no longer sending custom events which conformed to their requirements due to a missing field, name. This bug in the ``logCustomEvent`` method was introduced in v7.0.
+
+<hr />
+
+## 7.1.3 (Nov 2020) 
+
+- Made some minor modifications to bfgCrashlytics:
+    - Updated the SDK internal logging (bfgLog) that flows into bfgCrashlytics to occur in both debug and release builds, instead of only release.
+    - Added bfgCrashlytics ``getInstance()`` and deprecated ``sharedInstance()`` - this was basically just a name change.
+- Updated misc external libraries to newer versions including: google-services, firebase-crashlytics-gradle, firebase-analytics, firebase-messaging, mockito-core
+- Fix a bug for Newsletter Signup
+
+<hr />
+
+## 7.1.2 (Sept 2020) 
+
+- Updated Android SDK to avoid ANR in ``bfgSettings`` code
+
+<hr />
+
+## 7.1.1 (Sept 2020) 
+
+- Updated Android SDK to avoid NPE in Zendesk error scenario
 
 <hr />
 
 ## 7.1.0 (July 2020) 
 
-- Updated Zendesk SDK to version 5.0 (iOS) and 3.0.2 (Android). This update to Zendesk removes the UIWebView which was present in their SDK.
+- Updated Zendesk SDK to v3.0.2 (Android). This update removes the UIWebView from the SDK and underlying code.
 - PromoCode (aka redemption service) support is now included in the SDK. 
-- Added support for developers who integrate Firebase Analytics.
+- Added support for developers who integrate Firebase Analytics
+
+<hr />
+
+## 7.0.0 (Mar 2020) 
+
+:::warning 
+
+**IMPORTANT KNOWN ISSUE**: [28-May-2020] There is a known issue where crashes are sometimes not reported properly to the Firebase Crashlytics console. Although this works properly in almost all cases, there are known instances where a crash doesn't get reported, especially for forced crashes. If guaranteed crash reporting is important to your game, you should strongly consider upgrading to the v7.1 release.
+
+:::
+
+This release includes the following changes:
+
+- **New, unified config file**: Support for bfg_first_launch_settings.json and bfg_upgrade_settings.json have been removed and their functionality has been replaced with the bfg_config.json file.
+- **Logical modularity**: SDK dependencies are required, but feature integration and configuration is optional.
+- **Deprecated code removed**: Several deprecated features were removed and are no longer supported:
+    - Corner Cross Sell button and its related classes (replaced by Cross Sell Button)
+    - TUNE
+    - Kontagent
+    - bfgGameReporting.setDeferredDeepLinkDelegate
+    - All Premium mobile game supporting features
+    - bfgReachability
+    - bfgDownload and its related classes
+
+**Deprecation of existing code**
+
+``com.bigfishgames.bfglib.bfgRating`` is deprecated and will be removed in 7.1
+
+``com.bigfishgames.bfglib.bfgBrandingViewController`` and related Branding functionality is deprecated and will be removed in the future
