@@ -100,6 +100,7 @@ Add a link that users can use to request that their data be deleted. This link w
 - Refer to your app or developer name that is shown on your store listing.
 - Prominently feature the steps that users should take to request that their data be deleted.
 - Specify the types of data that are deleted or kept and any additional retention period.
+
       </td>
       <td>Big Fish Games will provide a link.</td>
     </tr>
