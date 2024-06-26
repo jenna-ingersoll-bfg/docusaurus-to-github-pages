@@ -139,7 +139,7 @@ The BFG SDK configuration file, bfg_config.json, provides the basic settings tha
   - Google: /Assets/Plugins/Android/Google/post-copy/launcher/src/main/res/raw/bfg_config.json
   - Amazon: /Assets/Plugins/Android/Amazon/post-copy/launcher/src/main/res/raw/bfg_config.json
 
-To learn about the settings and configuration options in bfg_config.json, see the Android section of [Configure the BFG SDK](./configure-unitysdk#android).
+To learn about the settings and configuration options in bfg_config.json, see [Configure the BFG SDK](./configure-unitysdk).
 </details>
 
 <details>
@@ -180,7 +180,7 @@ buildscript {
 }
 ```
 
-3. Verify that your dependencies section has all the necessary dependencies for the SDK, as well as the regular Unity dependencies. Note that the below sample code may not be a comprehensive list of all dependencies required for your project. 
+3. Verify that your dependencies section has all the necessary dependencies for the BFG SDK, as well as the regular Unity dependencies. Note that the below sample code may not be a comprehensive list of all dependencies required for your project. 
 
 ```
 dependencies {
@@ -322,7 +322,7 @@ The BFG SDK config file, bfg_config.json, provides the basic settings that will 
 3. In Unity, open the **BFG > Build Settings** dialog.
 4. Under **iOS Settings**, set the file path for **bfg_config.json File Path**.
 
-To learn about the settings and configuration options in the BFG SDK config file, go to the iOS section of [Configure the BFG SDK](./configure-unitysdk#ios).
+To learn about the settings and configuration options in the BFG SDK config file, see [Configure the BFG SDK](./configure-unitysdk).
 </details>
 
 <details>

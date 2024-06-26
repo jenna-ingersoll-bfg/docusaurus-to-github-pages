@@ -1,0 +1,281 @@
+# Doxyfile 1.9.5 (Big Fish Games)
+
+#--------------------------------------------------
+# Project related configuration options
+#--------------------------------------------------
+
+PROJECT_NAME           = "Big Fish Android SDK"
+PROJECT_NUMBER         = "8.8.0"
+PROJECT_BRIEF          = "Use to access BFG core SDK functionality"
+PROJECT_LOGO           = doxyfiles/config/Icon-100.png
+OUTPUT_DIRECTORY       = docs/android
+ABBREVIATE_BRIEF       = "The $name class" \
+                        "The $name widget" \
+                        "The $name file" \
+                        is \
+                        provides \
+                        specifies \
+                        contains \
+                        represents \
+                        a \
+                        an \
+                        the
+JAVADOC_AUTOBRIEF      = YES
+ALIASES                = "updated=\par Updated:\n"
+ALIASES               += "deprecated=\par Deprecated:\n"
+ALIASES               += "codecollapse=<div class=\"code-collapse\"><a class=\"code-collapse-show\" href=\"#\">Open code example</a><a class=\"code-collapse-hide\" href=\"#\">Close code example</a>"
+ALIASES               += "endcodecollapse=</div>"
+ALIASES               += "codetoggle=<div class=\"code-collapse\"><a class=\"code-collapse-toggle\" href=\"#\">Toggle code example</a>"
+ALIASES               += "endcodetoggle=</div>"
+ALIASES               += "important=<div class=\"important\">\b IMPORTANT<br>"
+ALIASES               += "endimportant=</div>"
+ALIASES               += "imagedisplay=<div class=\"image-display\"><a class=\"image-display-show\" href=\"#\">Display image</a><a class=\"image-display-hide\" href=\"#\">Hide image</a>"
+ALIASES               += "endimagedisplay=</div>"
+ALIASES               += "hangindent=<div class=\"hangindent\">"
+ALIASES               += "endhangindent=</div>"
+ALIASES               += "hangindent2=<div class=\"hangindent2\">"
+ALIASES               += "endhangindent2=</div>"
+ALIASES               += "hangindent10=<div class=\"hangindent10\">"
+ALIASES               += "endhangindent10=</div>"
+ALIASES               += "indent=<div class=\"indent\">"
+ALIASES               += "endindent=</div>"
+ALIASES               += "indent2=<div class=\"indent2\">"
+ALIASES               += "endindent2=</div>"
+ALIASES               += "bullindent=<div class=\"bullindent\">&nbsp; &nbsp;"
+ALIASES               += "endbullindent=</div>"
+ALIASES               += "bullindentem=<div class=\"bullindentem\">&nbsp; &nbsp;"
+ALIASES               += "endbullindentem=</div>"
+ALIASES               += "bullem=<div class=\"bullem\">"
+ALIASES               += "endbullem=</div>"
+ALIASES               += "bull=<div class=\"bull\">"
+ALIASES               += "endbull=</div>"
+ALIASES               += "pointnumber=<div class=\"pointnumber\">"
+ALIASES               += "endpointnumber=</div>"
+ALIASES               += "space=<div class=\"space\">"
+ALIASES               += "endspace=</div>"
+ALIASES               += "intro=<div class=\"intro\">"
+ALIASES               += "endintro=</div>"
+ALIASES               += "tight=<div class=\"tight\">"
+ALIASES               += "endtight=</div>"
+ALIASES               += "introsent=<div class=\"introsent\">"
+ALIASES               += "endintrosent=</div>"
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+IDL_PROPERTY_SUPPORT   = YES
+
+#--------------------------------------------------
+# Build related configuration options
+#--------------------------------------------------
+
+EXTRACT_ALL       = NO
+EXTRACT_PRIVATE   = NO
+EXTRACT_PACKAGE   = NO
+EXTRACT_STATIC    = YES
+EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_METHODS  = NO
+EXTRACT_ANON_NSPACES   = NO
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_FRIEND_COMPOUNDS  = NO
+HIDE_IN_BODY_DOCS      = NO
+INTERNAL_DOCS          = NO
+CASE_SENSE_NAMES       = NO
+HIDE_SCOPE_NAMES       = NO
+SHOW_INCLUDE_FILES     = YES
+FORCE_LOCAL_INCLUDES   = NO
+INLINE_INFO            = YES
+SORT_MEMBER_DOCS       = YES
+SORT_BRIEF_DOCS        = YES
+SORT_MEMBERS_CTORS_1ST = NO
+SORT_GROUP_NAMES       = NO
+SORT_BY_SCOPE_NAME     = NO
+STRICT_PROTO_MATCHING  = NO
+GENERATE_TODOLIST      = YES
+GENERATE_TESTLIST      = YES
+GENERATE_BUGLIST       = YES
+GENERATE_DEPRECATEDLIST = YES
+MAX_INITIALIZER_LINES  = 30
+SHOW_USED_FILES        = YES
+HOW_FILES             = YES
+SHOW_NAMESPACES        = YES
+CASE_SENSE_NAMES  = NO
+SHOW_USED_FILES   = NO
+LAYOUT_FILE       = DoxygenLayout.xml
+
+#--------------------------------------------------
+# Config options related to the input files
+#--------------------------------------------------
+
+QUIET             = YES
+WARNINGS          = YES
+WARN_AS_ERROR = NO
+
+#--------------------------------------------------
+# Config options related to the input files
+#--------------------------------------------------
+
+INPUT             = android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/ \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/deeplinking/bfgDeepLinkListener.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgManager.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgGdpr/bfgPolicyListener.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgpurchase/bfgPurchase.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgpurchase/PublicInventory.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgpurchase/Purchase.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgpurchase/PurchaseStatus.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/ \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgCrashlytics.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgRave.java \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/ \
+                        android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/promocode/core/PromoCode.java
+FILE_PATTERNS     = *.java \
+                        *.html \
+                        *.h \
+                        *.htm
+RECURSIVE         = NO
+EXAMPLE_PATTERNS  = * \
+                        *.htm
+EXCLUDE   = android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgConnectivity.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgException/ \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgOnCompleteListener.java/ \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgNotification.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgpurchase/bfgPurchaseGoogle.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgReachability.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgBrandingViewController.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/StartupNotificationParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgAuthFlowEventData.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgAuthFlowReporting.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgCustomEventParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgDeviceInfoExclusionStrat.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgDeviceInfoParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgEventReporter.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgHasOffers.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgInstallParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgInterstitialTrackingParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgKontagent.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgKontagentDatabaseHelper.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgKTCustomEventManager.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgMTSEventQueueManager.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgMTSWrapperParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgPremiumEventData.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgPurchaseErrorParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgPurchaseParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgPushTrackingParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgRaveInternal.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgReportableEvent.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgReporting.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/CachedRaveIds.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/CurrentSceneStack.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgExtraEventDataParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgMktTrackingEventParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgReportingInternal.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgSDKReportingParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgSessionEndParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgSessionStartParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgStandardParams.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgStandardParamsExclusionStrategy.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgUAReporting.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgUAReportingDatabase.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgUAReportingRule.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgUAReportingRuleEngine.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/bfgUAReportingRules.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/gdprReportingData.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgreporting/gdprReporting.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgPHPlacement.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgAppUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgOnCompleteListener.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgLocaleUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgFileUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgImageCache.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgKeyboardUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgLocaleUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgMathUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgOnCompleteListener.java/ \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgTextUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgThirdPartySDKUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgUrlUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgAssert.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/Gateway.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/GradientRelativeLayout.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/HtmlTextView.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/IntentUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/JsonValidator.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/PerfMon.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/bfgReadWriteLock.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/RuntimeTypeAdapterFactory.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/ThreadUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgutils/UrlUtils.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgManagerInternal.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgManagerPauseResumeDelegate.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgPlacementsInternal.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgpurchase/bfgPurchaseInternal.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfglib/bfgStartupNotificationParams.java \
+            android_sdk/bfg_internal/bfgSampleApps/src/main/java/com/bigfishgames/bfgSampleApps/GameBridge.java \
+            android_sdk/bfg_internal/bfgSampleApps/src/main/java/com/bigfishgames/bfgSampleApps/PurchaseController.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgConsentListener.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprBaseDialog.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprConfig.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprErrorDialog.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprManager.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprOverride.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprPolicyDialog.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprPolicyHelper.java \
+            android_sdk/bfg_internal/bfgLib/src/main/java/com/bigfishgames/bfgLib/bfggdpr/bfgGdprRequest.java
+
+#--------------------------------------------------
+# Config options related to the source browsing
+#--------------------------------------------------
+
+STRIP_CODE_COMMENTS = NO
+
+#--------------------------------------------------
+# Config options related to HTML output
+#--------------------------------------------------
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_HEADER            = doxyfiles/config/header.html
+HTML_FOOTER            = doxyfiles/config/footer.html
+HTML_EXTRA_STYLESHEET  = doxyfiles/config/doxygen-awesome.css \ 
+                          doxyfiles/config/doxygen-awesome-sidebar-only.css \
+                          doxyfiles/config/bfg_custom.css
+HTML_EXTRA_FILES       = doxyfiles/config/jquery-1.8.3.min.js \
+                         doxyfiles/config/doxygen-awesome-interactive-toc.js 
+HTML_COLORSTYLE        = LIGHT
+HTML_COLORSTYLE_HUE    = 209
+HTML_COLORSTYLE_SAT    = 255
+HTML_COLORSTYLE_GAMMA  = 113
+GENERATE_TREEVIEW      = NO
+TREEVIEW_WIDTH         = 335
+DISABLE_INDEX          = YES
+FULL_SIDEBAR           = NO
+SEARCHENGINE           = NO
+HAVE_DOT               = NO
+DOCSET_BUNDLE_ID       = com.bigfishgames.bfgsdkandroid
+DOCSET_PUBLISHER_ID    = com.bigfishgames.documentation
+
+#--------------------------------------------------
+# Config options related to all other outputs
+#--------------------------------------------------
+
+GENERATE_MAN      = NO
+GENERATE_LATEX    = NO
+GENERATE_HTMLHELP = NO
+GENERATE_RTF      = NO
+GENERATE_XML      = NO
+PDF_HYPERLINKS    = NO
+USE_PDFLATEX      = NO
+
+
+#--------------------------------------------------
+# Config options related to preprocessing
+#--------------------------------------------------
+
+ENABLE_PREPROCESSING = NO
+
+#--------------------------------------------------
+# Config options related to external references
+#--------------------------------------------------
+
+ALLEXTERNALS      = NO

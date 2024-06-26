@@ -1,0 +1,185 @@
+name: Doxygen to Docusaurus Coverter
+run-name: Build BFG SDK Reference
+on: workflow_dispatch
+jobs:
+  Doxygen-2-Docusaurus:
+    name: Run Doxygen on all SDKs
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Create SDK/DOC Folders
+        run: |
+          mkdir -p android_sdk ios_sdk unity_sdk doxy_docs/unity doxy_docs/android doxy_docs/ios
+
+      - run: echo "== Checking out needed SDKs =="
+      # Checkout Android
+      - name: Checkout Unity
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: bigfishgames/BFGSDKPub
+          token: ${{ secrets.GH_TOKEN }}
+          ref: ${{ vars.UNITY_VERSION }}
+          path: ./unity_sdk
+      - name: Checkout Android
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: bigfishgames/core-android-sdk
+          token: ${{ secrets.GH_TOKEN }}
+          ref: ${{ vars.ANDROID_VERSION }}
+          path: ./android_sdk
+      - name: Checkout iOS
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: bigfishgames/core-ios-sdk
+          token: ${{ secrets.GH_TOKEN }}
+          ref: ${{ vars.IOS_VERSION }}
+          path: ./ios_sdk
+
+      - run: echo "== Running Doxygen on all SDKs =="
+      - name: Doxygen Action on Unity SDK
+        uses: mattnotmitt/doxygen-action@1.9.4
+        with:
+          doxyfile-path: ./doxy2doc/doxyfiles/Doxyfile_Unity
+      - name: Doxygen Action on Android SDK
+        uses: mattnotmitt/doxygen-action@1.9.4
+        with:
+          doxyfile-path: ./doxy2doc/doxyfiles/Doxyfile_Android
+      - name: Doxygen Action on iOS SDK
+        uses: mattnotmitt/doxygen-action@1.9.4
+        with:
+          doxyfile-path: ./doxy2doc/doxyfiles/Doxyfile_iOS
+
+      # Upload HTML files
+      - run: echo "== Uploading all HTML Results =="
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNITY-HTML-${{ vars.UNITY_VERSION }}
+          path: ./doxy_docs/unity/html
+          overwrite: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ANDROID-HTML-${{ vars.ANDROID_VERSION }}
+          path: ./doxy_docs/android/html
+          overwrite: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: IOS-HTML-${{ vars.IOS_VERSION }}
+          path: ./doxy_docs/ios/html
+          overwrite: true
+
+      # Cleanup all HTML files
+      - name: Clean Unity HTML files
+        run: sudo bash ./doxy2doc/scripts/cleanuphtml.sh ./doxy_docs/unity/html
+      - name: Clean Android HTML files
+        run: sudo bash ./doxy2doc/scripts/cleanuphtml.sh ./doxy_docs/android/html
+      - name: Clean iOS HTML files
+        run: sudo bash ./doxy2doc/scripts/cleanuphtml.sh ./doxy_docs/ios/html
+
+      # Delete unnecessary files
+      - name: Delete all non_HTML Unity files
+        run: sudo bash ./doxy2doc/scripts/deletefiles.sh ./doxy_docs/unity/html
+      - name: Delete all non_HTML Android files
+        run: sudo bash ./doxy2doc/scripts/deletefiles.sh ./doxy_docs/android/html
+      - name: Delete all non_HTML iOS files
+        run: sudo bash ./doxy2doc/scripts/deletefiles.sh ./doxy_docs/ios/html
+
+      # Rename all files
+      - name: Rename Unity files
+        run: sudo bash ./doxy2doc/scripts/unityrename.sh ./doxy_docs/unity/html
+      - name: Rename Android files
+        run: sudo bash ./doxy2doc/scripts/androidrename.sh ./doxy_docs/android/html
+      - name: Rename iOS files
+        run: sudo bash ./doxy2doc/scripts/iosrename.sh ./doxy_docs/ios/html
+
+      # Convert HTML to MD
+      - name: Convert Unity files
+        run: sudo bash ./doxy2doc/scripts/html2md.sh ./doxy_docs/unity/html
+      - name: Convert Android files
+        run: sudo bash ./doxy2doc/scripts/html2md.sh ./doxy_docs/android/html
+      - name: Convert iOS files
+        run: sudo bash ./doxy2doc/scripts/html2md.sh ./doxy_docs/ios/html
+
+      # Upload MD files
+      - run: echo "== Uploading all MD Results =="
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UNITY-MD-${{ vars.UNITY_VERSION }}
+          path: ./doxy_docs/unity/html
+          overwrite: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ANDROID-MD-${{ vars.ANDROID_VERSION }}
+          path: ./doxy_docs/android/html
+          overwrite: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: IOS-MD-${{ vars.IOS_VERSION }}
+          path: ./doxy_docs/ios/html
+          overwrite: true
+
+      - run: echo "This job's status is ${{ job.status }}."
+          
+  # Convert-HTML-2-MD:
+  #   name: Convert HTML to MD for Docusaurus
+  #   needs: Doxygen-2-Docusaurus
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+  #     - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+  #     - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v4
+  #     - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+  
+  #     # Download and install Pandoc
+  #     - name: Set up Pandoc
+  #       uses: siacodelabs/setup-pandoc@v1
+  #       with:
+  #         xelatex: true
+
+  #     - name: Create MD Output Folders
+  #       run: |
+  #         mkdir -p docs/md/unity docs/md/android docs/md/ios
+
+  #     # Download all artifacts
+  #     - name: Download HTML results for Doxygen
+  #       uses: actions/download-artifact@v4
+
+  #     - name: Convert Unity HTML to MD
+  #       run: sudo bash ./scripts/html2md.sh ./UNITY-HTML-${{ vars.UNITY_VERSION }} ./docs/md/unity
+  #     - name: Convert Andrioid HTML to MD
+  #       run: sudo bash ./scripts/html2md.sh ./ANDROID-HTML-${{ vars.ANDROID_VERSION }} ./docs/md/android
+  #     - name: Convert iOS HTML to MD
+  #       run: sudo bash ./scripts/html2md.sh ./IOS-HTML-${{ vars.IOS_VERSION }} ./docs/md/ios
+
+  #     # Clean MD files for upload
+  #     - name: Clean Unity MD files
+  #       run: sudo bash ./scripts/cleanupmd.sh ./docs/md/unity
+  #     - name: Clean Android MD files
+  #       run: sudo bash ./scripts/cleanupmd.sh ./docs/md/android
+  #     - name: Clean iOS MD files
+  #       run: sudo bash ./scripts/cleanupmd.sh ./docs/md/ios
+
+  #     # Upload MD files
+  #     - run: echo "== Uploading MD Results =="
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: UNITY-MD-${{ vars.UNITY_VERSION }}
+  #         path: ./docs/md/unity
+  #         overwrite: true
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: ANDROID-MD-${{ vars.ANDROID_VERSION }}
+  #         path: ./docs/md/android
+  #         overwrite: true
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: IOS-MD-${{ vars.IOS_VERSION }}
+  #         path: ./docs/md/ios
+  #         overwrite: true
+
+  #     - run: echo "This job's status is ${{ job.status }}."

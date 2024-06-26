@@ -1,0 +1,24 @@
+html {
+    /* override light-mode variables here */
+    /* Color Scheme */
+    --primary-color: #0f98d3;
+    --primary-dark-color: #ff8000;
+    --primary-light-color: #24dfff;
+    /* Page Colors */
+    --page-background-color: #ffffff;
+    --page-foreground-color: #2f4153;
+    --page-secondary-foreground-color: #ff8000;
+    /* Spacing */
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+    --spacing-large: 16px;
+    /* Border Radius */
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+    --border-radius-large: 8px;
+    /* Content Width */
+    --content-maxwidth: 1000px;
+    /* Code Fragment Colors */
+    --fragment-background: #F8F9FA;
+    --fragment-foreground: #37474F;
+}

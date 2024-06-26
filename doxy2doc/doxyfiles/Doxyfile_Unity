@@ -1,0 +1,138 @@
+# Doxyfile 1.9.5 (Big Fish Games)
+
+#--------------------------------------------------
+# Project related configuration options
+#--------------------------------------------------
+
+PROJECT_NAME           = "Big Fish Unity SDK"
+PROJECT_NUMBER         = "10.8.0"
+PROJECT_BRIEF          = "Use to access BFG core SDK functionality"
+PROJECT_LOGO           = doxyfiles/config/Icon-100.png
+OUTPUT_DIRECTORY       = docs/unity
+ALIASES                = "updated=\par Updated:\n"
+ALIASES               += "deprecated=\par Deprecated:\n"
+ALIASES               += "codecollapse=<div class=\"code-collapse\"><a class=\"code-collapse-show\" href=\"#\">Open code example</a><a class=\"code-collapse-hide\" href=\"#\">Close code example</a>"
+ALIASES               += "endcodecollapse=</div>"
+ALIASES               += "codetoggle=<div class=\"code-collapse\"><a class=\"code-collapse-toggle\" href=\"#\">Toggle code example</a>"
+ALIASES               += "endcodetoggle=</div>"
+ALIASES               += "important=<div class=\"important\">\b IMPORTANT<br>"
+ALIASES               += "endimportant=</div>"
+ALIASES               += "imagedisplay=<div class=\"image-display\"><a class=\"image-display-show\" href=\"#\">Display image</a><a class=\"image-display-hide\" href=\"#\">Hide image</a>"
+ALIASES               += "endimagedisplay=</div>"
+ALIASES               += "hangindent=<div class=\"hangindent\">"
+ALIASES               += "endhangindent=</div>"
+ALIASES               += "hangindent2=<div class=\"hangindent2\">"
+ALIASES               += "endhangindent2=</div>"
+ALIASES               += "hangindent10=<div class=\"hangindent10\">"
+ALIASES               += "endhangindent10=</div>"
+ALIASES               += "indent=<div class=\"indent\">"
+ALIASES               += "endindent=</div>"
+ALIASES               += "indent2=<div class=\"indent2\">"
+ALIASES               += "endindent2=</div>"
+ALIASES               += "bullindent=<div class=\"bullindent\">&nbsp; &nbsp;"
+ALIASES               += "endbullindent=</div>"
+ALIASES               += "bullindentem=<div class=\"bullindentem\">&nbsp; &nbsp;"
+ALIASES               += "endbullindentem=</div>"
+ALIASES               += "bullem=<div class=\"bullem\">"
+ALIASES               += "endbullem=</div>"
+ALIASES               += "bull=<div class=\"bull\">"
+ALIASES               += "endbull=</div>"
+ALIASES               += "pointnumber=<div class=\"pointnumber\">"
+ALIASES               += "endpointnumber=</div>"
+ALIASES               += "space=<div class=\"space\">"
+ALIASES               += "endspace=</div>"
+ALIASES               += "intro=<div class=\"intro\">"
+ALIASES               += "endintro=</div>"
+ALIASES               += "tight=<div class=\"tight\">"
+ALIASES               += "endtight=</div>"
+ALIASES               += "introsent=<div class=\"introsent\">"
+ALIASES               += "endintrosent=</div>"
+
+#--------------------------------------------------
+# Build related configuration options
+#--------------------------------------------------
+
+EXTRACT_ALL       = NO
+EXTRACT_PRIVATE   = NO
+ENABLED_SECTIONS  = YES
+CASE_SENSE_NAMES  = NO
+SHOW_USED_FILES   = NO
+LAYOUT_FILE       = doxyfiles/config/DoxygenLayout.xml
+
+#--------------------------------------------------
+# Config options related to the input files
+#--------------------------------------------------
+
+QUIET                = YES
+WARNINGS             = YES
+WARN_AS_ERROR        = NO
+WARN_IF_UNDOCUMENTED = NO
+
+#--------------------------------------------------
+# Config options related to the input files
+#--------------------------------------------------
+
+INPUT             = unity_sdk/com.bfg.sdk/Runtime/Plugins/BFGSDK/BFGWrapper \
+                    unity_sdk/com.bfg.sdk/Editor/Scripts/Build
+FILE_PATTERNS     = * \
+                          *.htm \
+                          *.cs
+RECURSIVE         = YES
+
+#--------------------------------------------------
+# Config options related to the source browsing
+#--------------------------------------------------
+
+STRIP_CODE_COMMENTS = NO
+
+#--------------------------------------------------
+# Config options related to HTML output
+#--------------------------------------------------
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_HEADER            = doxyfiles/config/header.html
+HTML_FOOTER            = doxyfiles/config/footer.html
+HTML_EXTRA_STYLESHEET  = doxyfiles/config/doxygen-awesome.css \ 
+                         doxyfiles/config/doxygen-awesome-sidebar-only.css \
+                         doxyfiles/config/bfg_custom.css
+HTML_EXTRA_FILES       = doxyfiles/config/jquery-1.8.3.min.js \
+                         doxyfiles/config/doxygen-awesome-interactive-toc.js 
+HTML_COLORSTYLE        = LIGHT
+HTML_COLORSTYLE_HUE    = 209
+HTML_COLORSTYLE_SAT    = 255
+HTML_COLORSTYLE_GAMMA  = 113
+GENERATE_TREEVIEW      = NO
+TREEVIEW_WIDTH         = 335
+DISABLE_INDEX          = YES
+FULL_SIDEBAR           = NO
+SEARCHENGINE           = NO
+HAVE_DOT               = NO
+DOCSET_BUNDLE_ID       = com.bigfishgames.bfgsdkunity
+DOCSET_PUBLISHER_ID    = com.bigfishgames.documentation
+
+#--------------------------------------------------
+# Config options related to all other outputs
+#--------------------------------------------------
+
+GENERATE_MAN      = NO
+GENERATE_LATEX    = NO
+GENERATE_HTMLHELP = NO
+GENERATE_RTF      = NO
+GENERATE_XML      = NO
+PDF_HYPERLINKS    = NO
+USE_PDFLATEX      = NO
+
+
+#--------------------------------------------------
+# Config options related to preprocessing
+#--------------------------------------------------
+
+ENABLE_PREPROCESSING = NO
+
+#--------------------------------------------------
+# Config options related to external references
+#--------------------------------------------------
+
+ALLEXTERNALS      = NO

@@ -1,0 +1,209 @@
+# Doxyfile 1.9.5 (Big Fish Games)
+
+#--------------------------------------------------
+# Project related configuration options
+#--------------------------------------------------
+
+PROJECT_NAME           = "Big Fish iOS SDK"
+PROJECT_NUMBER         = "8.6.0"
+PROJECT_BRIEF          = "Use to access BFG core SDK functionality"
+PROJECT_LOGO           = doxyfiles/config/Icon-100.png
+OUTPUT_DIRECTORY       = docs/ios
+ALIASES                = "updated=\par Updated:\n"
+ALIASES               += "deprecated=\par Deprecated:\n"
+ALIASES               += "codecollapse=<div class=\"code-collapse\"><a class=\"code-collapse-show\" href=\"#\">Open code example</a><a class=\"code-collapse-hide\" href=\"#\">Close code example</a>"
+ALIASES               += "endcodecollapse=</div>"
+ALIASES               += "codetoggle=<div class=\"code-collapse\"><a class=\"code-collapse-toggle\" href=\"#\">Toggle code example</a>"
+ALIASES               += "endcodetoggle=</div>"
+ALIASES               += "important=<div class=\"important\">\b IMPORTANT<br>"
+ALIASES               += "endimportant=</div>"
+ALIASES               += "imagedisplay=<div class=\"image-display\"><a class=\"image-display-show\" href=\"#\">Display image</a><a class=\"image-display-hide\" href=\"#\">Hide image</a>"
+ALIASES               += "endimagedisplay=</div>"
+ALIASES               += "hangindent=<div class=\"hangindent\">"
+ALIASES               += "endhangindent=</div>"
+ALIASES               += "hangindent2=<div class=\"hangindent2\">"
+ALIASES               += "endhangindent2=</div>"
+ALIASES               += "hangindent10=<div class=\"hangindent10\">"
+ALIASES               += "endhangindent10=</div>"
+ALIASES               += "indent=<div class=\"indent\">"
+ALIASES               += "endindent=</div>"
+ALIASES               += "indent2=<div class=\"indent2\">"
+ALIASES               += "endindent2=</div>"
+ALIASES               += "bullindent=<div class=\"bullindent\">&nbsp; &nbsp;"
+ALIASES               += "endbullindent=</div>"
+ALIASES               += "bullindentem=<div class=\"bullindentem\">&nbsp; &nbsp;"
+ALIASES               += "endbullindentem=</div>"
+ALIASES               += "bullem=<div class=\"bullem\">"
+ALIASES               += "endbullem=</div>"
+ALIASES               += "bull=<div class=\"bull\">"
+ALIASES               += "endbull=</div>"
+ALIASES               += "pointnumber=<div class=\"pointnumber\">"
+ALIASES               += "endpointnumber=</div>"
+ALIASES               += "space=<div class=\"space\">"
+ALIASES               += "endspace=</div>"
+ALIASES               += "intro=<div class=\"intro\">"
+ALIASES               += "endintro=</div>"
+ALIASES               += "tight=<div class=\"tight\">"
+ALIASES               += "endtight=</div>"
+ALIASES               += "introsent=<div class=\"introsent\">"
+ALIASES               += "endintrosent=</div>"
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+IDL_PROPERTY_SUPPORT   = YES
+SUBGROUPING            = YES
+
+#--------------------------------------------------
+# Build related configuration options
+#--------------------------------------------------
+
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_PACKAGE        = NO
+EXTRACT_STATIC         = NO
+EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_METHODS  = NO
+EXTRACT_ANON_NSPACES   = NO
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_FRIEND_COMPOUNDS  = NO
+HIDE_IN_BODY_DOCS      = NO
+INTERNAL_DOCS          = NO
+CASE_SENSE_NAMES       = NO
+HIDE_SCOPE_NAMES       = NO
+SHOW_INCLUDE_FILES     = YES
+FORCE_LOCAL_INCLUDES   = NO
+INLINE_INFO            = YES
+SORT_MEMBER_DOCS       = YES
+SORT_BRIEF_DOCS        = NO
+SORT_MEMBERS_CTORS_1ST = NO
+SORT_GROUP_NAMES       = NO
+SORT_BY_SCOPE_NAME     = NO
+STRICT_PROTO_MATCHING  = NO
+GENERATE_TODOLIST      = YES
+GENERATE_TESTLIST      = YES
+GENERATE_BUGLIST       = YES
+GENERATE_DEPRECATEDLIST= NO
+MAX_INITIALIZER_LINES  = 0
+SHOW_USED_FILES        = YES
+HOW_FILES              = YES
+SHOW_NAMESPACES        = YES
+CASE_SENSE_NAMES       = NO
+SHOW_USED_FILES        = NO
+LAYOUT_FILE            = doxyfiles/config/DoxygenLayout.xml
+
+#--------------------------------------------------
+# Config options related to the input files
+#--------------------------------------------------
+
+QUIET                 = YES
+WARNINGS              = YES
+ARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR     = YES
+WARN_AS_ERROR         = NO
+
+#--------------------------------------------------
+# Config options related to the input files
+#--------------------------------------------------
+
+INPUT             = ios_sdk/bfg_internal/plugins/bfg_iOS_Crashlytics/bfg_iOS_Crashlytics/source/bfgCrashlytics.h \
+                        ios_sdk/bfg_internal/plugins/bfg_iOS_Crashlytics/bfg_iOS_Crashlytics/bfg_iOS_sdk/bfgCrashlytics+bfg_iOS_sdk.h \
+                        ios_sdk/bfg_source/bfgReporting/bfgGameReporting.h \
+                        ios_sdk/bfg_source/bfgstrings/bfgStrings.h \
+                        ios_sdk/bfg_source/bfgManager/bfgManager.h \
+                        ios_sdk/bfg_source/bfgAppManager/bfgAppManager.h \
+                        ios_sdk/bfg_source/bfgPurchase/bfgPurchase.h \
+                        ios_sdk/bfg_source/bfgPurchase/bfgPurchaseObject.h \
+                        ios_sdk/bfg_source/bfgsettings/bfgsettings.h \
+                        ios_sdk/bfg_source/bfgutils/bfgutils.h \
+                        ios_sdk/bfg_source/bfgutils/bfgLegacyDeviceManager.h \
+                        ios_sdk/bfg_source/bfgutils/bfgDiskUtils.h \
+                        ios_sdk/bfg_source/bfgutils/bfgGenericAlertView.h \
+                        ios_sdk/bfg_source/bfglibPrefix.h \
+                        ios_sdk/bfg_source/bfgRave/bfgRave.h \
+                        ios_sdk/bfg_source/bfgReachability/bfgNetwork.h \
+                        ios_sdk/bfg_source/bfgPushNotificationManager/bfgPushNotificationManager.h
+INPUT_ENCODING    = UTF-8
+FILE_PATTERNS     = *.m \
+                        *.mm \
+                        *.html \
+                        *.h \
+                        *.htm
+RECURSIVE         = YES
+EXCLUDE           = ios_sdk/bfg_source/flurrylib/FlurryAnalytics.h \
+                        ios_sdk/bfg_source/regexkit/RegexKitLite.h \
+                        ios_sdk/bfg_source/regexkit/RegexKitLite.m \
+                        ios_sdk/bfg_source/flurrylib/Flurry.h \
+                        ios_sdk/bfg_source/flurrylib/libFlurry.a \
+                        ios_sdk/bfg_source/bfglib_nsobject_additions/NSObject+performVariableSelector.h \
+                        ios_sdk/bfg_source/bfglib_nsobject_additions/NSObject+performVariableSelector.m \
+                        ios_sdk/bfg_source/bfglib_nsobject_additions/NSObjectCategorylinker.h \
+                        ios_sdk/bfg_source/bfglib_nsobject_additions/NSObjectCategorylinker.m \
+                        ios_sdk/bfg_source/bfglib_nsobject_additions/NSString+bfgstrings.h \
+                        ios_sdk/bfg_source/bfglib_nsobject_additions/NSString+bfgstrings.m \
+                        ios_sdk/bfg_source/bfgPurchase/RNCryptor.h \
+                        ios_sdk/bfg_source/bfgPurchase/RNDecryptor.h \
+                        ios_sdk/bfg_source/bfgPurchase/jsmn.h
+EXAMPLE_PATH      = ../
+EXAMPLE_PATTERNS  = * \
+                        *.htm
+
+#--------------------------------------------------
+# Config options related to the source browsing
+#--------------------------------------------------
+
+STRIP_CODE_COMMENTS = YES
+REFERENCES_LINK_SOURCE = YES
+
+#--------------------------------------------------
+# Config options related to HTML output
+#--------------------------------------------------
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_HEADER            = doxyfiles/config/header.html
+HTML_FOOTER            = doxyfiles/config/footer.html
+HTML_EXTRA_STYLESHEET  = doxyfiles/config/doxygen-awesome.css \ 
+                          doxyfiles/config/doxygen-awesome-sidebar-only.css \
+                          doxyfiles/config/bfg_custom.css
+HTML_EXTRA_FILES       = doxyfiles/config/jquery-1.8.3.min.js \
+                         doxyfiles/config/doxygen-awesome-interactive-toc.js 
+HTML_COLORSTYLE        = LIGHT
+HTML_COLORSTYLE_HUE    = 209
+HTML_COLORSTYLE_SAT    = 255
+HTML_COLORSTYLE_GAMMA  = 113
+GENERATE_TREEVIEW      = NO
+TREEVIEW_WIDTH         = 335
+DISABLE_INDEX          = YES
+FULL_SIDEBAR           = NO
+SEARCHENGINE           = NO
+HAVE_DOT               = NO
+DOCSET_BUNDLE_ID       = com.bigfishgames.bfgsdkios
+DOCSET_PUBLISHER_ID    = com.bigfishgames.documentation
+
+#--------------------------------------------------
+# Config options related to all other outputs
+#--------------------------------------------------
+
+ALPHABETICAL_INDEX     = YES
+COLS_IN_ALPHA_INDEX    = 5
+GENERATE_MAN      = NO
+GENERATE_LATEX    = NO
+GENERATE_HTMLHELP = NO
+GENERATE_RTF      = NO
+GENERATE_XML      = NO
+PDF_HYPERLINKS    = NO
+USE_PDFLATEX      = NO
+
+
+#--------------------------------------------------
+# Config options related to preprocessing
+#--------------------------------------------------
+
+ENABLE_PREPROCESSING = NO
+
+#--------------------------------------------------
+# Config options related to external references
+#--------------------------------------------------
+
+ALLEXTERNALS      = NO
